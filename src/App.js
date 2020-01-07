@@ -1,6 +1,10 @@
 import React from "react";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { Route, Switch, withRouter } from "react-router-dom";
+import { Navbar, Nav, NavDropdown}  from 'react-bootstrap';
+
 
 import AdminNav from "./AdminNav.js";
 
@@ -39,7 +43,6 @@ function App() {
         )}
       />
       {/* Admin Route */}
-      {/* <NavBar newUser={this.getUser} /> */}
       <Route
         exact
         path="/Admin/AdminApp"
