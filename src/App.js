@@ -2,11 +2,15 @@ import React from "react";
 import "./App.css";
 import { Route, Switch, withRouter } from "react-router-dom";
 
+import AdminNav from "./AdminNav.js";
+
 import AdminApp from "./Admin/AdminApp";
 import DocHost from "./Admin/DocHost";
 import QA from "./Admin/QA";
-import QuizzMaker from "./Admin/QuizzMaker";
-import QuizzUpdate from "./Admin/QuizzUpdate";
+import QuizMaker from "./Admin/QuizMaker";
+import QuizUpdate from "./Admin/QuizUpdate";
+
+import LearnerNav from "./LearnerNav.js";
 
 import ContactUs from "./Learners/ContactUs/ContactUs";
 import DocsSection from "./Learners/Documentation/DocsSection";
@@ -14,14 +18,13 @@ import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
 import MainPage from "./Learners/MainPage/MainPage";
 import QuizList from "./Learners/QuizList/QuizList";
-import Answer from "./Learners/Quizz/Answer";
-import Quizz from "./Learners/Quizz/Quizz";
-import Question from "./Learners/Quizz/Question";
-import Results from "./Learners/Quizz/Results";
+import Answer from "./Learners/Quiz/Answer";
+import Quiz from "./Learners/Quiz/Quiz";
+import Question from "./Learners/Quiz/Question";
+import Results from "./Learners/Quiz/Results";
 import SignUp from "./Learners/SignUp/SignUp";
-import LearnerNav from "./LearnerNav.js";
-import AdminNav from "./AdminNav.js";
 
+import FAQ from "./Learners/FAQ/FAQ.js";
 function App() {
   return (
     <>
@@ -69,21 +72,21 @@ function App() {
       />
       <Route
         exact
-        path="/Admin/QuizzMaker"
+        path="/Admin/QuizMaker"
         render={() => (
           <>
             <AdminNav />
-            <QuizzMaker />
+            <QuizMaker />
           </>
         )}
       />
       <Route
         exact
-        path="/Admin/QuizzUpdate"
+        path="/Admin/QuizUpdate"
         render={() => (
           <>
             <AdminNav />
-            <QuizzUpdate />
+            <QuizUpdate />
           </>
         )}
       />
@@ -95,6 +98,16 @@ function App() {
           <>
             <LearnerNav />
             <ContactUs />
+          </>
+        )}
+      />
+      <Route
+        exact
+        path="/Learners/FAQ/FAQ"
+        render={() => (
+          <>
+            <LearnerNav />
+            <FAQ />
           </>
         )}
       />
@@ -118,7 +131,16 @@ function App() {
           </>
         )}
       />
-      <Route exact path="/Learners/LogIn/LogIn" render={() => <LogIn />} />
+      <Route
+        exact
+        path="/Learners/LogIn/LogIn"
+        render={() => (
+          <>
+            <LearnerNav />
+            <LogIn />
+          </>
+        )}
+      />
       <Route
         exact
         path="/Learners/MainPage/MainPage"
@@ -139,10 +161,19 @@ function App() {
           </>
         )}
       />
-      <Route exact path="/Learners/Quizz/Answer" render={() => <Answer />} />
       <Route
         exact
-        path="/Learners/Quizz/Question"
+        path="/Learners/Quiz/Answer"
+        render={() => (
+          <>
+            <LearnerNav />
+            <Answer />
+          </>
+        )}
+      />
+      <Route
+        exact
+        path="/Learners/Quiz/Question"
         render={() => (
           <>
             <LearnerNav />
@@ -152,17 +183,17 @@ function App() {
       />
       <Route
         exact
-        path="/Learners/Quizz/Quizz"
+        path="/Learners/Quiz/Quiz"
         render={() => (
           <>
             <LearnerNav />
-            <Quizz />
+            <Quiz />
           </>
         )}
       />
       <Route
         exact
-        path="/Learners/Quizz/Results"
+        path="/Learners/Quiz/Results"
         render={() => (
           <>
             <LearnerNav />

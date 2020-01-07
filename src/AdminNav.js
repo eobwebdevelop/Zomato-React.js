@@ -14,10 +14,10 @@ const AdminNav = () => {
           <a href="/Admin/QA">QA</a>
         </li>
         <li>
-          <a href="/Admin/QuizzMaker">Quiz Maker</a>
+          <a href="/Admin/QuizMaker">Quiz Maker</a>
         </li>
         <li>
-          <a href="/Admin/QuizzUpdate">Quiz Update</a>
+          <a href="/Admin/QuizUpdate">Quiz Update</a>
         </li>
       </ul>
     </div>

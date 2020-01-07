@@ -6,37 +6,31 @@ const LearnerNav = () => {
       <ul>
         <u>Learners</u>
         <li>
-          <a href="/Learners/ContactUs/ContactUs">Contact Us</a>
-        </li>
-        <li>
-          <a href="/Learners/Documentation/Documentation">Documentation</a>
-        </li>
-        <li>
-          <a href="/Learners/Documentation/DocsSection">DocsSection</a>
-        </li>
-        <li>
-          <a href="/Learners/LogIn/LogIn">LogIn </a>
-        </li>
-        <li>
-          <a href="/Learners/MainPage/MainPage">MainPage </a>
-        </li>
-        <li>
-          <a href="/Learners/QuizList/QuizList">QuizList </a>
-        </li>
-        <li>
-          <a href="/Learners/Quizz/Answer">Answer </a>
-        </li>
-        <li>
-          <a href="/Learners/Quizz/Question">Question </a>
-        </li>
-        <li>
-          <a href="/Learners/Quizz/Quizz">Quizz </a>
-        </li>
-        <li>
-          <a href="/Learners/Quizz/Results">Results </a>
+          <a href="/Learners/LogIn/LogIn">Login </a>
         </li>
         <li>
           <a href="/Learners/SignUp/SignUp">SignUp </a>
+        </li>
+        <li>
+          <a href="/Learners/QuizList/QuizList">Quiz List </a>
+        </li>
+        <li>
+          <a href="/Learners/quiz/Question">Question </a>
+        </li>{" "}
+        <li>
+          <a href="/Learners/quiz/Answer">Answer </a>
+        </li>
+        <li>
+          <a href="/Learners/quiz/quiz">Quiz </a>
+        </li>
+        <li>
+          <a href="/Learners/quiz/Results">Results </a>
+        </li>
+        <li>
+          <a href="/Learners/ContactUs/ContactUs">Contact Us </a>
+        </li>
+        <li>
+          <a href="/Learners/FAQ/FAQ"> FAQ </a>
         </li>
       </ul>
     </div>
