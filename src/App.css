@@ -18,6 +18,7 @@ h1 {
   font-family: "open sans";
   color: #2d2d2d;
   font-size: 2em;
+  padding-top: 0.7em;
 }
 
 h2 {
@@ -67,6 +68,7 @@ hr {
   height: 2.5em;
   width: 10em;
   border: none;
+  margin-top: 1em;
 }
 
 .btn-login {
@@ -76,6 +78,7 @@ hr {
   height: 2.5em;
   width: 20em;
   border: none;
+  margin-top: 1em;
 }
 
 .btn-login:hover {
@@ -92,4 +95,5 @@ input {
   background: #f4f4f2;
   height: 2.5em;
   width: 20em;
+  margin-top: 0.3em !important;
 }
