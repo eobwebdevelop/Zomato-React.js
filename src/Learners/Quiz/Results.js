@@ -10,8 +10,8 @@ const Results = () => {
         <hr></hr>
         <p>You got 50% (5/10)</p>
         <Link to="/Learners/Documentation/Documentation">
-          <button type="submit" class="btn-login">
-            View Documentation
+          <button type="submit" class="btn">
+            Documentation
           </button>
         </Link>
         <br />

@@ -6,22 +6,32 @@ const SignUp = () => {
   return (
     <div>
       <Container>
-        <h1> Sign-Up </h1>
-        <hr></hr>
-        <form>
-          <input type="text" title="name" placeholder="name" />
-          <br />
-          <input type="text" title="email" placeholder="email" />
-          <br />
-          <input type="password" title="password" placeholder="password" />
-          <br />
-          <Link to="/Learners/QuizList/QuizList">
-            <button type="submit" class="btn-login">
-              Sign-Up
-            </button>
-          </Link>
-          <br />
-        </form>
+        <div class="loginparentcontainer">
+          <h1 id="h1-login"> Sign-Up </h1>
+
+          <form>
+            <input type="text" title="name" placeholder=" Name*" />
+            <br />
+            <input type="text" title="email" placeholder=" Email*" />
+            <br />
+            <input type="text" title="email" placeholder=" Restaurant" />
+            <br />
+            <input type="password" title="password" placeholder=" Password" />
+            <br />
+            <input
+              type="password"
+              title="password"
+              placeholder=" Confirm Password"
+            />
+            <br />
+            <Link to="/Learners/QuizList/QuizList">
+              <button type="submit" class="btn-login">
+                Sign-Up
+              </button>
+            </Link>
+            <br />
+          </form>
+        </div>
       </Container>
     </div>
   );

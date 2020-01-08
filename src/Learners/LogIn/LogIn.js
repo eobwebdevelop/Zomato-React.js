@@ -6,30 +6,36 @@ const LogIn = () => {
   return (
     <div>
       <Container>
-        <h1>Quiz</h1>
-        <hr></hr>
+        <div class="loginparentcontainer">
+          <div class="loginformcontainer">
+            <h1 id="h1-login">Quiz</h1>
 
-        <form>
-          <input type="text" title="username" placeholder="username" />
-          <br />
-          <input type="password" title="username" placeholder="password" />
-          <br />
-          <Link to="/Learners/QuizList/QuizList">
-            <button type="submit" class="btn-login">
-              Login
-            </button>
-          </Link>
-          <br />
-          <Link to="./Login">
-            <a class="forgot" href="#">
-              Forgot password? <br />
-            </a>
-          </Link>
-          Don't have an account?{" "}
-          <Link to="/Learners/SignUp/SignUp">
-            <a href="">Sign-Up</a>
-          </Link>
-        </form>
+            <form>
+              <input type="text" title="username" placeholder=" Username" />
+              <br />
+              <input type="password" title="username" placeholder=" Password" />
+              <br />
+              <Link to="/Learners/QuizList/QuizList">
+                <button type="submit" class="btn-login">
+                  Login
+                </button>
+              </Link>
+            </form>
+          </div>
+          <div class="forgotpassword-signup">
+            <Link to="/Learners/LogIn/ForgotPassword">
+              <a id="forgotpassword" href="/Learners/LogIn/ForgotPassword">
+                Forgot password? <br />
+              </a>
+            </Link>
+            Don't have an account?{" "}
+            <Link to="/Learners/SignUp/SignUp">
+              <a id="signup" href="">
+                Sign-Up
+              </a>
+            </Link>
+          </div>
+        </div>
       </Container>
     </div>
   );
