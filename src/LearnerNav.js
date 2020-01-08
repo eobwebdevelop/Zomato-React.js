@@ -15,7 +15,7 @@ const LearnerNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+          <Nav className="mr-auto navlinks">
             <Nav.Link href="/Learners/SignUp/SignUp">Sign Up</Nav.Link>
             <Nav.Link href="/Learners/LogIn/LogIn">Login</Nav.Link>
             <Nav.Link href="/Learners/QuizList/QuizList">Quizzes</Nav.Link>
