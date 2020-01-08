@@ -38,7 +38,7 @@ const LearnerNav = () => {
           <a href="/Learners/LogIn/LogIn">Login </a>
         </li>
         <li>
-          <a href="/Learners/SignUp/SignUp">SignUp </a>
+          <a href="/Learners/SignUp/SignUp">Sign Up </a>
         </li>
         <li>
           <a href="/Learners/QuizList/QuizList">Quiz List </a>

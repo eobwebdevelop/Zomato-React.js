@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+@font-face {
+  font-family: "metropolis";
+  src: url("https://cdn.rawgit.com/chrismsimpson/Metropolis/blob/master/Fonts/Webfonts/WOFF/Metropolis-Regular.woff"),
+    url("https://cdn.rawgit.com/chrismsimpson/Metropolis/blob/master/Fonts/Webfonts/WOFF2/Metropolis-Regular.woff2");
+  font-weight: 100;
+  font-style: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #f4f4f2;
+  font-family: "open sans";
+  margin: 20%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 {
+  font-family: "open sans";
+  color: #2d2d2d;
+  font-size: 2em;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h2 {
+  font-family: "open sans";
+  color: #78757f;
+  font-size: 1.5em;
 }
 
-.App-link {
-  color: #61dafb;
+h3 {
+  font-family: "Open Sans";
+  color: #78757f;
+  font-size: 1.3em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h3 {
+  font-family: "Open Sans";
+  color: #78757f;
+  font-size: 1em;
+}
+
+p {
+  font-family: "Open Sans";
+}
+
+a {
+  font-family: "Open Sans";
+  font-weight: bold;
+  text-decoration: none;
+  color: #e23744;
+  font-size: 0.9em;
+  margin-right: 1em;
+}
+
+a:hover {
+  color: #ff1b62;
+}
+
+hr {
+  border-top: 1px solid#e23744;
+}
+
+.btn {
+  background: #e23744;
+  color: #f4f4f2;
+  border-radius: 5px;
+  height: 2.5em;
+  width: 10em;
+  border: none;
+}
+
+.btn-login {
+  background: #e23744;
+  color: #f4f4f2;
+  border-radius: 5px;
+  height: 2.5em;
+  width: 20em;
+  border: none;
+}
+
+.btn-login:hover {
+  background: #ff1b62;
+}
+
+.btn:hover {
+  background: #ff1b62;
+}
+
+input {
+  border: 1px solid #cecece;
+  border-radius: 3px;
+  background: #f4f4f2;
+  height: 2.5em;
+  width: 20em;
 }

@@ -12,30 +12,25 @@ const LogIn = () => {
         <input type="password" title="username" placeholder="password" />
         <br />
         <Link to="./Login">
-          <button type="submit" class="btn">
+          <button type="submit" class="btn-login">
             Login
           </button>
         </Link>
         <br />
         <Link to="./Login">
           <a class="forgot" href="#">
-            Forgot password?
+            Forgot password? <br />
           </a>
         </Link>
         Don't have an account?{" "}
-        <Link to="./Login">
-          <button type="submit" class="btn">
-            Sign-Up
-          </button>
+        <Link to="./SignUp/SignUp">
+          <a href="">Sign-Up</a>
         </Link>
       </form>
 
       <p>
         {" "}
-        Do you want to sign-up?<a href="/Learners/MainPage/MainPage">
-          sign-up
-        </a>{" "}
-        or an <a href="/Admin/AdminApp">administrator</a>
+        Do you want to <a href="/Learners/MainPage/MainPage">sign-up?</a>
       </p>
     </div>
   );
