@@ -100,13 +100,13 @@ input {
   margin-top: 0.8em !important;
 }
 
-.loginparentcontainer {
+.formparentcontainer {
   width: 90%;
   max-width: 350px;
   margin: 0 auto;
 }
 
-.loginformcontainer {
+.formchildcontainer {
   align-items: center !important;
   text-align: center;
 }

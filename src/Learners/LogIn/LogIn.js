@@ -6,8 +6,8 @@ const LogIn = () => {
   return (
     <div>
       <Container>
-        <div class="loginparentcontainer">
-          <div class="loginformcontainer">
+        <div class="formparentcontainer">
+          <div class="formchildcontainer">
             <h1 id="h1-login">Quiz</h1>
 
             <form>
