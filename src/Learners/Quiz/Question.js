@@ -1,11 +1,17 @@
-import React from "react"
+import React, { Component } from 'react';
+import { Container, Row}  from 'react-bootstrap';
 
-const Question = () => {
 
-    return(
-        <div>
-            <p> You are on Question</p>
-        </div>
-    )
+
+class Question extends Component {
+
+render() {
+  return (
+        <Container>
+            <p>You are in Question</p>
+        </Container>
+    );
+  }
 }
-export default Question; 
+
+export default Question;
