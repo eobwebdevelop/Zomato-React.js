@@ -1,9 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Quiz = () => {
   return (
     <div>
-      <p> You are on Quiz</p>
+      <h1>Quiz</h1>
+      <Link to="/Learners/Quiz/Results">
+        <button type="submit" class="btn">
+          View Results
+        </button>
+      </Link>
     </div>
   );
 };

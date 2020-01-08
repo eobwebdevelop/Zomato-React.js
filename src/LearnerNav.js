@@ -1,26 +1,24 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, NavDropdown}  from 'react-bootstrap';
-
-
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 import "./LearnerNav.css";
-
 
 const LearnerNav = () => {
   return (
     <div>
       {/* Example */}
       <Navbar bg="tyrolean" expand="lg">
-        <Navbar.Brand href="#home"><img src='https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png' /></Navbar.Brand>
+        <Navbar.Brand href="#home">
+          <img src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/Learners/SignUp/SignUp">Sign Up</Nav.Link>
             <Nav.Link href="/Learners/LogIn/LogIn">Login</Nav.Link>
+            <Nav.Link href="/Learners/FAQ/FAQ">FAQ</Nav.Link>
             <Nav.Link href="/Learners/ContactUs/ContactUs">Contact Us</Nav.Link>
-
 
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
