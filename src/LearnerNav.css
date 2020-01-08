@@ -2,7 +2,9 @@
 .navbar-light .navbar-nav .nav-link{
     font-size:14px; 
     font-weight:bold; 
-    color:#33373D;
+    color:#2D2D2D;
     font-family: 'Open Sans', sans-serif;}
 .navbar-light .navbar-toggler{border-color:transparent!important}
 .navbar-light .navbar-toggler:focus { outline: none; }
+
+.ui.button{ background-color: #2D2D2D; color:#F4F4F2;}
