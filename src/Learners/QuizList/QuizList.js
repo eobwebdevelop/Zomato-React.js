@@ -13,7 +13,9 @@ const QuizList = () => {
           <a href="/Learners/Quiz/Quiz">Take Quiz ►</a>
         </Link>
 
-        <a href="/Learners/Quiz/Quiz">Documentation ►</a>
+        <Link to="/Learners/Documentation/Documentation">
+          <a href="/Learners/Documentation/Documentation">Documentation ►</a>
+        </Link>
       </div>
     </>
   );

@@ -11,7 +11,7 @@ const LogIn = () => {
         <br />
         <input type="password" title="username" placeholder="password" />
         <br />
-        <Link to="./Login">
+        <Link to="/Learners/QuizList/QuizList">
           <button type="submit" class="btn-login">
             Login
           </button>
@@ -23,15 +23,10 @@ const LogIn = () => {
           </a>
         </Link>
         Don't have an account?{" "}
-        <Link to="./SignUp/SignUp">
+        <Link to="/Learners/SignUp/SignUp">
           <a href="">Sign-Up</a>
         </Link>
       </form>
-
-      <p>
-        {" "}
-        Do you want to <a href="/Learners/MainPage/MainPage">sign-up?</a>
-      </p>
     </div>
   );
 };

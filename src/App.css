@@ -46,22 +46,23 @@ a {
   font-family: "Open Sans";
   font-weight: bold;
   text-decoration: none;
-  color: #e23744;
+  color: #e23744 !important;
   font-size: 0.9em;
   margin-right: 1em;
 }
 
 a:hover {
-  color: #ff1b62;
+  color: #ff1b62 !important;
+  text-decoration: none !important;
 }
 
 hr {
-  border-top: 1px solid#e23744;
+  border-top: 1px solid#e23744 !important;
 }
 
 .btn {
-  background: #e23744;
-  color: #f4f4f2;
+  background: #e23744 !important;
+  color: #f4f4f2 !important;
   border-radius: 5px;
   height: 2.5em;
   width: 10em;
@@ -78,11 +79,11 @@ hr {
 }
 
 .btn-login:hover {
-  background: #ff1b62;
+  background: #ff1b62 !important;
 }
 
 .btn:hover {
-  background: #ff1b62;
+  background: #ff1b62 !important;
 }
 
 input {

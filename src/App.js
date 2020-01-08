@@ -1,10 +1,9 @@
 import React from "react";
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { Route, Switch, withRouter } from "react-router-dom";
-import { Navbar, Nav, NavDropdown}  from 'react-bootstrap';
-
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 import AdminNav from "./AdminNav.js";
 
