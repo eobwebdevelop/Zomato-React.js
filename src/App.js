@@ -16,7 +16,7 @@ import QuizUpdate from "./Admin/QuizUpdate";
 import LearnerNav from "./LearnerNav.js";
 
 import ContactUs from "./Learners/ContactUs/ContactUs";
-import DocsSection from "./Learners/Documentation/DocsSection";
+
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
 import MainPage from "./Learners/MainPage/MainPage";
@@ -123,16 +123,7 @@ function App() {
           </>
         )}
       />
-      <Route
-        exact
-        path="/Learners/Documentation/DocsSection"
-        render={() => (
-          <>
-            <LearnerNav />
-            <DocsSection />
-          </>
-        )}
-      />
+
       <Route
         exact
         path="/Learners/LogIn/LogIn"
