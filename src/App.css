@@ -1,13 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-@font-face {
-  font-family: "metropolis";
-  src: url("https://cdn.rawgit.com/chrismsimpson/Metropolis/blob/master/Fonts/Webfonts/WOFF/Metropolis-Regular.woff"),
-    url("https://cdn.rawgit.com/chrismsimpson/Metropolis/blob/master/Fonts/Webfonts/WOFF2/Metropolis-Regular.woff2");
-  font-weight: 100;
-  font-style: normal;
-}
-
 body {
   background-color: #f4f4f2;
   font-family: "open sans";
@@ -19,6 +11,11 @@ h1 {
   color: #2d2d2d;
   font-size: 2em;
   padding-top: 0.7em;
+}
+
+#h1-login {
+  text-align: center;
+  padding-bottom: 1em;
 }
 
 h2 {
@@ -41,6 +38,7 @@ h3 {
 
 p {
   font-family: "Open Sans";
+  font-size: 1em;
 }
 
 a {
@@ -49,7 +47,10 @@ a {
   text-decoration: none;
   color: #e23744 !important;
   font-size: 0.9em;
-  margin-right: 1em;
+}
+
+a .view-quizzes-page-links-side-by-side {
+  margin-right: 1em !important;
 }
 
 a:hover {
@@ -76,9 +77,10 @@ hr {
   color: #f4f4f2;
   border-radius: 5px;
   height: 2.5em;
-  width: 20em;
+  width: 100%;
   border: none;
-  margin-top: 1em;
+  margin-top: 2em;
+  margin-bottom: 1em;
 }
 
 .btn-login:hover {
@@ -94,6 +96,34 @@ input {
   border-radius: 3px;
   background: #f4f4f2;
   height: 2.5em;
-  width: 20em;
-  margin-top: 0.3em !important;
+  width: 100%;
+  margin-top: 0.8em !important;
+}
+
+.loginparentcontainer {
+  width: 90%;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.loginformcontainer {
+  align-items: center !important;
+  text-align: center;
+}
+
+.forgotpassword-signup {
+  text-align: right !important;
+  padding-top: 0.8em;
+}
+
+#forgotpassword {
+  margin-bottom: 1.5em !important;
+  font-size: 1.1em;
+  display: block;
+  font-weight: lighter;
+}
+
+#signup {
+  font-size: 1.1em;
+  font-weight: bold;
 }

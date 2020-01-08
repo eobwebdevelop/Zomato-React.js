@@ -19,6 +19,7 @@ import ContactUs from "./Learners/ContactUs/ContactUs";
 
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
+import ForgotPassword from "./Learners/LogIn/ForgotPassword";
 import MainPage from "./Learners/MainPage/MainPage";
 import QuizList from "./Learners/QuizList/QuizList";
 import Answer from "./Learners/Quiz/Answer";
@@ -26,8 +27,8 @@ import Quiz from "./Learners/Quiz/Quiz";
 import Question from "./Learners/Quiz/Question";
 import Results from "./Learners/Quiz/Results";
 import SignUp from "./Learners/SignUp/SignUp";
-
 import FAQ from "./Learners/FAQ/FAQ.js";
+
 function App() {
   return (
     <>
@@ -36,7 +37,7 @@ function App() {
         path="/"
         render={() => (
           <>
-            Are you a <a href="/Learners/MainPage/MainPage">learner</a> or an{" "}
+            Are you a <a href="/Learners/Login/Login">learner</a> or an{" "}
             <a href="/Admin/AdminApp">administrator</a>?
           </>
         )}
@@ -131,6 +132,16 @@ function App() {
           <>
             <LearnerNav />
             <LogIn />
+          </>
+        )}
+      />
+      <Route
+        exact
+        path="/Learners/LogIn/ForgotPassword"
+        render={() => (
+          <>
+            <LearnerNav />
+            <ForgotPassword />
           </>
         )}
       />
