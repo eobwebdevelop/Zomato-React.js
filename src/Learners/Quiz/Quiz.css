@@ -4,7 +4,7 @@
 }
 
 .form-check {
-    background-color: #F4F4F2;
+    background-color: #FAFAFA;
     padding: 2%;
     width: 100%;
   }
@@ -20,3 +20,15 @@
   color:#2D2D2D;
   font-size:16px;
 }
+
+/*----Questions----*/
+
+.questionStyle {
+    font-size: 22px;
+    color: #2d2d2d;
+    margin: 2% 0;
+  }
+  span.counter{
+    font-size: 16px;
+  }
+  

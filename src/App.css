@@ -137,4 +137,11 @@ input {
 }
 
 
+/*Btn disabled*/
+button.btn.disabled {
+  background-color: gray!important;
+}
+
+/*Btn disabled*/
+
 
