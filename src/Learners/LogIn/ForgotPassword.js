@@ -9,6 +9,7 @@ const ForgotPassword = () => {
         <div class="formparentcontainer">
           <div class="formchildcontainer">
             <h1 id="h1-login">Forgot Password?</h1>
+            <hr />
             <p>
               Forgotten your password? Enter your email address here to retrieve
               it. (Note to team: We haven't agreed this functionality, we don't

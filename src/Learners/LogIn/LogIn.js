@@ -9,7 +9,7 @@ const LogIn = () => {
         <div class="formparentcontainer">
           <div class="formchildcontainer">
             <h1 id="h1-login">Quiz</h1>
-
+            <hr />
             <form>
               <input type="text" title="username" placeholder=" Username" />
               <br />

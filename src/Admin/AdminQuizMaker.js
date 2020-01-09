@@ -8,6 +8,7 @@ const AdminQuizMaker = () => {
     <div>
       <Container>
         <h1>Create Quiz</h1>
+        <hr />
         <p>
           You are creating a new quiz. MESSAGE FROM ED: This is just a
           placeholder that needs developing.

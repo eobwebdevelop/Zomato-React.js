@@ -9,7 +9,7 @@ class AdminAppLogin extends Component {
         <div class="formparentcontainer">
           <div class="formchildcontainer">
             <h1 id="h1-login">Quiz - Admin Login</h1>
-
+            <hr />
             <form>
               <input type="text" title="username" placeholder=" Username" />
               <br />
