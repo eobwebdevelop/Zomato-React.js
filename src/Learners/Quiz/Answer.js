@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col}  from 'react-bootstrap';
 import { MDBInput } from "mdbreact";
+import Timer from './Timer';
 import './Quiz.css';
 
 
@@ -9,7 +10,7 @@ import './Quiz.css';
     constructor(props) {
       super(props);
       this.state = {
-        radio: '',
+        radio: null,
         rightAns: '',
         an1: 'Answer by default1',
         an2: 'Answer by default2',
@@ -53,8 +54,7 @@ import './Quiz.css';
               id="radio4" />
 
             {/* Timer */}
-            <p className='timer'> {this.state.timer}</p>
-
+            <Timer  ms={600000} /> 
             {/* Bottons */}
             <Row>
               <Col md='12'>
@@ -65,8 +65,6 @@ import './Quiz.css';
                 </div>
               </Col>
             </Row>
-
-
           </Container>
         </>
         );
