@@ -1,0 +1,28 @@
+.navbar {
+  background: #000000;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  font-size: 12px;
+  font-weight: bold;
+  color: #2d2d2d !important;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.navbar-light:hover .navbar-nav:hover .nav-link:hover {
+  color: #c4c4c4 !important;
+}
+
+.navbar-light .navbar-toggler {
+  border-color: transparent !important;
+}
+.navbar-light .navbar-toggler:focus {
+  outline: none;
+}
+
+.ui.button {
+  background-color: #2d2d2d;
+  color: #f4f4f2;
+}

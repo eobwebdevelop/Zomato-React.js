@@ -1,0 +1,9 @@
+.Question-Edit {
+  background-color: #e8e8e8 !important;
+  border-radius: 5px;
+  margin-top: 1em;
+}
+
+.Question-Edit-Inner {
+  padding: 1em 1em 1em 1em;
+}
