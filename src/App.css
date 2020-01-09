@@ -9,7 +9,6 @@
 }
 
 body {
-  background-color: #f4f4f2;
   font-family: "open sans";
 }
 
@@ -174,8 +173,17 @@ input {
   margin-top: 3em;
 }
 
+
 /* Documentation Editor */
 
 .documentation-editor {
   height: 20em;
+
+/*Btn disabled*/
+button:disabled {
+  background-color: #CECECE!important;
+  font-weight: bold;
 }
+
+/*Btn disabled*/
+
