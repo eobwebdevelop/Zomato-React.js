@@ -8,6 +8,7 @@ const AdminQuizList = () => {
     <div>
       <Container>
         <h1>Manage Quizzes</h1>
+        <hr />
         <p>
           You are viewing a list of quizzes available to edit or add
           documentation to.

@@ -7,6 +7,7 @@ const AdminUserConfig = () => {
     <div>
       <Container>
         <h1>Manage Users</h1>
+        <hr />
         <p>You are viewing a list of users.</p>
         <Link to="/Admin/AdminQuizMaker">
           <button type="submit" class="btn">

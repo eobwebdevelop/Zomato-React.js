@@ -8,7 +8,7 @@ const SignUp = () => {
       <Container>
         <div class="formparentcontainer">
           <h1 id="h1-login"> Sign-Up </h1>
-
+          <hr />
           <form>
             <input type="text" title="name" placeholder=" Name*" />
             <br />
