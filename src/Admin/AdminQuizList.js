@@ -33,9 +33,10 @@ const AdminQuizList = () => {
             <th>Language</th>
             <th>Edit Quiz?</th>
             <th>Edit Documentation?</th>
+            <th>Delete Quiz?</th>
           </tr>
           <tr>
-            <td>0</td>
+            <td>1</td>
             <td>Zomato Gold - Introduction</td>
             <td>Restauranters</td>
             <td>Zomato Gold</td>
@@ -54,6 +55,14 @@ const AdminQuizList = () => {
                 href="/Learners/Quiz/Quiz"
               >
                 Edit Documentation ►
+              </a>
+            </td>
+            <td>
+              <a
+                class="view-quizzes-page-links-side-by-side"
+                href="/Learners/Quiz/Quiz"
+              >
+                Delete Quiz ►
               </a>
             </td>
           </tr>
@@ -79,32 +88,17 @@ const AdminQuizList = () => {
                 Edit Documentation ►
               </a>
             </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Zomato Gold - Introduction</td>
-            <td>Restauranters</td>
-            <td>Zomato Gold</td>
-            <td>Portuguese</td>
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
                 href="/Learners/Quiz/Quiz"
               >
-                Edit Quiz ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Documentation ►
+                Delete Quiz ►
               </a>
             </td>
           </tr>
           <tr>
-            <td>3</td>
+            <td>1</td>
             <td>Zomato Gold - Introduction</td>
             <td>Restauranters</td>
             <td>Zomato Gold</td>
@@ -125,9 +119,17 @@ const AdminQuizList = () => {
                 Edit Documentation ►
               </a>
             </td>
+            <td>
+              <a
+                class="view-quizzes-page-links-side-by-side"
+                href="/Learners/Quiz/Quiz"
+              >
+                Delete Quiz ►
+              </a>
+            </td>
           </tr>
           <tr>
-            <td>4</td>
+            <td>1</td>
             <td>Zomato Gold - Introduction</td>
             <td>Restauranters</td>
             <td>Zomato Gold</td>
@@ -148,9 +150,17 @@ const AdminQuizList = () => {
                 Edit Documentation ►
               </a>
             </td>
+            <td>
+              <a
+                class="view-quizzes-page-links-side-by-side"
+                href="/Learners/Quiz/Quiz"
+              >
+                Delete Quiz ►
+              </a>
+            </td>
           </tr>
           <tr>
-            <td>5</td>
+            <td>1</td>
             <td>Zomato Gold - Introduction</td>
             <td>Restauranters</td>
             <td>Zomato Gold</td>
@@ -171,9 +181,17 @@ const AdminQuizList = () => {
                 Edit Documentation ►
               </a>
             </td>
+            <td>
+              <a
+                class="view-quizzes-page-links-side-by-side"
+                href="/Learners/Quiz/Quiz"
+              >
+                Delete Quiz ►
+              </a>
+            </td>
           </tr>
           <tr>
-            <td>6</td>
+            <td>1</td>
             <td>Zomato Gold - Introduction</td>
             <td>Restauranters</td>
             <td>Zomato Gold</td>
@@ -194,9 +212,17 @@ const AdminQuizList = () => {
                 Edit Documentation ►
               </a>
             </td>
+            <td>
+              <a
+                class="view-quizzes-page-links-side-by-side"
+                href="/Learners/Quiz/Quiz"
+              >
+                Delete Quiz ►
+              </a>
+            </td>
           </tr>
           <tr>
-            <td>7</td>
+            <td>1</td>
             <td>Zomato Gold - Introduction</td>
             <td>Restauranters</td>
             <td>Zomato Gold</td>
@@ -217,9 +243,17 @@ const AdminQuizList = () => {
                 Edit Documentation ►
               </a>
             </td>
+            <td>
+              <a
+                class="view-quizzes-page-links-side-by-side"
+                href="/Learners/Quiz/Quiz"
+              >
+                Delete Quiz ►
+              </a>
+            </td>
           </tr>
           <tr>
-            <td>8</td>
+            <td>1</td>
             <td>Zomato Gold - Introduction</td>
             <td>Restauranters</td>
             <td>Zomato Gold</td>
@@ -238,6 +272,14 @@ const AdminQuizList = () => {
                 href="/Learners/Quiz/Quiz"
               >
                 Edit Documentation ►
+              </a>
+            </td>
+            <td>
+              <a
+                class="view-quizzes-page-links-side-by-side"
+                href="/Learners/Quiz/Quiz"
+              >
+                Delete Quiz ►
               </a>
             </td>
           </tr>

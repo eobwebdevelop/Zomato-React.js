@@ -29,6 +29,7 @@ const AdminUserConfig = () => {
             <th>Email</th>
             <th>Region</th>
             <th>Phone Number</th>
+            <th>Edit User?</th>
             <th>Delete User?</th>
           </tr>
           <tr>
@@ -39,6 +40,14 @@ const AdminUserConfig = () => {
             <td>britney@hotmail.com</td>
             <td>Lisbon</td>
             <td>919192828</td>
+            <td>
+              <a
+                class="view-quizzes-page-links-side-by-side"
+                href="/Learners/Quiz/Quiz"
+              >
+                Edit User ►
+              </a>
+            </td>
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
@@ -62,18 +71,9 @@ const AdminUserConfig = () => {
                 class="view-quizzes-page-links-side-by-side"
                 href="/Learners/Quiz/Quiz"
               >
-                Delete User ►
+                Edit User ►
               </a>
             </td>
-          </tr>
-          <tr>
-            <td>Restauranter</td>
-            <td>1</td>
-            <td>Britney</td>
-            <td>Spears</td>
-            <td>britney@hotmail.com</td>
-            <td>Lisbon</td>
-            <td>919192828</td>
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
@@ -96,18 +96,9 @@ const AdminUserConfig = () => {
                 class="view-quizzes-page-links-side-by-side"
                 href="/Learners/Quiz/Quiz"
               >
-                Delete User ►
+                Edit User ►
               </a>
             </td>
-          </tr>
-          <tr>
-            <td>Restauranter</td>
-            <td>1</td>
-            <td>Britney</td>
-            <td>Spears</td>
-            <td>britney@hotmail.com</td>
-            <td>Lisbon</td>
-            <td>919192828</td>
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
@@ -130,18 +121,9 @@ const AdminUserConfig = () => {
                 class="view-quizzes-page-links-side-by-side"
                 href="/Learners/Quiz/Quiz"
               >
-                Delete User ►
+                Edit User ►
               </a>
             </td>
-          </tr>
-          <tr>
-            <td>Restauranter</td>
-            <td>1</td>
-            <td>Britney</td>
-            <td>Spears</td>
-            <td>britney@hotmail.com</td>
-            <td>Lisbon</td>
-            <td>919192828</td>
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
@@ -164,69 +146,9 @@ const AdminUserConfig = () => {
                 class="view-quizzes-page-links-side-by-side"
                 href="/Learners/Quiz/Quiz"
               >
-                Delete User ►
+                Edit User ►
               </a>
             </td>
-          </tr>
-          <tr>
-            <td>Restauranter</td>
-            <td>1</td>
-            <td>Britney</td>
-            <td>Spears</td>
-            <td>britney@hotmail.com</td>
-            <td>Lisbon</td>
-            <td>919192828</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete User ►
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>Restauranter</td>
-            <td>1</td>
-            <td>Britney</td>
-            <td>Spears</td>
-            <td>britney@hotmail.com</td>
-            <td>Lisbon</td>
-            <td>919192828</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete User ►
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>Restauranter</td>
-            <td>1</td>
-            <td>Britney</td>
-            <td>Spears</td>
-            <td>britney@hotmail.com</td>
-            <td>Lisbon</td>
-            <td>919192828</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete User ►
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>Restauranter</td>
-            <td>1</td>
-            <td>Britney</td>
-            <td>Spears</td>
-            <td>britney@hotmail.com</td>
-            <td>Lisbon</td>
-            <td>919192828</td>
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
@@ -237,6 +159,7 @@ const AdminUserConfig = () => {
             </td>
           </tr>
         </table>
+        <br />
       </Container>
     </div>
   );

@@ -15,14 +15,22 @@ const AdminNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto navlinks navbar-link-admin">
+          <Nav className="mr-auto admin-navlinks">
             <Nav.Link id="navbar-link-admin" href="/Admin/AdminAppLogIn">
-              Login
+              <a class="white-link">Login</a>
             </Nav.Link>
-            <Nav.Link href="/Admin/AdminQuizList">Manage Quizzes</Nav.Link>
-            <Nav.Link href="/Admin/AdminUserConfig">Manage Users</Nav.Link>
-            <Nav.Link href="/Admin/AdminAppLogIn">Log Out</Nav.Link>
-            <Nav.Link href="/Learners/Login/Login">Learner Portal</Nav.Link>
+            <Nav.Link href="/Admin/AdminQuizList">
+              <a class="white-link">Manage Quizzes</a>
+            </Nav.Link>
+            <Nav.Link href="/Admin/AdminUserConfig">
+              <a class="white-link">Manage Users</a>
+            </Nav.Link>
+            <Nav.Link href="/Admin/AdminAppLogIn">
+              <a class="white-link">Log Out</a>
+            </Nav.Link>
+            <Nav.Link href="/Learners/Login/Login">
+              <a class="white-link">Learner Portal</a>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <DropdownSelector />
