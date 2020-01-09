@@ -2,6 +2,19 @@
   background: #000000 !important;
 }
 
-.navbar-link-admin {
+.admin-navlinks {
+  font-size: 12px;
   color: white !important;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+a .white-link {
+  color: white !important;
+}
+
+a .white-link:hover {
+  color: #c4c4c4 !important;
 }
