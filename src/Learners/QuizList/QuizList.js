@@ -11,10 +11,10 @@ const QuizList = () => {
           <hr />
           <h2>Zomato Gold</h2>
           <p>Short description about the quiz and why you should do it.</p>
-          <Link to="/Learners/Quiz/Quiz">
+          <Link to="/Learners/Quiz/Answer">
             <a
               class="view-quizzes-page-links-side-by-side"
-              href="/Learners/Quiz/Quiz"
+              href="/Learners/Quiz/Answer"
             >
               Take Quiz ►
             </a>

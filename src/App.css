@@ -9,7 +9,6 @@
 }
 
 body {
-  background-color: #f4f4f2;
   font-family: "open sans";
 }
 
@@ -173,3 +172,11 @@ input {
 .signup-form {
   margin-top: 3em;
 }
+
+/*Btn disabled*/
+button:disabled {
+  background-color: #CECECE!important;
+  font-weight: bold;
+}
+
+/*Btn disabled*/
