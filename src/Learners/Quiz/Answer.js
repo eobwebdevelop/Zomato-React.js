@@ -9,7 +9,7 @@ import './Quiz.css';
     constructor(props) {
       super(props);
       this.state = {
-        radio: null,
+        radio: '',
         rightAns: '',
         an1: 'Answer by default1',
         an2: 'Answer by default2',
@@ -59,7 +59,7 @@ import './Quiz.css';
             <Row>
               <Col md='12'>
                 <div className="d-flex justify-content-end">
-                  <button type="submit" class="btn disabled">
+                  <button type="submit" class="btn" disabled={!this.state.radio}>
                     Next
                   </button>
                 </div>
