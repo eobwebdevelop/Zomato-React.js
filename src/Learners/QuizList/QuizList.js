@@ -21,7 +21,12 @@ const QuizList = () => {
           </Link>
 
           <Link to="/Learners/Documentation/Documentation">
-            <a href="/Learners/Documentation/Documentation">Documentation ►</a>
+            <a
+              class="cranberry-link"
+              href="/Learners/Documentation/Documentation"
+            >
+              Documentation ►
+            </a>
           </Link>
         </Container>
       </div>
