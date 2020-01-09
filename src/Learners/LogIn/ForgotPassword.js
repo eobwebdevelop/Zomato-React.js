@@ -6,8 +6,8 @@ const ForgotPassword = () => {
   return (
     <div>
       <Container>
-        <div class="loginparentcontainer">
-          <div class="loginformcontainer">
+        <div class="formparentcontainer">
+          <div class="formchildcontainer">
             <h1 id="h1-login">Forgot Password?</h1>
             <p>
               Forgotten your password? Enter your email address here to retrieve

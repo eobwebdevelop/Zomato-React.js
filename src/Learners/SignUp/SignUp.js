@@ -6,7 +6,7 @@ const SignUp = () => {
   return (
     <div>
       <Container>
-        <div class="loginparentcontainer">
+        <div class="formparentcontainer">
           <h1 id="h1-login"> Sign-Up </h1>
 
           <form>

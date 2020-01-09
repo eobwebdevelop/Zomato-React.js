@@ -1,6 +1,6 @@
 import React from "react";
-import { Navbar, Nav}  from 'react-bootstrap';
-import DropdownSelector from './DropdownSelector';
+import { Navbar, Nav } from "react-bootstrap";
+import DropdownSelector from "./DropdownSelector";
 
 import "./LearnerNav.css";
 
@@ -15,14 +15,15 @@ const LearnerNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+          <Nav className="mr-auto navlinks">
             <Nav.Link href="/Learners/SignUp/SignUp">Sign Up</Nav.Link>
             <Nav.Link href="/Learners/LogIn/LogIn">Login</Nav.Link>
+            <Nav.Link href="/Learners/QuizList/QuizList">Quizzes</Nav.Link>
             <Nav.Link href="/Learners/FAQ/FAQ">FAQ</Nav.Link>
             <Nav.Link href="/Learners/ContactUs/ContactUs">Contact Us</Nav.Link>
           </Nav>
-        </Navbar.Collapse> 
-        <DropdownSelector/>  
+        </Navbar.Collapse>
+        <DropdownSelector />
       </Navbar>
 
       {/* <ul>

@@ -20,7 +20,7 @@ import ContactUs from "./Learners/ContactUs/ContactUs";
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
 import ForgotPassword from "./Learners/LogIn/ForgotPassword";
-import MainPage from "./Learners/MainPage/MainPage";
+
 import QuizList from "./Learners/QuizList/QuizList";
 import Answer from "./Learners/Quiz/Answer";
 import Quiz from "./Learners/Quiz/Quiz";
@@ -145,16 +145,7 @@ function App() {
           </>
         )}
       />
-      <Route
-        exact
-        path="/Learners/MainPage/MainPage"
-        render={() => (
-          <>
-            <LearnerNav />
-            <MainPage />
-          </>
-        )}
-      />
+
       <Route
         exact
         path="/Learners/QuizList/QuizList"
