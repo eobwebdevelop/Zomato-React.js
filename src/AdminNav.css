@@ -1,7 +1,5 @@
 #navbar-admin {
-  background: #000000 !important;
+  background: #F4F4F2!important;
 }
 
-.navbar-link-admin {
-  color: white !important;
-}
+.navbar{ box-shadow: none!important; background-color:white!important}

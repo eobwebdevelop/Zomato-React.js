@@ -10,7 +10,7 @@ const AdminNav = () => {
       {/* Example */}
       <Navbar id="navbar-admin" bg="black" expand="lg">
         <Navbar.Brand href="/Learners/QuizList/QuizList">
-          <img src="https://res.cloudinary.com/edwardwatson/image/upload/c_scale,w_130/v1578575042/zomatologo_jhiglb.png" />
+          <img src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
