@@ -171,8 +171,9 @@ input {
 }
 
 /*Btn disabled*/
-button.btn.disabled {
-  background-color: gray!important;
+button:disabled {
+  background-color: #CECECE!important;
+  font-weight: bold;
 }
 
 /*Btn disabled*/
