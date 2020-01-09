@@ -173,3 +173,9 @@ input {
 .signup-form {
   margin-top: 3em;
 }
+
+/* Documentation Editor */
+
+.documentation-editor {
+  height: 20em;
+}

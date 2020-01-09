@@ -7,7 +7,6 @@ const AdminUserConfig = () => {
     <div>
       <Container>
         <h1>Manage Users</h1>
-        <hr />
         <p>You are viewing a list of users.</p>
         <Link to="/Admin/AdminQuizMaker">
           <button type="submit" class="btn">
@@ -44,33 +43,7 @@ const AdminUserConfig = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit User ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete User ►
-              </a>
-            </td>
-          </tr>
-
-          <tr>
-            <td>Restauranter</td>
-            <td>1</td>
-            <td>Britney</td>
-            <td>Spears</td>
-            <td>britney@hotmail.com</td>
-            <td>Lisbon</td>
-            <td>919192828</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminEditUser"
               >
                 Edit User ►
               </a>
@@ -95,7 +68,7 @@ const AdminUserConfig = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminEditUser"
               >
                 Edit User ►
               </a>
@@ -120,32 +93,7 @@ const AdminUserConfig = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit User ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete User ►
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>Restauranter</td>
-            <td>1</td>
-            <td>Britney</td>
-            <td>Spears</td>
-            <td>britney@hotmail.com</td>
-            <td>Lisbon</td>
-            <td>919192828</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminEditUser"
               >
                 Edit User ►
               </a>
