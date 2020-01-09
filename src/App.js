@@ -23,6 +23,7 @@ import ForgotPassword from "./Learners/LogIn/ForgotPassword";
 import QuizList from "./Learners/QuizList/QuizList";
 import Answer from "./Learners/Quiz/Answer";
 import Quiz from "./Learners/Quiz/Quiz";
+import Timer from "./Learners/Quiz/Timer";
 import Question from "./Learners/Quiz/Question";
 import Results from "./Learners/Quiz/Results";
 import SignUp from "./Learners/SignUp/SignUp";
@@ -161,6 +162,16 @@ function App() {
         )}
       />
 
+    <Route
+        exact
+        path="/Learners/Quiz/Timer"
+        render={() => (
+          <>
+            <LearnerNav />
+            <Timer />
+          </>
+        )}
+      />
       <Route
         exact
         path="/Learners/Quiz/Answer"
