@@ -2,21 +2,20 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
-import AdminNav from "./AdminNav.js";
-
-import AdminApp from "./Admin/AdminApp";
-import DocHost from "./Admin/DocHost";
-import QA from "./Admin/QA";
-import QuizMaker from "./Admin/QuizMaker";
-import QuizUpdate from "./Admin/QuizUpdate";
+import AdminAppLogin from "./Admin/AdminAppLogin";
+import AdminDocEditor from "./Admin/AdminDocEditor";
+import AdminQuizList from "./Admin/AdminQuizList";
+import AdminQuizMaker from "./Admin/AdminQuizMaker";
+import AdminQuizUpdate from "./Admin/AdminQuizUpdate";
+import AdminUserConfig from "./Admin/AdminUserConfig";
 
 import LearnerNav from "./LearnerNav.js";
+import AdminNav from "./AdminNav.js";
 
 import ContactUs from "./Learners/ContactUs/ContactUs";
-
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
 import ForgotPassword from "./Learners/LogIn/ForgotPassword";
@@ -35,61 +34,66 @@ function App() {
       <Route
         exact
         path="/"
-        render={() => (
-          <>
-            Are you a <a href="/Learners/Login/Login">learner</a> or an{" "}
-            <a href="/Admin/AdminApp">administrator</a>?
-          </>
-        )}
+        render={() => <Redirect to="/Learners/LogIn/LogIn"></Redirect>}
       />
       {/* Admin Route */}
       <Route
         exact
-        path="/Admin/AdminApp"
+        path="/Admin/AdminAppLogin"
         render={() => (
           <>
             <AdminNav />
-            <AdminApp />
+            <AdminAppLogin />
           </>
         )}
       />
       <Route
         exact
-        path="/Admin/DocHost"
+        path="/Admin/AdminDocEditor"
         render={() => (
           <>
             <AdminNav />
-            <DocHost />
+            <AdminDocEditor />
           </>
         )}
       />
       <Route
         exact
-        path="/Admin/QA"
+        path="/Admin/AdminQuizList"
         render={() => (
           <>
             <AdminNav />
-            <QA />
+            <AdminQuizList />
           </>
         )}
       />
       <Route
         exact
-        path="/Admin/QuizMaker"
+        path="/Admin/AdminQuizMaker"
         render={() => (
           <>
             <AdminNav />
-            <QuizMaker />
+            <AdminQuizMaker />
           </>
         )}
       />
       <Route
         exact
-        path="/Admin/QuizUpdate"
+        path="/Admin/AdminUserConfig"
         render={() => (
           <>
             <AdminNav />
-            <QuizUpdate />
+            <AdminUserConfig />
+          </>
+        )}
+      />
+      <Route
+        exact
+        path="/Admin/AdminQuizUpdate"
+        render={() => (
+          <>
+            <AdminNav />
+            <AdminQuizUpdate />
           </>
         )}
       />
@@ -156,6 +160,7 @@ function App() {
           </>
         )}
       />
+
       <Route
         exact
         path="/Learners/Quiz/Answer"

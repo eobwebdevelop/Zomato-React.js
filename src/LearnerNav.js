@@ -9,7 +9,7 @@ const LearnerNav = () => {
     <div>
       {/* Example */}
       <Navbar bg="tyrolean" expand="lg">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/Learners/QuizList/QuizList">
           <img src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -21,6 +21,7 @@ const LearnerNav = () => {
             <Nav.Link href="/Learners/QuizList/QuizList">Quizzes</Nav.Link>
             <Nav.Link href="/Learners/FAQ/FAQ">FAQ</Nav.Link>
             <Nav.Link href="/Learners/ContactUs/ContactUs">Contact Us</Nav.Link>
+            <Nav.Link href="/Admin/AdminAppLogin">Admin Portal</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <DropdownSelector />
