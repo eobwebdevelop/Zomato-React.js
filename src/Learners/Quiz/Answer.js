@@ -16,11 +16,9 @@ import './Quiz.css';
         an2: 'Answer by default2',
         an3: 'Answer by default3',
         an4: 'Answer by default4',
-        currentQuestion: 0,
+        currentQuestion: 1,
         totalQuestions: 10,
-        question: 'by default: How many complimentary dishes do Zomato Gold customers receive?',
-        timer: 'this : timer'
-      
+        question: 'by default: How many complimentary dishes do Zomato Gold customers receive?'     
       }
 
     }
@@ -42,7 +40,7 @@ import './Quiz.css';
             <span className='counter'> Question {this.state.currentQuestion} from  {this.state.totalQuestions}</span>
            
            {/* Question  */}
-            <p className='questionStyle'>{this.state.question}</p>
+            <p className='questionStyle font-weight-bold'>{this.state.question}</p>
 
             <MDBInput gap onClick={this.onClick(1)} checked={this.state.radio===1 ? true : false} label={this.state.an1} type="radio"
               id="radio1" />
