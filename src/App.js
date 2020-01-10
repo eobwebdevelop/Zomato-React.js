@@ -5,6 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
+// Admin portal imports
+
 import AdminAppLogin from "./Admin/AdminAppLogin";
 import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminQuizList from "./Admin/AdminQuizList";
@@ -13,14 +15,17 @@ import AdminQuizUpdate from "./Admin/AdminQuizUpdate";
 import AdminUserConfig from "./Admin/AdminUserConfig";
 import AdminEditUser from "./Admin/AdminEditUser";
 
+// Nav imports
+
 import LearnerNav from "./LearnerNav.js";
 import AdminNav from "./AdminNav.js";
+
+// Learner portal imports
 
 import ContactUs from "./Learners/ContactUs/ContactUs";
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
 import ForgotPassword from "./Learners/LogIn/ForgotPassword";
-
 import QuizList from "./Learners/QuizList/QuizList";
 import Answer from "./Learners/Quiz/Answer";
 import Quiz from "./Learners/Quiz/Quiz";
@@ -33,12 +38,13 @@ import FAQ from "./Learners/FAQ/FAQ.js";
 function App() {
   return (
     <>
+      {/* EW: Ideally, we want to do some sort of check of where the home directory leads. If user is logged in, go to QuizList pag (/Learners/QuizList/QuizList), if not, ask to login   */}
       <Route
         exact
         path="/"
         render={() => <Redirect to="/Learners/LogIn/LogIn"></Redirect>}
       />
-      {/* Admin Route */}
+
       <Route
         exact
         path="/Admin/AdminAppLogin"
@@ -173,7 +179,7 @@ function App() {
         )}
       />
 
-    <Route
+      <Route
         exact
         path="/Learners/Quiz/Timer"
         render={() => (
