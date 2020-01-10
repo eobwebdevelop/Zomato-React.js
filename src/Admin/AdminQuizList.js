@@ -45,7 +45,7 @@ const AdminQuizList = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminQuizMaker"
               >
                 Edit Quiz ►
               </a>
@@ -53,7 +53,7 @@ const AdminQuizList = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminDocEditor"
               >
                 Edit Documentation ►
               </a>
@@ -61,7 +61,7 @@ const AdminQuizList = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminQuizList"
               >
                 Delete Quiz ►
               </a>
@@ -76,7 +76,7 @@ const AdminQuizList = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminQuizMaker"
               >
                 Edit Quiz ►
               </a>
@@ -84,7 +84,7 @@ const AdminQuizList = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminDocEditor"
               >
                 Edit Documentation ►
               </a>
@@ -92,7 +92,7 @@ const AdminQuizList = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminQuizList"
               >
                 Delete Quiz ►
               </a>
@@ -107,7 +107,7 @@ const AdminQuizList = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminQuizMaker"
               >
                 Edit Quiz ►
               </a>
@@ -115,7 +115,7 @@ const AdminQuizList = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminDocEditor"
               >
                 Edit Documentation ►
               </a>
@@ -123,162 +123,7 @@ const AdminQuizList = () => {
             <td>
               <a
                 class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete Quiz ►
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Zomato Gold - Introduction</td>
-            <td>Restauranters</td>
-            <td>Zomato Gold</td>
-            <td>English</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Quiz ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Documentation ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete Quiz ►
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Zomato Gold - Introduction</td>
-            <td>Restauranters</td>
-            <td>Zomato Gold</td>
-            <td>English</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Quiz ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Documentation ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete Quiz ►
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Zomato Gold - Introduction</td>
-            <td>Restauranters</td>
-            <td>Zomato Gold</td>
-            <td>English</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Quiz ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Documentation ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete Quiz ►
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Zomato Gold - Introduction</td>
-            <td>Restauranters</td>
-            <td>Zomato Gold</td>
-            <td>English</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Quiz ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Documentation ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Delete Quiz ►
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Zomato Gold - Introduction</td>
-            <td>Restauranters</td>
-            <td>Zomato Gold</td>
-            <td>English</td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Quiz ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
-              >
-                Edit Documentation ►
-              </a>
-            </td>
-            <td>
-              <a
-                class="view-quizzes-page-links-side-by-side"
-                href="/Learners/Quiz/Quiz"
+                href="/Admin/AdminQuizList"
               >
                 Delete Quiz ►
               </a>

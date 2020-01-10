@@ -11,6 +11,7 @@ import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizUpdate from "./Admin/AdminQuizUpdate";
 import AdminUserConfig from "./Admin/AdminUserConfig";
+import AdminEditUser from "./Admin/AdminEditUser";
 
 import LearnerNav from "./LearnerNav.js";
 import AdminNav from "./AdminNav.js";
@@ -85,6 +86,16 @@ function App() {
           <>
             <AdminNav />
             <AdminUserConfig />
+          </>
+        )}
+      />
+      <Route
+        exact
+        path="/Admin/AdminEditUser"
+        render={() => (
+          <>
+            <AdminNav />
+            <AdminEditUser />
           </>
         )}
       />

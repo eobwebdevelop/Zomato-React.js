@@ -1,3 +1,5 @@
+/* Import Fonts */
+
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 @font-face {
@@ -7,6 +9,8 @@
   font-weight: normal;
   font-style: normal;
 }
+
+/* General Styles */
 
 body {
   font-family: "open sans";
@@ -105,6 +109,8 @@ input {
   margin-top: 0.8em !important;
 }
 
+/* Styles so that the Login/Sign Up/Contact Forms are aligned centrally on the page (everywhere else, things are left-aligned */
+
 .formparentcontainer {
   width: 90%;
   max-width: 350px;
@@ -131,6 +137,10 @@ input {
 #signup {
   font-size: 1.1em;
   font-weight: bold;
+}
+
+.signup-form {
+  margin-top: 3em;
 }
 
 /* Admin Table Styling */
@@ -167,24 +177,23 @@ input {
   background-color: #ffffff;
 }
 
-/* Sign-Up Form */
-
-.signup-form {
-  margin-top: 3em;
-}
-
 /*Btn disabled*/
 button:disabled {
-  background-color: #CECECE!important;
+  background-color: #cecece !important;
   font-weight: bold;
 }
 
 /*Btn disabled*/
 
-/**/
+/*----Timer----*/
 .timer{     
   font-weight: bold;
   color: #333333;
   font-size: 20px;
   margin: 2% 0;}
-/**/
+/*--//Timer--*/
+/* Admin - Documentation Editor.*/
+
+.documentation-editor {
+  height: 20em;
+}
