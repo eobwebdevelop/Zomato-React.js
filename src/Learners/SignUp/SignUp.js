@@ -50,7 +50,6 @@ class SignUp extends Component  {
       phone_number: '99333883',
       user_type_id: '2',
       region_id: '1'
-
     }
   }
 
@@ -67,6 +66,10 @@ class SignUp extends Component  {
     this.setState({phone_number: event.target.value})
   }
 
+  updatePassword = (event) => {
+    this.setState({password: event.target.value})
+  }
+  
   //Fix the selectors
   updateRegionId = (event) => {
     this.setState({region_id: event.target.value})
@@ -90,7 +93,7 @@ class SignUp extends Component  {
     .then(
         res  =>  this.setState({"flash":  res.flash}),
         err  =>  this.setState({"flash":  err.flash})
-    )
+    ) 
   }
 
 
@@ -124,7 +127,7 @@ class SignUp extends Component  {
               />
               <br /> <br />
               <h5>Password:</h5>
-              <input type="password" name="password" placeholder=" Password*" />
+              <input type="password" name="password" placeholder=" Password*" onChange={this.updatePassword}/>
               <br />
               <input
                 type="password"
