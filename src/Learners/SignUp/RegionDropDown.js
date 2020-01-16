@@ -1,7 +1,7 @@
-import React from "react";
-import { Dropdown } from "semantic-ui-react";
+import React from 'react';
+import { Dropdown } from 'semantic-ui-react';
 
-const RegionDropDown = props => (
+const RegionDropDown = (props) => (
   <Dropdown
     placeholder={props.placeholder}
     fluid
