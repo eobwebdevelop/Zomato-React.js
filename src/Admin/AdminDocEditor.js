@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './AdminDocEditor.css';
 import RegionDropDown from '../Learners/SignUp/RegionDropDown';
+import QuillEditor from './QuillEditor';
 
 
 const langOptions = [
@@ -51,17 +52,7 @@ const AdminDocEditor = () => (
         type="text"
         name="name"
       />
-      <button type="button" className="btn">Add sub-titile</button>
-      <button type="button" className="btn">Add paragraph</button>
-      <button type="button" className="btn">Add image</button>
-      <label>
-              Preview:
-      </label>
-      <input
-        className="documentation-editor"
-        name="name"
-      />
-
+      <QuillEditor />
       <Link to="/Admin/AdminQuizList">
         <button type="submit" className="btn">
             Save
