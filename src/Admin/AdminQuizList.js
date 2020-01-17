@@ -30,7 +30,7 @@ const AdminQuizList = () => {
             <th>Quiz ID</th>
             <th>Quiz Name</th>
             <th>Staff Type</th>
-            <th>Package</th>
+            <th>Product</th>
             <th>Language</th>
             <th>Edit Quiz?</th>
             <th>Edit Documentation?</th>

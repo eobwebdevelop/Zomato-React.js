@@ -20,7 +20,7 @@ const AdminQuizMaker = () => {
           Staff Type:
           <input type="text" name="quizname"></input>
           <br /> <br />
-          Package:
+          Product:
           <input type="text" name="quizname"></input> <br /> <br />
           Language:
           <input type="text" name="quizname"></input>
