@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import 'quill/dist/quill.snow.css';
-import imageUpload from 'quill-plugin-image-upload';
-
-// Quill.register('modules/imageUpload', imageUpload);
 
 const QuillEditor = () => {
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
-  const [image64, setImage64] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const uploadImage = async (e) => {
-    const { files } = e.target;
+  const quillModules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ color: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+      ['link', 'image'],
+      ['clean'],
+      [{ counter: true }],
+    ],
+  };
+
+  const uploadToCloudinary = async (base64Url) => {
     const data = new FormData();
-    data.append('file', files[0]);
+    data.append('file', base64Url);
     data.append('upload_preset', 'Zomato');
     setLoading(true);
     const res = await fetch(
@@ -31,52 +37,28 @@ const QuillEditor = () => {
     setLoading(false);
   };
 
+  const deleteFromCloudinary = async () => {
+    console.log('delete');
+  };
+
   const handleChange = (value, delta) => {
-    console.log('delta', delta.ops[0].insert.image, 'value', value);
-    const getImage64 = (dlt) => {
-      dlt.ops.filter((i) => i.insert && i.insert.image).map((i) => console.log('i.insert', i.insert));
-    };
     setText(value);
-    // setImage64(getImage64(delta));
+
+    if (delta.ops[0].insert) {
+      uploadToCloudinary(delta.ops[0].insert.image);
+    } else if (delta.ops[0].delete) {
+      deleteFromCloudinary();
+    }
   };
 
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-      ['link', 'image'],
-      ['clean'],
-    ],
-    // imageUpload: {
-    //   upload: uploadImage(),
-    // },
-  };
 
-// console.log('image64', image64);
   return (
     <div className="text-editor">
       <ReactQuill
-        theme="snow"
-        modules={modules}
+        modules={quillModules}
         value={text}
         onChange={handleChange}
       />
-
-      <div className="App">
-        <h1>Upload Image</h1>
-        <input
-          type="file"
-          name="file"
-          placeholder="Upload an image"
-          onChange={uploadImage}
-        />
-        {loading ? (
-          <h3>Loading...</h3>
-        ) : (
-          <img src={image} style={{ width: '300px' }} alt="uploaded" />
-        )}
-      </div>
     </div>
   );
 };
