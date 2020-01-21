@@ -1,17 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
 
 const ContactUs = () => {
+  const { currentLanguage } = useContext(LanguagesContext);
+
   return (
     <div>
       <Container>
-        <div class="formparentcontainer">
-          <div class="formchildcontainer">
-            <h1>Contact Us</h1>
+        <div className="formparentcontainer">
+          <div className="formchildcontainer">
+            <h1>{translations[currentLanguage].ContactUs.Title}</h1>
             <hr />
-            <h2>We would love to hear from you</h2>
+            <h2>{translations[currentLanguage].ContactUs.Feedback}</h2>
             <form>
               <input type="text" title="name" placeholder="Name*" />
               <br />
@@ -26,8 +30,8 @@ const ContactUs = () => {
               <input type="text" title="email" placeholder="Message*" />
               <br />
               <Link to="/Learners/QuizList/QuizList">
-                <button type="submit" class="btn-login">
-                  Send Message
+                <button type="submit" className="btn-login">
+                  {translations[currentLanguage].ContactUs.Button}
                 </button>
               </Link>
               <br />

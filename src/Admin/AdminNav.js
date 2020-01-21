@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import DropdownSelector from "../DropdownSelector";
+import DropdownSelector from "../LanguageSelector";
 import "./AdminNav.css";
 
 
