@@ -1,8 +1,8 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import DropdownSelector from "./DropdownSelector";
-
+import DropdownSelector from "../DropdownSelector";
 import "./AdminNav.css";
+
 
 const AdminNav = () => {
   return (

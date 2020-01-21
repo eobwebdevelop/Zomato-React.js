@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react';
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -6,7 +6,7 @@ import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 // Admin portal imports
-
+import AdminNav from "./Admin/AdminNav.js";
 import AdminAppLogin from "./Admin/AdminAppLogin";
 import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminQuizList from "./Admin/AdminQuizList";
@@ -15,13 +15,11 @@ import AdminQuizUpdate from "./Admin/AdminQuizUpdate";
 import AdminUserConfig from "./Admin/AdminUserConfig";
 import AdminEditUser from "./Admin/AdminEditUser";
 
-// Nav imports
 
-import LearnerNav from "./LearnerNav.js";
-import AdminNav from "./AdminNav.js";
 
 // Learner portal imports
 
+import LearnerNav from "./LearnerNav.js";
 import ContactUs from "./Learners/ContactUs/ContactUs";
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
@@ -35,9 +33,30 @@ import Results from "./Learners/Quiz/Results";
 import SignUp from "./Learners/SignUp/SignUp";
 import FAQ from "./Learners/FAQ/FAQ.js";
 
-function App() {
+// Translation eng/port
+
+import LanguagesContext, { availableLanguages } from './contexts/languages-context';
+
+class App extends Component {
+  state = {
+      currentLanguage: availableLanguages.pt,
+  }
+
+  handleChangeLanguage = (e) => {
+      this.setState(
+          { currentLanguage: e.target.value },
+          () => this.getResults()
+      );
+  }
+
+  render() {
+      const { currentLanguage } = this.state;
+
   return (
     <>
+    <LanguagesContext.Provider
+                    value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
+                >
       {/* EW: Ideally, we want to do some sort of check of where the home directory leads. If user is logged in, go to QuizList pag (/Learners/QuizList/QuizList), if not, ask to login   */}
       <Route
         exact
@@ -239,8 +258,10 @@ function App() {
           </>
         )}
       />
+       </LanguagesContext.Provider>
     </>
   );
+}
 }
 
 export default App;
