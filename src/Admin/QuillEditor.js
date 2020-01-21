@@ -6,6 +6,7 @@ const QuillEditor = () => {
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [deleteToken, setDeleteToken] = useState('');
 
   const quillModules = {
     toolbar: [
@@ -32,13 +33,25 @@ const QuillEditor = () => {
       },
     );
     const file = await res.json();
-
     setImage(file.secure_url);
     setLoading(false);
+    setDeleteToken(file.delete_token);
   };
 
   const deleteFromCloudinary = async () => {
-    console.log('delete');
+    console.log('delete', deleteToken);
+    const data = new FormData();
+    data.delete('file', deleteToken);
+    data.delete('upload_preset', 'Zomato');
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/ddoc8nfxb/image/delete',
+      {
+        method: 'DELETE',
+        body: data,
+      },
+    );
+    const file = await res.json();
+    console.log(file, 'file');
   };
 
   const handleChange = (value, delta) => {
