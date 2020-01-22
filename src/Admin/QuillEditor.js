@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
-import CloudinaryKeys from './CloudinaryKeys';
 
 import 'react-quill/dist/quill.snow.css';
 
@@ -23,9 +22,9 @@ const QuillEditor = () => {
   const uploadToCloudinary = async (base64Url) => {
     const data = new FormData();
     data.append('file', base64Url);
-    data.append('upload_preset', CloudinaryKeys.uploadPreset);
+    data.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
     const res = await fetch(
-      CloudinaryKeys.uploadLink,
+      process.env.REACT_APP_CLOUDINARY_UPLOAD_LINK,
       {
         method: 'POST',
         body: data,
@@ -40,7 +39,7 @@ const QuillEditor = () => {
     data.append('file', lastUploadedFile);
     data.append('token', lastUploadedFile.delete_token);
     const res = await fetch(
-      CloudinaryKeys.deleteLink,
+      process.env.REACT_APP_CLOUDINARY_DELETE_LINK,
       {
         method: 'POST',
         body: data,
@@ -57,6 +56,7 @@ const QuillEditor = () => {
     }
   };
 
+  console.log('env ', process.env.REACT_APP_TEST);
 
   return (
     <div className="text-editor">

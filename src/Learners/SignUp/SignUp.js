@@ -84,7 +84,7 @@ class SignUp extends Component  {
   handlerSubmit = (e) => {
     e.preventDefault();
     console.log("the form has been submited with these fields:", this.state );
-    fetch("http://localhost:3000/auth/signup",
+    fetch(process.env.REACT_APP_PATH_AUTH_SIGNUP,
     {
         method:  'POST',
         headers:  new Headers({
@@ -110,18 +110,18 @@ class SignUp extends Component  {
             <hr />
             <form class="signup-form" onSubmit={this.handlerSubmit}>
               <h5>{translations[currentLanguage].SignUp.SubtitleD}</h5>
-              <input type="text" name="firstname" placeholder=" First Name*" required onChange={this.updateFirstname} /> 
-              <input type="text" name="lastname" placeholder=" Last Name*"  required onChange={this.updateLastName}/>
-              <input type="email" name="email" placeholder=" Email*" required onChange={this.updateEmail}/>
-              <input type="text" name="phone" placeholder=" Phone Number" onChange={this.updateNumber}/>
+              <input type="text" name="firstname" placeholder={translations[currentLanguage].SignUp.PlaceholderF} required onChange={this.updateFirstname} /> 
+              <input type="text" name="lastname" placeholder={translations[currentLanguage].SignUp.PlaceholderL}  required onChange={this.updateLastName}/>
+              <input type="email" name="email" placeholder={translations[currentLanguage].SignUp.PlaceholderE} required onChange={this.updateEmail}/>
+              <input type="text" name="phone" placeholder={translations[currentLanguage].SignUp.PlaceholderN} onChange={this.updateNumber}/>
               <br /> <br />
               <h5>{translations[currentLanguage].SignUp.SubtitleL}</h5>
-              <RegionDropDown selectOptions={Regions} onChange={this.updateUserType} placeholder=" Your region" />
+              <RegionDropDown selectOptions={Regions} onChange={this.updateUserType} placeholder={translations[currentLanguage].SignUp.PlaceholderR} />
               <br />
               <h5>{translations[currentLanguage].SignUp.SubtitleI}</h5>
               <RegionDropDown
                 selectOptions={UserType}
-                placeholder=" Are you a... *"
+                placeholder={translations[currentLanguage].SignUp.PlaceholderA}
                 onChange={this.updateUserType}
               />
               <input

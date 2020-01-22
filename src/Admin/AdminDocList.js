@@ -1,23 +1,16 @@
 import React from 'react';
-import './AdminQuizList.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const AdminQuizList = () => (
+const AdminDocList = () => (
   <div>
     <Container>
-      <h1>Manage Quizzes</h1>
+      <h1>Manage Documentation</h1>
       <hr />
       <p>
-          You are viewing a list of quizzes available to edit or add
+          You are viewing a list of documentation available to edit or add
           documentation to.
       </p>
-      <Link to="/Admin/AdminQuizMaker">
-        <button type="submit" className="btn">
-            Add Quiz
-        </button>
-      </Link>
-      <br />
       <Link to="/Admin/AdminDocEditor">
         <button type="submit" className="btn">
             Add Documentation
@@ -32,14 +25,13 @@ const AdminQuizList = () => (
 
       <table className="tftable" border="1">
         <tr>
-          <th>Quiz ID</th>
-          <th>Quiz Name</th>
-          <th>Staff Type</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Staff(?) Type</th>
           <th>Product</th>
           <th>Language</th>
-          <th>Edit Quiz?</th>
           <th>Edit Documentation?</th>
-          <th>Delete Quiz?</th>
+          <th>Delete</th>
         </tr>
         <tr>
           <td>1</td>
@@ -47,14 +39,6 @@ const AdminQuizList = () => (
           <td>Restauranters</td>
           <td>Zomato Gold</td>
           <td>English</td>
-          <td>
-            <a
-              className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminQuizMaker"
-            >
-                Edit Quiz ►
-            </a>
-          </td>
           <td>
             <a
               className="view-quizzes-page-links-side-by-side"
@@ -66,7 +50,7 @@ const AdminQuizList = () => (
           <td>
             <a
               className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminQuizList"
+              href="/Admin/AdminDocList"
             >
                 Delete Quiz ►
             </a>
@@ -81,14 +65,6 @@ const AdminQuizList = () => (
           <td>
             <a
               className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminQuizMaker"
-            >
-                Edit Quiz ►
-            </a>
-          </td>
-          <td>
-            <a
-              className="view-quizzes-page-links-side-by-side"
               href="/Admin/AdminDocEditor"
             >
                 Edit Documentation ►
@@ -97,7 +73,7 @@ const AdminQuizList = () => (
           <td>
             <a
               className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminQuizList"
+              href="/Admin/AdminDocList"
             >
                 Delete Quiz ►
             </a>
@@ -112,14 +88,6 @@ const AdminQuizList = () => (
           <td>
             <a
               className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminQuizMaker"
-            >
-                Edit Quiz ►
-            </a>
-          </td>
-          <td>
-            <a
-              className="view-quizzes-page-links-side-by-side"
               href="/Admin/AdminDocEditor"
             >
                 Edit Documentation ►
@@ -128,7 +96,7 @@ const AdminQuizList = () => (
           <td>
             <a
               className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminQuizList"
+              href="/Admin/AdminDocList"
             >
                 Delete Quiz ►
             </a>
@@ -138,4 +106,4 @@ const AdminQuizList = () => (
     </Container>
   </div>
 );
-export default AdminQuizList;
+export default AdminDocList;

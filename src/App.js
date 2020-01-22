@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
@@ -36,6 +35,7 @@ import FAQ from "./Learners/FAQ/FAQ.js";
 // Translation eng/port
 
 import LanguagesContext, { availableLanguages } from './contexts/languages-context';
+import AdminDocList from './Admin/AdminDocList';
 
 class App extends Component {
   state = {
@@ -70,6 +70,16 @@ class App extends Component {
             <>
               <AdminNav />
               <AdminAppLogin />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/Admin/AdminDocList"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminDocList />
             </>
           )}
         />
