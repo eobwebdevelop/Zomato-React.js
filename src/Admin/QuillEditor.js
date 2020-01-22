@@ -44,10 +44,11 @@ const QuillEditor = () => {
     data.delete('file', deleteToken);
     data.delete('upload_preset', 'Zomato');
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/ddoc8nfxb/image/delete',
+      'https://api.cloudinary.com/v1_1/ddoc8nfxb/image/upload',
       {
         method: 'DELETE',
         body: data,
+        token: deleteToken,
       },
     );
     const file = await res.json();
