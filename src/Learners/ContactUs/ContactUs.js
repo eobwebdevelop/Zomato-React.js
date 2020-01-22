@@ -15,7 +15,7 @@ const ContactUs = () => {
           <div className="formchildcontainer">
             <h1>{translations[currentLanguage].ContactUs.Title}</h1>
             <hr />
-            <h2>{translations[currentLanguage].ContactUs.Feedback}</h2>
+            <h2></h2>
             <form>
               <input type="text" title="name" placeholder="Name*" />
               <br />
