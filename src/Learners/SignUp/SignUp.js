@@ -82,7 +82,7 @@ class SignUp extends Component  {
   handlerSubmit = (e) => {
     e.preventDefault();
     console.log("the form has been submited with these fields:", this.state );
-    fetch("http://localhost:3000/auth/signup",
+    fetch(process.env.REACT_APP_PATH_AUTH_SIGNUP,
     {
         method:  'POST',
         headers:  new Headers({
