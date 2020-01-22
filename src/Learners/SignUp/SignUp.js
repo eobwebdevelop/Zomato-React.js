@@ -1,46 +1,12 @@
 import React, {Component} from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import RegionDropDown from "./RegionDropDown.js";
+import Select from "react-select";
 import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
 
-const Regions = [
-  {
-    key: "Greater Lisbon",
-    text: "Greater Lisbon",
-    value: "Greater Lisbon"
-  },
-  {
-    key: "Porto",
-    text: "Porto",
-    value: "Porto"
-  },
-  {
-    key: "Algarve",
-    text: "Algarve",
-    value: "Algarve"
-  }
-];
 
-const UserType = [
-  {
-    key: "Restauranter",
-    text: "Restauranter",
-    value: "Restauranter"
-  },
-  {
-    key: "Restauraunt Employee",
-    text: "Restauraunt Employee",
-    value: "Restauraunt Employee"
-  },
-  {
-    key: "Zomato HQ Employee",
-    text: "Zomato HQ Employee",
-    value: "Zomato HQ Employee"
-  }
-];
 
 class SignUp extends Component  {
   constructor(props) {
@@ -51,10 +17,28 @@ class SignUp extends Component  {
       email: 'elena@hola.com',
       password: 'holi',
       phone_number: '99333883',
+      restaurant_id: '',
       user_type_id: '2',
-      region_id: '1'
+      restaurants: [{id:0, name:''}],
+      displayresto: '',
     }
   }
+
+
+getRestaurants = () => {
+  fetch('http://localhost:3000/admin/restaurant')
+    .then(response => response.json())
+    .then(data => {
+      this.setState( (state) => ({ 
+        ...state,
+        restaurants: data.Restaurant,
+      }))
+    })
+};
+componentDidMount(){
+  this.getRestaurants();
+};
+
 
   updateFirstname = (event) => {
     this.setState({first_name: event.target.value})
@@ -74,23 +58,24 @@ class SignUp extends Component  {
   }
   
   //Fix the selectors
-  updateRegionId = (event) => {
-    this.setState({region_id: event.target.value})
-  }
-  updateUserType = (event) => {
-    this.setState({user_type_id: event.target.value})
-  }
+  
+  updateRestaurant = (item) => {
+    this.setState({restaurant_id: item.value,
+    displayresto: item})
+}
+
 
   handlerSubmit = (e) => {
+    const { first_name, last_name, email, password, phone_number, user_type_id, restaurant_id } = this.state
     e.preventDefault();
-    console.log("the form has been submited with these fields:", this.state );
-    fetch(process.env.REACT_APP_PATH_AUTH_SIGNUP,
+    console.log("the form has been submited with these fields:", first_name, last_name, email, password, phone_number, user_type_id.id );
+    fetch("http://localhost:3000/auth/signup",
     {
         method:  'POST',
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify(this.state),
+        body:  JSON.stringify(first_name, last_name, email, password, phone_number, user_type_id.id, restaurant_id.restaurant_id),
     })
     .then(res  =>  res.json())
     .then(
@@ -101,6 +86,7 @@ class SignUp extends Component  {
 
 
   render() {
+    
     return (
       <LanguagesContext.Consumer>
         {({ currentLanguage, onChangeLanguage }) => (
@@ -115,20 +101,15 @@ class SignUp extends Component  {
               <input type="email" name="email" placeholder={translations[currentLanguage].SignUp.PlaceholderE} required onChange={this.updateEmail}/>
               <input type="text" name="phone" placeholder={translations[currentLanguage].SignUp.PlaceholderN} onChange={this.updateNumber}/>
               <br /> <br />
-              <h5>{translations[currentLanguage].SignUp.SubtitleL}</h5>
-              <RegionDropDown selectOptions={Regions} onChange={this.updateUserType} placeholder={translations[currentLanguage].SignUp.PlaceholderR} />
-              <br />
-              <h5>{translations[currentLanguage].SignUp.SubtitleI}</h5>
-              <RegionDropDown
-                selectOptions={UserType}
-                placeholder={translations[currentLanguage].SignUp.PlaceholderA}
-                onChange={this.updateUserType}
-              />
-              <input
-                type="text"
-                name="restaurant"
-                placeholder={translations[currentLanguage].SignUp.PlaceholderR}
-              />
+              <h5>Restaurant:</h5>
+              <Select
+                placeholder = "Select your Restaurant"
+                value = {this.state.displayresto}
+                onChange={this.updateRestaurant}
+                classNamePrefix="select"
+                options={this.state.restaurants.map((item) => ({value: item.id, label: item.name}))}
+                />
+
               <br /> <br />
               <h5>{translations[currentLanguage].SignUp.SubtitleP}</h5>
               <input 

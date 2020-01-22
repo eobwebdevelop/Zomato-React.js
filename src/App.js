@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Redirect, Route, Switch, withRouter } from "react-router-dom";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Redirect, Route, } from "react-router-dom"; //Switch, withRouter 
+// import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+
 
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
@@ -13,7 +14,8 @@ import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizUpdate from "./Admin/AdminQuizUpdate";
 import AdminUserConfig from "./Admin/AdminUserConfig";
 import AdminEditUser from "./Admin/AdminEditUser";
-
+import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
+import AdminDocList from './Admin/AdminDocList';
 
 
 // Learner portal imports
@@ -35,7 +37,7 @@ import FAQ from "./Learners/FAQ/FAQ.js";
 // Translation eng/port
 
 import LanguagesContext, { availableLanguages } from './contexts/languages-context';
-import AdminDocList from './Admin/AdminDocList';
+
 
 class App extends Component {
   state = {
@@ -143,6 +145,16 @@ class App extends Component {
             </>
           )}
         />
+        <Route
+        exact
+        path="/Admin/AdminRestaurantEditor"
+        render={() => (
+          <>
+            <AdminNav />
+            <AdminRestaurantEditor />
+          </>
+        )}
+      />
         {/* Learners Route */}
         <Route
           exact

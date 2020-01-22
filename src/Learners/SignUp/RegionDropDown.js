@@ -1,6 +1,5 @@
 import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
-
 const RegionDropDown = (props) => (
   <Dropdown
     placeholder={props.placeholder}
@@ -9,5 +8,4 @@ const RegionDropDown = (props) => (
     options={props.selectOptions}
   />
 );
-
 export default RegionDropDown;
