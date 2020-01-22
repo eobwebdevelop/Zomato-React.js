@@ -15,19 +15,18 @@ const ContactUs = () => {
           <div className="formchildcontainer">
             <h1>{translations[currentLanguage].ContactUs.Title}</h1>
             <hr />
-            <h2></h2>
             <form>
-              <input type="text" title="name" placeholder="Name*" />
+              <input type="text" title="name" placeholder={translations[currentLanguage].ContactUs.PlaceholderN} />
               <br />
-              <input type="text" title="email" placeholder="Email*" />
+              <input type="text" title="email" placeholder={translations[currentLanguage].ContactUs.PlaceholderE} />
               <br />
               <input
                 type="text"
                 title="name"
-                placeholder="Phone number (optional)"
+                placeholder={translations[currentLanguage].ContactUs.PlaceholderP}
               />
               <br />
-              <input type="text" title="email" placeholder="Message*" />
+              <input type="text" title="email" placeholder={translations[currentLanguage].ContactUs.PlaceholderM} />
               <br />
               <Link to="/Learners/QuizList/QuizList">
                 <button type="submit" className="btn-login">

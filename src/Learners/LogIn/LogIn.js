@@ -15,9 +15,9 @@ const LogIn = () => {
             <h1 id="h1-login">{translations[currentLanguage].Login.Title}</h1>
             <hr />
             <form>
-              <input type="text" title="username" placeholder=" Username" />
+              <input type="text" title="username" placeholder={translations[currentLanguage].Login.PlaceholderU} />
               <br />
-              <input type="password" title="username" placeholder=" Password" />
+              <input type="password" title="username" placeholder={translations[currentLanguage].Login.PlaceholderP} />
               <br />
               <Link to="/Learners/QuizList/QuizList">
                 <button type="submit" className="btn-login">

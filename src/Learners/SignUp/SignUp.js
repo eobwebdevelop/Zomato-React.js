@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import RegionDropDown from "./RegionDropDown.js";
+import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
 
 const Regions = [
@@ -100,22 +102,23 @@ class SignUp extends Component  {
 
   render() {
     return (
-      <>
+      <LanguagesContext.Consumer>
+        {({ currentLanguage, onChangeLanguage }) => (
         <Container>
           <div class="formparentcontainer">
-            <h1 id="h1-login"> Sign-Up </h1>
+            <h1 id="h1-login"> {translations[currentLanguage].SignUp.Title} </h1>
             <hr />
             <form class="signup-form" onSubmit={this.handlerSubmit}>
-              <h5>Personal Details:</h5>
+              <h5>{translations[currentLanguage].SignUp.SubtitleD}</h5>
               <input type="text" name="firstname" placeholder=" First Name*" required onChange={this.updateFirstname} /> 
               <input type="text" name="lastname" placeholder=" Last Name*"  required onChange={this.updateLastName}/>
               <input type="email" name="email" placeholder=" Email*" required onChange={this.updateEmail}/>
               <input type="text" name="phone" placeholder=" Phone Number" onChange={this.updateNumber}/>
               <br /> <br />
-              <h5>Location:</h5>
+              <h5>{translations[currentLanguage].SignUp.SubtitleL}</h5>
               <RegionDropDown selectOptions={Regions} onChange={this.updateUserType} placeholder=" Your region" />
               <br />
-              <h5>Zomato Information:</h5>
+              <h5>{translations[currentLanguage].SignUp.SubtitleI}</h5>
               <RegionDropDown
                 selectOptions={UserType}
                 placeholder=" Are you a... *"
@@ -124,25 +127,31 @@ class SignUp extends Component  {
               <input
                 type="text"
                 name="restaurant"
-                placeholder=" Restaurant (If applicable)"
+                placeholder={translations[currentLanguage].SignUp.PlaceholderR}
               />
               <br /> <br />
-              <h5>Password:</h5>
-              <input type="password" name="password" placeholder=" Password*" onChange={this.updatePassword}/>
+              <h5>{translations[currentLanguage].SignUp.SubtitleP}</h5>
+              <input 
+                type="password"
+                name="password" 
+                placeholder={translations[currentLanguage].SignUp.PlaceholderP} 
+                onChange={this.updatePassword}
+              />
               <br />
               <input
                 type="password"
                 name="password"
-                placeholder="Confirm Password*"
+                placeholder={translations[currentLanguage].SignUp.PlaceholderC} 
               />
               <br />
                 <button type="submit" class="btn-login">
-                  Sign-Up
+                {translations[currentLanguage].SignUp.Button}
                 </button>
             </form>
           </div>
         </Container>
-      </>
+      )}
+      </LanguagesContext.Consumer>
     );
   }
 }
