@@ -2,8 +2,8 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Redirect, Route, Switch, withRouter } from "react-router-dom";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Redirect, Route, } from "react-router-dom"; //Switch, withRouter 
+// import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 // Admin portal imports
 
@@ -14,6 +14,7 @@ import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizUpdate from "./Admin/AdminQuizUpdate";
 import AdminUserConfig from "./Admin/AdminUserConfig";
 import AdminEditUser from "./Admin/AdminEditUser";
+import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 
 // Nav imports
 
@@ -112,6 +113,16 @@ function App() {
           <>
             <AdminNav />
             <AdminQuizUpdate />
+          </>
+        )}
+      />
+      <Route
+        exact
+        path="/Admin/AdminRestaurantEditor"
+        render={() => (
+          <>
+            <AdminNav />
+            <AdminRestaurantEditor />
           </>
         )}
       />

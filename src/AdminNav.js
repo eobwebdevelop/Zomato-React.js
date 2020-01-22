@@ -15,7 +15,7 @@ const AdminNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto admin-navlinks">
+          <Nav class="mr-auto admin-navlinks">
             <Nav.Link id="navbar-link-admin" href="/Admin/AdminAppLogIn">
               <a class="white-link">Login</a>
             </Nav.Link>

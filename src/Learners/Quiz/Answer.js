@@ -57,7 +57,7 @@ import './Quiz.css';
             <Row>
               <Col md='12'>
                 <div className="d-flex justify-content-end">
-                  <button type="submit" class="btn" disabled={!this.state.radio}>
+                  <button type="submit" className="btn" disabled={!this.state.radio}>
                     Next
                   </button>
                 </div>

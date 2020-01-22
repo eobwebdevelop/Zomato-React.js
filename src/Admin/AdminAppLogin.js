@@ -6,8 +6,8 @@ class AdminAppLogin extends Component {
   render() {
     return (
       <Container>
-        <div class="formparentcontainer">
-          <div class="formchildcontainer">
+        <div className="formparentcontainer">
+          <div className="formchildcontainer">
             <h1 id="h1-login">Quiz - Admin Login</h1>
             <hr />
             <form>
@@ -16,7 +16,7 @@ class AdminAppLogin extends Component {
               <input type="password" title="username" placeholder=" Password" />
               <br />
               <Link to="/Admin/AdminQuizList">
-                <button type="submit" class="btn-login">
+                <button type="submit" className="btn-login">
                   Login
                 </button>
               </Link>
