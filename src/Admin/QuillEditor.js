@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
+import CloudinaryKeys from './CloudinaryKeys';
+
 import 'react-quill/dist/quill.snow.css';
 
 const QuillEditor = () => {
   const [text, setText] = useState('');
-  const [image, setImage] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [deleteToken, setDeleteToken] = useState('');
+  const [lastUploadedFile, setLastUploadedFile] = useState({});
 
   const quillModules = {
     toolbar: [
@@ -23,41 +23,33 @@ const QuillEditor = () => {
   const uploadToCloudinary = async (base64Url) => {
     const data = new FormData();
     data.append('file', base64Url);
-    data.append('upload_preset', 'Zomato');
-    setLoading(true);
+    data.append('upload_preset', CloudinaryKeys.uploadPreset);
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/ddoc8nfxb/image/upload',
+      CloudinaryKeys.uploadLink,
       {
         method: 'POST',
         body: data,
       },
     );
     const file = await res.json();
-    setImage(file.secure_url);
-    setLoading(false);
-    setDeleteToken(file.delete_token);
+    setLastUploadedFile(file);
   };
 
   const deleteFromCloudinary = async () => {
-    console.log('delete', deleteToken);
     const data = new FormData();
-    data.delete('file', deleteToken);
-    data.delete('upload_preset', 'Zomato');
+    data.append('file', lastUploadedFile);
+    data.append('token', lastUploadedFile.delete_token);
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/ddoc8nfxb/image/upload',
+      CloudinaryKeys.deleteLink,
       {
-        method: 'DELETE',
+        method: 'POST',
         body: data,
-        token: deleteToken,
       },
     );
-    const file = await res.json();
-    console.log(file, 'file');
   };
 
   const handleChange = (value, delta) => {
     setText(value);
-
     if (delta.ops[0].insert) {
       uploadToCloudinary(delta.ops[0].insert.image);
     } else if (delta.ops[0].delete) {
