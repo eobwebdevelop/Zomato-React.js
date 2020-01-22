@@ -1,20 +1,21 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
 
 const ForgotPassword = () => {
+  const { currentLanguage } = useContext(LanguagesContext);
   return (
     <div>
       <Container>
-        <div class="formparentcontainer">
-          <div class="formchildcontainer">
-            <h1 id="h1-login">Forgot Password?</h1>
+        <div className="formparentcontainer">
+          <div className="formchildcontainer">
+            <h1 id="h1-login">{translations[currentLanguage].ForgotPassword.Title}</h1>
             <hr />
             <p>
-              Forgotten your password? Enter your email address here to retrieve
-              it. (Note to team: We haven't agreed this functionality, we don't
-              have to include this page)
+              {translations[currentLanguage].ForgotPassword.Text}
             </p>
             <form>
               <input
@@ -25,8 +26,8 @@ const ForgotPassword = () => {
               <br />
 
               <Link to="/Learners/LogIn/LogIn">
-                <button type="submit" class="btn-login">
-                  Retrieve Password
+                <button type="submit" className="btn-login">
+                  {translations[currentLanguage].ForgotPassword.Button}
                 </button>
               </Link>
             </form>

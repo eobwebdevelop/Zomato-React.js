@@ -44,8 +44,7 @@ class App extends Component {
 
   handleChangeLanguage = (e) => {
       this.setState(
-          { currentLanguage: e.target.value },
-          () => this.getResults()
+          { currentLanguage: e.target.value }
       );
   }
 
