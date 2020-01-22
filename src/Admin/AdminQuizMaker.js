@@ -1,78 +1,85 @@
-import React from "react";
-import "./AdminQuizMaker.css";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './AdminQuizMaker.css';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const AdminQuizMaker = () => {
-  return (
-    <div>
-      <Container>
-        <h1>Create/Edit Quiz</h1>
-        <hr />
-        <p>
+const AdminQuizMaker = () => (
+  <div>
+    <Container>
+      <h1>Create/Edit Quiz</h1>
+      <hr />
+      <p>
           You are creating a new quiz. MESSAGE FROM ED: This is just a
           placeholder that needs developing.
-        </p>
-        <form>
+      </p>
+      <form>
           Quiz Name:
-          <input type="text" name="quizname"></input>
-          <br /> <br />
+        <input type="text" name="quizname" />
+        <br />
+        {' '}
+        <br />
           Staff Type:
-          <input type="text" name="quizname"></input>
-          <br /> <br />
-          Package:
-          <input type="text" name="quizname"></input> <br /> <br />
+        <input type="text" name="quizname" />
+        <br />
+        {' '}
+        <br />
+          Product:
+        <input type="text" name="quizname" />
+        {' '}
+        <br />
+        {' '}
+        <br />
           Language:
-          <input type="text" name="quizname"></input>
-          <br />
-          <br />
-          <div class="Question-Edit">
-            <div class="Question-Edit-Inner">
-              <h2>Question 1</h2>
+        <input type="text" name="quizname" />
+        <br />
+        <br />
+        <div className="Question-Edit">
+          <div className="Question-Edit-Inner">
+            <h2>Question 1</h2>
               Question:
-              <input type="text" name="quizname"></input>
-              <br />
+            <input type="text" name="quizname" />
+            <br />
               Answer 1:
-              <input type="text" name="quizname"></input>Correct Answer?
-              <input
-                type="checkbox"
-                name="correctanswer"
-                value="correctanswer"
-              ></input>
+            <input type="text" name="quizname" />
+Correct Answer?
+            <input
+              type="checkbox"
+              name="correctanswer"
+              value="correctanswer"
+            />
               Answer 2:
-              <input type="text" name="quizname"></input>
+            <input type="text" name="quizname" />
               Correct Answer?
-              <input
-                type="checkbox"
-                name="correctanswer"
-                value="correctanswer"
-              ></input>
+            <input
+              type="checkbox"
+              name="correctanswer"
+              value="correctanswer"
+            />
               Answer 3:
-              <input type="text" name="quizname"></input>
+            <input type="text" name="quizname" />
               Correct Answer?
-              <input
-                type="checkbox"
-                name="correctanswer"
-                value="correctanswer"
-              ></input>
+            <input
+              type="checkbox"
+              name="correctanswer"
+              value="correctanswer"
+            />
               Answer 4:
-              <input type="text" name="quizname"></input>
+            <input type="text" name="quizname" />
               Correct Answer?
-              <input
-                type="checkbox"
-                name="correctanswer"
-                value="correctanswer"
-              ></input>
-            </div>
+            <input
+              type="checkbox"
+              name="correctanswer"
+              value="correctanswer"
+            />
           </div>
-        </form>
-        <Link to="/Admin/AdminQuizList">
-          <button type="submit" class="btn">
+        </div>
+      </form>
+      <Link to="/Admin/AdminQuizList">
+        <button type="submit" className="btn">
             Save Quiz
-          </button>
-        </Link>
-      </Container>
-    </div>
-  );
-};
+        </button>
+      </Link>
+    </Container>
+  </div>
+);
 export default AdminQuizMaker;

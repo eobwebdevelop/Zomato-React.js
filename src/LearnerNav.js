@@ -1,10 +1,13 @@
-import React from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import DropdownSelector from "./DropdownSelector";
+import React, { useContext } from 'react';
+import { Navbar, Nav } from 'react-bootstrap';
+import DropdownSelector from './LanguageSelector';
+import './LearnerNav.css';
+import LanguagesContext, { availableLanguages } from './contexts/languages-context';
+import translations from './i18n/translations';
 
-import "./LearnerNav.css";
 
 const LearnerNav = () => {
+  const { currentLanguage } = useContext(LanguagesContext);
   return (
     <div>
       {/* Example */}
@@ -17,22 +20,22 @@ const LearnerNav = () => {
         <Navbar.Collapse id="learner-basic-navbar-nav">
           <Nav className="mr-auto learner-navlinks">
             <Nav.Link href="/Learners/SignUp/SignUp">
-              <a class="grey-link">Sign Up</a>
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkS}</a>
             </Nav.Link>
             <Nav.Link href="/Learners/LogIn/LogIn">
-              <a class="grey-link">Login</a>
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkL}</a>
             </Nav.Link>
             <Nav.Link href="/Learners/QuizList/QuizList">
-              <a class="grey-link">All Quizzes</a>
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkQ}</a>
             </Nav.Link>
             <Nav.Link href="/Learners/FAQ/FAQ">
-              <a class="grey-link">FAQ</a>
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkF}</a>
             </Nav.Link>
             <Nav.Link href="/Learners/ContactUs/ContactUs">
-              <a class="grey-link">Contact</a>
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkC}</a>
             </Nav.Link>
             <Nav.Link href="/Admin/AdminAppLogin">
-              <a class="grey-link">Admin Portal</a>
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkA}</a>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

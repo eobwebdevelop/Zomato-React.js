@@ -1,37 +1,43 @@
-import React from "react";// { Component } 
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
+
 
 const LogIn = () => {
+  const { currentLanguage } = useContext(LanguagesContext);
   return (
     <div>
       <Container>
-        <div class="formparentcontainer">
-          <div class="formchildcontainer">
-            <h1 id="h1-login">Quiz</h1>
+        <div className="formparentcontainer">
+          <div className="formchildcontainer">
+            <h1 id="h1-login">{translations[currentLanguage].Login.Title}</h1>
             <hr />
             <form>
-              <input type="text" title="username" placeholder=" Username" />
+              <input type="text" title="username" placeholder={translations[currentLanguage].Login.PlaceholderU} />
               <br />
-              <input type="password" title="username" placeholder=" Password" />
+              <input type="password" title="username" placeholder={translations[currentLanguage].Login.PlaceholderP} />
               <br />
               <Link to="/Learners/QuizList/QuizList">
-                <button type="submit" class="btn-login">
-                  Login
+                <button type="submit" className="btn-login">
+                  {translations[currentLanguage].Login.ButtonL}
                 </button>
               </Link>
             </form>
           </div>
-          <div class="forgotpassword-signup">
+          <div className="forgotpassword-signup">
             <Link to="/Learners/LogIn/ForgotPassword">
               <a id="forgotpassword" href="/Learners/LogIn/ForgotPassword">
-                Forgot password? <br />
+                {translations[currentLanguage].Login.Forgot}
+                <br />
               </a>
             </Link>
-            Don't have an account?{" "}
+            {translations[currentLanguage].Login.Account}
+            {' '}
             <Link to="/Learners/SignUp/SignUp">
               <a id="signup" href="">
-                Sign-Up
+                {translations[currentLanguage].Login.ButtonS}
               </a>
             </Link>
           </div>

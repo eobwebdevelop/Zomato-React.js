@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 // import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Select from "react-select";
+import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
 
 
@@ -86,17 +88,18 @@ componentDidMount(){
   render() {
     
     return (
-      <>
+      <LanguagesContext.Consumer>
+        {({ currentLanguage, onChangeLanguage }) => (
         <Container>
           <div class="formparentcontainer">
-            <h1 id="h1-login"> Sign-Up </h1>
+            <h1 id="h1-login"> {translations[currentLanguage].SignUp.Title} </h1>
             <hr />
             <form class="signup-form" onSubmit={this.handlerSubmit}>
-              <h5>Personal Details:</h5>
-              <input type="text" name="firstname" placeholder=" First Name*" required onChange={this.updateFirstname} /> 
-              <input type="text" name="last name" placeholder=" Last Name*"  required onChange={this.updateLastName}/>
-              <input type="email" name="email" placeholder=" Email*" required onChange={this.updateEmail}/>
-              <input type="text" name="phone" placeholder=" Phone Number" onChange={this.updateNumber}/>
+              <h5>{translations[currentLanguage].SignUp.SubtitleD}</h5>
+              <input type="text" name="firstname" placeholder={translations[currentLanguage].SignUp.PlaceholderF} required onChange={this.updateFirstname} /> 
+              <input type="text" name="lastname" placeholder={translations[currentLanguage].SignUp.PlaceholderL}  required onChange={this.updateLastName}/>
+              <input type="email" name="email" placeholder={translations[currentLanguage].SignUp.PlaceholderE} required onChange={this.updateEmail}/>
+              <input type="text" name="phone" placeholder={translations[currentLanguage].SignUp.PlaceholderN} onChange={this.updateNumber}/>
               <br /> <br />
               <h5>Restaurant:</h5>
               <Select
@@ -106,23 +109,30 @@ componentDidMount(){
                 classNamePrefix="select"
                 options={this.state.restaurants.map((item) => ({value: item.id, label: item.name}))}
                 />
+
               <br /> <br />
-              <h5>Password:</h5>
-              <input type="password" name="password" placeholder=" Password*" onChange={this.updatePassword}/>
+              <h5>{translations[currentLanguage].SignUp.SubtitleP}</h5>
+              <input 
+                type="password"
+                name="password" 
+                placeholder={translations[currentLanguage].SignUp.PlaceholderP} 
+                onChange={this.updatePassword}
+              />
               <br />
               <input
                 type="password"
                 name="password"
-                placeholder="Confirm Password*"
+                placeholder={translations[currentLanguage].SignUp.PlaceholderC} 
               />
               <br />
                 <button type="submit" class="btn-login">
-                  Sign-Up
+                {translations[currentLanguage].SignUp.Button}
                 </button>
             </form>
           </div>
         </Container>
-      </>
+      )}
+      </LanguagesContext.Consumer>
     );
   }
 }

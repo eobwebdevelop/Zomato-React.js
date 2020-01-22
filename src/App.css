@@ -192,8 +192,9 @@ button:disabled {
   font-size: 20px;
   margin: 2% 0;}
 /*--//Timer--*/
-/* Admin - Documentation Editor.*/
 
-.documentation-editor {
-  height: 20em;
+/*-----Lenguage Selector -----*/
+select.ui.button.floating.labeled.search.dropdown.icon {
+  width: 8%;
+  min-width: 80px;
 }

@@ -1,6 +1,8 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import './AdminDocEditor';
+
 
 class AdminAppLogin extends Component {
   render() {
@@ -18,14 +20,14 @@ class AdminAppLogin extends Component {
               <Link to="/Admin/AdminQuizList">
                 <button type="submit" className="btn-login">
                   Login
-                </button>
-              </Link>
-            </form>
-          </div>
-        </div>
-      </Container>
-    );
-  }
+            </button>
+          </Link>
+        </form>
+      </div>
+    </div>
+  </Container>
+);
+}
 }
 
 export default AdminAppLogin;
