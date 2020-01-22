@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 // import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import DropDown from "./DropDown.js";
+import Select from "react-select";
 
 
 
@@ -16,42 +16,26 @@ class SignUp extends Component  {
       password: 'holi',
       phone_number: '99333883',
       restaurant_id: '',
-      user_type_id: '',
-      user_type: [{ id:0, name:"" }],
+      user_type_id: '2',
       restaurants: [{id:0, name:''}],
+      displayresto: '',
     }
   }
 
 
-getUserType = () => {
-  fetch('http://localhost:3000/admin/user/type')
-    .then(response => response.json())
-    .then(data => {
-      this.setState( (state) => ({ 
-        ...state,
-        user_type: data.user_type,
-      }))
-    })
-};
-
-
-getRestaurants= () => {
+getRestaurants = () => {
   fetch('http://localhost:3000/admin/restaurant')
     .then(response => response.json())
     .then(data => {
       this.setState( (state) => ({ 
         ...state,
-        restaurants: data.Restaurant
+        restaurants: data.Restaurant,
       }))
     })
 };
-
 componentDidMount(){
-  this.getUserType();
   this.getRestaurants();
 };
-
-
 
 
   updateFirstname = (event) => {
@@ -74,11 +58,10 @@ componentDidMount(){
   //Fix the selectors
   
   updateRestaurant = (item) => {
-    this.setState({restaurant_id: item})
-  }
-  updateUserType = (item) => {
-    this.setState({user_type_id: item})
-  }
+    this.setState({restaurant_id: item.value,
+    displayresto: item})
+}
+
 
   handlerSubmit = (e) => {
     const { first_name, last_name, email, password, phone_number, user_type_id, restaurant_id } = this.state
@@ -101,7 +84,6 @@ componentDidMount(){
 
 
   render() {
-    console.log(this.state.restaurant_id)
     
     return (
       <>
@@ -116,20 +98,14 @@ componentDidMount(){
               <input type="email" name="email" placeholder=" Email*" required onChange={this.updateEmail}/>
               <input type="text" name="phone" placeholder=" Phone Number" onChange={this.updateNumber}/>
               <br /> <br />
-              <h5>Location:</h5>
-              <DropDown 
-                restaurants={this.state.restaurants} 
-                handleRestaurant={this.updateRestaurant}
-                chosenRestaurant={this.state.restaurant_id}
-
-                userType={this.state.user_type}
-                ChosenType={this.state.user_type_id}
-                handleUserType={this.updateUserType} />
-              <input
-                type="text"
-                name="restaurant"
-                placeholder=" Restaurant (If applicable)"
-              />
+              <h5>Restaurant:</h5>
+              <Select
+                placeholder = "Select your Restaurant"
+                value = {this.state.displayresto}
+                onChange={this.updateRestaurant}
+                classNamePrefix="select"
+                options={this.state.restaurants.map((item) => ({value: item.id, label: item.name}))}
+                />
               <br /> <br />
               <h5>Password:</h5>
               <input type="password" name="password" placeholder=" Password*" onChange={this.updatePassword}/>

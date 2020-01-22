@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 // import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import Select from "react-select"
+import Select from "react-select";
 
 
 
@@ -11,9 +11,11 @@ class AdminRestaurantEditor extends Component  {
       this.state = {
         name: '',
         region_id:'',
-        restaurant_id: '',
+        id: '',
+        displayresto: '',
+        displayregion: '',
         region: [{id:0, value:''}],
-        restaurants: [{id:0, value:''}],
+        restaurants: [],
       }
     }
     getRegion = () => {
@@ -45,24 +47,30 @@ class AdminRestaurantEditor extends Component  {
 
     updateRegion = (item) => {
       console.log(item)
-      this.setState({region_id: item})
+      this.setState({region_id: item.value,
+      displayregion:item })
     }
 
     updateRestaurant = (item) => {
-      this.setState({restaurant_id: item})
+      this.setState({id: item.value,
+      displayresto: item})
+  }
+
+  updateName = (event) => {
+    this.setState({name: event.target.value})
   }
 
   handlerSubmit = (e) => {
-    const { restaurant_id, region_id, name } = this.state
+    const { id, name, region_id } = this.state
     e.preventDefault();
-    console.log("the form has been submited with these fields:", restaurant_id, region_id,  );
-    fetch("http://localhost:3000/auth/restaurant/edit",
+    console.log("the form has been submited with these fields:", id, name, region_id);
+    fetch("http://localhost:3000/admin/restaurant/edit",
     {
-        method:  'POST',
+        method:  'PUT',
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify(restaurant_id, region_id, name),
+        body:  JSON.stringify(id, name, region_id),
     })
     .then(res  =>  res.json())
     .then(
@@ -72,7 +80,6 @@ class AdminRestaurantEditor extends Component  {
   }
 
   render() {
-    console.log(this.state.region_id)
     return (
       <>
         <Container>
@@ -83,7 +90,7 @@ class AdminRestaurantEditor extends Component  {
               <h5>Restaurant Details</h5>
               <Select
                 placeholder = "Select your Restaurant"
-                value = {this.state.restaurant_id}
+                value = {this.state.displayresto}
                 onChange={this.updateRestaurant}
                 classNamePrefix="select"
                 options={this.state.restaurants.map((item) => ({value: item.id, label: item.name}))}
@@ -91,7 +98,7 @@ class AdminRestaurantEditor extends Component  {
                 <input type="text" name="name" placeholder="Restaurant Name Change" required onChange={this.updateName} /> 
               <Select
                 placeholder = "Select your Region" // change placeholder to the current region based on restaurant 
-                value = {this.state.region_id}
+                value = {this.state.displayregion}
                 onChange={this.updateRegion}
                 classNamePrefix="select"
                 options={this.state.region.map((item) => ({value: item.id, label: item.name}))} 
