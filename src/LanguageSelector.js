@@ -9,8 +9,6 @@ const LanguageSelector = () => {
 
   return (
     <>
-      <Link to="/">{translations[currentLanguage].back}</Link>
-      <h1>{translations[currentLanguage].settings}</h1>
       <select
         name="language"
         defaultValue={currentLanguage}
