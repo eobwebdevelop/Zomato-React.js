@@ -192,3 +192,9 @@ button:disabled {
   font-size: 20px;
   margin: 2% 0;}
 /*--//Timer--*/
+
+/*-----Lenguage Selector -----*/
+select.ui.button.floating.labeled.search.dropdown.icon {
+  width: 8%;
+  min-width: 80px;
+}

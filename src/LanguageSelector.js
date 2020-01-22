@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import LanguagesContext, { availableLanguages } from './contexts/languages-context';
 import translations from './i18n/translations';
+import { Dropdown } from 'semantic-ui-react';
 
 
 const LanguageSelector = () => {
@@ -9,17 +10,18 @@ const LanguageSelector = () => {
 
   return (
     <>
-      <select
-        name="language"
-        defaultValue={currentLanguage}
-        onChange={onChangeLanguage}
-      >
-        {
-                    Object.values(availableLanguages).map((lang) => (
-                      <option key={lang} value={lang}>{lang}</option>
-                    ))
-                }
-      </select>
+        <select
+          name="language"
+          defaultValue={currentLanguage}
+          onChange={onChangeLanguage}
+          className="ui button floating labeled search dropdown icon"
+        >
+          {
+                      Object.values(availableLanguages).map((lang) => (
+                        <option key={lang} value={lang}>{lang}</option>
+                      ))
+                  }
+        </select>
     </>
   );
 };

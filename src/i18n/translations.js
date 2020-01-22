@@ -1,5 +1,5 @@
 const Translations = {
-  en: {
+  English: {
     LearnerNav: {
       LinkS: 'Sign Up',
       LinkL: 'Login',
