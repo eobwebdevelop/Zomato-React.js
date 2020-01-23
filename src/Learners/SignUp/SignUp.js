@@ -12,15 +12,23 @@ class SignUp extends Component  {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: 'elena',
-      last_name: 'ortega',
-      email: 'elena@hola.com',
-      password: 'holi',
-      phone_number: '99333883',
+      first_name: '',
+      first_nameError: '',
+      last_name: '',
+      last_nameError: '',
+      email: '',
+      emailError: '',
+      phone_number: '',
+      phone_numberError: '',
+      password: '',
+      passwordError: '',
+      confPassword: '',
+      confPasswordError: '',
       restaurant_id: '',
-      user_type_id: '2',
+      restaurantError: '',
       restaurants: [{id:0, name:''}],
       displayresto: '',
+      flash: 'hola'
     }
   }
 
@@ -40,22 +48,59 @@ componentDidMount(){
 };
 
 
-  updateFirstname = (event) => {
-    this.setState({first_name: event.target.value})
-  }
-  updateLastName = (event) => {
-    this.setState({last_name: event.target.value})
-  }
-  updateEmail = (event) => {
-    this.setState({email: event.target.value})
-  }
-  updateNumber = (event) => {
-    this.setState({phone_number: event.target.value})
-  }
+inputHandeler = e => {
+  this.setState({
+    [e.target.name]: e.target.value
+  });
+};
 
-  updatePassword = (event) => {
-    this.setState({password: event.target.value})
-  }
+
+//validate 
+
+validate = () => {
+   let isError = false;
+   const errors = {
+    first_nameError: "",
+    last_nameError: "",
+    emailError: "",
+    phone_numberError: "",
+    restaurantError: "",
+    passwordError: "",
+    confPasswordError: ""
+  };
+
+   if (this.state.first_name.length == '') {
+    isError = true;
+    errors.first_nameError = "Fill your name, please";
+  } else if (this.state.last_name.length == '') {
+    isError = true;
+    errors.last_nameError = "Fill your last name, please";
+  } else if (this.state.email.indexOf("@") === -1) {
+    isError = true;
+    errors.emailError = "Requires valid email";
+  } else if (this.state.phone_number == '') {
+    isError = true;
+    errors.phone_numberError = "Fill your phone, please";
+  } else if (this.state.restaurant_id == '') {
+    isError = true;
+    errors.restaurantError = "Fill your restaurant, please";
+  } else if (this.state.password == '') {
+      isError = true;
+      errors.passwordError = "Fill password, please";
+  } else if (this.state.password !== this.state.confPassword) {
+      isError = true;
+      errors.confPasswordError = "Passwords need to match";
+  } 
+    
+    this.setState({
+      ...this.state,
+      ...errors
+    });
+
+    return isError;
+}
+
+
   
   //Fix the selectors
   
@@ -66,22 +111,26 @@ componentDidMount(){
 
 
   handlerSubmit = (e) => {
-    const { first_name, last_name, email, password, phone_number, user_type_id, restaurant_id } = this.state
+    const { first_name, last_name, email, password, phone_number, restaurant_id } = this.state
+    console.log(first_name, last_name, email, password, phone_number, restaurant_id)
     e.preventDefault();
-    console.log("the form has been submited with these fields:", first_name, last_name, email, password, phone_number, user_type_id.id );
-    fetch("http://localhost:3000/auth/signup",
-    {
-        method:  'POST',
-        headers:  new Headers({
-                'Content-Type':  'application/json'
-        }),
-        body:  JSON.stringify(first_name, last_name, email, password, phone_number, user_type_id.id, restaurant_id.restaurant_id),
-    })
-    .then(res  =>  res.json())
-    .then(
-        res  =>  this.setState({"flash":  res.flash}),
-        err  =>  this.setState({"flash":  err.flash})
-    ) 
+    const err = this.validate();
+    if (!err) {
+      fetch("http://localhost:3000/auth/signup",
+      {
+          method:  'POST',
+          headers:  new Headers({
+                  'Content-Type':  'application/json'
+          }),
+          body:  JSON.stringify({first_name, last_name, email, password, phone_number, restaurant_id}),
+      })
+      .then(res  =>  res.json())
+      .then(
+          res  =>  this.setState({"flash":  res.flash}),
+          err  =>  this.setState({"flash":  err.flash})
+      )
+    }
+
   }
 
 
@@ -96,10 +145,14 @@ componentDidMount(){
             <hr />
             <form class="signup-form" onSubmit={this.handlerSubmit}>
               <h5>{translations[currentLanguage].SignUp.SubtitleD}</h5>
-              <input type="text" name="firstname" placeholder={translations[currentLanguage].SignUp.PlaceholderF} required onChange={this.updateFirstname} /> 
-              <input type="text" name="lastname" placeholder={translations[currentLanguage].SignUp.PlaceholderL}  required onChange={this.updateLastName}/>
-              <input type="email" name="email" placeholder={translations[currentLanguage].SignUp.PlaceholderE} required onChange={this.updateEmail}/>
-              <input type="text" name="phone" placeholder={translations[currentLanguage].SignUp.PlaceholderN} onChange={this.updateNumber}/>
+              <input type="text" name="first_name" placeholder={translations[currentLanguage].SignUp.PlaceholderF} onChange={e => this.inputHandeler(e)} /> 
+              {this.state.first_nameError}
+              <input type="text" name="last_name" placeholder={translations[currentLanguage].SignUp.PlaceholderL}  onChange={e => this.inputHandeler(e)}/>
+              {this.state.last_nameError}
+              <input type="email" name="email" placeholder={translations[currentLanguage].SignUp.PlaceholderE} onChange={e => this.inputHandeler(e)}/>
+              {this.state.emailError}
+              <input type="text" name="phone_number" placeholder={translations[currentLanguage].SignUp.PlaceholderN} onChange={e => this.inputHandeler(e)}/>
+              {this.state.phone_numberError}
               <br /> <br />
               <h5>Restaurant:</h5>
               <Select
@@ -109,25 +162,29 @@ componentDidMount(){
                 classNamePrefix="select"
                 options={this.state.restaurants.map((item) => ({value: item.id, label: item.name}))}
                 />
-
+                {this.state.restaurantError}
               <br /> <br />
               <h5>{translations[currentLanguage].SignUp.SubtitleP}</h5>
               <input 
                 type="password"
                 name="password" 
                 placeholder={translations[currentLanguage].SignUp.PlaceholderP} 
-                onChange={this.updatePassword}
+                onChange={e => this.inputHandeler(e)}
               />
+              {this.state.passwordError}
               <br />
               <input
                 type="password"
-                name="password"
-                placeholder={translations[currentLanguage].SignUp.PlaceholderC} 
+                name="confPassword"
+                placeholder={translations[currentLanguage].SignUp.PlaceholderC}
+                onChange={e => this.inputHandeler(e)}
               />
+              {this.state.confPasswordError}
               <br />
                 <button type="submit" class="btn-login">
                 {translations[currentLanguage].SignUp.Button}
                 </button>
+                {this.state.flash}
             </form>
           </div>
         </Container>
