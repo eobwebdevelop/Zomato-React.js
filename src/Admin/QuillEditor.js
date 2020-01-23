@@ -15,7 +15,6 @@ const QuillEditor = () => {
       [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
       ['link', 'image'],
       ['clean'],
-      [{ counter: true }],
     ],
   };
 
@@ -55,8 +54,6 @@ const QuillEditor = () => {
       deleteFromCloudinary();
     }
   };
-
-  console.log('env ', process.env.REACT_APP_TEST);
 
   return (
     <div className="text-editor">
