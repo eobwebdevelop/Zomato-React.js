@@ -1,109 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
 
-const AdminDocList = () => (
-  <div>
+const AdminDocList = () => {
+  const [allDocs, setAllDocs] = useState([]);
+
+  const getAllDocs = () => {
+    fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
+      .then((response) => response.json())
+      .then((data) => {
+        setAllDocs(data.Documentation);
+      });
+  };
+
+  useEffect(() => {
+    getAllDocs();
+  }, []);
+
+  return (
     <Container>
-      <h1>Manage Documentation</h1>
-      <hr />
-      <p>
-          You are viewing a list of documentation available to edit or add
-          documentation to.
-      </p>
       <Link to="/Admin/AdminDocEditor">
         <button type="submit" className="btn">
-            Add Documentation
+          Add New Documentation
         </button>
       </Link>
       <br />
       <Link to="/">
         <button type="submit" className="btn">
-            Export Data
+          Export Data
         </button>
       </Link>
-
-      <table className="tftable" border="1">
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Staff(?) Type</th>
-          <th>Product</th>
-          <th>Language</th>
-          <th>Edit Documentation?</th>
-          <th>Delete</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Zomato Gold - Introduction</td>
-          <td>Restauranters</td>
-          <td>Zomato Gold</td>
-          <td>English</td>
-          <td>
-            <a
-              className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminDocEditor"
-            >
-                Edit Documentation ►
-            </a>
-          </td>
-          <td>
-            <a
-              className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminDocList"
-            >
-                Delete Quiz ►
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Zomato Gold - Introduction</td>
-          <td>Restauranters</td>
-          <td>Zomato Gold</td>
-          <td>English</td>
-          <td>
-            <a
-              className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminDocEditor"
-            >
-                Edit Documentation ►
-            </a>
-          </td>
-          <td>
-            <a
-              className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminDocList"
-            >
-                Delete Quiz ►
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Zomato Gold - Introduction</td>
-          <td>Restauranters</td>
-          <td>Zomato Gold</td>
-          <td>English</td>
-          <td>
-            <a
-              className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminDocEditor"
-            >
-                Edit Documentation ►
-            </a>
-          </td>
-          <td>
-            <a
-              className="view-quizzes-page-links-side-by-side"
-              href="/Admin/AdminDocList"
-            >
-                Delete Quiz ►
-            </a>
-          </td>
-        </tr>
-      </table>
+      <div>
+        {
+        allDocs.map((doc, key) => (
+          <div key={key}>
+            <h1>
+              {doc.title}
+            </h1>
+            <div>
+              {ReactHtmlParser(doc.content)}
+            </div>
+            <h5>{doc.language_name}</h5>
+            <h5>{doc.product_name}</h5>
+          </div>
+        ))
+          }
+      </div>
     </Container>
-  </div>
-);
+  );
+};
+
 export default AdminDocList;

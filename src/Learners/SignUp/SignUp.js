@@ -154,9 +154,9 @@ validate = () => {
               <input type="text" name="phone_number" placeholder={translations[currentLanguage].SignUp.PlaceholderN} onChange={e => this.inputHandeler(e)}/>
               {this.state.phone_numberError}
               <br /> <br />
-              <h5>Restaurant:</h5>
+              <h5>{translations[currentLanguage].SignUp.SubtitleR}</h5>
               <Select
-                placeholder = "Select your Restaurant"
+                placeholder = {translations[currentLanguage].SignUp.PlaceholderS}
                 value = {this.state.displayresto}
                 onChange={this.updateRestaurant}
                 classNamePrefix="select"

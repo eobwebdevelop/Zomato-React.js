@@ -7,20 +7,21 @@ import translations from './i18n/translations';
 
 const LanguageSelector = () => {
   const { currentLanguage, onChangeLanguage } = useContext(LanguagesContext);
+  console.log('languageselector', currentLanguage);
 
   return (
     <>
       <select
         name="language"
-        defaultValue={currentLanguage}
+        value={currentLanguage}
         onChange={onChangeLanguage}
         className="ui button floating labeled search dropdown icon"
       >
         {
-                      Object.values(availableLanguages).map((lang) => (
-                        <option key={lang} value={lang}>{lang}</option>
-                      ))
-                  }
+          Object.values(availableLanguages).map((lang) => (
+            <option key={lang} value={lang}>{translations[lang].Full}</option>
+          ))
+      }
       </select>
     </>
   );
