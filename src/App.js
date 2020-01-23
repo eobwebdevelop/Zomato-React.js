@@ -16,6 +16,8 @@ import AdminUserConfig from "./Admin/AdminUserConfig";
 import AdminEditUser from "./Admin/AdminEditUser";
 import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminDocList from './Admin/AdminDocList';
+import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
+
 
 
 // Learner portal imports
@@ -145,6 +147,16 @@ class App extends Component {
             </>
           )}
         />
+         <Route
+        exact
+        path="/Admin/AdminRestaurantCreator"
+        render={() => (
+          <>
+            <AdminNav />
+            <AdminRestaurantCreator />
+          </>
+        )}
+      />
         <Route
         exact
         path="/Admin/AdminRestaurantEditor"
