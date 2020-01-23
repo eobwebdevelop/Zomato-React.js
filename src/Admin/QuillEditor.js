@@ -3,8 +3,8 @@ import ReactQuill from 'react-quill';
 
 import 'react-quill/dist/quill.snow.css';
 
-const QuillEditor = () => {
-  const [text, setText] = useState('');
+const QuillEditor = (onChangeContent) => {
+  // const [text, setText] = useState('');
   const [lastUploadedFile, setLastUploadedFile] = useState({});
 
   const quillModules = {
@@ -46,21 +46,22 @@ const QuillEditor = () => {
     );
   };
 
-  const handleChange = (value, delta) => {
-    setText(value);
-    if (delta.ops[0].insert) {
-      uploadToCloudinary(delta.ops[0].insert.image);
-    } else if (delta.ops[0].delete) {
-      deleteFromCloudinary();
-    }
-  };
+  // const onChangeContent = (value, delta) => {
+  //   setText(value);
+  //   if (delta.ops[0].insert) {
+  //     uploadToCloudinary(delta.ops[0].insert.image);
+  //   } else if (delta.ops[0].delete) {
+  //     deleteFromCloudinary();
+  //   }
+  // };
 
+  console.log(text);
   return (
     <div className="text-editor">
       <ReactQuill
         modules={quillModules}
         value={text}
-        onChange={handleChange}
+        onChange={onChangeContent}
       />
     </div>
   );
