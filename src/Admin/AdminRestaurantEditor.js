@@ -70,7 +70,7 @@ class AdminRestaurantEditor extends Component  {
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify(id, name, region_id),
+        body:  JSON.stringify({id, name, region_id}),
     })
     .then(res  =>  res.json())
     .then(
