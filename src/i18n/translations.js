@@ -1,5 +1,6 @@
 const Translations = {
-  English: {
+  en: {
+    Full: 'English',
     LearnerNav: {
       LinkS: 'Sign Up',
       LinkL: 'Login',
@@ -73,7 +74,8 @@ const Translations = {
       Title: 'Sign-Up',
       SubtitleD: 'Personal Details',
       SubtitleL: 'Location:',
-      SutitleI: 'ZomatoInformation:',
+      SubtitleI: 'ZomatoInformation:',
+      SubtitleR: 'Restaurant:',
       PlaceholderF: ' First Name*',
       PlaceholderL: ' Last Name*',
       PlaceholderE: ' Email*',
@@ -81,6 +83,7 @@ const Translations = {
       PlaceholderA: ' Are you a...*',
       PlaceholderY: ' Your region',
       PlaceholderR: ' Restaurant (if applicable)',
+      PlaceholderS: ' Select your Restaurant',
       SubtitleP: 'Password:',
       PlaceholderP: ' Password*',
       PlaceholderC: ' Confirm Password*',
@@ -89,6 +92,7 @@ const Translations = {
   },
 
   pt: {
+    Full: 'Português',
     LearnerNav: {
       LinkS: 'Sign Up (portuguese translation plz)',
       LinkL: 'Login (portuguese translation plz)',
@@ -163,7 +167,8 @@ const Translations = {
       Title: 'Sign-Up (portuguese translation plz)',
       SubtitleD: 'Personal Details (portuguese translation plz)',
       SubtitleL: 'Location:(portuguese translation plz)',
-      SutitleI: 'ZomatoInformation:(portuguese translation plz)',
+      SubtitleI: 'ZomatoInformation:(portuguese translation plz)',
+      SubtitleR: 'Restaurant:(portuguese translation plz)',
       PlaceholderF: ' First Name* (portuguese translation plz)',
       PlaceholderL: ' Last Name* (portuguese translation plz)',
       PlaceholderE: ' Email* (portuguese translation plz)',
@@ -172,6 +177,7 @@ const Translations = {
       PlaceholderY: ' Your region(portuguese translation plz)',
       PlaceholderR: ' Restaurant (if applicable) (portuguese translation plz)',
       SubtitleP: 'Password: (portuguese translation plz)',
+      PlaceholderS: ' Select your Restaurant (portuguese translation plz)',
       PlaceholderP: ' Password* (portuguese translation plz)',
       PlaceholderC: ' Confirm Password* (portuguese translation plz)',
       Button: 'Sign-Up (portuguese translation plz)',

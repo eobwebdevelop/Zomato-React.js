@@ -7,21 +7,22 @@ import { Dropdown } from 'semantic-ui-react';
 
 const LanguageSelector = () => {
   const { currentLanguage, onChangeLanguage } = useContext(LanguagesContext);
+  console.log('languageselector', currentLanguage);
 
   return (
     <>
-        <select
-          name="language"
-          defaultValue={currentLanguage}
-          onChange={onChangeLanguage}
-          className="ui button floating labeled search dropdown icon"
-        >
-          {
-                      Object.values(availableLanguages).map((lang) => (
-                        <option key={lang} value={lang}>{lang}</option>
-                      ))
-                  }
-        </select>
+      <select
+        name="language"
+        value={currentLanguage}
+        onChange={onChangeLanguage}
+        className="ui button floating labeled search dropdown icon"
+      >
+        {
+          Object.values(availableLanguages).map((lang) => (
+            <option key={lang} value={lang}>{translations[lang].Full}</option>
+          ))
+      }
+      </select>
     </>
   );
 };
