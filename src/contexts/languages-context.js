@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 export const availableLanguages = {
-  English: 'English',
+  en: 'en',
   pt: 'pt',
 };
 

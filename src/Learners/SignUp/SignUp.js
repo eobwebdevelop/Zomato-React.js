@@ -101,9 +101,9 @@ componentDidMount(){
               <input type="email" name="email" placeholder={translations[currentLanguage].SignUp.PlaceholderE} required onChange={this.updateEmail}/>
               <input type="text" name="phone" placeholder={translations[currentLanguage].SignUp.PlaceholderN} onChange={this.updateNumber}/>
               <br /> <br />
-              <h5>Restaurant:</h5>
+              <h5>{translations[currentLanguage].SignUp.SubtitleR}</h5>
               <Select
-                placeholder = "Select your Restaurant"
+                placeholder = {translations[currentLanguage].SignUp.PlaceholderS}
                 value = {this.state.displayresto}
                 onChange={this.updateRestaurant}
                 classNamePrefix="select"
