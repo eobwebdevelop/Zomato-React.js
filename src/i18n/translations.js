@@ -1,5 +1,6 @@
 const Translations = {
-  English: {
+  en: {
+    Full: 'English',
     LearnerNav: {
       LinkS: 'Sign Up',
       LinkL: 'Login',
@@ -73,7 +74,8 @@ const Translations = {
       Title: 'Sign-Up',
       SubtitleD: 'Personal Details',
       SubtitleL: 'Location:',
-      SutitleI: 'ZomatoInformation:',
+      SubtitleI: 'ZomatoInformation:',
+      SubtitleR: 'Restaurant:',
       PlaceholderF: ' First Name*',
       PlaceholderL: ' Last Name*',
       PlaceholderE: ' Email*',
@@ -81,6 +83,7 @@ const Translations = {
       PlaceholderA: ' Are you a...*',
       PlaceholderY: ' Your region',
       PlaceholderR: ' Restaurant (if applicable)',
+      PlaceholderS: ' Select your Restaurant',
       SubtitleP: 'Password:',
       PlaceholderP: ' Password*',
       PlaceholderC: ' Confirm Password*',
@@ -89,6 +92,7 @@ const Translations = {
   },
 
   pt: {
+    Full: 'Português',
     LearnerNav: {
       LinkS: 'Sign Up (portuguese translation plz)',
       LinkL: 'Login (portuguese translation plz)',
@@ -161,6 +165,7 @@ const Translations = {
 
     SignUp: {
       Title: 'Sign-Up (portuguese translation plz)',
+      
       SubtitleD: 'Informação pessoal',
       SubtitleL: 'Localização',
       SutitleI: 'ZomatoInformation:(portuguese translation plz)',
@@ -174,6 +179,7 @@ const Translations = {
       SubtitleP: 'Password: ',
       PlaceholderP: ' Password* ',
       PlaceholderC: ' Confirmar Password*',
+
       Button: 'Sign-Up (portuguese translation plz)',
     },
   },

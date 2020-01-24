@@ -70,7 +70,7 @@ class AdminRestaurantEditor extends Component  {
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify(id, name, region_id),
+        body:  JSON.stringify({id, name, region_id}),
     })
     .then(res  =>  res.json())
     .then(
@@ -84,18 +84,20 @@ class AdminRestaurantEditor extends Component  {
       <>
         <Container>
           <div className="formparentcontainer">
-            <h1 >You are editing a restaurant</h1>
+            <h1 > Restaurant name and region editor</h1>
             <hr />
             <form className="restaurant-editor" onSubmit={this.handlerSubmit}>
               <h5>Restaurant Details</h5>
               <Select
-                placeholder = "Select your Restaurant"
+                placeholder = "Select the Restaurant you want to edit"
                 value = {this.state.displayresto}
                 onChange={this.updateRestaurant}
                 classNamePrefix="select"
                 options={this.state.restaurants.map((item) => ({value: item.id, label: item.name}))}
                 />
-                <input type="text" name="name" placeholder="Restaurant Name Change" required onChange={this.updateName} /> 
+                <input type="text" name="name" placeholder="Restaurant new name" required onChange={this.updateName} /> 
+                <hr />
+                <h5>Region </h5>
               <Select
                 placeholder = "Select your Region" // change placeholder to the current region based on restaurant 
                 value = {this.state.displayregion}
