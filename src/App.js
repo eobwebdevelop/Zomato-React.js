@@ -17,9 +17,10 @@ import AdminEditUser from "./Admin/AdminEditUser";
 import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminDocList from './Admin/AdminDocList';
 import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
-
-
-
+import AdminProductCreator from "./Admin/AdminProductCreator"
+import AdminHomePage from "./Admin/AdminHomePage";
+import AdminProductEditor from "./Admin/AdminProductEditor"
+import AdminProductList from "./Admin/AdminProductList";
 // Learner portal imports
 
 import LearnerNav from "./LearnerNav.js";
@@ -76,6 +77,16 @@ handleChangeLanguage = (e) => {
           exact
           path="/"
           render={() => <Redirect to="/Learners/LogIn/LogIn"></Redirect>}
+        />
+         <Route
+          exact
+          path="/Admin"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminHomePage />
+            </>
+          )}
         />
 
         <Route
@@ -175,6 +186,36 @@ handleChangeLanguage = (e) => {
           <>
             <AdminNav />
             <AdminRestaurantEditor />
+          </>
+        )}
+      />
+      <Route
+        exact
+        path="/Admin/AdminProductList"
+        render={() => (
+          <>
+            <AdminNav />
+            <AdminProductList />
+          </>
+        )}
+      />
+       <Route
+        exact
+        path="/Admin/AdminProductCreator"
+        render={() => (
+          <>
+            <AdminNav />
+            <AdminProductCreator />
+          </>
+        )}
+      />
+       <Route
+        exact
+        path="/Admin/AdminProductEditor"
+        render={() => (
+          <>
+            <AdminNav />
+            <AdminProductEditor />
           </>
         )}
       />
