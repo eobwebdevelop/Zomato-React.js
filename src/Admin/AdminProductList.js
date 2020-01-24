@@ -3,30 +3,31 @@ import './AdminQuizList.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-class AdminQuizList extends Component {
+class AdminProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quizzes:[{id: 0, name: '',}],
+      products: [{id: 0, name: '', description: ''}],
     };
   }
 
-  getQuizzes = () => {
-    fetch('http://localhost:3000/admin/quiz')
+  getProducts = () => {
+    fetch('http://localhost:3000/admin/product')
       .then(response => response.json())
-      .then(data => { console.log(data)
+      .then(data => {
         this.setState( (state) => ({ 
-          quizzes: data.quiz,
+          ...state,
+          products: data.Product,
         }))
       })
   };
 
   componentDidMount(){
-    this.getQuizzes();
+    this.getProducts();
     }
 
   render() {
-      console.log(this.state.quizzes);
+      console.log(this.state.products)
     return (
       <div>
         <Container>
@@ -45,6 +46,7 @@ class AdminQuizList extends Component {
             Export Data
             </button>
           </Link>
+
           <table className="tftable" border="1">
             <tr>
               <th>Product id</th>
@@ -53,14 +55,15 @@ class AdminQuizList extends Component {
               <th>Edit Product</th>
               <th>Delete Product</th>
             </tr>
-             { this.state.quizzes.map((quiz) => {
+             { this.state.products.map((prod) => {
                 return (
             <tr>
-                <td>{quiz.id}</td>
-                <td>{quiz.name}</td>
+                <td>{prod.id}</td>
+                <td>{prod.name}</td>
+                <td>{prod.description}</td>
                 <td>
                     <a className="view-quizzes-page-links-side-by-side"
-                  href="/Admin/AdminProductEditor" > Edit Product ► </a>
+                  href={`/Admin/AdminProductEditor/${prod.id}`} > Edit Product ► </a>
                   </td>
                  <td>
                         <a className="view-quizzes-page-links-side-by-side"
@@ -70,10 +73,11 @@ class AdminQuizList extends Component {
         )}
         )
         }
+        
           </table>
         </Container>
       </div>
     );
   }
 }
-export default AdminQuizList;
+export default AdminProductList;

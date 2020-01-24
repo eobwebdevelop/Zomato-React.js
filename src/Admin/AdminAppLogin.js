@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import './AdminDocEditor';
+import './AdminDocEditor.css';
 
 
 class AdminAppLogin extends Component {
+
   render() {
     return (
       <Container>
@@ -26,8 +27,8 @@ class AdminAppLogin extends Component {
           </div>
         </div>
       </Container>
-    )
+    );
   }
-};
+}
 
 export default AdminAppLogin;

@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Dropdown } from 'semantic-ui-react';
 import LanguagesContext, { availableLanguages } from './contexts/languages-context';
 import translations from './i18n/translations';
-import { Dropdown } from 'semantic-ui-react';
 
 
 const LanguageSelector = () => {
   const { currentLanguage, onChangeLanguage } = useContext(LanguagesContext);
-  console.log('languageselector', currentLanguage);
 
   return (
     <>

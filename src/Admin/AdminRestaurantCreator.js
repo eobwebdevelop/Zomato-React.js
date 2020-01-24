@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 // import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Select from "react-select";
+import './AdminCreator.css';
+
 
 
 class AdminRestaurantCreator extends Component  {
@@ -62,10 +64,10 @@ class AdminRestaurantCreator extends Component  {
   render() {
     return (
         <Container>
-            <div class="formparentcontainer">
-            <h1 > Add a new Restaurant</h1>
+            <div className="formparentcontainer">
+            <h1  className="creator-title"> Add a new Restaurant</h1>
             <hr />
-            <form class="signup-form" onSubmit={this.handlerSubmit}>
+            <form class="restaurant-form" onSubmit={this.handlerSubmit}>
             <h5> Fill in the restaurant name </h5>
               <input type="text" name="name" placeholder= 'Restaurant Name' required onChange={this.updateName} /> 
               <br /> <br />
