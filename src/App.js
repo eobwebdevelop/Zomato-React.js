@@ -50,6 +50,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentLanguage: availableLanguages.pt,
+      token: '',
       quizzes: [{id:0, name:''}],
       products: [{id:0, name:'', description: ''}],
       users: [{id:0, first_name:''}],
@@ -145,12 +146,15 @@ getRestaurants = () => {
     this.getRestaurants()
     this.getRegion()
     this.getResults()
-    const json = localStorage.getItem('currentLanguage')
-    const currentLanguage = JSON.parse(json)
+    const currentLanguageJson = localStorage.getItem('currentLanguage')
+    const tokenJson = localStorage.getItem('token')
+    const currentLanguage = JSON.parse(currentLanguageJson)
+    const token = JSON.parse(tokenJson)
 
-    if (currentLanguage) {
-      this.setState({ currentLanguage })
-    }
+    this.setState({
+      currentLanguage: currentLanguage ? currentLanguage : availableLanguages.pt,
+      token: token ? token : ''
+    })
   }
 
   handleChangeLanguage = (e) => {
@@ -161,6 +165,7 @@ getRestaurants = () => {
   }
 
   render() {
+    console.log(this.state.token);
     const { currentLanguage, quizzes, products, users, restaurants, regions, results } = this.state;
 
     return (

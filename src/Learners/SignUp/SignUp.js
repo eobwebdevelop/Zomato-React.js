@@ -28,7 +28,7 @@ class SignUp extends Component  {
       restaurantError: '',
       restaurants: [{id:0, name:''}],
       displayresto: '',
-      flash: 'hola'
+      flash: ''
     }
   }
 
