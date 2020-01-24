@@ -22,6 +22,7 @@ import AdminProductEditor from "./Admin/AdminProductEditor"
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminRestaurantList from "./Admin/AdminRestaurantList";
+import AdminResultList from "./Admin/AdminResultList";
 // Learner portal imports
 
 import LearnerNav from "./LearnerNav.js";
@@ -53,7 +54,8 @@ class App extends Component {
       products: [{id:0, name:'', description: ''}],
       users: [{id:0, first_name:''}],
       restaurants: [{id:0, name: ''}],
-      region: [{id: 0, name: ''}]
+      regions: [{id: 0, name: ''}],
+      results: [{id: 0, name: ''}]
   }
 };
 
@@ -63,7 +65,19 @@ getRegion = () => {
     .then(data => {
       this.setState( (state) => ({ 
         ...state,
-        region: data.Region,
+        regions: data.Region,
+      }))
+    })
+};
+
+
+getResults = () => {
+  fetch('http://localhost:3000/admin/result')
+    .then(response => response.json())
+    .then(data => { console.log(data)
+      this.setState( (state) => ({ 
+        ...state,
+        results : data.Results,
       }))
     })
 };
@@ -107,7 +121,7 @@ getRestaurants = () => {
   getUsers = () => {
     fetch('http://localhost:3000/admin/user')
       .then(response => response.json())
-      .then(data => { console.log(data)
+      .then(data => { 
         this.setState( (state) => ({ 
           ...state,
           users: data.users,
@@ -130,6 +144,7 @@ getRestaurants = () => {
     this.getUsers()
     this.getRestaurants()
     this.getRegion()
+    this.getResults()
     const json = localStorage.getItem('currentLanguage')
     const currentLanguage = JSON.parse(json)
 
@@ -146,7 +161,7 @@ getRestaurants = () => {
   }
 
   render() {
-    const { currentLanguage, quizzes, products, users, restaurants, region } = this.state;
+    const { currentLanguage, quizzes, products, users, restaurants, regions, results } = this.state;
 
     return (
       
@@ -259,7 +274,7 @@ getRestaurants = () => {
             <AdminNav />
             <AdminRestaurantEditor 
             restaurants = { restaurants }
-            region = { region } />
+            regions = { regions } />
           </>
         )}
       />
@@ -313,6 +328,17 @@ getRestaurants = () => {
               <AdminNav />
               <AdminUserList
               users = {users} />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/Admin/AdminResultList"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminResultList
+              results = {results} />
             </>
           )}
         />
