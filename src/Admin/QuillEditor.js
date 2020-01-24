@@ -55,12 +55,12 @@ const QuillEditor = (onChangeContent) => {
   //   }
   // };
 
-  console.log(text);
+  // console.log(text);
   return (
     <div className="text-editor">
       <ReactQuill
         modules={quillModules}
-        value={text}
+        // value={text}
         onChange={onChangeContent}
       />
     </div>

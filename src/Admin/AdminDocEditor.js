@@ -135,7 +135,9 @@ const AdminDocEditor = () => {
           name="name"
           onChange={onChangeTitle}
         />
-        <QuillEditor onChangeContent={onChangeContent} //put text here />
+        <QuillEditor
+          onChangeContent={onChangeContent} // put text here
+        />
         <Link to="/Admin/AdminQuizList">
           <button
             type="submit"
