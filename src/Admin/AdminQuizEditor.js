@@ -1,9 +1,10 @@
+
 import React, {Component} from 'react';
 // import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import './AdminCreator.css';
 
-class AdminProductEditor extends Component  {
+class AdminQuizEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +28,7 @@ class AdminProductEditor extends Component  {
     const {name, description, id} = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:",  );
-    fetch("http://localhost:3000/admin/product/edit",
+    fetch("http://localhost:3000/admin/quiz/edit",
     {
         method:  'PUT',
         headers:  new Headers({
@@ -47,13 +48,14 @@ class AdminProductEditor extends Component  {
     return (
         <Container>
             <div className="formparentcontainer">
-            <h1 className="creator-title" > Add a new Product or Service</h1>
+            <h1 className="creator-title" > Add a new Quiz or Service</h1>
             <hr />
-            <form className="product-form" onSubmit={this.handlerSubmit}>
-            <h5> Fill in the product/service name </h5>
-            <input type="text" name="name" placeholder= 'Product Name' required onChange={this.updateName} /> 
-             <h5> Product/Service Description: </h5>
-             <textarea className ="product-description" onChange={this.updateDescription} value= {this.state.description} > </textarea> 
+            <form className="quiz-form" onSubmit={this.handlerSubmit}>
+            <h5> Fill in the Quiz name </h5>
+            <input type="text" name="name" placeholder= 'Quiz Name' required onChange={this.updateName} /> 
+             <h5> Question 1 </h5>
+             <textarea className ="question" onChange={this.updateDescription} value= {this.state.description} > </textarea>
+             <input type="text" name="name" placeholder= 'Correct Answer' required onChange={this.updateCorrectAnswer} />  
             <button type="submit" class="btn-login">
                 Submit
                 </button>
@@ -63,4 +65,5 @@ class AdminProductEditor extends Component  {
       )}
   }
 
-export default AdminProductEditor;
+
+export default AdminQuizEditor;

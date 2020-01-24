@@ -42,24 +42,20 @@ class AdminQuizList extends Component {
                 <td>{quiz.id}</td>
                 <td>{quiz.name}</td>
                 <td>
-                  <a
-                    className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminQuizEditor/${quiz.id}`}
-                  >
+                  <Link to={`/Admin/AdminQuizEditor/${quiz.id}`} params={quiz.id}>
+                    <button type="submit" className="btn-list">
+                        Edit Quiz ►
+                    </button>
                     {' '}
-                    Edit Quiz ►
-                    {' '}
-                  </a>
+                  </Link>
                 </td>
                 <td>
-                  <a
-                    className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminQuizDelete/${quiz.id}`}
-                  >
+                  <Link to={`/Admin/AdminQuizDelete/${quiz.id}`} params={quiz.id}>
+                    <button type="submit" className="btn-list">
+                        Delete Quiz ►
+                    </button>
                     {' '}
-                    Delete Quiz ►
-                    {' '}
-                  </a>
+                  </Link>
                 </td>
               </tr>
             ))}

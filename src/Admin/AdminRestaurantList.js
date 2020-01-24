@@ -46,24 +46,20 @@ class AdminRestaurantList extends Component {
                 </td>
                 <td>{res.region}</td>
                 <td>
-                  <a
-                    className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminRestaurantEditor/${res.id}`}
-                  >
+                  <Link to={`/Admin/AdminRestaurantDelete/${res.id}`} params={res.id}>
+                    <button type="submit" className="btn-list">
+                        Edit Restaurant ►
+                    </button>
                     {' '}
-                    Edit Restaurant  ►
-                    {' '}
-                  </a>
+                  </Link>
                 </td>
                 <td>
-                  <a
-                    className="view-zes-page-links-side-by-side"
-                    href={`/Admin/AdminRestaurantDelete/${res.id}`}
-                  >
+                  <Link to={`/Admin/AdminRestaurantDelete/${res.id}`} params={res.id}>
+                    <button type="submit" className="btn-list">
+                        Delete Restaurant ►
+                    </button>
                     {' '}
-                    Delete Restaurant ►
-                    {' '}
-                  </a>
+                  </Link>
                 </td>
               </tr>
             ))}

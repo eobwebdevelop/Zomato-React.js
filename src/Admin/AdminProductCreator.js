@@ -17,7 +17,6 @@ class AdminProductCreator extends Component  {
   }
 
   updateDescription = (event) => {
-      console.log(event.target.value);
     this.setState({description: event.target.value})
   }
 
