@@ -7,7 +7,6 @@ import translations from './i18n/translations';
 
 const LanguageSelector = () => {
   const { currentLanguage, onChangeLanguage } = useContext(LanguagesContext);
-  console.log('languageselector', currentLanguage);
 
   return (
     <>

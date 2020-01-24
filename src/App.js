@@ -39,35 +39,36 @@ import FAQ from "./Learners/FAQ/FAQ.js";
 
 // Translation eng/port
 
+
 import LanguagesContext, { availableLanguages } from './contexts/languages-context';
 
 
 class App extends Component {
   state = {
-      currentLanguage: availableLanguages.pt,
+    currentLanguage: availableLanguages.pt,
   }
 
-  handleChangeLanguage = (e) => {
-      this.setState(
-          { currentLanguage: e.target.value }
-      );
-      localStorage.setItem('currentLanguage', JSON.stringify(e.target.value));
-  }
-//LocalStorage.getItem('currentLanguage');
+
 
   componentDidMount() {
     const json = localStorage.getItem('currentLanguage')
     const currentLanguage = JSON.parse(json)
-    console.log('lang', currentLanguage)
     this.setState({ currentLanguage })
   }
 
+
+handleChangeLanguage = (e) => {
+  this.setState(
+      { currentLanguage: e.target.value }
+  );
+  localStorage.setItem('currentLanguage', JSON.stringify(e.target.value));
+}
   render() {
     const { currentLanguage } = this.state;
-    console.log('in provider', LanguagesContext)
 
 
     return (
+      
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
       >
