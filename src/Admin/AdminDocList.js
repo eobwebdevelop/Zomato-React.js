@@ -31,22 +31,21 @@ const AdminDocList = () => {
           Export Data
         </button>
       </Link>
-      <div>
-        {
+      {
         allDocs.map((doc, key) => (
           <div key={key}>
-            <h1>
+            <div>
               {doc.title}
-            </h1>
+            </div>
             <div>
               {ReactHtmlParser(doc.content)}
             </div>
-            <h5>{doc.language_name}</h5>
-            <h5>{doc.product_name}</h5>
+            <div>{doc.language_name}</div>
+            <div>{doc.product_name}</div>
           </div>
         ))
           }
-      </div>
+
     </Container>
   );
 };

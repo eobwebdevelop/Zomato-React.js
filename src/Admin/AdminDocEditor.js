@@ -37,32 +37,30 @@ const AdminDocEditor = () => {
   const [product, setProduct] = useState([]);
   const [title, setTitle] = useState([]);
   const [content, setContent] = useState([]);
-  const [text, setText] = useState('');
-  const [lastUploadedFile, setLastUploadedFile] = useState({});
 
   const postDocumentation = async () => {
     console.log('post doc function');
 
-  //   const data = new FormData();
-  //   data.append('title', title);
-  //   data.append('content', content);
-  //   data.append('language_id', lastUploadedFile.delete_token);
-  //   data.append('product_id', lastUploadedFile.delete_token);
-  //   const res = await fetch(
-  //     process.env.REACT_APP_PATH_ADMIN_DOC_CREATE,
-  //     {
-  //       method: 'POST',
-  //       body: data,
-  //     },
-  //   );
+    const data = new FormData();
+    data.append('title', title);
+    data.append('content', content);
+    data.append('language_id', language);
+    data.append('product_id', product);
+    const res = await fetch(
+      process.env.REACT_APP_PATH_ADMIN_DOC_CREATE,
+      {
+        method: 'POST',
+        body: data,
+      },
+    );
   };
 
 
-  const onChangeLanguage = (e) => {
+  const onChangeLanguage = () => {
     setLanguage(1);
     // not working
   };
-  const onChangeProduct = (e) => {
+  const onChangeProduct = () => {
     setProduct(1);
     // not working
   };
@@ -70,42 +68,11 @@ const AdminDocEditor = () => {
     setTitle(e.target.value);
   };
 
-  const uploadToCloudinary = async (base64Url) => {
-    const data = new FormData();
-    data.append('file', base64Url);
-    data.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
-    const res = await fetch(
-      process.env.REACT_APP_CLOUDINARY_UPLOAD_LINK,
-      {
-        method: 'POST',
-        body: data,
-      },
-    );
-    const file = await res.json();
-    setLastUploadedFile(file);
+  const getFromChild = (child) => {
+    setContent(child);
   };
 
-  const deleteFromCloudinary = async () => {
-    const data = new FormData();
-    data.append('file', lastUploadedFile);
-    data.append('token', lastUploadedFile.delete_token);
-    const res = await fetch(
-      process.env.REACT_APP_CLOUDINARY_DELETE_LINK,
-      {
-        method: 'POST',
-        body: data,
-      },
-    );
-  };
-
-  const onChangeContent = (value, delta) => {
-    setContent(value);
-    if (delta.ops[0].insert) {
-      uploadToCloudinary(delta.ops[0].insert.image);
-    } else if (delta.ops[0].delete) {
-      deleteFromCloudinary();
-    }
-  };
+  console.log(content);
 
   return (
     <div>
@@ -136,7 +103,7 @@ const AdminDocEditor = () => {
           onChange={onChangeTitle}
         />
         <QuillEditor
-          onChangeContent={onChangeContent} // put text here
+          getFromChild={getFromChild}
         />
         <Link to="/Admin/AdminQuizList">
           <button
