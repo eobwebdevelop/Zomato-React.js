@@ -3,27 +3,26 @@ import './AdminList.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-class AdminProductList extends Component {
+class AdminUserList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
   }
 
   render() {
-    const { products } = this.props;
+    const { users } = this.props;
     return (
       <div>
         <Container>
-          <h1>Manage Products</h1>
+          <h1>Manage Users</h1>
           <hr />
           <p>
-          You are viewing all the available Products or Services at the current moment.
+          You are viewing all the available Users at the current moment.
           </p>
-          <Link to="/Admin/AdminProductCreator">
+          <Link to="/Learners/SignUp/SignUp">
             <button type="submit" className="btn">
-            Add Product
+            Add Users
             </button>
           </Link>
           <Link to="/">
@@ -31,47 +30,54 @@ class AdminProductList extends Component {
             Export Data
             </button>
           </Link>
-
           <table className="tftable" border="1">
             <tr>
-              <th>Product id</th>
+              <th>User id</th>
               <th>Name</th>
-              <th>Description</th>
-              <th>Edit Product</th>
-              <th>Delete Product</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>User Type</th>
+              <th>Edit User</th>
+              <th>Delete User</th>
             </tr>
-            { products.map((prod) => (
+            {users.map((user) => (
               <tr>
-                <td>{prod.id}</td>
-                <td>{prod.name}</td>
-                <td>{prod.description}</td>
+                <td>{user.id}</td>
+                <td>
+                  {user.first_name}
+                  ,
+                  {' '}
+                  {user.last_name}
+                </td>
+                <td>{user.email}</td>
+                <td>{user.phone_number}</td>
+                <td>{user.user_type_id}</td>
                 <td>
                   <a
                     className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminProductEditor/${prod.id}`}
+                    href={`/Admin/AdminuserEditor/${user.id}`}
                   >
                     {' '}
-                        Edit Product ►
+                    Edit User  ►
                     {' '}
                   </a>
                 </td>
                 <td>
                   <a
-                    className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminProductDelete/${prod.id}`}
+                    className="view-zes-page-links-side-by-side"
+                    href={`/Admin/AdminDelete/${user.id}`}
                   >
                     {' '}
-                        Delete Product ►
+                    Delete User ►
                     {' '}
                   </a>
                 </td>
               </tr>
             ))}
-
           </table>
         </Container>
       </div>
     );
   }
 }
-export default AdminProductList;
+export default AdminUserList;

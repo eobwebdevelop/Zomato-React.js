@@ -37,14 +37,14 @@ const Translations = {
     },
 
     Login: {
-      Title: 'Quiz',
-      Username: 'Username',
+      Title: 'Login',
+      Email: 'Email',
       Password: 'Password',
       ButtonL: 'Login',
       Forgot: 'Forgot password?',
       Account: "Don't have an account?",
       ButtonS: 'Sign-Up',
-      PlaceholderU: ' Username',
+      PlaceholderU: ' Email',
       PlaceholderP: ' Password',
     },
 
@@ -130,14 +130,14 @@ const Translations = {
     },
 
     Login: {
-      Title: 'Quiz',
-      Username: ' Nome de utilizador',
+      Title: 'Login',
+      Email: ' Email de utilizador',
       Password: 'Password',
       ButtonL: 'Login',
       Forgot: 'Esqueceu-se da password?',
       Account: 'Ainda não tem uma conta?',
       ButtonS: 'Sign-Up (portuguese translation plz)',
-      PlaceholderU: ' Nome de utilizador',
+      PlaceholderU: ' Email de utilizador',
       PlaceholderP: ' Password',
     },
 
@@ -165,7 +165,6 @@ const Translations = {
 
     SignUp: {
       Title: 'Sign-Up (portuguese translation plz)',
-      
       SubtitleD: 'Informação pessoal',
       SubtitleL: 'Localização',
       SutitleI: 'ZomatoInformation:(portuguese translation plz)',
