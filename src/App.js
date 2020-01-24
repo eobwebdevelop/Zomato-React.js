@@ -44,11 +44,34 @@ import LanguagesContext, { availableLanguages } from './contexts/languages-conte
 
 
 class App extends Component {
-  state = {
-    currentLanguage: availableLanguages.pt,
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentLanguage: availableLanguages.pt,
+      quizzes: [{id:0, name:''}]
   }
+}
 
-  componentDidMount() {
+  getQuizzes = () => {
+    fetch('http://localhost:3000/admin/quiz')
+      .then(response => response.json())
+      .then(data => {
+        this.setState( (state) => ({ 
+          quizzes: data.quizzes,
+        }))
+      })
+  };
+
+  handleChangeLanguage = (e) => {
+      this.setState(
+          { currentLanguage: e.target.value }
+      );
+      localStorage.setItem('currentLanguage', JSON.stringify(e.target.value));
+  }
+//LocalStorage.getItem('currentLanguage');
+
+  componentDidMount(){
+    this.getQuizzes()
     const json = localStorage.getItem('currentLanguage')
     const currentLanguage = JSON.parse(json)
 
@@ -65,6 +88,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.quizzes)
     const { currentLanguage } = this.state;
 
     return (
