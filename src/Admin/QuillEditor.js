@@ -5,6 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 
 const QuillEditor = ({ getFromChild }) => {
   const [text, setText] = useState('');
+  const [textWithLink, setTextWithLink] = useState('');
   const [lastUploadedFile, setLastUploadedFile] = useState({});
 
   const quillModules = {
@@ -18,6 +19,11 @@ const QuillEditor = ({ getFromChild }) => {
     ],
   };
 
+  const replaceLink = (base64, link) => {
+    console.log('text', text);
+    return text.replace(base64, link);
+  }
+
   const uploadToCloudinary = async (base64Url) => {
     const data = new FormData();
     data.append('file', base64Url);
@@ -30,7 +36,11 @@ const QuillEditor = ({ getFromChild }) => {
       },
     );
     const file = await res.json();
+    console.log('res from upload to C', res);
     setLastUploadedFile(file);
+    replaceLink(base64Url, file.secure_url);
+    console.log('base64Url', base64Url, 'file.secure_url', file.secure_url);
+    console.log('replace link', replaceLink(base64Url, file.secure_url));
   };
 
   const deleteFromCloudinary = async () => {
@@ -53,7 +63,8 @@ const QuillEditor = ({ getFromChild }) => {
     } else if (delta.ops[0].delete) {
       deleteFromCloudinary();
     }
-    getFromChild(value);
+
+    getFromChild(text);
   };
 
   return (
@@ -65,7 +76,7 @@ const QuillEditor = ({ getFromChild }) => {
       />
     </div>
   );
-}
+};
 
 
 export default QuillEditor;

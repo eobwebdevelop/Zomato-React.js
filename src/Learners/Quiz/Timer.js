@@ -4,12 +4,12 @@ class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ms: props.ms
+      ms: props.ms,
     };
   }
 
   componentWillMount() {
-    this.interval = setInterval( () => {
+    this.interval = setInterval(() => {
       if ((this.state.ms) <= 0) {
         clearInterval(this.interval);
         this.forceUpdate();
@@ -29,13 +29,13 @@ class Timer extends Component {
     let minutes = Math.floor(seconds / 60);
 
     minutes = minutes < 1 ? '00' : minutes < 10 ? `0${minutes}` : minutes;
-    seconds = seconds % 60;seconds = seconds < 10 ? `0${seconds}` : seconds;
+    seconds %= 60; seconds = seconds < 10 ? `0${seconds}` : seconds;
     return `${minutes}:${seconds}`;
   }
 
   render() {
     return (
-            <div className="timer">{this.format(this.state.ms)}</div>
+      <div className="timer">{this.format(this.state.ms)}</div>
     );
   }
 }

@@ -33,46 +33,50 @@ const productOptions = [
 ];
 
 const AdminDocEditor = () => {
-  const [language, setLanguage] = useState([]);
-  const [product, setProduct] = useState([]);
   const [title, setTitle] = useState([]);
   const [content, setContent] = useState([]);
+  const [language, setLanguage] = useState([]);
+  const [product, setProduct] = useState([]);
 
-  const postDocumentation = async () => {
-    console.log('post doc function');
-
-    const data = new FormData();
-    data.append('title', title);
-    data.append('content', content);
-    data.append('language_id', language);
-    data.append('product_id', product);
-    const res = await fetch(
-      process.env.REACT_APP_PATH_ADMIN_DOC_CREATE,
+  const postDocumentation = (e) => {
+    e.preventDefault();
+    fetch(process.env.REACT_APP_PATH_ADMIN_DOC_CREATE,
       {
         method: 'POST',
-        body: data,
-      },
-    );
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          title,
+          content,
+          language_id: language,
+          product_id: product,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        console.log(res);
+      });
   };
 
 
   const onChangeLanguage = () => {
-    setLanguage(1);
+    console.log('language', language);
     // not working
   };
   const onChangeProduct = () => {
-    setProduct(1);
+    console.log('language', language);
     // not working
   };
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
+    setLanguage(1);
+    setProduct(1);
   };
 
   const getFromChild = (child) => {
     setContent(child);
   };
-
-  console.log(content);
 
   return (
     <div>

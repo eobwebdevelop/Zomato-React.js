@@ -8,8 +8,8 @@ import translations from './i18n/translations';
 
 const LearnerNav = () => {
   const { currentLanguage } = useContext(LanguagesContext);
-  console.log('lang', currentLanguage)
-  console.log('transl', translations)
+  console.log('lang', currentLanguage);
+  console.log('transl', translations);
   return (
     <div>
       {/* Example */}

@@ -1,43 +1,41 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const AdminEditUser = () => {
-  return (
-    <div>
-      <Container>
-        <h1>Edit User</h1>
-        <hr />
-        <p>You are editing %USERNAME.</p>
-        <form>
+const AdminEditUser = () => (
+  <div>
+    <Container>
+      <h1>Edit User</h1>
+      <hr />
+      <p>You are editing %USERNAME.</p>
+      <form>
           User Type:
-          <input type="text" name="usertype"></input>
-          <br />
-          <br />
+        <input type="text" name="usertype" />
+        <br />
+        <br />
           First Name:
-          <input type="text" name="firstname"></input>
-          <br />
-          <br />
+        <input type="text" name="firstname" />
+        <br />
+        <br />
           Last Name:
-          <input type="text" name="lastname"></input>
-          <br />
-          <br />
+        <input type="text" name="lastname" />
+        <br />
+        <br />
           Region:
-          <input type="text" name="region"></input>
-          <br />
-          <br />
+        <input type="text" name="region" />
+        <br />
+        <br />
           Phone Number:
-          <input type="text" name="phonenumber"></input>
-          <br />
-          <br />
-        </form>
-        <Link to="/Admin/AdminUserConfig">
-          <button type="submit" class="btn">
+        <input type="text" name="phonenumber" />
+        <br />
+        <br />
+      </form>
+      <Link to="/Admin/AdminUserConfig">
+        <button type="submit" className="btn">
             Save
-          </button>
-        </Link>
-      </Container>
-    </div>
-  );
-};
+        </button>
+      </Link>
+    </Container>
+  </div>
+);
 export default AdminEditUser;
