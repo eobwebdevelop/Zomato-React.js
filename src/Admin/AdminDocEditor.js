@@ -37,6 +37,8 @@ const AdminDocEditor = () => {
   const [product, setProduct] = useState([]);
   const [title, setTitle] = useState([]);
   const [content, setContent] = useState([]);
+  const [text, setText] = useState('');
+  const [lastUploadedFile, setLastUploadedFile] = useState({});
 
   const postDocumentation = async () => {
     console.log('post doc function');
@@ -67,12 +69,43 @@ const AdminDocEditor = () => {
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
   };
-  const onChangeContent = (e) => {
-    console.log(e.target.value)
-    setContent("e.target.value");
+
+  const uploadToCloudinary = async (base64Url) => {
+    const data = new FormData();
+    data.append('file', base64Url);
+    data.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
+    const res = await fetch(
+      process.env.REACT_APP_CLOUDINARY_UPLOAD_LINK,
+      {
+        method: 'POST',
+        body: data,
+      },
+    );
+    const file = await res.json();
+    setLastUploadedFile(file);
   };
 
-  console.log(language, product, title);
+  const deleteFromCloudinary = async () => {
+    const data = new FormData();
+    data.append('file', lastUploadedFile);
+    data.append('token', lastUploadedFile.delete_token);
+    const res = await fetch(
+      process.env.REACT_APP_CLOUDINARY_DELETE_LINK,
+      {
+        method: 'POST',
+        body: data,
+      },
+    );
+  };
+
+  const onChangeContent = (value, delta) => {
+    setContent(value);
+    if (delta.ops[0].insert) {
+      uploadToCloudinary(delta.ops[0].insert.image);
+    } else if (delta.ops[0].delete) {
+      deleteFromCloudinary();
+    }
+  };
 
   return (
     <div>
@@ -102,7 +135,9 @@ const AdminDocEditor = () => {
           name="name"
           onChange={onChangeTitle}
         />
-        <QuillEditor onChange={onChangeContent} />
+        <QuillEditor
+          onChangeContent={onChangeContent} // put text here
+        />
         <Link to="/Admin/AdminQuizList">
           <button
             type="submit"
