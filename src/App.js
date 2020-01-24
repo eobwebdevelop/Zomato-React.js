@@ -48,24 +48,24 @@ class App extends Component {
     currentLanguage: availableLanguages.pt,
   }
 
-
-
   componentDidMount() {
     const json = localStorage.getItem('currentLanguage')
     const currentLanguage = JSON.parse(json)
-    this.setState({ currentLanguage })
+
+    if (currentLanguage) {
+      this.setState({ currentLanguage })
+    }
   }
 
+  handleChangeLanguage = (e) => {
+    this.setState(
+        { currentLanguage: e.target.value }
+    );
+    localStorage.setItem('currentLanguage', JSON.stringify(e.target.value));
+  }
 
-handleChangeLanguage = (e) => {
-  this.setState(
-      { currentLanguage: e.target.value }
-  );
-  localStorage.setItem('currentLanguage', JSON.stringify(e.target.value));
-}
   render() {
     const { currentLanguage } = this.state;
-
 
     return (
       
