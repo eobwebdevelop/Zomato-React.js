@@ -38,13 +38,13 @@ const Translations = {
 
     Login: {
       Title: 'Quiz',
-      Username: 'Username',
+      Email: 'Email',
       Password: 'Password',
       ButtonL: 'Login',
       Forgot: 'Forgot password?',
       Account: "Don't have an account?",
       ButtonS: 'Sign-Up',
-      PlaceholderU: ' Username',
+      PlaceholderU: ' Email',
       PlaceholderP: ' Password',
     },
 
@@ -131,13 +131,13 @@ const Translations = {
 
     Login: {
       Title: 'Quiz',
-      Username: ' Nome de utilizador',
+      Email: ' Email de utilizador',
       Password: 'Password',
       ButtonL: 'Login',
       Forgot: 'Esqueceu-se da password?',
       Account: 'Ainda não tem uma conta?',
       ButtonS: 'Sign-Up (portuguese translation plz)',
-      PlaceholderU: ' Nome de utilizador',
+      PlaceholderU: ' Email de utilizador',
       PlaceholderP: ' Password',
     },
 

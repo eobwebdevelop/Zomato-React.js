@@ -46,15 +46,20 @@ import LanguagesContext, { availableLanguages } from './contexts/languages-conte
 class App extends Component {
   state = {
     currentLanguage: availableLanguages.pt,
+    token: ''
   }
 
   componentDidMount() {
-    const json = localStorage.getItem('currentLanguage')
-    const currentLanguage = JSON.parse(json)
+    const currentLanguageJson = localStorage.getItem('currentLanguage')
+    const tokenJson = localStorage.getItem('token')
 
-    if (currentLanguage) {
-      this.setState({ currentLanguage })
-    }
+    const currentLanguage = JSON.parse(currentLanguageJson)
+    const token = JSON.parse(tokenJson)
+
+    this.setState({
+      currentLanguage: currentLanguage ? currentLanguage : availableLanguages.pt,
+      token: token ? token : ''
+    })
   }
 
   handleChangeLanguage = (e) => {
@@ -66,7 +71,7 @@ class App extends Component {
 
   render() {
     const { currentLanguage } = this.state;
-
+    console.log(this.state.token);
     return (
       
       <LanguagesContext.Provider
