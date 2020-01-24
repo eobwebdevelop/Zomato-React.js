@@ -26,8 +26,8 @@ class AdminAppLogin extends Component {
           </div>
         </div>
       </Container>
-    )
+    );
   }
-};
+}
 
 export default AdminAppLogin;
