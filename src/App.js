@@ -21,6 +21,8 @@ import AdminProductCreator from "./Admin/AdminProductCreator"
 import AdminHomePage from "./Admin/AdminHomePage";
 import AdminProductEditor from "./Admin/AdminProductEditor"
 import AdminProductList from "./Admin/AdminProductList";
+import AdminUserList from "./Admin/AdminUserList";
+import AdminRestaurantList from "./Admin/AdminRestaurantList";
 // Learner portal imports
 
 import LearnerNav from "./LearnerNav.js";
@@ -48,19 +50,72 @@ class App extends Component {
     super(props);
     this.state = {
       currentLanguage: availableLanguages.pt,
-      quizzes: [{id:0, name:''}]
+      quizzes: [{id:0, name:''}],
+      products: [{id:0, name:'', description: ''}],
+      users: [{id:0, first_name:''}],
+      restaurants: [{id:0, name: ''}],
+      region: [{id: 0, name: ''}]
   }
-}
+};
+
+getRegion = () => {
+  fetch('http://localhost:3000/admin/region')
+    .then(response => response.json())
+    .then(data => {
+      this.setState( (state) => ({ 
+        ...state,
+        region: data.Region,
+      }))
+    })
+};
+
+
+
+getRestaurants = () => {
+  fetch('http://localhost:3000/admin/restaurant')
+    .then(response => response.json())
+    .then(data => {
+      this.setState( (state) => ({ 
+        ...state,
+        restaurants: data.Restaurant,
+      }))
+    })
+};
 
   getQuizzes = () => {
     fetch('http://localhost:3000/admin/quiz')
       .then(response => response.json())
       .then(data => {
         this.setState( (state) => ({ 
+          ...state,
           quizzes: data.quizzes,
         }))
       })
   };
+
+  getProducts = () => {
+    fetch('http://localhost:3000/admin/product')
+      .then(response => response.json())
+      .then(data => { 
+        this.setState( (state) => ({ 
+          ...state,
+          products: data.product,
+        }))
+      })
+  };
+
+
+  getUsers = () => {
+    fetch('http://localhost:3000/admin/user')
+      .then(response => response.json())
+      .then(data => { console.log(data)
+        this.setState( (state) => ({ 
+          ...state,
+          users: data.users,
+        }))
+      })
+  };
+
 
   handleChangeLanguage = (e) => {
       this.setState(
@@ -72,6 +127,10 @@ class App extends Component {
 
   componentDidMount(){
     this.getQuizzes()
+    this.getProducts()
+    this.getUsers()
+    this.getRestaurants()
+    this.getRegion()
     const json = localStorage.getItem('currentLanguage')
     const currentLanguage = JSON.parse(json)
 
@@ -88,8 +147,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.quizzes)
-    const { currentLanguage } = this.state;
+    const { currentLanguage, quizzes, products, users, restaurants, region } = this.state;
 
     return (
       
@@ -149,7 +207,8 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminQuizList />
+              <AdminQuizList
+              quizzes = {quizzes} />
             </>
           )}
         />
@@ -209,7 +268,20 @@ class App extends Component {
         render={() => (
           <>
             <AdminNav />
-            <AdminRestaurantEditor />
+            <AdminRestaurantEditor 
+            restaurants = { restaurants }
+            region = { region } />
+          </>
+        )}
+      />
+      <Route
+        exact
+        path="/Admin/AdminRestaurantList"
+        render={() => (
+          <>
+            <AdminNav />
+            <AdminRestaurantList
+            restaurants = {restaurants} />
           </>
         )}
       />
@@ -219,7 +291,8 @@ class App extends Component {
         render={() => (
           <>
             <AdminNav />
-            <AdminProductList />
+            <AdminProductList
+            products = {products} />
           </>
         )}
       />
@@ -243,10 +316,21 @@ class App extends Component {
           </>
         )}
       />
+      <Route
+          exact
+          path="/Admin/AdminUserList"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminUserList
+              users = {users} />
+            </>
+          )}
+        />
         {/* Learners Route */}
         <Route
           exact
-          path="/Learners/ContactUs/ContactUs"
+          path="/Learners/ContactUs"
           render={() => (
             <>
               <LearnerNav />
@@ -256,7 +340,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/Learners/FAQ/FAQ"
+          path="/Learners/FAQ"
           render={() => (
             <>
               <LearnerNav />
@@ -266,7 +350,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/Learners/Documentation/Documentation"
+          path="/Learners/Documentation"
           render={() => (
             <>
               <LearnerNav />
@@ -277,7 +361,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/LogIn/LogIn"
+          path="/Learners/LogIn"
           render={() => (
             <>
               <LearnerNav />
@@ -339,7 +423,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/Learners/Quiz/Quiz"
+          path="/Learners/Quiz"
           render={() => (
             <>
               <LearnerNav />
@@ -359,7 +443,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/Learners/SignUp/SignUp"
+          path="/Learners/SignUp"
           render={() => (
             <>
               <LearnerNav />
