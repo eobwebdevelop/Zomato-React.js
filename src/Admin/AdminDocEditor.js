@@ -37,6 +37,8 @@ const AdminDocEditor = () => {
   const [product, setProduct] = useState([]);
   const [title, setTitle] = useState([]);
   const [content, setContent] = useState([]);
+  const [text, setText] = useState('');
+  const [lastUploadedFile, setLastUploadedFile] = useState({});
 
   const postDocumentation = async () => {
     console.log('post doc function');
@@ -133,7 +135,7 @@ const AdminDocEditor = () => {
           name="name"
           onChange={onChangeTitle}
         />
-        <QuillEditor onChangeContent={onChangeContent} />
+        <QuillEditor onChangeContent={onChangeContent} //put text here />
         <Link to="/Admin/AdminQuizList">
           <button
             type="submit"
