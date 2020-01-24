@@ -14,36 +14,8 @@ class AdminRestaurantEditor extends Component  {
         id: '',
         displayresto: '',
         displayregion: '',
-        region: [{id:0, value:''}],
-        restaurants: [],
       }
     }
-    getRegion = () => {
-        fetch('http://localhost:3000/admin/region')
-          .then(response => response.json())
-          .then(data => {
-            this.setState( (state) => ({ 
-              ...state,
-              region: data.Region,
-            }))
-          })
-      };
-
-      getRestaurants = () => {
-        fetch('http://localhost:3000/admin/restaurant')
-          .then(response => response.json())
-          .then(data => {
-            this.setState( (state) => ({ 
-              ...state,
-              restaurants: data.Restaurant,
-            }))
-          })
-      };
-
-    componentDidMount(){
-     this.getRestaurants();
-      this.getRegion();
-      }
 
     updateRegion = (item) => {
       console.log(item)
@@ -80,6 +52,7 @@ class AdminRestaurantEditor extends Component  {
   }
 
   render() {
+    const { restaurants, regions } = this.props; 
     return (
       <>
         <Container>
@@ -93,7 +66,7 @@ class AdminRestaurantEditor extends Component  {
                 value = {this.state.displayresto}
                 onChange={this.updateRestaurant}
                 classNamePrefix="select"
-                options={this.state.restaurants.map((item) => ({value: item.id, label: item.name}))}
+                options={restaurants.map((item) => ({value: item.id, label: item.name}))}
                 />
                 <input type="text" name="name" placeholder="Restaurant new name" required onChange={this.updateName} /> 
                 <hr />
@@ -103,7 +76,7 @@ class AdminRestaurantEditor extends Component  {
                 value = {this.state.displayregion}
                 onChange={this.updateRegion}
                 classNamePrefix="select"
-                options={this.state.region.map((item) => ({value: item.id, label: item.name}))} 
+                options={regions.map((item) => ({value: item.id, label: item.name}))} 
                 />
                 <button type="submit" className="btn-login">
                   Update

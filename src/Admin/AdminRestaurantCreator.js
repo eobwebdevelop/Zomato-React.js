@@ -17,20 +17,6 @@ class AdminRestaurantCreator extends Component  {
     }
   };
 
-  getRegion = () => {
-    fetch('http://localhost:3000/admin/region')
-      .then(response => response.json())
-      .then(data => {
-        this.setState( (state) => ({ 
-          ...state,
-          region: data.Region,
-        }))
-      })
-  };
-
-  componentDidMount(){ 
-  this.getRegion();
-  };
 
   updateRegion = (item) => {
       this.setState({
@@ -62,6 +48,7 @@ class AdminRestaurantCreator extends Component  {
   }
 
   render() {
+    const { regions } = this.props;
     return (
         <Container>
             <div className="formparentcontainer">
@@ -77,7 +64,7 @@ class AdminRestaurantCreator extends Component  {
                 value = {this.state.displayregion}
                 onChange={this.updateRegion}
                 classNamePrefix="select"
-                options={this.state.region.map((item) => ({value: item.id, label: item.name}))} 
+                options={regions.map((item) => ({value: item.id, label: item.name}))} 
                 />
                 <button type="submit" class="btn-login">
                 Submit

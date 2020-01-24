@@ -3,75 +3,72 @@ import './AdminList.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-class AdminProductList extends Component {
+class AdminResultList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
   }
 
   render() {
-    const { products } = this.props;
+    const { results } = this.props;
     return (
       <div>
         <Container>
-          <h1>Manage Products</h1>
+          <h1>Manage Results</h1>
           <hr />
           <p>
-          You are viewing all the available Products or Services at the current moment.
+          You are viewing all the available results at the current moment.
           </p>
-          <Link to="/Admin/AdminProductCreator">
-            <button type="submit" className="btn">
-            Add Product
-            </button>
-          </Link>
           <Link to="/">
             <button type="submit" className="btn">
             Export Data
             </button>
           </Link>
-
           <table className="tftable" border="1">
             <tr>
-              <th>Product id</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Edit Product</th>
-              <th>Delete Product</th>
+              <th>Result id</th>
+              <th>Quiz name</th>
+              <th>User id</th>
+              <th>Time to Complete</th>
+              <th>Time of Day</th>
+              <th>Edit Result</th>
+              <th>Delete Result</th>
             </tr>
-            { products.map((prod) => (
+            {results.map((res) => (
               <tr>
-                <td>{prod.id}</td>
-                <td>{prod.name}</td>
-                <td>{prod.description}</td>
+                <td>{res.id}</td>
+                <td>
+                  {res.name}
+                </td>
+                <td>{res.time_to_complete}</td>
+                <td>{res.time_of_day}</td>
                 <td>
                   <a
                     className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminProductEditor/${prod.id}`}
+                    href={`/Admin/AdminResultEditor/${res.id}`}
                   >
                     {' '}
-                        Edit Product ►
+                    Edit Result  ►
                     {' '}
                   </a>
                 </td>
                 <td>
                   <a
-                    className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminProductDelete/${prod.id}`}
+                    className="view-zes-page-links-side-by-side"
+                    href={`/Admin/AdminResultDelete/${res.id}`}
                   >
                     {' '}
-                        Delete Product ►
+                    Delete Result ►
                     {' '}
                   </a>
                 </td>
               </tr>
             ))}
-
           </table>
         </Container>
       </div>
     );
   }
 }
-export default AdminProductList;
+export default AdminResultList;
