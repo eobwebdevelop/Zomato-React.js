@@ -31,7 +31,7 @@ const AdminEditUser = () => {
           <br />
           <br />
         </form>
-        <Link to="/Admin/AdminUserConfig">
+        <Link to="/Admin/AdminUserList">
           <button type="submit" class="btn">
             Save
           </button>
