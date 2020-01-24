@@ -37,7 +37,7 @@ const Translations = {
     },
 
     Login: {
-      Title: 'Quiz',
+      Title: 'Login',
       Username: 'Username',
       Password: 'Password',
       ButtonL: 'Login',
@@ -130,7 +130,7 @@ const Translations = {
     },
 
     Login: {
-      Title: 'Quiz',
+      Title: 'Login',
       Username: ' Nome de utilizador',
       Password: 'Password',
       ButtonL: 'Login',
@@ -165,7 +165,6 @@ const Translations = {
 
     SignUp: {
       Title: 'Sign-Up (portuguese translation plz)',
-      
       SubtitleD: 'Informação pessoal',
       SubtitleL: 'Localização',
       SutitleI: 'ZomatoInformation:(portuguese translation plz)',
