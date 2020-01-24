@@ -12,7 +12,6 @@ import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizUpdate from "./Admin/AdminQuizUpdate";
-import AdminUserConfig from "./Admin/AdminUserConfig";
 import AdminEditUser from "./Admin/AdminEditUser";
 import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminDocList from './Admin/AdminDocList';
@@ -219,16 +218,6 @@ getRestaurants = () => {
             <>
               <AdminNav />
               <AdminQuizMaker />
-            </>
-          )}
-        />
-        <Route
-          exact
-          path="/Admin/AdminUserConfig"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminUserConfig />
             </>
           )}
         />
@@ -447,7 +436,8 @@ getRestaurants = () => {
           render={() => (
             <>
               <LearnerNav />
-              <SignUp />
+              <SignUp 
+              restaurants = {restaurants} />
             </>
           )}
         />

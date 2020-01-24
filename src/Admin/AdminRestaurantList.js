@@ -20,7 +20,7 @@ class AdminRestaurantList extends Component {
           <p>
           You are viewing all the available restaurants at the current moment.
           </p>
-          <Link to="/Learners/SignUp/SignUp">
+          <Link to="/Learners/SignUp">
             <button type="submit" className="btn">
             Add Restaurants
             </button>
