@@ -46,23 +46,20 @@ class AdminProductList extends Component {
                 <td>{prod.name}</td>
                 <td>{prod.description}</td>
                 <td>
-                  <a
-                    className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminProductEditor/${prod.id}`}
-                  >
-                    {' '}
-                        Edit Product ►
-                    {' '}
-                  </a>
-                </td>
-                <td>
                   <Link to={`/Admin/AdminProductEditor/${prod.id}`} params={prod.id}>
                     <button type="submit" className="btn-list">
-                      {' '}
-                        Delete Product ►
-                      {' '}
+                        Edit Product ►
                     </button>
                     {' '}
+                  </Link>
+                </td>
+                <td>
+                  <Link to={`/Admin/AdminDelteEditor/${prod.id}`}>
+                    <button type="submit" className="btn-list">
+                        Delete Product ►
+                    </button>
+                    {' '}
+
                   </Link>
                 </td>
               </tr>

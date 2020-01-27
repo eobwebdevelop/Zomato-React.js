@@ -52,7 +52,7 @@ class AdminRestaurantEditor extends Component  {
   }
 
   render() {
-    const { restaurants, region } = this.props; 
+    const { restaurants, regions } = this.props; 
     return (
       <>
         <Container>
@@ -76,7 +76,7 @@ class AdminRestaurantEditor extends Component  {
                 value = {this.state.displayregion}
                 onChange={this.updateRegion}
                 classNamePrefix="select"
-                options={region.map((item) => ({value: item.id, label: item.name}))} 
+                options={regions.map((item) => ({value: item.id, label: item.name}))} 
                 />
                 <button type="submit" className="btn-login">
                   Update

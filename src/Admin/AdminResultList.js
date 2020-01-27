@@ -3,7 +3,7 @@ import './AdminList.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-class AdminUserList extends Component {
+class AdminResultList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,20 +11,15 @@ class AdminUserList extends Component {
   }
 
   render() {
-    const { users } = this.props;
+    const { results } = this.props;
     return (
       <div>
         <Container>
-          <h1>Manage Users</h1>
+          <h1>Manage Results</h1>
           <hr />
           <p>
-          You are viewing all the available Users at the current moment.
+          You are viewing all the available results at the current moment.
           </p>
-          <Link to="/Learners/SignUp/SignUp">
-            <button type="submit" className="btn">
-            Add Users
-            </button>
-          </Link>
           <Link to="/">
             <button type="submit" className="btn">
             Export Data
@@ -32,38 +27,34 @@ class AdminUserList extends Component {
           </Link>
           <table className="tftable" border="1">
             <tr>
+              <th>Result id</th>
+              <th>Quiz name</th>
               <th>User id</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone Number</th>
-              <th>User Type</th>
-              <th>Edit User</th>
-              <th>Delete User</th>
+              <th>Time to Complete</th>
+              <th>Time of Day</th>
+              <th>Edit Result</th>
+              <th>Delete Result</th>
             </tr>
-            {users.map((user) => (
+            {results.map((res) => (
               <tr>
-                <td>{user.id}</td>
+                <td>{res.id}</td>
                 <td>
-                  {user.first_name}
-                  ,
-                  {' '}
-                  {user.last_name}
+                  {res.name}
                 </td>
-                <td>{user.email}</td>
-                <td>{user.phone_number}</td>
-                <td>{user.user_type_id}</td>
+                <td>{res.time_to_complete}</td>
+                <td>{res.time_of_day}</td>
                 <td>
-                  <Link to={`/Admin/AdminUserEdit/${user.id}`} params={user.id}>
+                  <Link to={`/Admin/AdminResultEditor/${res.id}`} params={res.id}>
                     <button type="submit" className="btn-list">
-                        Edit User ►
+                        Edit Result ►
                     </button>
                     {' '}
                   </Link>
                 </td>
                 <td>
-                  <Link to={`/Admin/AdminUserDelete/${user.id}`} params={user.id}>
+                  <Link to={`/Admin/AdminResultDelete/${res.id}`} params={res.id}>
                     <button type="submit" className="btn-list">
-                        Delete User ►
+                        Delete Result ►
                     </button>
                     {' '}
                   </Link>
@@ -76,4 +67,4 @@ class AdminUserList extends Component {
     );
   }
 }
-export default AdminUserList;
+export default AdminResultList;

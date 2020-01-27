@@ -18,11 +18,11 @@ const AdminNav = () => (
           <Nav.Link id="navbar-link-admin" href="/Admin/AdminAppLogIn">
             <a className="white-link">Login</a>
           </Nav.Link>
+          <Nav.Link href="/Admin/">
+            <a className="white-link">Backoffice Home</a>
+          </Nav.Link>
           <Nav.Link href="/Admin/AdminQuizList">
             <a className="white-link">Manage Quizzes</a>
-          </Nav.Link>
-          <Nav.Link href="/Admin/AdminUserConfig">
-            <a className="white-link">Manage Users</a>
           </Nav.Link>
           <Nav.Link href="/Admin/AdminDocList">
             <a className="white-link">Manage Documentation</a>

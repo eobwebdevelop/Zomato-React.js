@@ -28,24 +28,11 @@ class SignUp extends Component  {
       restaurantError: '',
       restaurants: [{id:0, name:''}],
       displayresto: '',
-      flash: 'hola'
+      flash: ''
     }
   }
 
 
-getRestaurants = () => {
-  fetch('http://localhost:3000/admin/restaurant')
-    .then(response => response.json())
-    .then(data => {
-      this.setState( (state) => ({ 
-        ...state,
-        restaurants: data.Restaurant,
-      }))
-    })
-};
-componentDidMount(){
-  this.getRestaurants();
-};
 
 
 inputHandeler = e => {
@@ -160,7 +147,7 @@ validate = () => {
                 value = {this.state.displayresto}
                 onChange={this.updateRestaurant}
                 classNamePrefix="select"
-                options={this.state.restaurants.map((item) => ({value: item.id, label: item.name}))}
+                options={this.props.restaurants.map((item) => ({value: item.id, label: item.name}))}
                 />
                 {this.state.restaurantError}
               <br /> <br />
