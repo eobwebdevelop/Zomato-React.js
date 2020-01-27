@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Redirect, Route } from "react-router-dom";
 // Switch, withRouter
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
