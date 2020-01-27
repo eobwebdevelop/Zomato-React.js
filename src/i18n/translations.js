@@ -130,10 +130,10 @@ const Translations = {
     },
 
     Login: {
-      Title: 'Login',
+      Title: 'Iniciar Sessão',
       Email: ' Email de utilizador',
       Password: 'Password',
-      ButtonL: 'Login',
+      ButtonL: 'Iniciar Sessão',
       Forgot: 'Esqueceu-se da password?',
       Account: 'Ainda não tem uma conta?',
       ButtonS: 'Registar-se',
@@ -159,7 +159,7 @@ const Translations = {
 
     QuizList: {
       Title: 'Quizzes disponíveis ',
-      LinkQ: 'Take Quiz ► (portuguese translation plz)',
+      LinkQ: 'Começar Quiz ► ',
       LinkD: 'Documentação ► ',
     },
 
@@ -172,8 +172,8 @@ const Translations = {
       PlaceholderL: 'Apelido*',
       PlaceholderE: ' E-mail*',
       PlaceholderN: ' Número de telefone*',
-      PlaceholderA: ' Are you a...* (portuguese translation plz)',
-      PlaceholderY: ' Your region(portuguese translation plz)',
+      PlaceholderA: ' Eu sou um...',
+      PlaceholderY: ' A sua zona ',
       PlaceholderR: 'Restaurante (quando aplicável)',
       SubtitleP: 'Password: ',
       PlaceholderP: ' Password* ',
