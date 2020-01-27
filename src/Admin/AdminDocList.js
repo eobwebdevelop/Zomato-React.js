@@ -31,21 +31,41 @@ const AdminDocList = () => {
           Export Data
         </button>
       </Link>
-      {
-        allDocs.map((doc, key) => (
-          <div key={key}>
-            <div>
-              {doc.title}
-            </div>
-            <div>
-              {ReactHtmlParser(doc.content)}
-            </div>
-            <div>{doc.language_name}</div>
-            <div>{doc.product_name}</div>
-          </div>
-        ))
-          }
 
+      <table className="tftable" border="1">
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          {/* <th>Content</th> */}
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        {allDocs.map((doc) => (
+          <tr>
+            <td>{doc.id}</td>
+            <td>{doc.title}</td>
+            {/* <td>{ReactHtmlParser(doc.content)}</td> */}
+            <td>
+              <Link to={`/Admin/AdminDocEditor/${doc.id}`} params={doc.id}>
+                <button type="submit" className="view-quizzes-page-links-side-by-side">
+                  {' '}
+                        Edit Documentation ►
+                  {' '}
+                </button>
+              </Link>
+            </td>
+            <td>
+              <Link to={`/Admin/AdminProductEditor/${doc.id}`} params={doc.id}>
+                <button type="submit" className="view-quizzes-page-links-side-by-side">
+                  {' '}
+                        Delete Documentation ►
+                  {' '}
+                </button>
+              </Link>
+            </td>
+          </tr>
+        ))}
+      </table>
     </Container>
   );
 };

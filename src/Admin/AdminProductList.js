@@ -56,14 +56,14 @@ class AdminProductList extends Component {
                   </a>
                 </td>
                 <td>
-                  <a
-                    className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminProductDelete/${prod.id}`}
-                  >
-                    {' '}
+                  <Link to={`/Admin/AdminProductEditor/${prod.id}`} params={prod.id}>
+                    <button type="submit" className="btn-list">
+                      {' '}
                         Delete Product ►
+                      {' '}
+                    </button>
                     {' '}
-                  </a>
+                  </Link>
                 </td>
               </tr>
             ))}
