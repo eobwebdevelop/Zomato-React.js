@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import QandA from "./QandA";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import QandA from './QandA';
 
 // class Challenge extends React.Component {
 //   render() {
@@ -23,6 +23,7 @@ class Challenge extends React.Component {
   componentDidMount() {
     this.props.startOverallTimer();
   }
+
   render() {
     const {
       questionPackage,
@@ -31,20 +32,20 @@ class Challenge extends React.Component {
       onClickAnswer,
       onNextStep,
       quizIDInPlay,
-      refreshQuizState
+      refreshQuizState,
     } = this.props;
 
     // console.log(questionPackage);
 
     const questionPackageSpecificQuizIDOnly = questionPackage.filter(
-      el => el.id === quizIDInPlay
+      (el) => el.id === quizIDInPlay,
     )[0].questions;
 
     if (step < 10) {
       return (
         <Container>
           <h1>Quiz</h1>
-          <hr></hr>
+          <hr />
           {questionPackageSpecificQuizIDOnly.map((questionPackage, i) => (
             <QandA
               questionPackage={questionPackageSpecificQuizIDOnly[i]}
@@ -53,30 +54,32 @@ class Challenge extends React.Component {
               onClickAnswer={onClickAnswer}
             />
           ))}
-          <h3>Current Time: {overallTime}</h3>
-        </Container>
-      );
-    } else {
-      return (
-        <Container>
-          <h1>Results</h1>
-          <hr></hr>
-          <p>Present question by question results here</p>
-
-          <Link to="/Learners/QuizList/QuizList">
-            <a>
-              <button onClick={refreshQuizState}>Home</button>
-            </a>
-          </Link>
-
-          <Link to="/Learners/Documentation/Documentation">
-            <a>
-              <button onClick={refreshQuizState}>Documentation</button>
-            </a>
-          </Link>
+          <h3>
+Current Time:
+            {overallTime}
+          </h3>
         </Container>
       );
     }
+    return (
+      <Container>
+        <h1>Results</h1>
+        <hr />
+        <p>Present question by question results here</p>
+
+        <Link to="/Learners/QuizList/QuizList">
+          <a>
+            <button onClick={refreshQuizState}>Home</button>
+          </a>
+        </Link>
+
+        <Link to="/Learners/Documentation/Documentation">
+          <a>
+            <button onClick={refreshQuizState}>Documentation</button>
+          </a>
+        </Link>
+      </Container>
+    );
   }
 }
 export default Challenge;

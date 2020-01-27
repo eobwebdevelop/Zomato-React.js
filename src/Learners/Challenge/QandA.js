@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 class QandA extends React.Component {
   render() {
@@ -10,20 +10,23 @@ class QandA extends React.Component {
       step,
       onClickAnswer,
       onNextStep,
-      isVisible
+      isVisible,
     } = this.props;
 
     if (!isVisible) return null;
 
     return (
       <>
-        <h1>Question Text: {questionPackage.question}</h1>
+        <h1>
+Question Text:
+          {questionPackage.question}
+        </h1>
         <ul>
           <li>
             <p>{questionPackage.answers[0].answer_option}</p>
           </li>
           <li>
-            {" "}
+            {' '}
             <p>{questionPackage.answers[1].answer_option}</p>
           </li>
           <li>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-import DropdownSelector from '../LanguageSelector';
-import './AdminNav.css';
+import DropdownSelector from './DropdownSelector';
 
+import './AdminNav.css';
 
 const AdminNav = () => (
   <div>
@@ -14,18 +14,15 @@ const AdminNav = () => (
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto admin-navlinks">
+        <Nav class="mr-auto admin-navlinks">
           <Nav.Link id="navbar-link-admin" href="/Admin/AdminAppLogIn">
             <a className="white-link">Login</a>
-          </Nav.Link>
-          <Nav.Link href="/Admin/">
-            <a className="white-link">Backoffice Home</a>
           </Nav.Link>
           <Nav.Link href="/Admin/AdminQuizList">
             <a className="white-link">Manage Quizzes</a>
           </Nav.Link>
-          <Nav.Link href="/Admin/AdminDocList">
-            <a className="white-link">Manage Documentation</a>
+          <Nav.Link href="/Admin/AdminUserConfig">
+            <a className="white-link">Manage Users</a>
           </Nav.Link>
           <Nav.Link href="/Admin/AdminAppLogIn">
             <a className="white-link">Log Out</a>
