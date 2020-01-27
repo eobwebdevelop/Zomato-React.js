@@ -11,7 +11,7 @@ import AdminAppLogin from "./Admin/AdminAppLogin";
 import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
-import AdminQuizUpdate from "./Admin/AdminQuizUpdate";
+import AdminQuizEditor from "./Admin/AdminQuizEditor";
 import AdminEditUser from "./Admin/AdminEditUser";
 import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminDocList from './Admin/AdminDocList';
@@ -75,7 +75,7 @@ getRegion = () => {
 getResults = () => {
   fetch('http://localhost:3000/admin/result')
     .then(response => response.json())
-    .then(data => { console.log(data)
+    .then(data => { 
       this.setState( (state) => ({ 
         ...state,
         results : data.Results,
@@ -243,21 +243,23 @@ getRestaurants = () => {
         />
         <Route
           exact
-          path="/Admin/AdminEditUser"
-          render={() => (
+          path="/Admin/AdminEditUser/:id"
+          render={(props) => (
             <>
               <AdminNav />
-              <AdminEditUser />
+              <AdminEditUser 
+              id={props.match.params.id}/>
             </>
           )}
         />
         <Route
           exact
-          path="/Admin/AdminQuizUpdate"
-          render={() => (
+          path="/Admin/AdminQuizEditor/:id"
+          render={(props) => (
             <>
               <AdminNav />
-              <AdminQuizUpdate />
+              <AdminQuizEditor 
+              id={props.match.params.id}/>
             </>
           )}
         />
@@ -273,13 +275,14 @@ getRestaurants = () => {
       />
         <Route
         exact
-        path="/Admin/AdminRestaurantEditor"
-        render={() => (
+        path="/Admin/AdminRestaurantEditor/:id"
+        render={(props) => (
           <>
             <AdminNav />
             <AdminRestaurantEditor 
             restaurants = { restaurants }
-            regions = { regions } />
+            regions = { regions } 
+            id={props.match.params.id}/>
           </>
         )}
       />
@@ -317,11 +320,12 @@ getRestaurants = () => {
       />
        <Route
         exact
-        path="/Admin/AdminProductEditor"
-        render={() => (
+        path="/Admin/AdminProductEditor/:id"
+        render={(props) => (
           <>
             <AdminNav />
-            <AdminProductEditor />
+            <AdminProductEditor 
+             id={props.match.params.id}/>
           </>
         )}
       />

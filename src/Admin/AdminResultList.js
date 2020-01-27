@@ -44,24 +44,20 @@ class AdminResultList extends Component {
                 <td>{res.time_to_complete}</td>
                 <td>{res.time_of_day}</td>
                 <td>
-                  <a
-                    className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminResultEditor/${res.id}`}
-                  >
+                  <Link to={`/Admin/AdminResultEditor/${res.id}`} params={res.id}>
+                    <button type="submit" className="btn-list">
+                        Edit Result ►
+                    </button>
                     {' '}
-                    Edit Result  ►
-                    {' '}
-                  </a>
+                  </Link>
                 </td>
                 <td>
-                  <a
-                    className="view-zes-page-links-side-by-side"
-                    href={`/Admin/AdminResultDelete/${res.id}`}
-                  >
+                  <Link to={`/Admin/AdminResultDelete/${res.id}`} params={res.id}>
+                    <button type="submit" className="btn-list">
+                        Delete Result ►
+                    </button>
                     {' '}
-                    Delete Result ►
-                    {' '}
-                  </a>
+                  </Link>
                 </td>
               </tr>
             ))}

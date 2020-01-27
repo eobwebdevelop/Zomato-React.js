@@ -53,24 +53,20 @@ class AdminUserList extends Component {
                 <td>{user.phone_number}</td>
                 <td>{user.user_type_id}</td>
                 <td>
-                  <a
-                    className="view-quizzes-page-links-side-by-side"
-                    href={`/Admin/AdminuserEditor/${user.id}`}
-                  >
+                  <Link to={`/Admin/AdminUserEdit/${user.id}`} params={user.id}>
+                    <button type="submit" className="btn-list">
+                        Edit User ►
+                    </button>
                     {' '}
-                    Edit User  ►
-                    {' '}
-                  </a>
+                  </Link>
                 </td>
                 <td>
-                  <a
-                    className="view-zes-page-links-side-by-side"
-                    href={`/Admin/AdminDelete/${user.id}`}
-                  >
+                  <Link to={`/Admin/AdminUserDelete/${user.id}`} params={user.id}>
+                    <button type="submit" className="btn-list">
+                        Delete User ►
+                    </button>
                     {' '}
-                    Delete User ►
-                    {' '}
-                  </a>
+                  </Link>
                 </td>
               </tr>
             ))}
