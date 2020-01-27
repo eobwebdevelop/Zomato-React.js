@@ -5,6 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 const AdminDocList = () => {
   const [allDocs, setAllDocs] = useState([]);
+  const [reload, setReload] = useState(false);
 
   const getAllDocs = () => {
     fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
@@ -17,6 +18,27 @@ const AdminDocList = () => {
   useEffect(() => {
     getAllDocs();
   }, []);
+
+  const deleteDocumentation = (id) => {
+    console.log('id', id);
+    fetch('http://localhost:3000/admin/doc/delete',
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          id,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        if (res.status === 200) {
+          window.location.reload();
+        }
+      });
+  };
+
 
   return (
     <Container>
@@ -41,31 +63,34 @@ const AdminDocList = () => {
           <th>Delete</th>
         </tr>
         {allDocs.map((doc) => (
-          <tr>
+          <tr key={doc.id}>
             <td>{doc.id}</td>
             <td>{doc.title}</td>
             {/* <td>{ReactHtmlParser(doc.content)}</td> */}
             <td>
-              <Link to={`/Admin/AdminDocEditor/${doc.id}`} params={doc.id}>
-                <button type="submit" className="view-quizzes-page-links-side-by-side">
-                  {' '}
+              {/* <Link to={`/Admin/AdminDocEditor/${doc.id}`} params={doc.id}> */}
+              <button type="submit" className="view-quizzes-page-links-side-by-side">
+                {' '}
                         Edit Documentation ►
-                  {' '}
-                </button>
-              </Link>
+                {' '}
+              </button>
+              {/* </Link> */}
             </td>
             <td>
-              <Link to={`/Admin/AdminProductEditor/${doc.id}`} params={doc.id}>
-                {/* AS: does it need to be a link? same page, without deleted item should be displayed */}
-                <button
-                  type="submit"
-                  className="view-quizzes-page-links-side-by-side"
-                >
-                  {' '}
+              {/* <Link to={`/Admin/AdminProductEditor/${doc.id}`} params={doc.id}> */}
+              {/* AS: does it need to be a link? same page,
+                without deleted item should be displayed */}
+              <button
+                type="submit"
+                // method="post"
+                className="view-quizzes-page-links-side-by-side"
+                onClick={() => deleteDocumentation(doc.id)}
+              >
+                {' '}
                         Delete Documentation ►
-                  {' '}
-                </button>
-              </Link>
+                {' '}
+              </button>
+              {/* </Link> */}
             </td>
           </tr>
         ))}
