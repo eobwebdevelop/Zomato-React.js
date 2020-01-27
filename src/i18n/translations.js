@@ -94,10 +94,10 @@ const Translations = {
   pt: {
     Full: 'Português',
     LearnerNav: {
-      LinkS: 'Sign Up (portuguese translation plz)',
-      LinkL: 'Login (portuguese translation plz)',
+      LinkS: 'Registar-se',
+      LinkL: 'Iniciar Sessão',
       LinkQ: 'Quizzes ',
-      LinkF: 'FAQ (portuguese translation plz)',
+      LinkF: 'FAQ',
       LinkC: 'Contactos ',
       LinkA: 'Admin Portal should not be here',
     },
@@ -118,7 +118,7 @@ const Translations = {
     },
 
     FAQ: {
-      Title: 'FAQ (portuguese translation plz)',
+      Title: 'FAQ',
       Button: 'Home (portuguese translation plz)',
     },
 
@@ -136,7 +136,7 @@ const Translations = {
       ButtonL: 'Login',
       Forgot: 'Esqueceu-se da password?',
       Account: 'Ainda não tem uma conta?',
-      ButtonS: 'Sign-Up (portuguese translation plz)',
+      ButtonS: 'Registar-se',
       PlaceholderU: ' Email de utilizador',
       PlaceholderP: ' Password',
     },
@@ -164,7 +164,7 @@ const Translations = {
     },
 
     SignUp: {
-      Title: 'Sign-Up (portuguese translation plz)',
+      Title: 'Registar-se',
       SubtitleD: 'Informação pessoal',
       SubtitleL: 'Localização',
       SutitleI: 'ZomatoInformation:(portuguese translation plz)',
@@ -179,7 +179,7 @@ const Translations = {
       PlaceholderP: ' Password* ',
       PlaceholderC: ' Confirmar Password*',
 
-      Button: 'Sign-Up (portuguese translation plz)',
+      Button: 'Registar-se',
     },
   },
 };

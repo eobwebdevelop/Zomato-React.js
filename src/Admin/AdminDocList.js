@@ -56,7 +56,11 @@ const AdminDocList = () => {
             </td>
             <td>
               <Link to={`/Admin/AdminProductEditor/${doc.id}`} params={doc.id}>
-                <button type="submit" className="view-quizzes-page-links-side-by-side">
+                {/* AS: does it need to be a link? same page, without deleted item should be displayed */}
+                <button
+                  type="submit"
+                  className="view-quizzes-page-links-side-by-side"
+                >
                   {' '}
                         Delete Documentation ►
                   {' '}

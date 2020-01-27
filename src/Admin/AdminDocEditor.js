@@ -4,8 +4,7 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './AdminDocEditor.css';
 import ReactQuill from 'react-quill';
-import RegionDropDown from '../Learners/SignUp/RegionDropDown';
-
+import DropDown from '../Learners/SignUp/DropDown';
 import 'react-quill/dist/quill.snow.css';
 
 
@@ -147,7 +146,7 @@ const AdminDocEditor = () => {
         <label>
       Language:
         </label>
-        <RegionDropDown
+        <DropDown
           selectOptions={langOptions}
           placeholder="Select language"
           onChange={onChangeLanguage}
@@ -155,7 +154,7 @@ const AdminDocEditor = () => {
         <label>
       Product:
         </label>
-        <RegionDropDown
+        <DropDown
           selectOptions={productOptions}
           placeholder="Select product"
           onChange={onChangeProduct}
