@@ -68,7 +68,8 @@ class App extends Component {
       users: [{ id: 0, first_name: "" }],
       restaurants: [{ id: 0, name: "" }],
       regions: [{ id: 0, name: "" }],
-      results: [{ id: 0, name: "" }]
+      results: [{ id: 0, name: "" }],
+      documentation: []
     };
     this.startOverallTimer = this.startOverallTimer.bind(this);
     this.onNextStep = this.onNextStep.bind(this);
@@ -116,6 +117,17 @@ class App extends Component {
           ...state,
           quizzes: data.quizzes,
           questionsAreLoaded: true
+        }));
+      });
+  };
+
+  getAllDocs = () => {
+    fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState(state => ({
+          ...state,
+          documentation: data.Documentation,
         }));
       });
   };
@@ -206,6 +218,7 @@ class App extends Component {
     this.getRestaurants();
     this.getRegion();
     this.getResults();
+    this.getAllDocs();
     const currentLanguageJson = localStorage.getItem("currentLanguage");
     const tokenJson = localStorage.getItem("token");
     const currentLanguage = JSON.parse(currentLanguageJson);
@@ -220,7 +233,6 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.state.token);
     const {
       currentLanguage,
       quizzes,
@@ -495,7 +507,7 @@ class App extends Component {
           render={() => (
             <>
               <LearnerNav />
-              <Documentation />
+              <Documentation documentation={this.state.documentation} />
             </>
           )}
         />
