@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Redirect, Route, } from "react-router-dom"; //Switch, withRouter 
+import { Redirect, Route } from "react-router-dom"; //Switch, withRouter
 // import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-
 
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
@@ -14,11 +13,11 @@ import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizEditor from "./Admin/AdminQuizEditor";
 import AdminEditUser from "./Admin/AdminEditUser";
 import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
-import AdminDocList from './Admin/AdminDocList';
+import AdminDocList from "./Admin/AdminDocList";
 import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
-import AdminProductCreator from "./Admin/AdminProductCreator"
+import AdminProductCreator from "./Admin/AdminProductCreator";
 import AdminHomePage from "./Admin/AdminHomePage";
-import AdminProductEditor from "./Admin/AdminProductEditor"
+import AdminProductEditor from "./Admin/AdminProductEditor";
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminRestaurantList from "./Admin/AdminRestaurantList";
@@ -31,25 +30,42 @@ import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
 import ForgotPassword from "./Learners/LogIn/ForgotPassword";
 import QuizList from "./Learners/QuizList/QuizList";
-import Answer from "./Learners/Quiz/Answer";
-import Quiz from "./Learners/Quiz/Quiz";
-import Timer from "./Learners/Quiz/Timer";
-import Question from "./Learners/Quiz/Question";
-import Results from "./Learners/Quiz/Results";
+import Challenge from "./Learners/Challenge/Challenge";
+// import Answer from "./Learners/Quiz/Answer";
+// import Quiz from "./Learners/Quiz/Quiz";
+// import Timer from "./Learners/Quiz/Timer";
+// import Question from "./Learners/Quiz/Question";
+// import Results from "./Learners/Quiz/Results";
 import SignUp from "./Learners/SignUp/SignUp";
 import FAQ from "./Learners/FAQ/FAQ.js";
 
 // Translation eng/port
 
-
-import LanguagesContext, { availableLanguages } from './contexts/languages-context';
-
+import LanguagesContext, {
+  availableLanguages
+} from "./contexts/languages-context";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentLanguage: availableLanguages.pt,
+      quizzes: [{ id: 0, name: "" }],
+      placeholderData: placeholderData,
+      // Step defines which question you are seeing. Step 0 - 9 are questions, step 10 is results.
+      step: 0,
+      // Overalltime counts upwards until you are at step 10 i.e. results.
+      overallTime: 0,
+      // Check whether questions are loaded, else we need to display loading screen when opening quiz.
+      questionsAreLoaded: false,
+      // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
+      quizIDInPlay: 1
+    };
+    this.startOverallTimer = this.startOverallTimer.bind(this);
+    this.onNextStep = this.onNextStep.bind(this);
+    this.refreshQuizState = this.refreshQuizState.bind(this);
+  }
+
       token: '',
       quizzes: [{id:0, name:''}],
       products: [{id:0, name:'', description: ''}],
@@ -96,16 +112,54 @@ getRestaurants = () => {
     })
 };
 
+
   getQuizzes = () => {
-    fetch('http://localhost:3000/admin/quiz')
+    fetch("http://localhost:3000/admin/quiz")
       .then(response => response.json())
       .then(data => {
         this.setState( (state) => ({ 
           ...state,
           quizzes: data.quizzes,
-        }))
-      })
+          questionsAreLoaded: true
+        }));
+      });
   };
+
+  handleChangeLanguage = e => {
+    this.setState({ currentLanguage: e.target.value });
+    localStorage.setItem("currentLanguage", JSON.stringify(e.target.value));
+  };
+  //LocalStorage.getItem('currentLanguage');
+
+  onNextStep = () => {
+    this.setState(state => {
+      return {
+        ...state,
+        step: ++state.step
+      };
+    });
+  };
+
+  // ew: This should be called on ComponentDidMount as soon as a user clicks Take Quiz. Once step is 10 (results), it stops.
+
+  startOverallTimer() {
+    this.timer = setInterval(
+      () =>
+        this.setState(prevState => {
+          return prevState.step < 10
+            ? {
+                ...prevState,
+                overallTime: this.state.overallTime + 1
+              }
+            : { ...prevState };
+        }),
+      1000
+    );
+  }
+
+  refreshQuizState() {
+    console.log("refresh");
+    this.setState({ overallTime: 0, step: 0 });
 
   getProducts = () => {
     fetch('http://localhost:3000/admin/product')
@@ -137,7 +191,17 @@ getRestaurants = () => {
       );
       localStorage.setItem('currentLanguage', JSON.stringify(e.target.value));
   }
-//LocalStorage.getItem('currentLanguage');
+
+
+  componentDidMount() {
+    this.getQuizzes();
+
+    const json = localStorage.getItem("currentLanguage");
+    const currentLanguage = JSON.parse(json);
+
+    if (currentLanguage) {
+      this.setState({ currentLanguage });
+    }
 
   componentDidMount(){
     this.getQuizzes()
@@ -155,21 +219,22 @@ getRestaurants = () => {
       currentLanguage: currentLanguage ? currentLanguage : availableLanguages.pt,
       token: token ? token : ''
     })
+
   }
 
-  handleChangeLanguage = (e) => {
-    this.setState(
-        { currentLanguage: e.target.value }
-    );
-    localStorage.setItem('currentLanguage', JSON.stringify(e.target.value));
-  }
+  handleChangeLanguage = e => {
+    this.setState({ currentLanguage: e.target.value });
+    localStorage.setItem("currentLanguage", JSON.stringify(e.target.value));
+  };
 
   render() {
+
+    const { currentLanguage } = this.state;
+
     console.log(this.state.token);
     const { currentLanguage, quizzes, products, users, restaurants, regions, results } = this.state;
 
     return (
-      
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
       >
@@ -179,7 +244,7 @@ getRestaurants = () => {
           path="/"
           render={() => <Redirect to="/Learners/LogIn/LogIn"></Redirect>}
         />
-         <Route
+        <Route
           exact
           path="/Admin"
           render={() => (
@@ -263,17 +328,14 @@ getRestaurants = () => {
             </>
           )}
         />
-         <Route
-        exact
-        path="/Admin/AdminRestaurantCreator"
-        render={() => (
-          <>
-            <AdminNav />
-            <AdminRestaurantCreator />
-          </>
-        )}
-      />
         <Route
+          exact
+          path="/Admin/AdminRestaurantCreator"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminRestaurantCreator />
+
         exact
         path="/Admin/AdminRestaurantEditor/:id"
         render={(props) => (
@@ -342,6 +404,42 @@ getRestaurants = () => {
         />
         <Route
           exact
+
+          path="/Admin/AdminRestaurantEditor"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminRestaurantEditor />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/Admin/AdminProductList"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminProductList />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/Admin/AdminProductCreator"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminProductCreator />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/Admin/AdminProductEditor"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminProductEditor />
           path="/Admin/AdminResultList"
           render={() => (
             <>
@@ -417,6 +515,27 @@ getRestaurants = () => {
 
         <Route
           exact
+          path="/Learners/Quiz/Answer"
+          render={() => (
+            <>
+              <LearnerNav />
+              <Challenge
+                refreshQuizState={this.refreshQuizState}
+                questionPackage={this.state.placeholderData.quizzes}
+                startOverallTimer={this.startOverallTimer}
+                overallTime={this.state.overallTime}
+                onNextStep={this.onNextStep}
+                onClickAnswer={this.onClickAnswer}
+                step={this.state.step}
+                quizIDInPlay={this.state.quizIDInPlay}
+              />
+            </>
+          )}
+        />
+
+        {/*Ew: commenting out for now. Please leave in as I will use this to copy style from prev components. Quiz is now rendered under Challenge component */}
+        {/* <Route
+          exact
           path="/Learners/Quiz/Timer"
           render={() => (
             <>
@@ -464,7 +583,7 @@ getRestaurants = () => {
               <Results />
             </>
           )}
-        />
+        /> */}
         <Route
           exact
           path="/Learners/SignUp"
@@ -480,5 +599,307 @@ getRestaurants = () => {
     );
   }
 }
+
+const placeholderData = {
+  quizzes: [
+    {
+      id: 1,
+      name: "Discounts ",
+      user_type_id: 2,
+      language_id: 1,
+      product_id: 1,
+      questions: [
+        {
+          id: 1,
+          question: "What is Zomato Gold?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "Not sure",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "Cool discounts",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 2,
+          question: "Question 2",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 3,
+          question: "Question 3",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 4,
+          question: "What is Zomato map?",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 5,
+          question: "Question 5",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 6,
+          question: "Question 6",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 7,
+          question: "Question 7",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 8,
+          question: "Question 8",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 9,
+          question: "Question 9",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 10,
+          question: "Question 10",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 2,
+      name: "Quiz 2",
+      user_type_id: 1,
+      language_id: 2,
+      product_id: 1,
+      questions: []
+    }
+  ]
+};
 
 export default App;
