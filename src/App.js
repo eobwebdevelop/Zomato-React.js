@@ -12,7 +12,7 @@ import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizEditor from "./Admin/AdminQuizEditor";
-import AdminEditUser from "./Admin/AdminEditUser";
+import AdminUserEditor from "./Admin/AdminUserEditor";
 import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminDocList from './Admin/AdminDocList';
 import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
@@ -238,12 +238,13 @@ getRestaurants = () => {
         />
         <Route
           exact
-          path="/Admin/AdminEditUser/:id"
+          path="/Admin/AdminUserEditor/:id"
           render={(props) => (
             <>
               <AdminNav />
-              <AdminEditUser 
-              id={props.match.params.id}/>
+              <AdminUserEditor
+              id={props.match.params.id}
+              users = {users}/>
             </>
           )}
         />
@@ -254,7 +255,8 @@ getRestaurants = () => {
             <>
               <AdminNav />
               <AdminQuizEditor 
-              id={props.match.params.id}/>
+              id={props.match.params.id}
+              quizzes = {quizzes} />
             </>
           )}
         />
@@ -320,7 +322,8 @@ getRestaurants = () => {
           <>
             <AdminNav />
             <AdminProductEditor 
-             id={props.match.params.id}/>
+             id={props.match.params.id}
+             products = {products}/>
           </>
         )}
       />

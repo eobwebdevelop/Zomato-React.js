@@ -53,7 +53,7 @@ class AdminUserList extends Component {
                 <td>{user.phone_number}</td>
                 <td>{user.user_type_id}</td>
                 <td>
-                  <Link to={`/Admin/AdminUserEdit/${user.id}`} params={user.id}>
+                  <Link to={`/Admin/AdminUserEditor/${user.id}`} params={user.id}>
                     <button type="submit" className="btn-list">
                         Edit User ►
                     </button>

@@ -24,16 +24,16 @@ const LearnerNav = () => {
             <Nav.Link href="/Learners/SignUp/SignUp">
               <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkS}</a>
             </Nav.Link>
-            <Nav.Link href="/Learners/LogIn/LogIn">
+            <Nav.Link href="/Learners/LogIn">
               <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkL}</a>
             </Nav.Link>
-            <Nav.Link href="/Learners/QuizList/QuizList">
+            <Nav.Link href="/Learners/QuizList">
               <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkQ}</a>
             </Nav.Link>
-            <Nav.Link href="/Learners/FAQ/FAQ">
+            <Nav.Link href="/Learners/FAQ">
               <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkF}</a>
             </Nav.Link>
-            <Nav.Link href="/Learners/ContactUs/ContactUs">
+            <Nav.Link href="/Learners/ContactUs">
               <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkC}</a>
             </Nav.Link>
             <Nav.Link href="/Admin/AdminAppLogin">
