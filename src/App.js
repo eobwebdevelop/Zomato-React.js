@@ -119,11 +119,6 @@ class App extends Component {
       });
   };
 
-  handleChangeLanguage = e => {
-    this.setState({ currentLanguage: e.target.value });
-    localStorage.setItem("currentLanguage", JSON.stringify(e.target.value));
-  };
-
   onNextStep = () => {
     this.setState(state => {
       return {
@@ -182,22 +177,6 @@ class App extends Component {
     localStorage.setItem("currentLanguage", JSON.stringify(e.target.value));
   };
 
-  handleChangeLanguage = e => {
-    this.setState({ currentLanguage: e.target.value });
-    localStorage.setItem("currentLanguage", JSON.stringify(e.target.value));
-  };
-
-  // EW: Not sure why we have two componentDidMounts. Commenting this one out for now: check if we need this and add to the main componentdidmount if not.
-  // componentDidMount() {
-  //   this.getQuizzes();
-
-  //   const json = localStorage.getItem("currentLanguage");
-  //   const currentLanguage = JSON.parse(json);
-
-  //   if (currentLanguage) {
-  //     this.setState({ currentLanguage });
-  //   }
-
   componentDidMount() {
     this.getQuizzes();
     this.getProducts();
@@ -234,7 +213,6 @@ class App extends Component {
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
       >
-        {/* EW: Ideally, we want to do some sort of check of where the home directory leads. If user is logged in, go to QuizList pag (/Learners/QuizList/QuizList), if not, ask to login   */}
         <Route
           exact
           path="/"
