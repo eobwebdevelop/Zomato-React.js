@@ -197,16 +197,15 @@ class App extends Component {
     this.getRegion();
     this.getResults();
     this.getAllDocs();
-    const currentLanguageJson = localStorage.getItem("currentLanguage");
-    const tokenJson = localStorage.getItem("token");
-    const currentLanguage = JSON.parse(currentLanguageJson);
-    const token = JSON.parse(tokenJson);
+    const currentLanguage = localStorage.getItem("currentLanguage");
+    const token = localStorage.getItem("token");
 
     this.setState({
-      currentLanguage: currentLanguage
-        ? currentLanguage
-        : availableLanguages.pt,
-      token: token ? token : ""
+      currentLanguage: 
+        currentLanguage ?
+          JSON.parse(currentLanguage)
+          : availableLanguages.pt,
+      token: token ? JSON.parse(token) : ""
     });
   }
 
