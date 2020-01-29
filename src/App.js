@@ -126,16 +126,16 @@ class App extends Component {
       });
   };
 
-  getAllDocs = () => {
-    fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
+  getDocs = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
           ...state,
           documentation: data.Documentation
         }));
-      });
-  };
+      })
+    };
 
   onNextStep = () => {
     this.setState(state => {
@@ -213,7 +213,7 @@ class App extends Component {
     this.getRestaurants();
     this.getRegion();
     this.getResults();
-    this.getAllDocs();
+    this.getDocs();
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
@@ -274,7 +274,10 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminDocList />
+              <AdminDocList 
+                documentation={this.state.documentation}
+                // onChange={}
+              />
             </>
           )}
         />
@@ -285,7 +288,7 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminDocEditor />
+              <AdminDocEditor documentation={this.state.documentation}/>
             </>
           )}
         />
