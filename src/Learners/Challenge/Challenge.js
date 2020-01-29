@@ -5,9 +5,6 @@ import QandA from "./QandA";
 import ResultsCard from "./ResultsCard";
 
 class Challenge extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.startOverallTimer();

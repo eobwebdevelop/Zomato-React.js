@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
 
@@ -25,7 +25,7 @@ const ForgotPassword = () => {
               />
               <br />
 
-              <Link to="/Learners/LogIn/LogIn">
+              <Link to="/Learners/LogIn">
                 <button type="submit" className="btn-login">
                   {translations[currentLanguage].ForgotPassword.Button}
                 </button>

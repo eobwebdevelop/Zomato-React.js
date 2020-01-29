@@ -7,20 +7,20 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
 import AdminAppLogin from "./Admin/AdminAppLogin";
-import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizEditor from "./Admin/AdminQuizEditor";
-import AdminEditUser from "./Admin/AdminEditUser";
-import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
+import AdminUserEditor from "./Admin/AdminUserEditor";
 import AdminDocList from "./Admin/AdminDocList";
+import AdminDocEditor from "./Admin/AdminDocEditor";
+import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
+import AdminRestaurantList from "./Admin/AdminRestaurantList";
 import AdminProductCreator from "./Admin/AdminProductCreator";
 import AdminHomePage from "./Admin/AdminHomePage";
 import AdminProductEditor from "./Admin/AdminProductEditor";
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
-import AdminRestaurantList from "./Admin/AdminRestaurantList";
 import AdminResultList from "./Admin/AdminResultList";
 
 // Learner portal imports
@@ -120,7 +120,13 @@ class App extends Component {
   };
 
   getQuizzes = () => {
-    fetch("http://localhost:3000/learner/quiz")
+    fetch("http://localhost:3000/admin/quiz",
+    {
+      method: 'GET',
+      headers: new Headers({
+          'Preferred-Language': 'application/json'
+        })
+      }
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -131,16 +137,16 @@ class App extends Component {
       });
   };
 
-  getAllDocs = () => {
-    fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
+  getDocs = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
           ...state,
           documentation: data.Documentation
         }));
-      });
-  };
+      })
+    };
 
   onNextStep = selectedAnswer => {
     this.setState(state => {
@@ -227,6 +233,7 @@ class App extends Component {
     localStorage.setItem("currentLanguage", JSON.stringify(e.target.value));
   };
 
+
   componentDidMount() {
     this.refreshQuizState();
     this.getQuizzes();
@@ -235,18 +242,84 @@ class App extends Component {
     this.getRestaurants();
     this.getRegion();
     this.getResults();
-    this.getAllDocs();
-    const currentLanguageJson = localStorage.getItem("currentLanguage");
-    const tokenJson = localStorage.getItem("token");
-    const currentLanguage = JSON.parse(currentLanguageJson);
-    const token = JSON.parse(tokenJson);
+    this.getDocs();
+    const currentLanguage = localStorage.getItem("currentLanguage");
+    const token = localStorage.getItem("token");
 
     this.setState({
-      currentLanguage: currentLanguage
-        ? currentLanguage
-        : availableLanguages.pt,
-      token: token ? token : ""
+      currentLanguage: 
+        currentLanguage ?
+          JSON.parse(currentLanguage)
+          : availableLanguages.pt,
+      token: token ? JSON.parse(token) : ""
     });
+  }
+
+  handleDelete = (id, resourceType, callback) => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`,
+    {
+      method: 'DELETE',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify({
+        id,
+      }),
+    })
+    .then(res => res.json())
+    .then(callback);
+  }
+
+  handleDeleteDoc = (id) => {
+    this.handleDelete(
+      id,
+      'doc',
+      () => {
+        const updatedDocs = (this.state.documentation.filter((doc) => doc.id !== id))
+        this.setState({ documentation : updatedDocs})
+      }
+    )
+  }
+
+  handleDeleteProduct = (id) => {
+    this.handleDelete(
+      id,
+      'product',
+      () => {
+        const updatedProducts = (this.state.quizzes.filter((quiz) => quiz.id !== id))
+        this.setState({ products : updatedProducts})
+      }
+    )
+  }
+  handleDeleteQuiz = (id) => {
+    this.handleDelete(
+      id,
+      'quiz',
+      () => {
+        const updatedQuizzes = (this.state.quizzes.filter((quiz) => quiz.id !== id))
+        this.setState({ quizzes : updatedQuizzes})
+      }
+    )
+  }
+  handleDeleteRestaurant = (id) => {
+    this.handleDelete(
+      id,
+      'restaurant',
+      () => {
+        const updatedRestaurants = (this.state.restaurants.filter((restaurant) => restaurant.id !== id))
+        this.setState({ restaurants : updatedRestaurants})
+      }
+    )
+  }
+  handleDeleteUser = (id) => {
+    this.handleDelete(
+      id,
+      'user',
+      () => {
+        const updatedUsers = (this.state.users.filter((user) => user.id !== id))
+        this.setState({ users : updatedUsers})
+      }
+    )
   }
 
   render() {
@@ -292,14 +365,17 @@ class App extends Component {
             </>
           )}
         />
-
+   {/* {Documentation } */}
         <Route
           exact
           path="/Admin/AdminDocList"
           render={() => (
             <>
               <AdminNav />
-              <AdminDocList />
+              <AdminDocList 
+                documentation={this.state.documentation}
+                onDelete={this.handleDeleteDoc}
+              />
             </>
           )}
         />
@@ -310,22 +386,24 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminDocEditor />
+              <AdminDocEditor documentation={this.state.documentation}/>
             </>
           )}
         />
-
+           {/* {QUIZ } */}
         <Route
           exact
           path="/Admin/AdminQuizList"
           render={() => (
             <>
               <AdminNav />
-              <AdminQuizList quizzes={quizzes} />
+              <AdminQuizList 
+                quizzes={quizzes}
+                onDelete={this.handleDeleteQuiz} 
+              />
             </>
           )}
         />
-
         <Route
           exact
           path="/Admin/AdminQuizMaker"
@@ -336,29 +414,54 @@ class App extends Component {
             </>
           )}
         />
-
-        <Route
-          exact
-          path="/Admin/AdminEditUser/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminEditUser id={props.match.params.id} />
-            </>
-          )}
-        />
-
-        <Route
+         <Route
           exact
           path="/Admin/AdminQuizEditor/:id"
           render={props => (
             <>
               <AdminNav />
-              <AdminQuizEditor id={props.match.params.id} />
+              <AdminQuizEditor 
+              id={props.match.params.id}
+              quizzes = {quizzes} /> />
             </>
           )}
         />
-
+        {/* {Users } */}
+        <Route
+          exact
+          path="/Admin/AdminUserList"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminUserList users={users} />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/Admin/AdminUserEditor/:id"
+          render={(props) => (
+            <>
+              <AdminNav />
+              <AdminUserEditor
+              id={props.match.params.id}
+              users = {users}/>
+            </>
+          )}
+        />
+           {/* {Restaurant } */}
+        <Route
+          exact
+          path="/Admin/AdminRestaurantList"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminRestaurantList 
+                restaurants={restaurants}
+                onDelete={this.handleDeleteRestaurant} />
+            </>
+          )}
+        />
         <Route
           exact
           path="/Admin/AdminRestaurantCreator"
@@ -384,29 +487,20 @@ class App extends Component {
             </>
           )}
         />
-
-        <Route
-          exact
-          path="/Admin/AdminRestaurantList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminRestaurantList restaurants={restaurants} />
-            </>
-          )}
-        />
-
+           {/* {Products } */}
         <Route
           exact
           path="/Admin/AdminProductList"
           render={() => (
             <>
               <AdminNav />
-              <AdminProductList products={products} />
+              <AdminProductList 
+                products={products} 
+                onDelete={this.handleDeleteProduct}
+              />
             </>
           )}
         />
-
         <Route
           exact
           path="/Admin/AdminProductCreator"
@@ -418,72 +512,18 @@ class App extends Component {
           )}
         />
 
-        <Route
-          exact
-          path="/Admin/AdminProductEditor/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminProductEditor id={props.match.params.id} />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Admin/AdminUserList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminUserList users={users} />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Admin/AdminRestaurantEditor"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminRestaurantEditor />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Admin/AdminProductList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductList />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Admin/AdminProductCreator"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductCreator />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Admin/AdminProductEditor"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductEditor />
-            </>
-          )}
-        />
-
+       <Route
+        exact
+        path="/Admin/AdminProductEditor/:id"
+        render={(props) => (
+          <>
+            <AdminNav />
+            <AdminProductEditor 
+             id={props.match.params.id}
+             products = {products}/>
+          </>
+        )}
+      />
         <Route
           exact
           path="/Admin/AdminResultList"

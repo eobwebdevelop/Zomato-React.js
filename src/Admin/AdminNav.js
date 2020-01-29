@@ -8,30 +8,29 @@ const AdminNav = () => (
   <div>
     {/* Example */}
     <Navbar id="navbar-admin" bg="black" expand="lg">
-      <Navbar.Brand href="/Learners/QuizList/QuizList">
-        <img src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" />
+      <Navbar.Brand href="/Learners/QuizList">
+        <img alt="logo" src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto admin-navlinks">
           <Nav.Link id="navbar-link-admin" href="/Admin/AdminAppLogIn">
-            <a className="white-link">Login</a>
+              Login
           </Nav.Link>
           <Nav.Link href="/Admin/">
-            <a className="white-link">Backoffice Home</a>
+              Backoffice Home
           </Nav.Link>
           <Nav.Link href="/Admin/AdminQuizList">
-            <a className="white-link">Manage Quizzes</a>
+              Manage Quizzes
           </Nav.Link>
           <Nav.Link href="/Admin/AdminDocList">
-            <a className="white-link">Manage Documentation</a>
+              Manage Documentation
           </Nav.Link>
           <Nav.Link href="/Admin/AdminAppLogIn">
-            <a className="white-link">Log Out</a>
+              Log Out
           </Nav.Link>
-          <Nav.Link href="/Learners/Login/Login">
-            <a className="white-link">Learner Portal</a>
+          <Nav.Link href="/Learners/Login">
+              Learner Portal
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
