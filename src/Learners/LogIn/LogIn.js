@@ -32,10 +32,10 @@ class LogIn extends Component {
       passwordError: ""
     };
 
-    if (this.state.email == "") {
+    if(this.state.email === ''){
       isError = true;
-      errors.emailError = "Fill your email, please";
-    } else if (this.state.password == "") {
+      errors.emailError = "Fill your email, please"
+    } else if (this.state.password === '') {
       isError = true;
       errors.passwordError = "Fill your password, please";
     }
@@ -114,9 +114,10 @@ class LogIn extends Component {
                   {translations[currentLanguage].Login.Forgot}
                   <br />
                 </Link>
-                {translations[currentLanguage].Login.Account}{" "}
-                <Link to="/Learners/SignUp/SignUp">
-                  {translations[currentLanguage].Login.ButtonS}
+                {translations[currentLanguage].Login.Account}
+                {' '}
+                <Link to="/Learners/SignUp">
+                    {translations[currentLanguage].Login.ButtonS}
                 </Link>
               </div>
             </div>
