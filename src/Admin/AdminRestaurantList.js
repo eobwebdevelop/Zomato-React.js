@@ -10,6 +10,26 @@ class AdminRestaurantList extends Component {
     };
   }
 
+  deleteRestaurant = (id) => {
+    fetch('http://localhost:3000/admin/restaurant/delete',
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          id,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        if (res.status === 200) {
+          console.log('hey');
+          // return history.push('/Admin/AdminDocList');
+        }
+      });
+  };
+
   render() {
     const { restaurants } = this.props;
     return (
@@ -54,12 +74,13 @@ class AdminRestaurantList extends Component {
                   </Link>
                 </td>
                 <td>
-                  <Link to={`/Admin/AdminRestaurantDelete/${res.id}`} params={res.id}>
-                    <button type="submit" className="btn-list">
+                  <button
+                    type="submit"
+                    className="btn-list"
+                    onClick={() => this.deleteRestaurant(res.id)}
+                  >
                         Delete Restaurant ►
-                    </button>
-                    {' '}
-                  </Link>
+                  </button>
                 </td>
               </tr>
             ))}
