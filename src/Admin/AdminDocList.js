@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import {
+  Link, withRouter, useHistory,
+} from 'react-router-dom';
+
+
 import ReactHtmlParser from 'react-html-parser';
 
 const AdminDocList = () => {
   const [allDocs, setAllDocs] = useState([]);
-  const [reload, setReload] = useState(false);
+  const history = useHistory();
 
   const getAllDocs = () => {
     fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
@@ -20,7 +24,6 @@ const AdminDocList = () => {
   }, []);
 
   const deleteDocumentation = (id) => {
-    console.log('id', id);
     fetch('http://localhost:3000/admin/doc/delete',
       {
         method: 'DELETE',
@@ -34,11 +37,10 @@ const AdminDocList = () => {
       .then((res) => {
         res.json();
         if (res.status === 200) {
-          window.location.reload();
+          return history.push('/Admin/AdminDocList');
         }
       });
   };
-
 
   return (
     <Container>
@@ -66,31 +68,22 @@ const AdminDocList = () => {
           <tr key={doc.id}>
             <td>{doc.id}</td>
             <td>{doc.title}</td>
-            {/* <td>{ReactHtmlParser(doc.content)}</td> */}
             <td>
-              {/* <Link to={`/Admin/AdminDocEditor/${doc.id}`} params={doc.id}> */}
               <button type="submit" className="view-quizzes-page-links-side-by-side">
                 {' '}
                         Edit Documentation ►
                 {' '}
               </button>
-              {/* </Link> */}
             </td>
             <td>
-              {/* <Link to={`/Admin/AdminProductEditor/${doc.id}`} params={doc.id}> */}
-              {/* AS: does it need to be a link? same page,
-                without deleted item should be displayed */}
               <button
                 type="submit"
                 // method="post"
                 className="view-quizzes-page-links-side-by-side"
                 onClick={() => deleteDocumentation(doc.id)}
               >
-                {' '}
-                        Delete Documentation ►
-                {' '}
+                  Delete Documentation ►
               </button>
-              {/* </Link> */}
             </td>
           </tr>
         ))}
@@ -99,4 +92,4 @@ const AdminDocList = () => {
   );
 };
 
-export default AdminDocList;
+export default withRouter(AdminDocList);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './AdminList.css';
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, useHistory, Redirect} from 'react-router-dom';
 
 class AdminQuizList extends Component {
   constructor(props) {
@@ -9,6 +9,26 @@ class AdminQuizList extends Component {
     this.state = {
     };
   }
+
+  deleteQuiz = (id) => {
+    fetch('http://localhost:3000/admin/quiz/delete',
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          id,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        if (res.status === 200) {
+          console.log('hey');
+          // return history.push('/Admin/AdminDocList');
+        }
+      });
+  };
 
   render() {
     const { quizzes } = this.props;
@@ -46,16 +66,16 @@ class AdminQuizList extends Component {
                     <button type="submit" className="btn-list">
                         Edit Quiz ►
                     </button>
-                    {' '}
                   </Link>
                 </td>
                 <td>
-                  <Link to={`/Admin/AdminQuizDelete/${quiz.id}`} params={quiz.id}>
-                    <button type="submit" className="btn-list">
+                    <button 
+                      type="submit" 
+                      className="btn-list"
+                      onClick={ ()=> this.deleteQuiz(quiz.id)}
+                    >
                         Delete Quiz ►
                     </button>
-                    {' '}
-                  </Link>
                 </td>
               </tr>
             ))}
@@ -65,4 +85,4 @@ class AdminQuizList extends Component {
     );
   }
 }
-export default AdminQuizList;
+export default withRouter(AdminQuizList);

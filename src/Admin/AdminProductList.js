@@ -11,6 +11,26 @@ class AdminProductList extends Component {
     };
   }
 
+  deleteProduct = (id) => {
+    fetch('http://localhost:3000/admin/product/delete',
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          id,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        if (res.status === 200) {
+          console.log('hey');
+          // return history.push('/Admin/AdminDocList');
+        }
+      });
+  };
+
   render() {
     const { products } = this.props;
     return (
@@ -54,13 +74,13 @@ class AdminProductList extends Component {
                   </Link>
                 </td>
                 <td>
-                  <Link to={`/Admin/AdminDelteEditor/${prod.id}`}>
-                    <button type="submit" className="btn-list">
+                  <button
+                    type="submit"
+                    className="btn-list"
+                    onClick={() => this.deleteProduct(prod.id)}
+                  >
                         Delete Product ►
-                    </button>
-                    {' '}
-
-                  </Link>
+                  </button>
                 </td>
               </tr>
             ))}
