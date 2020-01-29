@@ -53,36 +53,40 @@ class AdminProductList extends Component {
           </Link>
 
           <table className="tftable" border="1">
-            <tr>
-              <th>Product id</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Edit Product</th>
-              <th>Delete Product</th>
-            </tr>
-            { products.map((prod) => (
+            <thead>
               <tr>
-                <td>{prod.id}</td>
-                <td>{prod.name}</td>
-                <td>{prod.description}</td>
-                <td>
-                  <Link to={`/Admin/AdminProductEditor/${prod.id}`} params={prod.id}>
-                    <button type="submit" className="btn-list">
-                        Edit Product ►
-                    </button>
-                    {' '}
-                  </Link>
-                </td>
-                <td>
-                  <button
-                    type="submit"
-                    className="btn-list"
-                    onClick={() => this.deleteProduct(prod.id)}
-                  >
-                        Delete Product ►
-                  </button>
-                </td>
+                <th>Product id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Edit Product</th>
+                <th>Delete Product</th>
               </tr>
+            </thead>
+            { products.map((prod) => (
+              <tbody key={prod.id}>
+                <tr>
+                  <td>{prod.id}</td>
+                  <td>{prod.name}</td>
+                  <td>{prod.description}</td>
+                  <td>
+                    <Link to={`/Admin/AdminProductEditor/${prod.id}`}>
+                      <button type="submit" className="btn-list">
+                          Edit Product ►
+                      </button>
+                      {' '}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link to={`/Admin/AdminDelteEditor/${prod.id}`}>
+                      <button type="submit" className="btn-list">
+                          Delete Product ►
+                      </button>
+                      {' '}
+
+                    </Link>
+                  </td>
+                </tr>
+              </tbody>
             ))}
 
           </table>

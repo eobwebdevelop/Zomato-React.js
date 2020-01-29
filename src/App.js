@@ -330,7 +330,8 @@ class App extends Component {
           render={props => (
             <>
               <AdminNav />
-              <AdminQuizEditor id={props.match.params.id} />
+              <AdminQuizEditor 
+              quizzes = {quizzes} /> />
             </>
           )}
         />
@@ -348,15 +349,12 @@ class App extends Component {
 
         <Route
           exact
-          path="/Admin/AdminRestaurantEditor/:id"
+          path="/Admin/AdminUserEditor/:id"
           render={props => (
             <>
               <AdminNav />
-              <AdminRestaurantEditor
-                restaurants={restaurants}
-                regions={regions}
-                id={props.match.params.id}
-              />
+              <AdminUserEditor
+              users = {users}/>
             </>
           )}
         />
@@ -367,7 +365,9 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminRestaurantList restaurants={restaurants} />
+              <AdminRestaurantList 
+              restaurants={restaurants}
+               />
             </>
           )}
         />
@@ -400,7 +400,10 @@ class App extends Component {
           render={props => (
             <>
               <AdminNav />
-              <AdminProductEditor id={props.match.params.id} />
+              <AdminRestaurantEditor
+                restaurant={restaurants.find((res) => res.id === +props.match.params.id)}
+                regions={regions}
+              />
             </>
           )}
         />
@@ -449,17 +452,17 @@ class App extends Component {
           )}
         />
 
-        <Route
-          exact
-          path="/Admin/AdminProductEditor"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductEditor />
-            </>
-          )}
-        />
-
+       <Route
+        exact
+        path="/Admin/AdminProductEditor/:id"
+        render={props => (
+          <>
+            <AdminNav />
+            <AdminProductEditor 
+             products = {products}/>
+          </>
+        )}
+      />
         <Route
           exact
           path="/Admin/AdminResultList"

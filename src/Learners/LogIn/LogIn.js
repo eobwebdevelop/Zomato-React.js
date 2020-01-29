@@ -114,9 +114,10 @@ class LogIn extends Component {
                   {translations[currentLanguage].Login.Forgot}
                   <br />
                 </Link>
-                {translations[currentLanguage].Login.Account}{" "}
-                <Link to="/Learners/SignUp/SignUp">
-                  {translations[currentLanguage].Login.ButtonS}
+                {translations[currentLanguage].Login.Account}
+                {' '}
+                <Link to="/Learners/SignUp">
+                    {translations[currentLanguage].Login.ButtonS}
                 </Link>
               </div>
             </div>
