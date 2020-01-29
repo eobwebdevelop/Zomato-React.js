@@ -110,13 +110,13 @@ class LogIn extends Component {
                 </form>
               </div>
               <div className="forgotpassword-signup">
-                <Link to="/Learners/LogIn/ForgotPassword">
+                <Link to="/learners/login/forgot_password">
                   {translations[currentLanguage].Login.Forgot}
                   <br />
                 </Link>
                 {translations[currentLanguage].Login.Account}
                 {' '}
-                <Link to="/Learners/SignUp">
+                <Link to="/learners/sign_up">
                     {translations[currentLanguage].Login.ButtonS}
                 </Link>
               </div>

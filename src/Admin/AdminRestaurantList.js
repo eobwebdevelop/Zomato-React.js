@@ -25,7 +25,7 @@ class AdminRestaurantList extends Component {
         res.json();
         if (res.status === 200) {
           console.log('hey');
-          // return history.push('/Admin/AdminRestaurantList');
+          // return history.push('/admin/restaurant_list');
         }
       });
   };
@@ -40,7 +40,7 @@ class AdminRestaurantList extends Component {
           <p>
           You are viewing all the available restaurants at the current moment.
           </p>
-          <Link to="/Learners/SignUp">
+          <Link to="/learners/signup">
             <button type="submit" className="btn">
             Add Restaurants
             </button>
@@ -69,7 +69,7 @@ class AdminRestaurantList extends Component {
                   </td>
                   <td>{res.region}</td>
                   <td>
-                    <Link to={`/Admin/AdminRestaurantEditor/${res.id}`}>
+                    <Link to={`/admin/restaurant_editor/${res.id}`}>
                       <button type="submit" className="btn-list">
                         Edit Restaurant ►
                       </button>
@@ -77,7 +77,7 @@ class AdminRestaurantList extends Component {
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/Admin/AdminRestaurantDelete/${res.id}`}>
+                    <Link to={`/admin/restaurant_delete/${res.id}`}>
                       <button type="submit" className="btn-list">
                         Delete Restaurant ►
                       </button>

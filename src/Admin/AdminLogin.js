@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 import './AdminDocEditor.css';
 
 
-class AdminAppLogin extends Component {
+class AdminLogin extends Component {
   render() {
     return (
       <Container>
@@ -17,7 +17,7 @@ class AdminAppLogin extends Component {
               <br />
               <input type="password" title="username" placeholder=" Password" />
               <br />
-              <Link to="/Admin/AdminQuizList">
+              <Link to="/admin/quiz_list">
                 <button type="submit" className="btn-login">
                   Login
                 </button>
@@ -30,4 +30,4 @@ class AdminAppLogin extends Component {
   }
 }
 
-export default AdminAppLogin;
+export default AdminLogin;

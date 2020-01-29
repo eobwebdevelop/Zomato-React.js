@@ -67,13 +67,13 @@ class Challenge extends React.Component {
         <h2>Your total time was {overallTime} seconds.</h2>
         <p>Present question by question results here</p>
 
-        <Link to="/Learners/QuizList/QuizList">
+        <Link to="/learners/quiz_list/quiz_list">
           <a>
             <button onClick={refreshQuizState}>Home</button>
           </a>
         </Link>
 
-        <Link to="/Learners/Documentation/Documentation">
+        <Link to="/learners/documentation/documentation">
           <a>
             <button onClick={refreshQuizState}>Documentation</button>
           </a>

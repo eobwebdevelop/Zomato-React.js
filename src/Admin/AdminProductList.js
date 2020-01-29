@@ -26,7 +26,7 @@ class AdminProductList extends Component {
         res.json();
         if (res.status === 200) {
           console.log('hey');
-          return this.props.history.push('/Admin/AdminProductList');
+          return this.props.history.push('/admin/admin_product_list');
         }
       });
   };
@@ -41,7 +41,7 @@ class AdminProductList extends Component {
           <p>
           You are viewing all the available Products or Services at the current moment.
           </p>
-          <Link to="/Admin/AdminProductCreator">
+          <Link to="/admin/admin_product_creator">
             <button type="submit" className="btn">
             Add Product
             </button>
@@ -69,7 +69,7 @@ class AdminProductList extends Component {
                   <td>{prod.name}</td>
                   <td>{prod.description}</td>
                   <td>
-                    <Link to={`/Admin/AdminProductEditor/${prod.id}`}>
+                    <Link to={`/admin/product_editor/${prod.id}`}>
                       <button type="submit" className="btn-list">
                           Edit Product ►
                       </button>
@@ -77,7 +77,7 @@ class AdminProductList extends Component {
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/Admin/AdminDelteEditor/${prod.id}`}>
+                    <Link to={`/admin/delete_editor/${prod.id}`}>
                       <button type="submit" className="btn-list">
                           Delete Product ►
                       </button>

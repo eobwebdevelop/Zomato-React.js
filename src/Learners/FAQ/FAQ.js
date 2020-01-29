@@ -24,7 +24,7 @@ const FAQ = () => (
             Blahd ijwb djwnblj nwdnwkjdn kjdnkjw ndjw s, akjbkjndksma.ksn
             kjbbaj,snjsns jn kjn kj
         </p>
-        <Link to="/Learners/QuizList/QuizList">
+        <Link to="/learners/quizlist">
           <button type="submit" className="btn">
               Home
           </button>

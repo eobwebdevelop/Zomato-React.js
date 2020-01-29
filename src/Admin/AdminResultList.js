@@ -44,7 +44,7 @@ class AdminResultList extends Component {
                 <td>{res.time_to_complete}</td>
                 <td>{res.time_of_day}</td>
                 <td>
-                  <Link to={`/Admin/AdminResultEditor/${res.id}`} params={res.id}>
+                  <Link to={`/admin/result_editor/${res.id}`} params={res.id}>
                     <button type="submit" className="btn-list">
                         Edit Result ►
                     </button>
@@ -52,7 +52,7 @@ class AdminResultList extends Component {
                   </Link>
                 </td>
                 <td>
-                  <Link to={`/Admin/AdminResultDelete/${res.id}`} params={res.id}>
+                  <Link to={`/admin/result_delete/${res.id}`} params={res.id}>
                     <button type="submit" className="btn-list">
                         Delete Result ►
                     </button>

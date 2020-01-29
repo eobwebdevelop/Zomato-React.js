@@ -25,7 +25,7 @@ class AdminQuizList extends Component {
         res.json();
         if (res.status === 200) {
           console.log('hey');
-          // return history.push('/Admin/AdminQuizList');
+          // return history.push('/admin/quiz_list');
         }
       });
   };
@@ -40,7 +40,7 @@ class AdminQuizList extends Component {
           <p>
           You are viewing all the available Quizzes at the current moment.
           </p>
-          <Link to="/Admin/AdminQuizCreator">
+          <Link to="/admin/quiz_creator">
             <button type="submit" className="btn">
             Add Quiz
             </button>
@@ -65,7 +65,7 @@ class AdminQuizList extends Component {
                   <td>{quiz.id}</td>
                   <td>{quiz.name}</td>
                   <td>
-                    <Link to={`/Admin/AdminQuestionList/${quiz.id}`}>
+                    <Link to={`/admin/admin_question_list/${quiz.id}`}>
                       <button type="submit" className="btn-list">
                         Show More ►
                       </button>
@@ -73,7 +73,7 @@ class AdminQuizList extends Component {
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/Admin/AdminQuizDelete/${quiz.id}`}>
+                    <Link to={`/admin/admin_quiz_delete/${quiz.id}`}>
                       <button type="submit" className="btn-list">
                         Delete Quiz ►
                       </button>

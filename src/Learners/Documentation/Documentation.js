@@ -23,7 +23,7 @@ const Documentation = ({ documentation }) => {
           </div>
         ))
           }
-        <Link to="/Learners/QuizList/QuizList">
+        <Link to="/learners/quiz_list">
           <button type="submit" className="btn">
             {translations[currentLanguage].Documentation.Button}
           </button>
