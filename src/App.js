@@ -166,7 +166,7 @@ class App extends Component {
 
   stopTimer() {
     this.setState({ timer: false });
-    console.log("stopped timer");
+    // console.log("stopped timer");
     //Clear interval
     clearInterval(this.timer);
   }
@@ -237,8 +237,6 @@ class App extends Component {
       regions,
       results
     } = this.state;
-
-    console.log(this.state.overallTime);
 
     return (
       <LanguagesContext.Provider
