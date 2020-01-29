@@ -16,9 +16,6 @@ import QandA from './QandA';
 // export default Challenge;
 
 class Challenge extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.startOverallTimer();

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import LanguagesContext, { currentLanguage } from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
 class LogIn extends Component {
@@ -31,10 +31,10 @@ class LogIn extends Component {
       passwordError: '',
     };
 
-    if(this.state.email == ''){
+    if(this.state.email === ''){
       isError = true;
       errors.emailError = "Fill your email, please"
-    } else if (this.state.password == '') {
+    } else if (this.state.password === '') {
       isError = true;
       errors.passwordError = "Fill your password, please"
     }
