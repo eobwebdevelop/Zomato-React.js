@@ -13,13 +13,13 @@ const Results = () => {
         <h1>{translations[currentLanguage].Results.Title}</h1>
         <hr />
         <p>You got 50% (5/10)</p>
-        <Link to="/learners/documentation/documentation">
+        <Link to="/learners/documentation">
           <button type="submit" className="btn">
             {translations[currentLanguage].Results.ButtonD}
           </button>
         </Link>
         <br />
-        <Link to="/learners/quiz_list/quiz_list">
+        <Link to="/learners/quiz_list">
           <button type="submit" className="btn">
             {translations[currentLanguage].Results.ButtonH}
           </button>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 
 class NextButton extends React.Component {
@@ -9,7 +9,7 @@ class NextButton extends React.Component {
       stopTimer,
       selectedAnswer,
       isVisible,
-      checkScore
+      checkScore,
     } = this.props;
 
     if (isVisible === true) return null;
@@ -28,23 +28,22 @@ class NextButton extends React.Component {
           </button>
         </>
       );
-    } else {
-      return (
-        <>
-          <button
-            type="submit"
-            className="btn"
-            onClick={() => {
-              stopTimer();
-              onNextStep(selectedAnswer);
-              checkScore();
-            }}
-          >
-            See results
-          </button>
-        </>
-      );
     }
+    return (
+      <>
+        <button
+          type="submit"
+          className="btn"
+          onClick={() => {
+            stopTimer();
+            onNextStep(selectedAnswer);
+            checkScore();
+          }}
+        >
+            See results
+        </button>
+      </>
+    );
   }
 }
 export default NextButton;
