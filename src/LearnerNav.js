@@ -27,6 +27,19 @@ const LearnerNav = () => {
                 {translations[currentLanguage].LearnerNav.LinkS}
               </a>
             </Nav.Link>
+<<<<<<< HEAD
+            <Nav.Link href="/Learners/LogIn">
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkL}</a>
+            </Nav.Link>
+            <Nav.Link href="/Learners/QuizList">
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkQ}</a>
+            </Nav.Link>
+            <Nav.Link href="/Learners/FAQ">
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkF}</a>
+            </Nav.Link>
+            <Nav.Link href="/Learners/ContactUs">
+              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkC}</a>
+=======
             <Nav.Link href="/Learners/LogIn/LogIn">
               <a className="grey-link">
                 {translations[currentLanguage].LearnerNav.LinkL}
@@ -46,6 +59,7 @@ const LearnerNav = () => {
               <a className="grey-link">
                 {translations[currentLanguage].LearnerNav.LinkC}
               </a>
+>>>>>>> master
             </Nav.Link>
             <Nav.Link href="/Admin/AdminAppLogin">
               <a className="grey-link">

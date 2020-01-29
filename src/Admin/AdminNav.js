@@ -30,7 +30,7 @@ const AdminNav = () => (
           <Nav.Link href="/Admin/AdminAppLogIn">
             <a className="white-link">Log Out</a>
           </Nav.Link>
-          <Nav.Link href="/Learners/Login/Login">
+          <Nav.Link href="/Learners/Login">
             <a className="white-link">Learner Portal</a>
           </Nav.Link>
         </Nav>

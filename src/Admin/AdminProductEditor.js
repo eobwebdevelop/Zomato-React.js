@@ -10,10 +10,13 @@ class AdminProductEditor extends Component  {
       name: 'resto1',
       description: '',
       id:'',
+      chosenProduct: '',
     }
   };
 
 
+ componentDidMount(){
+ }
 
   updateName = (event) => {
     this.setState({name: event.target.value})
@@ -43,17 +46,17 @@ class AdminProductEditor extends Component  {
   }
 
   render() {
-    console.log(this.props)
+    const foundProduct = this.props.products.find((prod) => prod.id === +this.props.id);
     return (
         <Container>
             <div className="formparentcontainer">
             <h1 className="creator-title" > Add a new Product or Service</h1>
             <hr />
             <form className="product-form" onSubmit={this.handlerSubmit}>
-            <h5> Fill in the product/service name </h5>
-            <input type="text" name="name" placeholder= 'Product Name' required onChange={this.updateName} /> 
+              <h5> Fill in the product/service name </h5>
+            <input type="text" name="name" placeholder={foundProduct ? foundProduct.name : ''} required onChange={this.updateName} /> 
              <h5> Product/Service Description: </h5>
-             <textarea className ="product-description" onChange={this.updateDescription} value= {this.state.description} > </textarea> 
+             <textarea className ="product-description"  placeholder={ foundProduct ? foundProduct.description : ''} onChange={this.updateDescription} value= {this.state.description} > </textarea> 
             <button type="submit" class="btn-login">
                 Submit
                 </button>
