@@ -115,7 +115,14 @@ class App extends Component {
   };
 
   getQuizzes = () => {
-    fetch("http://localhost:3000/admin/quiz")
+    fetch("http://localhost:3000/admin/quiz",
+    {
+      method: 'POST',
+      headers: new Headers({
+          'Preferred-Language': 'application/json'
+        }),
+        body: JSON.stringify(this.state),
+      })
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
