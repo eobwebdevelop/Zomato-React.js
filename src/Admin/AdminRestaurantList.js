@@ -31,37 +31,41 @@ class AdminRestaurantList extends Component {
             </button>
           </Link>
           <table className="tftable" border="1">
-            <tr>
-              <th>Restaurant id</th>
-              <th>Name</th>
-              <th>Region</th>
-              <th>Edit Restaurant</th>
-              <th>Delete Restaurant</th>
-            </tr>
-            {restaurants.map((res) => (
+            <thead>
               <tr>
-                <td>{res.id}</td>
-                <td>
-                  {res.name}
-                </td>
-                <td>{res.region}</td>
-                <td>
-                  <Link to={`/Admin/AdminRestaurantDelete/${res.id}`} params={res.id}>
-                    <button type="submit" className="btn-list">
-                        Edit Restaurant ►
-                    </button>
-                    {' '}
-                  </Link>
-                </td>
-                <td>
-                  <Link to={`/Admin/AdminRestaurantDelete/${res.id}`} params={res.id}>
-                    <button type="submit" className="btn-list">
-                        Delete Restaurant ►
-                    </button>
-                    {' '}
-                  </Link>
-                </td>
+                <th>Restaurant id</th>
+                <th>Name</th>
+                <th>Region</th>
+                <th>Edit Restaurant</th>
+                <th>Delete Restaurant</th>
               </tr>
+            </thead>
+            {restaurants.map((res) => (
+              <tbody key={res.id}>
+                <tr>
+                  <td>{res.id}</td>
+                  <td>
+                    {res.name}
+                  </td>
+                  <td>{res.region}</td>
+                  <td>
+                    <Link to={`/Admin/AdminRestaurantEditor/${res.id}`}>
+                      <button type="submit" className="btn-list">
+                        Edit Restaurant ►
+                      </button>
+                      {' '}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link to={`/Admin/AdminRestaurantDelete/${res.id}`}>
+                      <button type="submit" className="btn-list">
+                        Delete Restaurant ►
+                      </button>
+                      {' '}
+                    </Link>
+                  </td>
+                </tr>
+              </tbody>
             ))}
           </table>
         </Container>

@@ -102,7 +102,7 @@ class LogIn extends Component {
                 </Link>
                 {translations[currentLanguage].Login.Account}
                 {' '}
-                <Link to="/Learners/SignUp/SignUp">
+                <Link to="/Learners/SignUp">
                     {translations[currentLanguage].Login.ButtonS}
                 </Link>
               </div>

@@ -22,27 +22,23 @@ const LearnerNav = () => {
 
         <Navbar.Collapse id="learner-basic-navbar-nav">
           <Nav className="mr-auto learner-navlinks">
-            <Nav.Link href="/Learners/SignUp/SignUp">
-              <a className="grey-link">
-                {translations[currentLanguage].LearnerNav.LinkS}
-              </a>
+            <Nav.Link href="/Learners/SignUp" className="grey-link">
+              {translations[currentLanguage].LearnerNav.LinkS}
             </Nav.Link>
-            <Nav.Link href="/Learners/LogIn">
-              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkL}</a>
+            <Nav.Link href="/Learners/LogIn" className="grey-link">
+              {translations[currentLanguage].LearnerNav.LinkL}
             </Nav.Link>
-            <Nav.Link href="/Learners/QuizList">
-              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkQ}</a>
+            <Nav.Link href="/Learners/QuizList" className="grey-link">
+              {translations[currentLanguage].LearnerNav.LinkQ}
             </Nav.Link>
-            <Nav.Link href="/Learners/FAQ">
-              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkF}</a>
+            <Nav.Link href="/Learners/FAQ" className="grey-link">
+              {translations[currentLanguage].LearnerNav.LinkF}
             </Nav.Link>
-            <Nav.Link href="/Learners/ContactUs">
-              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkC}</a>
+            <Nav.Link href="/Learners/ContactUs" className="grey-link">
+              {translations[currentLanguage].LearnerNav.LinkC}
             </Nav.Link>
-            <Nav.Link href="/Admin/AdminAppLogin">
-              <a className="grey-link">
-                {translations[currentLanguage].LearnerNav.LinkA}
-              </a>
+            <Nav.Link href="/Admin/AdminAppLogin" className="grey-link">
+              {translations[currentLanguage].LearnerNav.LinkA}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

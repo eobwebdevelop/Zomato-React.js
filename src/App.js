@@ -301,7 +301,6 @@ class App extends Component {
             <>
               <AdminNav />
               <AdminQuizEditor 
-              id={props.match.params.id}
               quizzes = {quizzes} /> />
             </>
           )}
@@ -320,11 +319,10 @@ class App extends Component {
         <Route
           exact
           path="/Admin/AdminUserEditor/:id"
-          render={(props) => (
+          render={props => (
             <>
               <AdminNav />
               <AdminUserEditor
-              id={props.match.params.id}
               users = {users}/>
             </>
           )}
@@ -336,7 +334,9 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminRestaurantList restaurants={restaurants} />
+              <AdminRestaurantList 
+              restaurants={restaurants}
+               />
             </>
           )}
         />
@@ -358,9 +358,8 @@ class App extends Component {
             <>
               <AdminNav />
               <AdminRestaurantEditor
-                restaurants={restaurants}
+                restaurant={restaurants.find((res) => res.id === +props.match.params.id)}
                 regions={regions}
-                id={props.match.params.id}
               />
             </>
           )}
@@ -390,11 +389,10 @@ class App extends Component {
        <Route
         exact
         path="/Admin/AdminProductEditor/:id"
-        render={(props) => (
+        render={props => (
           <>
             <AdminNav />
             <AdminProductEditor 
-             id={props.match.params.id}
              products = {products}/>
           </>
         )}

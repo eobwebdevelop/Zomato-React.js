@@ -31,33 +31,37 @@ class AdminQuizList extends Component {
             </button>
           </Link>
           <table className="tftable" border="1">
-            <tr>
-              <th>Quiz id</th>
-              <th>First Name</th>
-              <th>Edit Quiz</th>
-              <th>Delete Quiz</th>
-            </tr>
-            {quizzes.map((quiz) => (
+            <thead>
               <tr>
-                <td>{quiz.id}</td>
-                <td>{quiz.name}</td>
-                <td>
-                  <Link to={`/Admin/AdminQuizEditor/${quiz.id}`} params={quiz.id}>
-                    <button type="submit" className="btn-list">
-                        Edit Quiz ►
-                    </button>
-                    {' '}
-                  </Link>
-                </td>
-                <td>
-                  <Link to={`/Admin/AdminQuizDelete/${quiz.id}`} params={quiz.id}>
-                    <button type="submit" className="btn-list">
-                        Delete Quiz ►
-                    </button>
-                    {' '}
-                  </Link>
-                </td>
+                <th>Quiz id</th>
+                <th>First Name</th>
+                <th>Edit Quiz</th>
+                <th>Delete Quiz</th>
               </tr>
+            </thead>
+            {quizzes.map((quiz) => (
+              <tbody key={quiz.id}>
+                <tr>
+                  <td>{quiz.id}</td>
+                  <td>{quiz.name}</td>
+                  <td>
+                    <Link to={`/Admin/AdminQuestionList/${quiz.id}`}>
+                      <button type="submit" className="btn-list">
+                        Show More ►
+                      </button>
+                      {' '}
+                    </Link>
+                  </td>
+                  <td>
+                    <Link to={`/Admin/AdminQuizDelete/${quiz.id}`}>
+                      <button type="submit" className="btn-list">
+                        Delete Quiz ►
+                      </button>
+                      {' '}
+                    </Link>
+                  </td>
+                </tr>
+              </tbody>
             ))}
           </table>
         </Container>

@@ -15,23 +15,23 @@ const AdminNav = () => (
 
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto admin-navlinks">
-          <Nav.Link id="navbar-link-admin" href="/Admin/AdminAppLogIn">
-            <a className="white-link">Login</a>
+          <Nav.Link id="navbar-link-admin" href="/Admin/AdminAppLogIn" className="white-link">
+            Login
           </Nav.Link>
-          <Nav.Link href="/Admin/">
-            <a className="white-link">Backoffice Home</a>
+          <Nav.Link href="/Admin/" className="white-link">
+            Backoffice Home
           </Nav.Link>
-          <Nav.Link href="/Admin/AdminQuizList">
-            <a className="white-link">Manage Quizzes</a>
+          <Nav.Link href="/Admin/AdminQuizList" className="white-link">
+            Manage Quizzes
           </Nav.Link>
-          <Nav.Link href="/Admin/AdminDocList">
-            <a className="white-link">Manage Documentation</a>
+          <Nav.Link href="/Admin/AdminDocList" className="white-link">
+            Manage Documentation
           </Nav.Link>
-          <Nav.Link href="/Admin/AdminAppLogIn">
-            <a className="white-link">Log Out</a>
+          <Nav.Link href="/Admin/AdminAppLogIn" className="white-link">
+            Log Out
           </Nav.Link>
-          <Nav.Link href="/Learners/Login">
-            <a className="white-link">Learner Portal</a>
+          <Nav.Link href="/Learners/Login" className="white-link">
+            Learner Portal
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>
