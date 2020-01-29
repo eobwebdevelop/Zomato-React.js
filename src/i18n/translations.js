@@ -38,13 +38,13 @@ const Translations = {
 
     Login: {
       Title: 'Login',
-      Username: 'Username',
+      Email: 'Email',
       Password: 'Password',
       ButtonL: 'Login',
       Forgot: 'Forgot password?',
       Account: "Don't have an account?",
       ButtonS: 'Sign-Up',
-      PlaceholderU: ' Username',
+      PlaceholderU: ' Email',
       PlaceholderP: ' Password',
     },
 
@@ -94,10 +94,10 @@ const Translations = {
   pt: {
     Full: 'Português',
     LearnerNav: {
-      LinkS: 'Sign Up (portuguese translation plz)',
-      LinkL: 'Login (portuguese translation plz)',
+      LinkS: 'Registar-se',
+      LinkL: 'Iniciar Sessão',
       LinkQ: 'Quizzes ',
-      LinkF: 'FAQ (portuguese translation plz)',
+      LinkF: 'FAQ',
       LinkC: 'Contactos ',
       LinkA: 'Admin Portal should not be here',
     },
@@ -118,7 +118,7 @@ const Translations = {
     },
 
     FAQ: {
-      Title: 'FAQ (portuguese translation plz)',
+      Title: 'FAQ',
       Button: 'Home (portuguese translation plz)',
     },
 
@@ -130,14 +130,14 @@ const Translations = {
     },
 
     Login: {
-      Title: 'Login',
-      Username: ' Nome de utilizador',
+      Title: 'Iniciar Sessão',
+      Email: ' Email de utilizador',
       Password: 'Password',
-      ButtonL: 'Login',
+      ButtonL: 'Iniciar Sessão',
       Forgot: 'Esqueceu-se da password?',
       Account: 'Ainda não tem uma conta?',
-      ButtonS: 'Sign-Up (portuguese translation plz)',
-      PlaceholderU: ' Nome de utilizador',
+      ButtonS: 'Registar-se',
+      PlaceholderU: ' Email de utilizador',
       PlaceholderP: ' Password',
     },
 
@@ -159,12 +159,12 @@ const Translations = {
 
     QuizList: {
       Title: 'Quizzes disponíveis ',
-      LinkQ: 'Take Quiz ► (portuguese translation plz)',
+      LinkQ: 'Começar Quiz ► ',
       LinkD: 'Documentação ► ',
     },
 
     SignUp: {
-      Title: 'Sign-Up (portuguese translation plz)',
+      Title: 'Registar-se',
       SubtitleD: 'Informação pessoal',
       SubtitleL: 'Localização',
       SutitleI: 'ZomatoInformation:(portuguese translation plz)',
@@ -172,14 +172,14 @@ const Translations = {
       PlaceholderL: 'Apelido*',
       PlaceholderE: ' E-mail*',
       PlaceholderN: ' Número de telefone*',
-      PlaceholderA: ' Are you a...* (portuguese translation plz)',
-      PlaceholderY: ' Your region(portuguese translation plz)',
+      PlaceholderA: ' Eu sou um...',
+      PlaceholderY: ' A sua zona ',
       PlaceholderR: 'Restaurante (quando aplicável)',
       SubtitleP: 'Password: ',
       PlaceholderP: ' Password* ',
       PlaceholderC: ' Confirmar Password*',
 
-      Button: 'Sign-Up (portuguese translation plz)',
+      Button: 'Registar-se',
     },
   },
 };

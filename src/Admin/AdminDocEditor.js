@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './AdminDocEditor.css';
-import RegionDropDown from '../Learners/SignUp/RegionDropDown';
-import QuillEditor from './QuillEditor';
+import ReactQuill from 'react-quill';
+import DropDown from '../Learners/SignUp/DropDown';
+import 'react-quill/dist/quill.snow.css';
 
 
 const langOptions = [
@@ -33,21 +34,48 @@ const productOptions = [
 ];
 
 const AdminDocEditor = () => {
+  // post
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [language, setLanguage] = useState([]);
   const [product, setProduct] = useState([]);
-  const [title, setTitle] = useState([]);
-  const [content, setContent] = useState([]);
+  // quill
+  const [text, setText] = useState('');
+  const [lastUploadedFile, setLastUploadedFile] = useState({});
+  const [base64Url, setBase64Url] = useState({});
 
-  const postDocumentation = async () => {
-    console.log('post doc function');
+  const quillModules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ color: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+      ['link', 'image'],
+      ['clean'],
+    ],
+  };
 
+  const uploadToCloudinary = async (base64) => {
     const data = new FormData();
-    data.append('title', title);
-    data.append('content', content);
-    data.append('language_id', language);
-    data.append('product_id', product);
+    data.append('file', base64);
+    data.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
     const res = await fetch(
-      process.env.REACT_APP_PATH_ADMIN_DOC_CREATE,
+      process.env.REACT_APP_CLOUDINARY_UPLOAD_LINK,
+      {
+        method: 'POST',
+        body: data,
+      },
+    );
+    const file = await res.json();
+    setLastUploadedFile(file);
+  };
+
+  const deleteFromCloudinary = async () => {
+    const data = new FormData();
+    data.append('file', lastUploadedFile);
+    data.append('token', lastUploadedFile.delete_token);
+    await fetch(
+      process.env.REACT_APP_CLOUDINARY_DELETE_LINK,
       {
         method: 'POST',
         body: data,
@@ -55,24 +83,61 @@ const AdminDocEditor = () => {
     );
   };
 
+  const handleChangeQuill = (value, delta) => {
+    setText(value);
+    if (typeof delta.ops[0].insert === 'object') {
+      setBase64Url(delta.ops[0].insert.image);
+      uploadToCloudinary(delta.ops[0].insert.image);
+    } else if (delta.ops[0].delete) {
+      deleteFromCloudinary();
+    }
+  };
+
+  const updateContent = () => {
+    console.log('file in update content', lastUploadedFile);
+    // const textWithCloudinaryUrl = text.replace(base64Url, lastUploadedFile.secure_url);
+    const textWithCloudinaryUrl = text.replace('oi', 'olá olá');
+    console.log('heyho', lastUploadedFile.secure_url);
+    // console.log('textWithCloudinaryUrl', textWithCloudinaryUrl);
+    setContent(textWithCloudinaryUrl);
+  };
 
   const onChangeLanguage = () => {
-    setLanguage(1);
+    console.log('language', language);
     // not working
   };
   const onChangeProduct = () => {
-    setProduct(1);
+    console.log('language', language);
     // not working
   };
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
+    setLanguage(1);
+    setProduct(1);
   };
 
-  const getFromChild = (child) => {
-    setContent(child);
+  const postDocumentation = (e) => {
+    e.preventDefault();
+    // updateContent();
+    fetch(process.env.REACT_APP_PATH_ADMIN_DOC_CREATE,
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          title,
+          content,
+          language_id: language,
+          product_id: product,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        console.log('hey', res);
+      });
   };
 
-  console.log(content);
 
   return (
     <div>
@@ -81,7 +146,7 @@ const AdminDocEditor = () => {
         <label>
       Language:
         </label>
-        <RegionDropDown
+        <DropDown
           selectOptions={langOptions}
           placeholder="Select language"
           onChange={onChangeLanguage}
@@ -89,7 +154,7 @@ const AdminDocEditor = () => {
         <label>
       Product:
         </label>
-        <RegionDropDown
+        <DropDown
           selectOptions={productOptions}
           placeholder="Select product"
           onChange={onChangeProduct}
@@ -102,8 +167,10 @@ const AdminDocEditor = () => {
           name="name"
           onChange={onChangeTitle}
         />
-        <QuillEditor
-          getFromChild={getFromChild}
+        <ReactQuill
+          modules={quillModules}
+          value={text}
+          onChange={handleChangeQuill}
         />
         <Link to="/Admin/AdminQuizList">
           <button

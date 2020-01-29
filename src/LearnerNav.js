@@ -2,14 +2,15 @@ import React, { useContext } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import DropdownSelector from './LanguageSelector';
 import './LearnerNav.css';
-import LanguagesContext, { availableLanguages } from './contexts/languages-context';
+import LanguagesContext, {
+  availableLanguages,
+} from './contexts/languages-context';
 import translations from './i18n/translations';
-
 
 const LearnerNav = () => {
   const { currentLanguage } = useContext(LanguagesContext);
-  console.log('lang', currentLanguage)
-  console.log('transl', translations)
+  // console.log('lang', currentLanguage)
+  // console.log('transl', translations)
   return (
     <div>
       {/* Example */}
@@ -22,8 +23,11 @@ const LearnerNav = () => {
         <Navbar.Collapse id="learner-basic-navbar-nav">
           <Nav className="mr-auto learner-navlinks">
             <Nav.Link href="/Learners/SignUp/SignUp">
-              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkS}</a>
+              <a className="grey-link">
+                {translations[currentLanguage].LearnerNav.LinkS}
+              </a>
             </Nav.Link>
+<<<<<<< HEAD
             <Nav.Link href="/Learners/LogIn">
               <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkL}</a>
             </Nav.Link>
@@ -35,9 +39,32 @@ const LearnerNav = () => {
             </Nav.Link>
             <Nav.Link href="/Learners/ContactUs">
               <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkC}</a>
+=======
+            <Nav.Link href="/Learners/LogIn/LogIn">
+              <a className="grey-link">
+                {translations[currentLanguage].LearnerNav.LinkL}
+              </a>
+            </Nav.Link>
+            <Nav.Link href="/Learners/QuizList/QuizList">
+              <a className="grey-link">
+                {translations[currentLanguage].LearnerNav.LinkQ}
+              </a>
+            </Nav.Link>
+            <Nav.Link href="/Learners/FAQ/FAQ">
+              <a className="grey-link">
+                {translations[currentLanguage].LearnerNav.LinkF}
+              </a>
+            </Nav.Link>
+            <Nav.Link href="/Learners/ContactUs/ContactUs">
+              <a className="grey-link">
+                {translations[currentLanguage].LearnerNav.LinkC}
+              </a>
+>>>>>>> master
             </Nav.Link>
             <Nav.Link href="/Admin/AdminAppLogin">
-              <a className="grey-link">{translations[currentLanguage].LearnerNav.LinkA}</a>
+              <a className="grey-link">
+                {translations[currentLanguage].LearnerNav.LinkA}
+              </a>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

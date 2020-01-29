@@ -5,7 +5,6 @@ import './AdminDocEditor.css';
 
 
 class AdminAppLogin extends Component {
-
   render() {
     return (
       <Container>

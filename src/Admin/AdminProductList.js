@@ -47,7 +47,7 @@ class AdminProductList extends Component {
                 <td>{prod.description}</td>
                 <td>
                   <Link to={`/Admin/AdminProductEditor/${prod.id}`} params={prod.id}>
-                    <button type="submit" className="btn-list" >
+                    <button type="submit" className="btn-list">
                         Edit Product ►
                     </button>
                     {' '}
