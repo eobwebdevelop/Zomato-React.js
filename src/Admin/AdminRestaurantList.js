@@ -1,96 +1,76 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './AdminList.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-class AdminRestaurantList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
 
-  deleteRestaurant = (id) => {
-    fetch('http://localhost:3000/admin/restaurant/delete',
-      {
-        method: 'DELETE',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-        body: JSON.stringify({
-          id,
-        }),
-      })
-      .then((res) => {
-        res.json();
-        if (res.status === 200) {
-          console.log('hey');
-          // return history.push('/Admin/AdminRestaurantList');
-        }
-      });
-  };
-
-  render() {
-    const { restaurants } = this.props;
-    return (
-      <div>
-        <Container>
-          <h1>Manage Restaurants</h1>
-          <hr />
-          <p>
+const AdminRestaurantList = ({ restaurants, onDelete }) => (
+  <div>
+    <Container>
+      <h1>Manage Restaurants</h1>
+      <hr />
+      <p>
           You are viewing all the available restaurants at the current moment.
-          </p>
-          <Link to="/Learners/SignUp">
-            <button type="submit" className="btn">
+      </p>
+      <Link to="/Learners/SignUp">
+        <button type="submit" className="btn">
             Add Restaurants
-            </button>
-          </Link>
-          <Link to="/">
-            <button type="submit" className="btn">
+        </button>
+      </Link>
+      <Link to="/">
+        <button type="submit" className="btn">
             Export Data
-            </button>
-          </Link>
-          <table className="tftable" border="1">
-            <thead>
-              <tr>
-                <th>Restaurant id</th>
-                <th>Name</th>
-                <th>Region</th>
-                <th>Edit Restaurant</th>
-                <th>Delete Restaurant</th>
-              </tr>
-            </thead>
-            {restaurants.map((res) => (
-              <tbody key={res.id}>
-                <tr>
-                  <td>{res.id}</td>
-                  <td>
-                    {res.name}
-                  </td>
-                  <td>{res.region}</td>
-                  <td>
-                    <Link to={`/Admin/AdminRestaurantEditor/${res.id}`}>
-                      <button type="submit" className="btn-list">
+        </button>
+      </Link>
+      <table className="tftable" border="1">
+        <tr>
+          <th>Restaurant id</th>
+          <th>Name</th>
+          <th>Region</th>
+          <th>Edit Restaurant</th>
+          <th>Delete Restaurant</th>
+        </tr>
+        {restaurants.map((res) => (
+          <tr>
+            <td>{res.id}</td>
+            <td>
+              {res.name}
+            </td>
+            <td>{res.region}</td>
+            <td>
+              <Link to={`/Admin/AdminRestaurantDelete/${res.id}`} params={res.id}>
+                <button type="submit" className="btn-list">
                         Edit Restaurant ►
-                      </button>
-                      {' '}
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to={`/Admin/AdminRestaurantDelete/${res.id}`}>
-                      <button type="submit" className="btn-list">
+                </button>
+                {' '}
+              </Link>
+            </td>
+            <td>
+              <button
+                type="submit"
+                className="btn-list"
+                onClick={() => onDelete(res.id)}
+              >
                         Delete Restaurant ►
-                      </button>
-                      {' '}
-                    </Link>
-                  </td>
-                </tr>
-              </tbody>
-            ))}
-          </table>
-        </Container>
-      </div>
-    );
-  }
-}
+              </button>
+            </td>
+          </tr>
+        ))}
+      </table>
+    </Container>
+  </div>
+);
+
+AdminRestaurantList.propTypes = {
+  restaurants: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      region: PropTypes.number.isRequired,
+    }).isRequired,
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
 export default AdminRestaurantList;
