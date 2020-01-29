@@ -114,12 +114,12 @@ const Translations = {
 
     Documentation: {
       Title: 'Documentação',
-      Button: 'Home (portuguese translation plz)',
+      Button: 'Início',
     },
 
     FAQ: {
       Title: 'FAQ',
-      Button: 'Home (portuguese translation plz)',
+      Button: 'Início',
     },
 
     ForgotPassword: {
@@ -154,7 +154,7 @@ const Translations = {
     Results: {
       Title: 'Resultados',
       ButtonD: 'Documentação',
-      ButtonH: 'Home (portuguese translation plz)',
+      ButtonH: 'Início',
     },
 
     QuizList: {

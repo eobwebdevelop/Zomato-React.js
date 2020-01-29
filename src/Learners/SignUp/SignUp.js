@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, Redirect} from 'react';
 // import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import { withRouter } from 'react-router-dom'
 import Select from "react-select";
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
+import LogIn from "../LogIn/LogIn";
 
 
 
@@ -28,7 +30,7 @@ class SignUp extends Component  {
       restaurantError: '',
       restaurants: [{id:0, name:''}],
       displayresto: '',
-      flash: ''
+      flash: '',
     }
   }
 
@@ -104,23 +106,25 @@ validate = () => {
     const err = this.validate();
     if (!err) {
       fetch("http://localhost:3000/auth/signup",
-      {
-          method:  'POST',
-          headers:  new Headers({
-                  'Content-Type':  'application/json'
-          }),
-          body:  JSON.stringify({first_name, last_name, email, password, phone_number, restaurant_id}),
-      })
-      .then(res  =>  res.json())
-      .then(
-          res  =>  this.setState({"flash":  res.flash}),
-          err  =>  this.setState({"flash":  err.flash})
-      )
-    }
-
+        {
+            method:  'POST',
+            headers:  new Headers({
+                    'Content-Type':  'application/json'
+            }),
+            body:  JSON.stringify({first_name, last_name, email, password, phone_number, restaurant_id}),
+        })
+        .then(res  =>  res.json())
+        .then((data)  =>  {
+          this.setState({"flash":  data.flash})
+           if(data.flash == "User has been signed up!") {
+            this.props.history.push('/Learners/LogIn');
+           }
+        })
+    }   
+        
   }
-
-
+      
+      
   render() {
     
     return (
@@ -180,4 +184,4 @@ validate = () => {
     );
   }
 }
-export default SignUp;
+export default withRouter(SignUp);

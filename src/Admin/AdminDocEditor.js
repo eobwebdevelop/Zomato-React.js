@@ -119,7 +119,7 @@ const AdminDocEditor = () => {
   const postDocumentation = (e) => {
     e.preventDefault();
     // updateContent();
-    fetch(process.env.REACT_APP_PATH_ADMIN_DOC_CREATE,
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
       {
         method: 'POST',
         headers: new Headers({
