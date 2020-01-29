@@ -7,20 +7,20 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
 import AdminAppLogin from "./Admin/AdminAppLogin";
-import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizEditor from "./Admin/AdminQuizEditor";
 import AdminUserEditor from "./Admin/AdminUserEditor";
-import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminDocList from "./Admin/AdminDocList";
+import AdminDocEditor from "./Admin/AdminDocEditor";
+import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
+import AdminRestaurantList from "./Admin/AdminRestaurantList";
 import AdminProductCreator from "./Admin/AdminProductCreator";
 import AdminHomePage from "./Admin/AdminHomePage";
 import AdminProductEditor from "./Admin/AdminProductEditor";
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
-import AdminRestaurantList from "./Admin/AdminRestaurantList";
 import AdminResultList from "./Admin/AdminResultList";
 
 // Learner portal imports

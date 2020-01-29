@@ -11,7 +11,7 @@ class AdminQuizList extends Component {
   }
 
   deleteQuiz = (id) => {
-    fetch('http://localhost:3000/admin/quiz/delete',
+    fetch(process.env.REACT_APP_PATH_ADMIN_QUIZ_DELETE,
       {
         method: 'DELETE',
         headers: new Headers({
@@ -25,7 +25,7 @@ class AdminQuizList extends Component {
         res.json();
         if (res.status === 200) {
           console.log('hey');
-          // return history.push('/Admin/AdminDocList');
+          // return history.push('/Admin/AdminQuizList');
         }
       });
   };

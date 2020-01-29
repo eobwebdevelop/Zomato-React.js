@@ -25,7 +25,7 @@ class AdminRestaurantList extends Component {
         res.json();
         if (res.status === 200) {
           console.log('hey');
-          // return history.push('/Admin/AdminDocList');
+          // return history.push('/Admin/AdminRestaurantList');
         }
       });
   };
