@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import QandA from './QandA';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import QandA from "./QandA";
 
 // class Challenge extends React.Component {
 //   render() {
@@ -19,6 +19,7 @@ class Challenge extends React.Component {
 
   componentDidMount() {
     this.props.startOverallTimer();
+    // console.log("started timer");
   }
 
   render() {
@@ -30,12 +31,13 @@ class Challenge extends React.Component {
       onNextStep,
       quizIDInPlay,
       refreshQuizState,
+      stopTimer
     } = this.props;
 
     // console.log(questionPackage);
 
     const questionPackageSpecificQuizIDOnly = questionPackage.filter(
-      (el) => el.id === quizIDInPlay,
+      el => el.id === quizIDInPlay
     )[0].questions;
 
     if (step < 10) {
@@ -49,12 +51,12 @@ class Challenge extends React.Component {
               onNextStep={onNextStep}
               isVisible={step === i}
               onClickAnswer={onClickAnswer}
+              stopTimer={stopTimer}
+              step={i}
+              overallTime={overallTime}
             />
           ))}
-          <h3>
-Current Time:
-            {overallTime}
-          </h3>
+          <h3>Current Time: {overallTime} seconds</h3>
         </Container>
       );
     }
@@ -62,6 +64,7 @@ Current Time:
       <Container>
         <h1>Results</h1>
         <hr />
+        <h2>Your total time was {overallTime} seconds.</h2>
         <p>Present question by question results here</p>
 
         <Link to="/Learners/QuizList/QuizList">

@@ -7,20 +7,21 @@ import { Redirect, Route } from "react-router-dom";
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
 import AdminAppLogin from "./Admin/AdminAppLogin";
-import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizEditor from "./Admin/AdminQuizEditor";
 import AdminEditUser from "./Admin/AdminEditUser";
 import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
+import AdminUserEditor from "./Admin/AdminUserEditor";
 import AdminDocList from "./Admin/AdminDocList";
+import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
+import AdminRestaurantList from "./Admin/AdminRestaurantList";
 import AdminProductCreator from "./Admin/AdminProductCreator";
 import AdminHomePage from "./Admin/AdminHomePage";
 import AdminProductEditor from "./Admin/AdminProductEditor";
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
-import AdminRestaurantList from "./Admin/AdminRestaurantList";
 import AdminResultList from "./Admin/AdminResultList";
 
 // Learner portal imports
@@ -61,6 +62,7 @@ class App extends Component {
       questionsAreLoaded: false,
       // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
       quizIDInPlay: 1,
+      timerRunning: false,
       token: "",
       quizzes: [{ id: 0, name: "" }],
       products: [{ id: 0, name: "", description: "" }],
@@ -70,8 +72,13 @@ class App extends Component {
       results: [{ id: 0, name: "" }],
       documentation: []
     };
-    this.startOverallTimer = this.startOverallTimer.bind(this);
+
     this.onNextStep = this.onNextStep.bind(this);
+
+    this.timer = null;
+    this.stopTimer = this.stopTimer.bind(this);
+    this.startOverallTimer = this.startOverallTimer.bind(this);
+
     this.refreshQuizState = this.refreshQuizState.bind(this);
   }
 
@@ -122,11 +129,11 @@ class App extends Component {
 
   getAllDocs = () => {
     fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         this.setState(state => ({
           ...state,
-          documentation: data.Documentation,
+          documentation: data.Documentation
         }));
       });
   };
@@ -140,9 +147,10 @@ class App extends Component {
     });
   };
 
-  // ew: This should be called on ComponentDidMount as soon as a user clicks Take Quiz. Once step is 10 (results), it stops.
+  // ew: This timer is called on ComponentDidMount as soon as a user clicks Take Quiz. Once step is 10 (results), it stops.
 
   startOverallTimer() {
+    this.setState({ timerRunning: true });
     this.timer = setInterval(
       () =>
         this.setState(prevState => {
@@ -157,8 +165,17 @@ class App extends Component {
     );
   }
 
+  stopTimer() {
+    this.setState({ timer: false });
+    // console.log("stopped timer");
+    //Clear interval
+    clearInterval(this.timer);
+  }
+
   refreshQuizState() {
+    // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
     // console.log("refresh");
+    this.stopTimer();
     this.setState({ overallTime: 0, step: 0 });
   }
 
@@ -190,6 +207,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+    this.refreshQuizState();
     this.getQuizzes();
     this.getProducts();
     this.getUsers();
@@ -536,6 +554,8 @@ class App extends Component {
                 onClickAnswer={this.onClickAnswer}
                 step={this.state.step}
                 quizIDInPlay={this.state.quizIDInPlay}
+                stopTimer={this.stopTimer}
+                overallTime={this.state.overallTime}
               />
             </>
           )}

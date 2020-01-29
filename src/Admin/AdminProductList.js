@@ -26,7 +26,7 @@ class AdminProductList extends Component {
         res.json();
         if (res.status === 200) {
           console.log('hey');
-          // return history.push('/Admin/AdminDocList');
+          return this.props.history.push('/Admin/AdminProductList');
         }
       });
   };
