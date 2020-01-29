@@ -134,7 +134,6 @@ const AdminDocEditor = () => {
       })
       .then((res) => {
         res.json();
-        console.log('hey', res);
       });
   };
 
