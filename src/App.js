@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { Redirect, Route } from "react-router-dom";
 // Switch, withRouter
-
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
@@ -10,11 +10,10 @@ import AdminAppLogin from "./Admin/AdminAppLogin";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizEditor from "./Admin/AdminQuizEditor";
-import AdminEditUser from "./Admin/AdminEditUser";
-import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminUserEditor from "./Admin/AdminUserEditor";
 import AdminDocList from "./Admin/AdminDocList";
 import AdminDocEditor from "./Admin/AdminDocEditor";
+import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
 import AdminRestaurantList from "./Admin/AdminRestaurantList";
 import AdminProductCreator from "./Admin/AdminProductCreator";
@@ -118,11 +117,10 @@ class App extends Component {
   getQuizzes = () => {
     fetch("http://localhost:3000/admin/quiz",
     {
-      method: 'POST',
+      method: 'GET',
       headers: new Headers({
           'Preferred-Language': 'application/json'
-        }),
-        body: JSON.stringify(this.state),
+        })
       })
       .then(response => response.json())
       .then(data => {
@@ -275,7 +273,7 @@ class App extends Component {
             </>
           )}
         />
-
+   {/* {Documentation } */}
         <Route
           exact
           path="/Admin/AdminDocList"
@@ -297,7 +295,7 @@ class App extends Component {
             </>
           )}
         />
-
+           {/* {QUIZ } */}
         <Route
           exact
           path="/Admin/AdminQuizList"
@@ -308,7 +306,6 @@ class App extends Component {
             </>
           )}
         />
-
         <Route
           exact
           path="/Admin/AdminQuizMaker"
@@ -319,30 +316,52 @@ class App extends Component {
             </>
           )}
         />
-
-        <Route
-          exact
-          path="/Admin/AdminEditUser/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminEditUser id={props.match.params.id} />
-            </>
-          )}
-        />
-
-        <Route
+         <Route
           exact
           path="/Admin/AdminQuizEditor/:id"
           render={props => (
             <>
               <AdminNav />
               <AdminQuizEditor 
+              id={props.match.params.id}
               quizzes = {quizzes} /> />
             </>
           )}
         />
-
+        {/* {Users } */}
+        <Route
+          exact
+          path="/Admin/AdminUserList"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminUserList users={users} />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/Admin/AdminUserEditor/:id"
+          render={(props) => (
+            <>
+              <AdminNav />
+              <AdminUserEditor
+              id={props.match.params.id}
+              users = {users}/>
+            </>
+          )}
+        />
+           {/* {Restaurant } */}
+        <Route
+          exact
+          path="/Admin/AdminRestaurantList"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminRestaurantList restaurants={restaurants} />
+            </>
+          )}
+        />
         <Route
           exact
           path="/Admin/AdminRestaurantCreator"
@@ -356,29 +375,19 @@ class App extends Component {
 
         <Route
           exact
-          path="/Admin/AdminUserEditor/:id"
+          path="/Admin/AdminRestaurantEditor/:id"
           render={props => (
             <>
               <AdminNav />
-              <AdminUserEditor
-              users = {users}/>
+              <AdminRestaurantEditor
+                restaurants={restaurants}
+                regions={regions}
+                id={props.match.params.id}
+              />
             </>
           )}
         />
-
-        <Route
-          exact
-          path="/Admin/AdminRestaurantList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminRestaurantList 
-              restaurants={restaurants}
-               />
-            </>
-          )}
-        />
-
+           {/* {Products } */}
         <Route
           exact
           path="/Admin/AdminProductList"
@@ -389,65 +398,6 @@ class App extends Component {
             </>
           )}
         />
-
-        <Route
-          exact
-          path="/Admin/AdminProductCreator"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductCreator />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Admin/AdminProductEditor/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminRestaurantEditor
-                restaurant={restaurants.find((res) => res.id === +props.match.params.id)}
-                regions={regions}
-              />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Admin/AdminUserList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminUserList users={users} />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Admin/AdminRestaurantEditor"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminRestaurantEditor />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Admin/AdminProductList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductList />
-            </>
-          )}
-        />
-
         <Route
           exact
           path="/Admin/AdminProductCreator"
@@ -462,10 +412,11 @@ class App extends Component {
        <Route
         exact
         path="/Admin/AdminProductEditor/:id"
-        render={props => (
+        render={(props) => (
           <>
             <AdminNav />
             <AdminProductEditor 
+             id={props.match.params.id}
              products = {products}/>
           </>
         )}
@@ -540,7 +491,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/QuizList"
+          path="/Learners/QuizList/QuizList"
           render={() => (
             <>
               <LearnerNav />
