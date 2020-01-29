@@ -4,27 +4,25 @@ import {
   Link, withRouter, useHistory,
 } from 'react-router-dom';
 
-
-import ReactHtmlParser from 'react-html-parser';
-
 const AdminDocList = () => {
-  const [allDocs, setAllDocs] = useState([]);
+  const [docs, setDocs] = useState([]);
   const history = useHistory();
 
-  const getAllDocs = () => {
+  const getDocs = () => {
     fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
       .then((response) => response.json())
       .then((data) => {
-        setAllDocs(data.Documentation);
+        setDocs(data.Documentation);
       });
   };
 
   useEffect(() => {
-    getAllDocs();
+    getDocs();
   }, []);
 
   const deleteDocumentation = (id) => {
-    fetch('http://localhost:3000/admin/doc/delete',
+    console.log('oi', process.env.REACT_APP_SERVER_URL);
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/delete`,
       {
         method: 'DELETE',
         headers: new Headers({
@@ -37,7 +35,7 @@ const AdminDocList = () => {
       .then((res) => {
         res.json();
         if (res.status === 200) {
-          return history.push('/Admin/AdminDocList');
+          setDocs(docs.filter((doc) => doc.id !== id));
         }
       });
   };
@@ -64,7 +62,7 @@ const AdminDocList = () => {
           <th>Edit</th>
           <th>Delete</th>
         </tr>
-        {allDocs.map((doc) => (
+        {docs.map((doc) => (
           <tr key={doc.id}>
             <td>{doc.id}</td>
             <td>{doc.title}</td>
