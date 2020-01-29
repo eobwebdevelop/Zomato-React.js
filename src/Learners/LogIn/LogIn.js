@@ -32,10 +32,10 @@ class LogIn extends Component {
       passwordError: ""
     };
 
-    if (this.state.email == "") {
+    if(this.state.email === ''){
       isError = true;
-      errors.emailError = "Fill your email, please";
-    } else if (this.state.password == "") {
+      errors.emailError = "Fill your email, please"
+    } else if (this.state.password === '') {
       isError = true;
       errors.passwordError = "Fill your password, please";
     }

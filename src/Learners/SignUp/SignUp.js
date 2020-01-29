@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 // import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Select from "react-select";
-import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
 
@@ -56,22 +56,22 @@ validate = () => {
     confPasswordError: ""
   };
 
-   if (this.state.first_name.length == '') {
+   if (this.state.first_name.length === '') {
     isError = true;
     errors.first_nameError = "Fill your name, please";
-  } else if (this.state.last_name.length == '') {
+  } else if (this.state.last_name.length === '') {
     isError = true;
     errors.last_nameError = "Fill your last name, please";
   } else if (this.state.email.indexOf("@") === -1) {
     isError = true;
     errors.emailError = "Requires valid email";
-  } else if (this.state.phone_number == '') {
+  } else if (this.state.phone_number === '') {
     isError = true;
     errors.phone_numberError = "Fill your phone, please";
-  } else if (this.state.restaurant_id == '') {
+  } else if (this.state.restaurant_id === '') {
     isError = true;
     errors.restaurantError = "Fill your restaurant, please";
-  } else if (this.state.password == '') {
+  } else if (this.state.password === '') {
       isError = true;
       errors.passwordError = "Fill password, please";
   } else if (this.state.password !== this.state.confPassword) {
@@ -127,10 +127,10 @@ validate = () => {
       <LanguagesContext.Consumer>
         {({ currentLanguage, onChangeLanguage }) => (
         <Container>
-          <div class="formparentcontainer">
+          <div className="formparentcontainer">
             <h1 id="h1-login"> {translations[currentLanguage].SignUp.Title} </h1>
             <hr />
-            <form class="signup-form" onSubmit={this.handlerSubmit}>
+            <form className="signup-form" onSubmit={this.handlerSubmit}>
               <h5>{translations[currentLanguage].SignUp.SubtitleD}</h5>
               <input type="text" name="first_name" placeholder={translations[currentLanguage].SignUp.PlaceholderF} onChange={e => this.inputHandeler(e)} /> 
               {this.state.first_nameError}
@@ -168,7 +168,7 @@ validate = () => {
               />
               {this.state.confPasswordError}
               <br />
-                <button type="submit" class="btn-login">
+                <button type="submit" className="btn-login">
                 {translations[currentLanguage].SignUp.Button}
                 </button>
                 {this.state.flash}

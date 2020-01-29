@@ -1,7 +1,6 @@
-import React from "react";
+import React from 'react';
 import NextButton from "./NextButton";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+
 
 class QandA extends React.Component {
   render() {
