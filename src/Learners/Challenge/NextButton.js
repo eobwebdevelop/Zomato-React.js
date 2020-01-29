@@ -4,12 +4,27 @@ import { Container } from "react-bootstrap";
 
 class NextButton extends React.Component {
   render() {
-    const { onNextStep, step, stopTimer } = this.props;
+    const {
+      onNextStep,
+      step,
+      stopTimer,
+      selectedAnswer,
+      isVisible,
+      checkScore
+    } = this.props;
+
+    if (isVisible === true) return null;
 
     if (step < 9) {
       return (
         <>
-          <button type="submit" className="btn" onClick={onNextStep}>
+          <button
+            type="submit"
+            className="btn"
+            onClick={() => {
+              onNextStep(selectedAnswer);
+            }}
+          >
             Next
           </button>
         </>
@@ -22,7 +37,8 @@ class NextButton extends React.Component {
             className="btn"
             onClick={() => {
               stopTimer();
-              onNextStep();
+              onNextStep(selectedAnswer);
+              checkScore();
             }}
           >
             See results

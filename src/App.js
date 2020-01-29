@@ -57,11 +57,14 @@ class App extends Component {
       step: 0,
       // Overalltime counts upwards until you are at step 10 i.e. results.
       overallTime: 0,
+      // Score out of 10
+      score: 0,
       // Check whether questions are loaded, else we need to display loading screen when opening quiz.
       questionsAreLoaded: false,
       // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
       quizIDInPlay: 1,
       timerRunning: false,
+      userQuizAnswers: [],
       token: "",
       quizzes: [{ id: 0, name: "" }],
       products: [{ id: 0, name: "", description: "" }],
@@ -77,6 +80,8 @@ class App extends Component {
     this.timer = null;
     this.stopTimer = this.stopTimer.bind(this);
     this.startOverallTimer = this.startOverallTimer.bind(this);
+
+    this.checkScore = this.checkScore.bind(this);
 
     this.refreshQuizState = this.refreshQuizState.bind(this);
   }
@@ -115,7 +120,7 @@ class App extends Component {
   };
 
   getQuizzes = () => {
-    fetch("http://localhost:3000/admin/quiz")
+    fetch("http://localhost:3000/learner/quiz")
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -137,11 +142,12 @@ class App extends Component {
       });
   };
 
-  onNextStep = () => {
+  onNextStep = selectedAnswer => {
     this.setState(state => {
       return {
         ...state,
-        step: ++state.step
+        step: ++state.step,
+        userQuizAnswers: [...this.state.userQuizAnswers, selectedAnswer]
       };
     });
   };
@@ -169,6 +175,22 @@ class App extends Component {
     // console.log("stopped timer");
     //Clear interval
     clearInterval(this.timer);
+  }
+
+  checkScore() {
+    console.log("checkScore");
+    var totalScore = 0;
+    for (let i = 0; i < this.state.userQuizAnswers.length; i++) {
+      if (
+        this.state.userQuizAnswers[i].userAnswerID ==
+        this.state.userQuizAnswers[i].correctAnswerID
+      ) {
+        totalScore = totalScore + 1;
+      }
+    }
+
+    this.setState({ score: totalScore });
+    console.log(this.state.score);
   }
 
   refreshQuizState() {
@@ -237,6 +259,8 @@ class App extends Component {
       regions,
       results
     } = this.state;
+
+    console.log(this.state.userQuizAnswers);
 
     return (
       <LanguagesContext.Provider
@@ -546,6 +570,8 @@ class App extends Component {
             <>
               <LearnerNav />
               <Challenge
+                score={this.state.score}
+                checkScore={this.checkScore}
                 refreshQuizState={this.refreshQuizState}
                 questionPackage={this.state.placeholderData.quizzes}
                 startOverallTimer={this.startOverallTimer}
@@ -556,6 +582,8 @@ class App extends Component {
                 quizIDInPlay={this.state.quizIDInPlay}
                 stopTimer={this.stopTimer}
                 overallTime={this.state.overallTime}
+                userAnswerClick={this.userAnswerClick}
+                userQuizAnswers={this.state.userQuizAnswers}
               />
             </>
           )}
@@ -643,23 +671,23 @@ const placeholderData = {
         },
         {
           id: 3,
-          question: "Question 3",
+          question: "How many restaraunts?",
           correct_answer_id: 3,
           quiz_id: 1,
           answers: [
             {
               id: 1,
-              answer_option: "option 1",
+              answer_option: "optsssion 1",
               question_id: 1
             },
             {
               id: 2,
-              answer_option: "option 2",
+              answer_option: "optiosn 2",
               question_id: 1
             },
             {
               id: 3,
-              answer_option: "option 3",
+              answer_option: "optison 3",
               question_id: 1
             },
             {
@@ -677,12 +705,12 @@ const placeholderData = {
           answers: [
             {
               id: 1,
-              answer_option: "option 1",
+              answer_option: "optsion 1",
               question_id: 1
             },
             {
               id: 2,
-              answer_option: "option 2",
+              answer_option: "optisson 2",
               question_id: 1
             },
             {
@@ -692,25 +720,25 @@ const placeholderData = {
             },
             {
               id: 4,
-              answer_option: "option 4",
+              answer_option: "optiosn 4",
               question_id: 1
             }
           ]
         },
         {
           id: 5,
-          question: "Question 5",
+          question: "Is it true?",
           correct_answer_id: 1,
           quiz_id: 1,
           answers: [
             {
               id: 1,
-              answer_option: "option 1",
+              answer_option: "optsion 1",
               question_id: 1
             },
             {
               id: 2,
-              answer_option: "option 2",
+              answer_option: "opstion 2",
               question_id: 1
             },
             {
@@ -720,20 +748,20 @@ const placeholderData = {
             },
             {
               id: 4,
-              answer_option: "option 4",
+              answer_option: "optison 4",
               question_id: 1
             }
           ]
         },
         {
           id: 6,
-          question: "Question 6",
+          question: "Really?",
           correct_answer_id: 2,
           quiz_id: 1,
           answers: [
             {
               id: 1,
-              answer_option: "option 1",
+              answer_option: "optiosn 1",
               question_id: 1
             },
             {
