@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const AdminDocList = ({ documentation, onDelete }) => (
   <Container>
-    <Link to="/Admin/AdminDocEditor">
+    <Link to="/admin/doc_editor">
       <button type="submit" className="btn">
           Add New Documentation
       </button>

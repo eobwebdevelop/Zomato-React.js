@@ -4,7 +4,6 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-
 const AdminQuizList = ({ quizzes, onDelete }) => (
   <div>
     <Container>
@@ -35,7 +34,7 @@ const AdminQuizList = ({ quizzes, onDelete }) => (
             <td>{quiz.id}</td>
             <td>{quiz.name}</td>
             <td>
-              <Link to={`/Admin/AdminQuizEditor/${quiz.id}`} params={quiz.id}>
+              <Link to={`/admin/quiz_editor/${quiz.id}`} params={quiz.id}>
                 <button type="submit" className="btn-list">
                         Edit Quiz ►
                 </button>
@@ -56,7 +55,6 @@ const AdminQuizList = ({ quizzes, onDelete }) => (
     </Container>
   </div>
 );
-
 AdminQuizList.propTypes = {
   quizzes: PropTypes.arrayOf(
     PropTypes.shape({
@@ -66,6 +64,4 @@ AdminQuizList.propTypes = {
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
 };
-
-
 export default AdminQuizList;

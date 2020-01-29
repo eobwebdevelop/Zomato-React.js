@@ -28,7 +28,7 @@ const ContactUs = () => {
               <br />
               <input type="text" title="email" placeholder={translations[currentLanguage].ContactUs.PlaceholderM} />
               <br />
-              <Link to="/Learners/QuizList/QuizList">
+              <Link to="/learners/quiz_list/quiz_list">
                 <button type="submit" className="btn-login">
                   {translations[currentLanguage].ContactUs.Button}
                 </button>

@@ -13,7 +13,7 @@ const AdminProductList = ({ products, onDelete }) => (
       <p>
           You are viewing all the available Products or Services at the current moment.
       </p>
-      <Link to="/Admin/AdminProductCreator">
+      <Link to="/admin/product_creator">
         <button type="submit" className="btn">
             Add Product
         </button>
@@ -38,7 +38,7 @@ const AdminProductList = ({ products, onDelete }) => (
             <td>{prod.name}</td>
             <td>{prod.description}</td>
             <td>
-              <Link to={`/Admin/AdminProductEditor/${prod.id}`} params={prod.id}>
+              <Link to={`/admin/product_editor/${prod.id}`} params={prod.id}>
                 <button type="submit" className="btn-list">
                         Edit Product ►
                 </button>

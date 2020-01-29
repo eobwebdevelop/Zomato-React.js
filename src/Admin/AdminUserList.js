@@ -13,7 +13,7 @@ const AdminUserList = ({ users, onDelete }) => (
       <p>
           You are viewing all the available Users at the current moment.
       </p>
-      <Link to="/Learners/SignUp/SignUp">
+      <Link to="/learners/signup">
         <button type="submit" className="btn">
             Add Users
         </button>
@@ -46,11 +46,10 @@ const AdminUserList = ({ users, onDelete }) => (
             <td>{user.phone_number}</td>
             <td>{user.user_type_id}</td>
             <td>
-              <Link to={`/Admin/AdminUserEditor/${user.id}`} params={user.id}>
+              <Link to={`/admin/user_editor/${user.id}`} params={user.id}>
                 <button type="submit" className="btn-list">
                         Edit User ►
                 </button>
-                {' '}
               </Link>
             </td>
             <td>

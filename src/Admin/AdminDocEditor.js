@@ -171,7 +171,7 @@ const AdminDocEditor = () => {
           value={text}
           onChange={handleChangeQuill}
         />
-        <Link to="/Admin/AdminQuizList">
+        <Link to="/admin/quiz_list">
           <button
             type="submit"
             className="btn"

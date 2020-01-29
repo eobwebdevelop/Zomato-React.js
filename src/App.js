@@ -6,7 +6,7 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
-import AdminAppLogin from "./Admin/AdminAppLogin";
+import AdminLogin from "./Admin/AdminLogin";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizEditor from "./Admin/AdminQuizEditor";
@@ -38,7 +38,7 @@ import Challenge from "./Learners/Challenge/Challenge";
 // import Question from "./Learners/Quiz/Question";
 // import Results from "./Learners/Quiz/Results";
 import SignUp from "./Learners/SignUp/SignUp";
-import FAQ from "./Learners/FAQ/FAQ.js";
+import FAQ from "./Learners/FAQ/FAQ";
 
 // Translation eng/port
 
@@ -120,13 +120,13 @@ class App extends Component {
   };
 
   getQuizzes = () => {
-    fetch("http://localhost:3000/admin/quiz",
+    fetch("http://localhost:3000/learner/quiz",
     {
       method: 'GET',
       headers: new Headers({
           'Preferred-Language': 'application/json'
         })
-      }
+      })
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -135,7 +135,7 @@ class App extends Component {
           questionsAreLoaded: true
         }));
       });
-  };
+    };
 
   getDocs = () => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
@@ -342,11 +342,11 @@ class App extends Component {
         <Route
           exact
           path="/"
-          render={() => <Redirect to="/Learners/Login"></Redirect>}
+          render={() => <Redirect to="/learners/login"></Redirect>}
         />
         <Route
           exact
-          path="/Admin"
+          path="/admin"
           render={() => (
             <>
               <AdminNav />
@@ -357,18 +357,18 @@ class App extends Component {
 
         <Route
           exact
-          path="/Admin/AdminAppLogin"
+          path="/admin/login"
           render={() => (
             <>
               <AdminNav />
-              <AdminAppLogin />
+              <AdminLogin />
             </>
           )}
         />
    {/* {Documentation } */}
         <Route
           exact
-          path="/Admin/AdminDocList"
+          path="/admin/doc_list"
           render={() => (
             <>
               <AdminNav />
@@ -382,7 +382,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Admin/AdminDocEditor"
+          path="/admin/doc_editor"
           render={() => (
             <>
               <AdminNav />
@@ -393,7 +393,7 @@ class App extends Component {
            {/* {QUIZ } */}
         <Route
           exact
-          path="/Admin/AdminQuizList"
+          path="/admin/quiz_list"
           render={() => (
             <>
               <AdminNav />
@@ -406,7 +406,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/Admin/AdminQuizMaker"
+          path="/admin/quiz_maker"
           render={() => (
             <>
               <AdminNav />
@@ -416,7 +416,7 @@ class App extends Component {
         />
          <Route
           exact
-          path="/Admin/AdminQuizEditor/:id"
+          path="/admin/quiz_editor/:id"
           render={props => (
             <>
               <AdminNav />
@@ -429,7 +429,7 @@ class App extends Component {
         {/* {Users } */}
         <Route
           exact
-          path="/Admin/AdminUserList"
+          path="/admin/user_list"
           render={() => (
             <>
               <AdminNav />
@@ -439,7 +439,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/Admin/AdminUserEditor/:id"
+          path="/admin/user_editor/:id"
           render={(props) => (
             <>
               <AdminNav />
@@ -452,7 +452,7 @@ class App extends Component {
            {/* {Restaurant } */}
         <Route
           exact
-          path="/Admin/AdminRestaurantList"
+          path="/admin/restaurant_list"
           render={() => (
             <>
               <AdminNav />
@@ -464,7 +464,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/Admin/AdminRestaurantCreator"
+          path="/admin/restaurant_creator"
           render={() => (
             <>
               <AdminNav />
@@ -475,7 +475,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Admin/AdminRestaurantEditor/:id"
+          path="/admin/restaurant_editor/:id"
           render={props => (
             <>
               <AdminNav />
@@ -490,7 +490,7 @@ class App extends Component {
            {/* {Products } */}
         <Route
           exact
-          path="/Admin/AdminProductList"
+          path="/admin/product_list"
           render={() => (
             <>
               <AdminNav />
@@ -503,7 +503,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/Admin/AdminProductCreator"
+          path="/admin/product_creator"
           render={() => (
             <>
               <AdminNav />
@@ -514,7 +514,7 @@ class App extends Component {
 
        <Route
         exact
-        path="/Admin/AdminProductEditor/:id"
+        path="/admin/product_editor/:id"
         render={(props) => (
           <>
             <AdminNav />
@@ -526,7 +526,7 @@ class App extends Component {
       />
         <Route
           exact
-          path="/Admin/AdminResultList"
+          path="/admin/result_list"
           render={() => (
             <>
               <AdminNav />
@@ -539,7 +539,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/ContactUs"
+          path="/learners/contact_us"
           render={() => (
             <>
               <LearnerNav />
@@ -550,7 +550,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/FAQ"
+          path="/learners/faq"
           render={() => (
             <>
               <LearnerNav />
@@ -561,7 +561,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/Documentation"
+          path="/learners/documentation"
           render={() => (
             <>
               <LearnerNav />
@@ -572,7 +572,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/LogIn"
+          path="/learners/login"
           render={() => (
             <>
               <LearnerNav />
@@ -583,7 +583,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/LogIn/ForgotPassword"
+          path="/learners/login/forgot_password"
           render={() => (
             <>
               <LearnerNav />
@@ -594,7 +594,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/QuizList/QuizList"
+          path="/learners/quiz_list"
           render={() => (
             <>
               <LearnerNav />
@@ -605,7 +605,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/Quiz/Answer"
+          path="/learners/quiz_list/quiz"
           render={() => (
             <>
               <LearnerNav />
@@ -631,7 +631,7 @@ class App extends Component {
 
         <Route
           exact
-          path="/Learners/SignUp"
+          path="/learners/signup"
           render={() => (
             <>
               <LearnerNav />

@@ -12,7 +12,7 @@ const Quiz = () => {
       <Container>
         <h1>{translations[currentLanguage].Quiz.Title}</h1>
         <hr />
-        <Link to="/Learners/Quiz/Results">
+        <Link to="/learners/quiz/results">
           <button type="submit" className="btn">
             {translations[currentLanguage].Quiz.ButtonR}
           </button>

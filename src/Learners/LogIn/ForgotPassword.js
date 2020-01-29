@@ -25,7 +25,7 @@ const ForgotPassword = () => {
               />
               <br />
 
-              <Link to="/Learners/LogIn">
+              <Link to="/learners/login">
                 <button type="submit" className="btn-login">
                   {translations[currentLanguage].ForgotPassword.Button}
                 </button>
