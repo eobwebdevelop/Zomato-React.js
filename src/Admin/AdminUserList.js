@@ -10,6 +10,26 @@ class AdminUserList extends Component {
     };
   }
 
+  deleteUser = (id) => {
+    fetch('http://localhost:3000/admin/user/delete',
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          id,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        if (res.status === 200) {
+          console.log('hey');
+          // return history.push('/Admin/AdminDocList');
+        }
+      });
+  };
+
   render() {
     const { users } = this.props;
     return (

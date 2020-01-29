@@ -14,8 +14,8 @@ const LearnerNav = () => {
   return (
     <div>
       {/* Example */}
-      <Navbar class="learner-navbar" bg="tyrolean" expand="lg">
-        <Navbar.Brand href="/Learners/QuizList/QuizList">
+      <Navbar className="learner-navbar" bg="tyrolean" expand="lg">
+        <Navbar.Brand href="/Learners/QuizList">
           <img src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -45,36 +45,6 @@ const LearnerNav = () => {
         <DropdownSelector />
       </Navbar>
 
-      {/* <ul>
-        <u>Learners</u>
-        <li>
-          <a href="/Learners/LogIn/LogIn">Login </a>
-        </li>
-        <li>
-          <a href="/Learners/SignUp/SignUp">Sign Up </a>
-        </li>
-        <li>
-          <a href="/Learners/QuizList/QuizList">Quiz List </a>
-        </li>
-        <li>
-          <a href="/Learners/quiz/Question">Question </a>
-        </li>{" "}
-        <li>
-          <a href="/Learners/quiz/Answer">Answer </a>
-        </li>
-        <li>
-          <a href="/Learners/quiz/quiz">Quiz </a>
-        </li>
-        <li>
-          <a href="/Learners/quiz/Results">Results </a>
-        </li>
-        <li>
-          <a href="/Learners/ContactUs/ContactUs">Contact Us </a>
-        </li>
-        <li>
-          <a href="/Learners/FAQ/FAQ"> FAQ </a>
-        </li>
-      </ul> */}
     </div>
   );
 };

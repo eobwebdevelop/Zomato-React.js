@@ -11,6 +11,26 @@ class AdminProductList extends Component {
     };
   }
 
+  deleteProduct = (id) => {
+    fetch('http://localhost:3000/admin/product/delete',
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          id,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        if (res.status === 200) {
+          console.log('hey');
+          return this.props.history.push('/Admin/AdminProductList');
+        }
+      });
+  };
+
   render() {
     const { products } = this.props;
     return (

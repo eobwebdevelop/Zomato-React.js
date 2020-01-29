@@ -17,10 +17,10 @@ const QuizList = () => {
           <h2>Zomato Gold</h2>
           <p>Short description about the quiz and why you should do it.</p>
           <Link to="/Learners/Quiz/Answer" className="view-quizzes-page-links-side-by-side">
-              {translations[currentLanguage].QuizList.LinkQ}
+            {translations[currentLanguage].QuizList.LinkQ}
           </Link>
-          <Link to="/Learners/Documentation/Documentation" className="cranberry-link">
-              {translations[currentLanguage].QuizList.LinkD}
+          <Link to="/Learners/Documentation" className="cranberry-link">
+            {translations[currentLanguage].QuizList.LinkD}
           </Link>
         </Container>
       </div>

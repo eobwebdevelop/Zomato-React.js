@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+import NextButton from "./NextButton";
+
 
 class QandA extends React.Component {
   render() {
     const {
-      i,
       questionPackage,
       step,
       onClickAnswer,
       onNextStep,
       isVisible,
+      stopTimer,
+      overallTime
     } = this.props;
 
     if (!isVisible) return null;
@@ -18,7 +19,7 @@ class QandA extends React.Component {
     return (
       <>
         <h1>
-Question Text:
+          Question Text:
           {questionPackage.question}
         </h1>
         <ul>
@@ -26,7 +27,7 @@ Question Text:
             <p>{questionPackage.answers[0].answer_option}</p>
           </li>
           <li>
-            {' '}
+            {" "}
             <p>{questionPackage.answers[1].answer_option}</p>
           </li>
           <li>
@@ -36,9 +37,7 @@ Question Text:
             <p>{questionPackage.answers[3].answer_option}</p>
           </li>
         </ul>
-        <button type="submit" className="btn" onClick={onNextStep}>
-          Next
-        </button>
+        <NextButton onNextStep={onNextStep} step={step} stopTimer={stopTimer} />
       </>
     );
   }

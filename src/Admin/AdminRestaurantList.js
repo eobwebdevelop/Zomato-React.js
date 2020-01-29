@@ -10,6 +10,26 @@ class AdminRestaurantList extends Component {
     };
   }
 
+  deleteRestaurant = (id) => {
+    fetch('http://localhost:3000/admin/restaurant/delete',
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          id,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        if (res.status === 200) {
+          console.log('hey');
+          // return history.push('/Admin/AdminRestaurantList');
+        }
+      });
+  };
+
   render() {
     const { restaurants } = this.props;
     return (

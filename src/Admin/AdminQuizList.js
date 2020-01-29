@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './AdminList.css';
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, useHistory, Redirect} from 'react-router-dom';
 
 class AdminQuizList extends Component {
   constructor(props) {
@@ -9,6 +9,26 @@ class AdminQuizList extends Component {
     this.state = {
     };
   }
+
+  deleteQuiz = (id) => {
+    fetch(process.env.REACT_APP_PATH_ADMIN_QUIZ_DELETE,
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          id,
+        }),
+      })
+      .then((res) => {
+        res.json();
+        if (res.status === 200) {
+          console.log('hey');
+          // return history.push('/Admin/AdminQuizList');
+        }
+      });
+  };
 
   render() {
     const { quizzes } = this.props;
@@ -69,4 +89,4 @@ class AdminQuizList extends Component {
     );
   }
 }
-export default AdminQuizList;
+export default withRouter(AdminQuizList);

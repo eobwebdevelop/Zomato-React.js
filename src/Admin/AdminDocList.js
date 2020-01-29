@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import ReactHtmlParser from 'react-html-parser';
+import {
+  Link, withRouter, useHistory,
+} from 'react-router-dom';
 
 const AdminDocList = () => {
-  const [allDocs, setAllDocs] = useState([]);
-  const [reload, setReload] = useState(false);
+  const [docs, setDocs] = useState([]);
+  const history = useHistory();
 
-  const getAllDocs = () => {
+  const getDocs = () => {
     fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
       .then((response) => response.json())
       .then((data) => {
-        setAllDocs(data.Documentation);
+        setDocs(data.Documentation);
       });
   };
 
   useEffect(() => {
-    getAllDocs();
+    getDocs();
   }, []);
 
   const deleteDocumentation = (id) => {
-    console.log('id', id);
-    fetch('http://localhost:3000/admin/doc/delete',
+    console.log('oi', process.env.REACT_APP_SERVER_URL);
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/delete`,
       {
         method: 'DELETE',
         headers: new Headers({
@@ -34,11 +35,10 @@ const AdminDocList = () => {
       .then((res) => {
         res.json();
         if (res.status === 200) {
-          window.location.reload();
+          setDocs(docs.filter((doc) => doc.id !== id));
         }
       });
   };
-
 
   return (
     <Container>
@@ -62,35 +62,26 @@ const AdminDocList = () => {
           <th>Edit</th>
           <th>Delete</th>
         </tr>
-        {allDocs.map((doc) => (
+        {docs.map((doc) => (
           <tr key={doc.id}>
             <td>{doc.id}</td>
             <td>{doc.title}</td>
-            {/* <td>{ReactHtmlParser(doc.content)}</td> */}
             <td>
-              {/* <Link to={`/Admin/AdminDocEditor/${doc.id}`} params={doc.id}> */}
               <button type="submit" className="view-quizzes-page-links-side-by-side">
                 {' '}
                         Edit Documentation ►
                 {' '}
               </button>
-              {/* </Link> */}
             </td>
             <td>
-              {/* <Link to={`/Admin/AdminProductEditor/${doc.id}`} params={doc.id}> */}
-              {/* AS: does it need to be a link? same page,
-                without deleted item should be displayed */}
               <button
                 type="submit"
                 // method="post"
                 className="view-quizzes-page-links-side-by-side"
                 onClick={() => deleteDocumentation(doc.id)}
               >
-                {' '}
-                        Delete Documentation ►
-                {' '}
+                  Delete Documentation ►
               </button>
-              {/* </Link> */}
             </td>
           </tr>
         ))}
@@ -99,4 +90,4 @@ const AdminDocList = () => {
   );
 };
 
-export default AdminDocList;
+export default withRouter(AdminDocList);
