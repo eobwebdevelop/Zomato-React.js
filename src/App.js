@@ -128,7 +128,7 @@ class App extends Component {
     fetch("http://localhost:3000/learner/quiz", {
       method: "GET",
       headers: new Headers({
-        "Preferred-Language": "application/json"
+        'Preferred-Language': this.state.currentLanguage
       })
     })
       .then(response => response.json())
@@ -242,14 +242,6 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.refreshQuizState();
-    this.getQuizzes();
-    this.getProducts();
-    this.getUsers();
-    this.getRestaurants();
-    this.getRegion();
-    this.getResults();
-    this.getDocs();
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
@@ -258,6 +250,16 @@ class App extends Component {
         ? JSON.parse(currentLanguage)
         : availableLanguages.pt,
       token: token ? JSON.parse(token) : ""
+    }, () => {
+      console.log(this.state.currentLanguage)
+      this.refreshQuizState();
+      this.getQuizzes();
+      this.getProducts();
+      this.getUsers();
+      this.getRestaurants();
+      this.getRegion();
+      this.getResults();
+      this.getDocs();
     });
   }
 
