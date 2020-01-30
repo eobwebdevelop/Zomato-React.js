@@ -28,7 +28,8 @@ class LogIn extends Component {
   };
 
   //Validation form
-  validate = () => {
+  validate = (currentLanguage) => {
+    console.log('validate in ', currentLanguage)
     let isError = false;
     const errors = {
       emailError: "",
@@ -37,10 +38,10 @@ class LogIn extends Component {
 
     if(this.state.email === ''){
       isError = true;
-      errors.emailError = "Fill your email, please"
+      errors.emailError = translations[currentLanguage].Login.ErrorEmail;
     } else if (this.state.password === '') {
       isError = true;
-      errors.passwordError = "Fill your password, please";
+      errors.passwordError = translations[currentLanguage].Login.ErrorPassword;
     }
 
     this.setState({
@@ -51,11 +52,11 @@ class LogIn extends Component {
     return isError;
   };
 
-  handlerSubmit = e => {
+  handlerSubmit = (e, currentLanguage) => {
     e.preventDefault();
     const { email, password } = this.state;
     console.log(this.state.email, this.state.password);
-    const err = this.validate();
+    const err = this.validate(currentLanguage);
     if (!err) {
       fetch("http://localhost:3000/auth/login", {
         method: "POST",
@@ -90,7 +91,7 @@ class LogIn extends Component {
                   {translations[currentLanguage].Login.Title}
                 </h1>
                 <hr />
-                <form onSubmit={this.handlerSubmit}>
+                <form onSubmit={(e) => this.handlerSubmit(e, currentLanguage)}>
                   <input
                     type="email"
                     name="email"
