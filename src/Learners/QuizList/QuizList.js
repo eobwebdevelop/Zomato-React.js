@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import QuizCard from "./QuizCard";
 import LanguagesContext, {
-  availableLanguages,
-} from '../../contexts/languages-context';
-import translations from '../../i18n/translations';
+  availableLanguages
+} from "../../contexts/languages-context";
+import translations from "../../i18n/translations";
 
-const QuizList = () => {
+const QuizList = props => {
   const { currentLanguage } = useContext(LanguagesContext);
   return (
     <>
@@ -14,14 +15,18 @@ const QuizList = () => {
         <Container>
           <h1>{translations[currentLanguage].QuizList.Title}</h1>
           <hr />
-          <h2>Zomato Gold</h2>
-          <p>Short description about the quiz and why you should do it.</p>
-          <Link to="/learners/quiz_list/quiz" className="view-quizzes-page-links-side-by-side">
-            {translations[currentLanguage].QuizList.LinkQ}
-          </Link>
-          <Link to="/learners/documentation" className="cranberry-link">
-            {translations[currentLanguage].QuizList.LinkD}
-          </Link>
+
+          {props.QuizList.map((el, i) => (
+            <QuizCard
+              quizTitle={el.name}
+              quizLinkText={translations[currentLanguage].QuizList.LinkQ}
+              documentationLinkText={
+                translations[currentLanguage].QuizList.LinkD
+              }
+              quizID={el.id}
+              changeQuizIDInPlay={props.changeQuizIDInPlay}
+            />
+          ))}
         </Container>
       </div>
     </>

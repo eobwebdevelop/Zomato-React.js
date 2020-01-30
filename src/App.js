@@ -46,12 +46,14 @@ import LanguagesContext, {
   availableLanguages
 } from "./contexts/languages-context";
 
+// EW 30.09.2019: Note, state.placeholderdata is useful for testing and provides a skeleton before API loaded so please leave in state for now.
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentLanguage: availableLanguages.pt,
-      quizzes: [{ id: 0, name: "" }],
+      quizzesLearner: placeholderData,
       placeholderData: placeholderData,
       // Step defines which question you are seeing. Step 0 - 9 are questions, step 10 is results.
       step: 0,
@@ -66,7 +68,6 @@ class App extends Component {
       timerRunning: false,
       userQuizAnswers: [],
       token: "",
-      quizzes: [{ id: 0, name: "" }],
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
       restaurants: [{ id: 0, name: "" }],
@@ -76,6 +77,8 @@ class App extends Component {
     };
 
     this.onNextStep = this.onNextStep.bind(this);
+
+    this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
 
     this.timer = null;
     this.stopTimer = this.stopTimer.bind(this);
@@ -119,10 +122,11 @@ class App extends Component {
       });
   };
 
+  // EW: This is getQuizzes for learners. If we need this for admin then consider another fetch for http://localhost:3000/admin/quiz as the route exists.
+
   getQuizzes = () => {
-    fetch("http://localhost:3000/learner/quiz",
-    {
-      method: 'GET',
+    fetch("http://localhost:3000/learner/quiz", {
+      method: "GET",
       headers: new Headers({
         'Preferred-Language': this.state.currentLanguage
       })
@@ -131,11 +135,11 @@ class App extends Component {
       .then(data => {
         this.setState(state => ({
           ...state,
-          quizzes: data.quizzes,
+          quizzesLearner: data,
           questionsAreLoaded: true
         }));
       });
-    };
+  };
 
   getDocs = () => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
@@ -145,8 +149,8 @@ class App extends Component {
           ...state,
           documentation: data.Documentation
         }));
-      })
-    };
+      });
+  };
 
   onNextStep = selectedAnswer => {
     this.setState(state => {
@@ -184,7 +188,6 @@ class App extends Component {
   }
 
   checkScore() {
-    console.log("checkScore");
     var totalScore = 0;
     for (let i = 0; i < this.state.userQuizAnswers.length; i++) {
       if (
@@ -196,7 +199,12 @@ class App extends Component {
     }
 
     this.setState({ score: totalScore });
-    console.log(this.state.score);
+  }
+
+  // EW:When you click TAKE QUIZ, this method is called in the quiz card, updating the state. A filter is run to only play the quiz specified in this.state.QuizIDInPlay.
+
+  changeQuizIDInPlay(quizID) {
+    this.setState({ quizIDInPlay: quizID });
   }
 
   refreshQuizState() {
@@ -233,16 +241,14 @@ class App extends Component {
     localStorage.setItem("currentLanguage", JSON.stringify(e.target.value));
   };
 
-
   componentDidMount() {
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
     this.setState({
-      currentLanguage: 
-        currentLanguage ?
-          JSON.parse(currentLanguage)
-          : availableLanguages.pt,
+      currentLanguage: currentLanguage
+        ? JSON.parse(currentLanguage)
+        : availableLanguages.pt,
       token: token ? JSON.parse(token) : ""
     }, () => {
       console.log(this.state.currentLanguage)
@@ -258,71 +264,52 @@ class App extends Component {
   }
 
   handleDelete = (id, resourceType, callback) => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`,
-    {
-      method: 'DELETE',
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
+      method: "DELETE",
       headers: new Headers({
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json"
       }),
       body: JSON.stringify({
-        id,
-      }),
+        id
+      })
     })
-    .then(res => res.json())
-    .then(callback);
-  }
+      .then(res => res.json())
+      .then(callback);
+  };
 
-  handleDeleteDoc = (id) => {
-    this.handleDelete(
-      id,
-      'doc',
-      () => {
-        const updatedDocs = (this.state.documentation.filter((doc) => doc.id !== id))
-        this.setState({ documentation : updatedDocs})
-      }
-    )
-  }
+  handleDeleteDoc = id => {
+    this.handleDelete(id, "doc", () => {
+      const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
+      this.setState({ documentation: updatedDocs });
+    });
+  };
 
-  handleDeleteProduct = (id) => {
-    this.handleDelete(
-      id,
-      'product',
-      () => {
-        const updatedProducts = (this.state.quizzes.filter((quiz) => quiz.id !== id))
-        this.setState({ products : updatedProducts})
-      }
-    )
-  }
-  handleDeleteQuiz = (id) => {
-    this.handleDelete(
-      id,
-      'quiz',
-      () => {
-        const updatedQuizzes = (this.state.quizzes.filter((quiz) => quiz.id !== id))
-        this.setState({ quizzes : updatedQuizzes})
-      }
-    )
-  }
-  handleDeleteRestaurant = (id) => {
-    this.handleDelete(
-      id,
-      'restaurant',
-      () => {
-        const updatedRestaurants = (this.state.restaurants.filter((restaurant) => restaurant.id !== id))
-        this.setState({ restaurants : updatedRestaurants})
-      }
-    )
-  }
-  handleDeleteUser = (id) => {
-    this.handleDelete(
-      id,
-      'user',
-      () => {
-        const updatedUsers = (this.state.users.filter((user) => user.id !== id))
-        this.setState({ users : updatedUsers})
-      }
-    )
-  }
+  handleDeleteProduct = id => {
+    this.handleDelete(id, "product", () => {
+      const updatedProducts = this.state.quizzes.filter(quiz => quiz.id !== id);
+      this.setState({ products: updatedProducts });
+    });
+  };
+  handleDeleteQuiz = id => {
+    this.handleDelete(id, "quiz", () => {
+      const updatedQuizzes = this.state.quizzes.filter(quiz => quiz.id !== id);
+      this.setState({ quizzes: updatedQuizzes });
+    });
+  };
+  handleDeleteRestaurant = id => {
+    this.handleDelete(id, "restaurant", () => {
+      const updatedRestaurants = this.state.restaurants.filter(
+        restaurant => restaurant.id !== id
+      );
+      this.setState({ restaurants: updatedRestaurants });
+    });
+  };
+  handleDeleteUser = id => {
+    this.handleDelete(id, "user", () => {
+      const updatedUsers = this.state.users.filter(user => user.id !== id);
+      this.setState({ users: updatedUsers });
+    });
+  };
 
   render() {
     const {
@@ -365,14 +352,14 @@ class App extends Component {
             </>
           )}
         />
-   {/* {Documentation } */}
+        {/* {Documentation } */}
         <Route
           exact
           path="/admin/doc_list"
           render={() => (
             <>
               <AdminNav />
-              <AdminDocList 
+              <AdminDocList
                 documentation={this.state.documentation}
                 onDelete={this.handleDeleteDoc}
               />
@@ -386,20 +373,20 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminDocEditor documentation={this.state.documentation}/>
+              <AdminDocEditor documentation={this.state.documentation} />
             </>
           )}
         />
-           {/* {QUIZ } */}
+        {/* {QUIZ } */}
         <Route
           exact
           path="/admin/quiz_list"
           render={() => (
             <>
               <AdminNav />
-              <AdminQuizList 
+              <AdminQuizList
                 quizzes={quizzes}
-                onDelete={this.handleDeleteQuiz} 
+                onDelete={this.handleDeleteQuiz}
               />
             </>
           )}
@@ -414,15 +401,17 @@ class App extends Component {
             </>
           )}
         />
-         <Route
+        <Route
           exact
           path="/admin/quiz_editor/:id"
           render={props => (
             <>
               <AdminNav />
-              <AdminQuizEditor 
-              id={props.match.params.id}
-              quizzes = {quizzes} /> />
+              <AdminQuizEditor
+                id={props.match.params.id}
+                quizzes={quizzes}
+              />{" "}
+              />
             </>
           )}
         />
@@ -440,25 +429,24 @@ class App extends Component {
         <Route
           exact
           path="/admin/user_editor/:id"
-          render={(props) => (
+          render={props => (
             <>
               <AdminNav />
-              <AdminUserEditor
-              id={props.match.params.id}
-              users = {users}/>
+              <AdminUserEditor id={props.match.params.id} users={users} />
             </>
           )}
         />
-           {/* {Restaurant } */}
+        {/* {Restaurant } */}
         <Route
           exact
           path="/admin/restaurant_list"
           render={() => (
             <>
               <AdminNav />
-              <AdminRestaurantList 
+              <AdminRestaurantList
                 restaurants={restaurants}
-                onDelete={this.handleDeleteRestaurant} />
+                onDelete={this.handleDeleteRestaurant}
+              />
             </>
           )}
         />
@@ -487,15 +475,15 @@ class App extends Component {
             </>
           )}
         />
-           {/* {Products } */}
+        {/* {Products } */}
         <Route
           exact
           path="/admin/product_list"
           render={() => (
             <>
               <AdminNav />
-              <AdminProductList 
-                products={products} 
+              <AdminProductList
+                products={products}
                 onDelete={this.handleDeleteProduct}
               />
             </>
@@ -512,18 +500,19 @@ class App extends Component {
           )}
         />
 
-       <Route
-        exact
-        path="/admin/product_editor/:id"
-        render={(props) => (
-          <>
-            <AdminNav />
-            <AdminProductEditor 
-             id={props.match.params.id}
-             products = {products}/>
-          </>
-        )}
-      />
+        <Route
+          exact
+          path="/admin/product_editor/:id"
+          render={props => (
+            <>
+              <AdminNav />
+              <AdminProductEditor
+                id={props.match.params.id}
+                products={products}
+              />
+            </>
+          )}
+        />
         <Route
           exact
           path="/admin/result_list"
@@ -598,7 +587,10 @@ class App extends Component {
           render={() => (
             <>
               <LearnerNav />
-              <QuizList />
+              <QuizList
+                QuizList={this.state.quizzesLearner.quizzes}
+                changeQuizIDInPlay={this.changeQuizIDInPlay}
+              />
             </>
           )}
         />
@@ -613,7 +605,7 @@ class App extends Component {
                 score={this.state.score}
                 checkScore={this.checkScore}
                 refreshQuizState={this.refreshQuizState}
-                questionPackage={this.state.placeholderData.quizzes}
+                questionPackage={this.state.quizzesLearner.quizzes}
                 startOverallTimer={this.startOverallTimer}
                 overallTime={this.state.overallTime}
                 onNextStep={this.onNextStep}
@@ -648,7 +640,7 @@ const placeholderData = {
   quizzes: [
     {
       id: 1,
-      name: "Discounts ",
+      name: "Loading Quiz",
       user_type_id: 2,
       language_id: 1,
       product_id: 1,
@@ -684,6 +676,873 @@ const placeholderData = {
         {
           id: 2,
           question: "Question 2",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 3,
+          question: "How many restaraunts?",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsssion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optiosn 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "optison 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 4,
+          question: "What is map?",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optisson 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optiosn 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 5,
+          question: "Is it true?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "opstion 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optison 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 6,
+          question: "Really?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optiosn 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 7,
+          question: "Question 7",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 8,
+          question: "Question 8",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 9,
+          question: "Question 9",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 10,
+          question: "Question 10",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 20,
+      name: "Loading Quiz",
+      user_type_id: 2,
+      language_id: 1,
+      product_id: 1,
+      questions: [
+        {
+          id: 1,
+          question: "Is coding fun?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "Not sure",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "Cool discounts",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 2,
+          question: "Are restaurants tasty?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 3,
+          question: "How many restaraunts?",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsssion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optiosn 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "optison 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 4,
+          question: "What is map?",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optisson 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optiosn 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 5,
+          question: "Is it true?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "opstion 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optison 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 6,
+          question: "Really?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optiosn 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 7,
+          question: "Question 7",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 8,
+          question: "Question 8",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 9,
+          question: "Question 9",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 10,
+          question: "Question 10",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 1,
+      name: "Loading Quiz",
+      user_type_id: 2,
+      language_id: 1,
+      product_id: 1,
+      questions: [
+        {
+          id: 1,
+          question: "What is blah?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "Not sure",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "Cool discounts",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 2,
+          question: "Question 2",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 3,
+          question: "How many restaraunts?",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsssion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optiosn 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "optison 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 4,
+          question: "What is map?",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optisson 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optiosn 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 5,
+          question: "Is it true?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "opstion 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optison 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 6,
+          question: "Really?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optiosn 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 7,
+          question: "Question 7",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 8,
+          question: "Question 8",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 9,
+          question: "Question 9",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 10,
+          question: "Question 10",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 20,
+      name: "Zomato Basics",
+      user_type_id: 2,
+      language_id: 1,
+      product_id: 1,
+      questions: [
+        {
+          id: 1,
+          question: "Zomato Basics is it rea:?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "Not sure",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "Cool discounts",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 2,
+          question: "Are restaurants tasty?",
           correct_answer_id: 2,
           quiz_id: 1,
           answers: [
