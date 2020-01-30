@@ -655,7 +655,7 @@ const placeholderData = {
       questions: [
         {
           id: 1,
-          question: "What is Zomato Gold?",
+          question: "What is blah?",
           correct_answer_id: 1,
           quiz_id: 1,
           answers: [
@@ -739,7 +739,7 @@ const placeholderData = {
         },
         {
           id: 4,
-          question: "What is Zomato map?",
+          question: "What is map?",
           correct_answer_id: 4,
           quiz_id: 1,
           answers: [
