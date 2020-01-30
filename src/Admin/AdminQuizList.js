@@ -12,7 +12,7 @@ const AdminQuizList = ({ quizzes, onDelete }) => (
       <p>
           You are viewing all the available Quizzes at the current moment.
       </p>
-      <Link to="/Admin/AdminQuizCreator">
+      <Link to="/admin/quiz_creator">
         <button type="submit" className="btn">
             Add Quiz
         </button>
