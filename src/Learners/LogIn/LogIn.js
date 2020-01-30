@@ -118,13 +118,14 @@ class LogIn extends Component {
                 </form>
               </div>
               <div className="forgotpassword-signup">
-                <Link to="/learners/login/forgot_password">
+                {/* future feature */}
+                {/* <Link to="/learners/login/forgot_password">
                   {translations[currentLanguage].Login.Forgot}
                   <br />
-                </Link>
+                </Link> */}
                 {translations[currentLanguage].Login.Account}
                 {' '}
-                <Link to="/learners/sign_up">
+                <Link to="/learners/signup">
                     {translations[currentLanguage].Login.ButtonS}
                 </Link>
               </div>

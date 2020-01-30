@@ -3,7 +3,7 @@ const Translations = {
     Full: 'English',
     LearnerNav: {
       LinkS: 'Sign Up',
-      LinkL: 'Login',
+      LinkL: 'Logout',
       LinkQ: 'All Quizzes',
       LinkF: 'FAQ',
       LinkC: 'Contact',
@@ -95,7 +95,7 @@ const Translations = {
     Full: 'Português',
     LearnerNav: {
       LinkS: 'Registar-se',
-      LinkL: 'Iniciar Sessão',
+      LinkL: 'Fechar Sessão',
       LinkQ: 'Quizzes ',
       LinkF: 'FAQ',
       LinkC: 'Contactos ',

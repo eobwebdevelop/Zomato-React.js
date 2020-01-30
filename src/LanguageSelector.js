@@ -12,7 +12,7 @@ const LanguageSelector = () => {
         name="language"
         value={currentLanguage}
         onChange={onChangeLanguage}
-        className="ui button floating labeled search dropdown icon"
+        className="ui button labeled search dropdown icon"
       >
         {
           Object.values(availableLanguages).map((lang) => (
