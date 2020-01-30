@@ -78,7 +78,7 @@ class Challenge extends React.Component {
           </a>
         </Link>
 
-        <Link to="/learners/documentation/documentation">
+        <Link to="/learners/documentation">
           <a>
             <button onClick={refreshQuizState}>Documentation</button>
           </a>
