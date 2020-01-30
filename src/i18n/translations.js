@@ -46,6 +46,8 @@ const Translations = {
       ButtonS: 'Sign-Up',
       PlaceholderU: ' Email',
       PlaceholderP: ' Password',
+      ErrorEmail: 'Fill your email, please',
+      ErrorPassword: 'Fill your password, please',
     },
 
     Answer: {
@@ -88,6 +90,13 @@ const Translations = {
       PlaceholderP: ' Password*',
       PlaceholderC: ' Confirm Password*',
       Button: 'Sign-Up',
+      ErrorName: 'Fill your name, please',
+      ErrorLastName: 'Fill your last name, please',
+      ErrorEmail: 'Requires valid email',
+      ErrorPhone: 'Fill your phone, please',
+      ErrorRestaurant: 'Fill your restaurant, please',
+      ErrorPassword: 'Fill password, please',
+      ErrorPasswordMatch: 'Passwords need to match',
     },
   },
 
@@ -139,6 +148,8 @@ const Translations = {
       ButtonS: 'Registar-se',
       PlaceholderU: ' Email de utilizador',
       PlaceholderP: ' Password',
+      ErrorEmail: 'Fill your email, please (portuguese translation plz)',
+      ErrorPassword: 'Fill your password, please (portuguese translation plz)',
     },
 
     Answer: {
@@ -178,6 +189,13 @@ const Translations = {
       SubtitleP: 'Password: ',
       PlaceholderP: ' Password* ',
       PlaceholderC: ' Confirmar Password*',
+      ErrorName: 'Fill your name, please (portuguese translation plz)',
+      ErrorLastName: 'Fill your last name, please (portuguese translation plz)',
+      ErrorEmail: 'Requires valid email (portuguese translation plz)',
+      ErrorPhone: 'Fill your phone, please (portuguese translation plz)',
+      ErrorRestaurant: 'Fill your restaurant, please (portuguese translation plz)',
+      ErrorPassword: 'Fill password, please (portuguese translation plz)',
+      ErrorPasswordMatch: 'Passwords need to match (portuguese translation plz)',
 
       Button: 'Registar-se',
     },

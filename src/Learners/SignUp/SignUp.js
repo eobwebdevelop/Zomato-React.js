@@ -46,7 +46,7 @@ inputHandeler = e => {
 
 //validate 
 
-validate = () => {
+validate = (currentLanguage) => {
    let isError = false;
    const errors = {
     first_nameError: "",
@@ -60,25 +60,25 @@ validate = () => {
 
    if (this.state.first_name.length === '') {
     isError = true;
-    errors.first_nameError = "Fill your name, please";
+    errors.first_nameError = translations[currentLanguage].SignUp.ErrorName;
   } else if (this.state.last_name.length === '') {
     isError = true;
-    errors.last_nameError = "Fill your last name, please";
+    errors.last_nameError = translations[currentLanguage].SignUp.ErrorLastName;
   } else if (this.state.email.indexOf("@") === -1) {
     isError = true;
-    errors.emailError = "Requires valid email";
+    errors.emailError = translations[currentLanguage].SignUp.ErrorEmail;
   } else if (this.state.phone_number === '') {
     isError = true;
-    errors.phone_numberError = "Fill your phone, please";
+    errors.phone_numberError = translations[currentLanguage].SignUp.ErrorPhone;
   } else if (this.state.restaurant_id === '') {
     isError = true;
-    errors.restaurantError = "Fill your restaurant, please";
+    errors.restaurantError = translations[currentLanguage].SignUp.ErrorRestaurant;
   } else if (this.state.password === '') {
       isError = true;
-      errors.passwordError = "Fill password, please";
+      errors.passwordError = translations[currentLanguage].SignUp.ErrorPassword;
   } else if (this.state.password !== this.state.confPassword) {
       isError = true;
-      errors.confPasswordError = "Passwords need to match";
+      errors.confPasswordError = translations[currentLanguage].SignUp.ErrorPasswordMatch;
   } 
     
     this.setState({
@@ -99,30 +99,30 @@ validate = () => {
 }
 
 
-  handlerSubmit = (e) => {
-    const { first_name, last_name, email, password, phone_number, restaurant_id } = this.state
-    console.log(first_name, last_name, email, password, phone_number, restaurant_id)
-    e.preventDefault();
-    const err = this.validate();
-    if (!err) {
-      fetch("http://localhost:3000/auth/signup",
-        {
-            method:  'POST',
-            headers:  new Headers({
-                    'Content-Type':  'application/json'
-            }),
-            body:  JSON.stringify({first_name, last_name, email, password, phone_number, restaurant_id}),
-        })
-        .then(res  =>  res.json())
-        .then((data)  =>  {
-          this.setState({"flash":  data.flash})
-           if(data.flash == "User has been signed up!") {
-            this.props.history.push('/Learners/LogIn');
-           }
-        })
-    }   
-        
-  }
+handlerSubmit = (e) => {
+  const { first_name, last_name, email, password, phone_number, restaurant_id } = this.state
+  console.log(first_name, last_name, email, password, phone_number, restaurant_id)
+  e.preventDefault();
+  const err = this.validate();
+  if (!err) {
+    fetch("http://localhost:3000/auth/signup",
+      {
+          method:  'POST',
+          headers:  new Headers({
+                  'Content-Type':  'application/json'
+          }),
+          body:  JSON.stringify({first_name, last_name, email, password, phone_number, restaurant_id}),
+      })
+      .then(res  =>  res.json())
+      .then((data)  =>  {
+        this.setState({"flash":  data.flash})
+         if(data.flash == "User has been signed up!") {
+          this.props.history.push('/Learners/LogIn');
+         }
+      })
+  }   
+      
+}
       
       
   render() {
