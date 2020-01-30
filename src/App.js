@@ -124,9 +124,9 @@ class App extends Component {
     {
       method: 'GET',
       headers: new Headers({
-          'Preferred-Language': 'application/json'
-        })
+        'Preferred-Language': this.state.currentLanguage
       })
+    })
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -235,14 +235,6 @@ class App extends Component {
 
 
   componentDidMount() {
-    this.refreshQuizState();
-    this.getQuizzes();
-    this.getProducts();
-    this.getUsers();
-    this.getRestaurants();
-    this.getRegion();
-    this.getResults();
-    this.getDocs();
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
@@ -252,6 +244,16 @@ class App extends Component {
           JSON.parse(currentLanguage)
           : availableLanguages.pt,
       token: token ? JSON.parse(token) : ""
+    }, () => {
+      console.log(this.state.currentLanguage)
+      this.refreshQuizState();
+      this.getQuizzes();
+      this.getProducts();
+      this.getUsers();
+      this.getRestaurants();
+      this.getRegion();
+      this.getResults();
+      this.getDocs();
     });
   }
 
@@ -332,8 +334,6 @@ class App extends Component {
       regions,
       results
     } = this.state;
-
-    console.log(this.state.userQuizAnswers);
 
     return (
       <LanguagesContext.Provider
