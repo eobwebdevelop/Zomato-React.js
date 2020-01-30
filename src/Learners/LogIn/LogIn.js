@@ -65,7 +65,7 @@ class LogIn extends Component {
         .then(
           res =>
             this.setState({ flash: res.flash }, () => {
-              localStorage.setItem("token", JSON.stringify(res.token));
+              if(res.token) localStorage.setItem("token", JSON.stringify(res.token));
             }),
           err => this.setState({ flash: err.flash })
         );
