@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import { Link } from "react-router-dom";
+import { withRouter}  from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Select from "react-select";
 
@@ -9,31 +9,36 @@ class AdminRestaurantEditor extends Component  {
     constructor(props) {
       super(props);
       this.state = {
-        name: '',
-        region_id:'',
-        id: '',
-        displayresto: '',
+        name: props.restaurant ? props.restaurant.name :  '',
+        region_id: props.restaurant ? props.restaurant.region_id : '',
+        id: props.restaurant ? props.restaurant.id : '',
         displayregion: '',
       }
     }
 
-    updateRegion = (item) => {
-      console.log(item)
-      this.setState({region_id: item.value,
-      displayregion:item })
+    componentDidUpdate(prevProps) {
+      console.log(prevProps)
+      if (!prevProps.restaurant && this.props.restaurant) {
+        this.setState({
+          name: this.props.restaurant.name,
+          region_id: this.props.restaurant.region_id,
+          id: this.props.restaurant.id,
+        })
+      }
     }
 
-    updateRestaurant = (item) => {
-      this.setState({id: item.value,
-      displayresto: item})
-  }
+    updateRegion = (item) => {
+      this.setState({
+      region_id: item.value,
+      displayregion:item })
+    }
 
   updateName = (event) => {
     this.setState({name: event.target.value})
   }
 
   handlerSubmit = (e) => {
-    const { id, name, region_id } = this.state
+    const { name, region_id, id } = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:", id, name, region_id);
     fetch("http://localhost:3000/admin/restaurant/edit",
@@ -52,7 +57,6 @@ class AdminRestaurantEditor extends Component  {
   }
 
   render() {
-    const { restaurants, regions } = this.props; 
     return (
       <>
         <Container>
@@ -60,23 +64,15 @@ class AdminRestaurantEditor extends Component  {
             <h1 > Restaurant name and region editor</h1>
             <hr />
             <form className="restaurant-editor" onSubmit={this.handlerSubmit}>
-              <h5>Restaurant Details</h5>
-              <Select
-                placeholder = "Select the Restaurant you want to edit"
-                value = {this.state.displayresto}
-                onChange={this.updateRestaurant}
-                classNamePrefix="select"
-                options={restaurants.map((item) => ({value: item.id, label: item.name}))}
-                />
-                <input type="text" name="name" placeholder="Restaurant new name" required onChange={this.updateName} /> 
+              <h5>Restaurant Name</h5>
+                <input type="text" name="name" value={this.state.name} required onChange={this.updateName} /> 
                 <hr />
                 <h5>Region </h5>
-              <Select
-                placeholder = "Select your Region" // change placeholder to the current region based on restaurant 
+              <Select // change placeholder to the current region based on restaurant 
                 value = {this.state.displayregion}
                 onChange={this.updateRegion}
                 classNamePrefix="select"
-                options={regions.map((item) => ({value: item.id, label: item.name}))} 
+                options={this.props.regions.map((item) => ({value: item.id, label: item.name}))} 
                 />
                 <button type="submit" className="btn-login">
                   Update
@@ -89,4 +85,4 @@ class AdminRestaurantEditor extends Component  {
   }
 }
 
-export default AdminRestaurantEditor;
+export default withRouter(AdminRestaurantEditor);

@@ -16,22 +16,11 @@ const QuizList = () => {
           <hr />
           <h2>Zomato Gold</h2>
           <p>Short description about the quiz and why you should do it.</p>
-          <Link to="/Learners/Quiz/Answer">
-            <a
-              className="view-quizzes-page-links-side-by-side"
-              href="/Learners/Quiz/Answer"
-            >
-              {translations[currentLanguage].QuizList.LinkQ}
-            </a>
+          <Link to="/learners/quiz_list/quiz" className="view-quizzes-page-links-side-by-side">
+            {translations[currentLanguage].QuizList.LinkQ}
           </Link>
-
-          <Link to="/Learners/Documentation/Documentation">
-            <a
-              className="cranberry-link"
-              href="/Learners/Documentation/Documentation"
-            >
-              {translations[currentLanguage].QuizList.LinkD}
-            </a>
+          <Link to="/learners/documentation" className="cranberry-link">
+            {translations[currentLanguage].QuizList.LinkD}
           </Link>
         </Container>
       </div>

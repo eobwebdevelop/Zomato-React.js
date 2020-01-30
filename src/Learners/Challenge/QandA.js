@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import NextButton from "./NextButton";
 import AnswerButton from "./AnswerButton";
 import { Link } from "react-router-dom";

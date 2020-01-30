@@ -5,9 +5,6 @@ import QandA from "./QandA";
 import ResultsCard from "./ResultsCard";
 
 class Challenge extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.startOverallTimer();
@@ -75,13 +72,13 @@ class Challenge extends React.Component {
           ))}
         </h3>
 
-        <Link to="/Learners/QuizList/QuizList">
+        <Link to="/learners/quiz_list/quiz_list">
           <a>
             <button onClick={refreshQuizState}>Home</button>
           </a>
         </Link>
 
-        <Link to="/Learners/Documentation/Documentation">
+        <Link to="/learners/documentation/documentation">
           <a>
             <button onClick={refreshQuizState}>Documentation</button>
           </a>
