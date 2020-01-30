@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import { withRouter } from 'react-router-dom';
 import LanguagesContext, {
   availableLanguages
 } from "../../contexts/languages-context";
 import translations from "../../i18n/translations";
+import SignUp from "../SignUp/SignUp";
+
 
 class LogIn extends Component {
   constructor(props) {
@@ -65,13 +68,18 @@ class LogIn extends Component {
         .then(
           res =>
             this.setState({ flash: res.flash }, () => {
-              if(res.token) localStorage.setItem("token", JSON.stringify(res.token));
+              if(res.token) {
+                localStorage.setItem("token", JSON.stringify(res.token));
+              } else if( res.flash === 'Email and pass are correct') {
+                this.props.history.push('/learners/quiz_list');
+              }
             }),
-          err => this.setState({ flash: err.flash })
-        );
-    }
-  };
-  render() {
+        )
+       
+      }
+    };
+
+    render() {
     return (
       <LanguagesContext>
         {({ currentLanguage, onChangeLanguage }) => (
@@ -128,4 +136,4 @@ class LogIn extends Component {
   }
 }
 
-export default LogIn;
+export default withRouter(LogIn);

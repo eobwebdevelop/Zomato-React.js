@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+
+import React from "react";
+
+
 
 class ResultsCard extends React.Component {
   render() {
@@ -24,9 +25,10 @@ class ResultsCard extends React.Component {
             {' '}
             {questionText}
           </h1>
-          <h2>Correct ✅</h2>
+
+          <h2>Correct<span role="img" aria-label="jsx-a11y/accessible-emoji">✅</span> </h2>
           <p>
-Your answer:
+            Your answer:
             {userAnswerText}
           </p>
         </>
@@ -42,7 +44,7 @@ Your answer:
           {' '}
           {questionText}
         </h1>
-        <h2>Incorrect ❌</h2>
+        <h2>Incorrect <span role="img" aria-label="jsx-a11y/accessible-emoji">❌</span></h2> 
         <p>
 Your answer:
           {userAnswerText}
