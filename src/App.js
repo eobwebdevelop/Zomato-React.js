@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { Redirect, Route } from "react-router-dom";
 // Switch, withRouter
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+//import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";

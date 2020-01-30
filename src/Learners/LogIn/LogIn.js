@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { withRouter } from 'react-router-dom';
-import LanguagesContext, {
-  availableLanguages
-} from "../../contexts/languages-context";
+import LanguagesContext from "../../contexts/languages-context";
 import translations from "../../i18n/translations";
 import SignUp from "../SignUp/SignUp";
 
@@ -82,7 +80,7 @@ class LogIn extends Component {
 
     render() {
     return (
-      <LanguagesContext>
+      <LanguagesContext.Consumer>
         {({ currentLanguage, onChangeLanguage }) => (
           <Container>
             <div className="formparentcontainer">
@@ -133,7 +131,7 @@ class LogIn extends Component {
             </div>
           </Container>
         )}
-      </LanguagesContext>
+      </LanguagesContext.Consumer>
     );
   }
 }

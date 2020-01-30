@@ -1,6 +1,6 @@
-
 import React from "react";
-
+// import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+// import translations from '../../i18n/translations';
 
 
 class ResultsCard extends React.Component {
