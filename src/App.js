@@ -25,7 +25,8 @@ import AdminResultList from "./Admin/AdminResultList";
 
 // Learner portal imports
 
-import LearnerNav from "./LearnerNav.js";
+import LearnerNav from "./LearnerNav";
+import BasicNav from "./BasicNav.js";
 import ContactUs from "./Learners/ContactUs/ContactUs";
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
@@ -560,7 +561,7 @@ class App extends Component {
           path="/learners/login"
           render={() => (
             <>
-              <LearnerNav />
+              <BasicNav />
               <LogIn />
             </>
           )}
@@ -622,7 +623,7 @@ class App extends Component {
           path="/learners/signup"
           render={() => (
             <>
-              <LearnerNav />
+              <BasicNav />
               <SignUp restaurants={restaurants} />
             </>
           )}
