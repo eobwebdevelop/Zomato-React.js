@@ -46,12 +46,14 @@ import LanguagesContext, {
   availableLanguages
 } from "./contexts/languages-context";
 
+// EW 30.09.2019: Note, state.placeholderdata is useful for testing and provides a skeleton before API loaded so please leave in state for now.
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentLanguage: availableLanguages.pt,
-      quizzes: [{ id: 0, name: "" }],
+      quizzesLearner: placeholderData,
       placeholderData: placeholderData,
       // Step defines which question you are seeing. Step 0 - 9 are questions, step 10 is results.
       step: 0,
@@ -66,7 +68,6 @@ class App extends Component {
       timerRunning: false,
       userQuizAnswers: [],
       token: "",
-      quizzes: [{ id: 0, name: "" }],
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
       restaurants: [{ id: 0, name: "" }],
@@ -121,6 +122,8 @@ class App extends Component {
       });
   };
 
+  // EW: This is getQuizzes for learners. If we need this for admin then consider another fetch for http://localhost:3000/admin/quiz as the route exists.
+
   getQuizzes = () => {
     fetch("http://localhost:3000/learner/quiz", {
       method: "GET",
@@ -132,7 +135,7 @@ class App extends Component {
       .then(data => {
         this.setState(state => ({
           ...state,
-          quizzes: data.quizzes,
+          quizzesLearner: data,
           questionsAreLoaded: true
         }));
       });
@@ -196,10 +199,9 @@ class App extends Component {
     }
 
     this.setState({ score: totalScore });
-    console.log(this.state.score);
   }
 
-  // EW: When you click TAKE QUIZ, this method is called in the quiz card, updating the state. A filter is run to only play the quiz specified in this.state.QuizIDInPlay.
+  // EW:When you click TAKE QUIZ, this method is called in the quiz card, updating the state. A filter is run to only play the quiz specified in this.state.QuizIDInPlay.
 
   changeQuizIDInPlay(quizID) {
     this.setState({ quizIDInPlay: quizID });
@@ -584,7 +586,7 @@ class App extends Component {
             <>
               <LearnerNav />
               <QuizList
-                QuizList={this.state.placeholderData.quizzes}
+                QuizList={this.state.quizzesLearner.quizzes}
                 changeQuizIDInPlay={this.changeQuizIDInPlay}
               />
             </>
@@ -601,7 +603,7 @@ class App extends Component {
                 score={this.state.score}
                 checkScore={this.checkScore}
                 refreshQuizState={this.refreshQuizState}
-                questionPackage={this.state.placeholderData.quizzes}
+                questionPackage={this.state.quizzesLearner.quizzes}
                 startOverallTimer={this.startOverallTimer}
                 overallTime={this.state.overallTime}
                 onNextStep={this.onNextStep}
@@ -636,7 +638,7 @@ const placeholderData = {
   quizzes: [
     {
       id: 1,
-      name: "Zomato Foundations",
+      name: "Loading Quiz",
       user_type_id: 2,
       language_id: 1,
       product_id: 1,
@@ -925,7 +927,7 @@ const placeholderData = {
     },
     {
       id: 20,
-      name: "Zomato Gold",
+      name: "Loading Quiz",
       user_type_id: 2,
       language_id: 1,
       product_id: 1,
@@ -1214,7 +1216,7 @@ const placeholderData = {
     },
     {
       id: 1,
-      name: "Discounts ",
+      name: "Loading Quiz",
       user_type_id: 2,
       language_id: 1,
       product_id: 1,
