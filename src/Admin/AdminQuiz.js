@@ -22,7 +22,6 @@ class AdminQuiz extends Component {
     return (
       <div>
         <Container>
-      
           {quiz.map((quest) => (    
           <div className='row'>
             <div key={quest.id} className='col'>

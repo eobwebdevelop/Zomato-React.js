@@ -512,7 +512,7 @@ class App extends Component {
         <Route
           exact
           path="/admin/product_editor/:id"
-          render={ => (
+          render={() => (
             <>
               <AdminNav />
               <AdminProductEditor
