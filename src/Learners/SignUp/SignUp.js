@@ -117,7 +117,7 @@ handlerSubmit = (e, currentLanguage) => {
       .then((data)  =>  {
         this.setState({ flash: data.flash }, () => {
           if(data.status === 409) {
-            this.props.history.push('/Learners/LogIn');
+            this.props.history.push('/learners/login');
           } else {
             this.props.history.push('/learners/quiz_list');
           }

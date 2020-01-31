@@ -13,9 +13,12 @@ class AdminQuiz extends Component {
     };
   }
 
-  handleQuestion = ()=> {
-
-  }
+  handleEditQuestionser = id => {
+    this.handleDelete(id, "question", () => {
+      const updatedUsers = this.state.users.filter(user => user.id !== id);
+      this.setState({ users: updatedUsers });
+    });
+  };
 
   render() {
     const { quiz } = this.props;
@@ -25,10 +28,13 @@ class AdminQuiz extends Component {
           {quiz.map((quest) => (    
           <div className='row'>
             <div key={quest.id} className='col'>
-                {quest.question}
-                <button onClick={this.handleQuestion}>
-                  Edit Question
+                {quest.question} 
+                {/* <Link to={`/Admin/AdminQuizEditor/${id}/${quest.id}`}>
+                <button type="submit" className="btn-list">
+                    Edit Quiz ►
                 </button>
+                {' '}
+              </Link> */}
               </div>
             </div>
           ))}

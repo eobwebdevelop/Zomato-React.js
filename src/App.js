@@ -95,7 +95,7 @@ class App extends Component {
   getRegion = () => {
     fetch("http://localhost:3000/admin/region")
       .then(response => response.json())
-      .then(data => { console.log(' get region')
+      .then(data => { 
         this.setState(state => ({
           ...state,
           regions: data.Region
@@ -106,7 +106,7 @@ class App extends Component {
   getResults = () => {
     fetch("http://localhost:3000/admin/result")
       .then(response => response.json())
-      .then(data => { console.log('get result')
+      .then(data => { 
         this.setState(state => ({
           ...state,
           results: data.Results
@@ -117,7 +117,7 @@ class App extends Component {
   getRestaurants = () => {
     fetch("http://localhost:3000/admin/restaurant")
       .then(response => response.json())
-      .then(data => { console.log('get restos')
+      .then(data => { 
         this.setState(state => ({
           ...state,
           restaurants: data.Restaurant
@@ -125,34 +125,42 @@ class App extends Component {
       });
   };
 
-  // EW: This is getQuizzes for learners. If we need this for admin then consider another fetch for http://localhost:3000/admin/quiz as the route exists.
+  getQuizzesByLang = () => {
+    fetch("http://localhost:3000/learner/quiz", {
+      method: "GET",
+      headers: new Headers({
+        'Preferred-Language': this.state.currentLanguage
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState(state => ({
+          ...state,
+          quizzesLearner: data,
+        }));
+      });
+  };
 
   getQuizzes = () => {
     this.setState(
       { quizzesAreLoaded: false },
       () => {
-        fetch("http://localhost:3000/learner/quiz", {
-          method: "GET",
-          headers: new Headers({
-            'Preferred-Language': this.state.currentLanguage
-          })
-        })
+        fetch("http://localhost:3000/admin/quiz")
         .then(response => response.json())
-        .then(data => {
+        .then(data => { console.log('fetch Quizzes')
           this.setState(state => ({
             ...state,
             quizzes: data.quizzes,
             quizzesAreLoaded: true
           }));
-        });
-      }
-    )
+      })
+    });
   };
 
   getDocs = () => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
       .then(response => response.json())
-      .then(data => { console.log('get docs')
+      .then(data => { 
         this.setState(state => ({
           ...state,
           documentation: data.Documentation
@@ -172,7 +180,7 @@ class App extends Component {
 
   // ew: This timer is called on ComponentDidMount as soon as a user clicks Take Quiz. Once step is 10 (results), it stops.
 
-  startOverallTimer() {
+  startOverallTimer(){
     this.setState({ timerRunning: true });
     this.timer = setInterval(
       () =>
@@ -225,7 +233,7 @@ class App extends Component {
   getProducts = () => {
     fetch("http://localhost:3000/admin/product")
       .then(response => response.json())
-      .then(data => { console.log('get Products')
+      .then(data => { 
         this.setState(state => ({
           ...state,
           products: data.product
@@ -236,7 +244,7 @@ class App extends Component {
   getUsers = () => {
     fetch("http://localhost:3000/admin/user")
       .then(response => response.json())
-      .then(data => { console.log('get Users')
+      .then(data => { 
         this.setState(state => ({
           ...state,
           users: data.users
@@ -261,21 +269,15 @@ class App extends Component {
     }, () => {
       console.log(this.state.currentLanguage)
       this.refreshQuizState();
-      console.log('call quiz state')
       this.getQuizzes();
-      console.log('call quizzes')
+      console.log('get Quizzes')
+      this.getQuizzesByLang();
       this.getProducts();
-      console.log('call products')
       this.getUsers();
-      console.log('call users')
       this.getRestaurants();
-      console.log('call restaurants')
       this.getRegion();
-      console.log('call regions')
       this.getResults();
-      console.log('call results')
       this.getDocs();
-      console.log('call docs')
     });
   };
 
@@ -327,6 +329,8 @@ class App extends Component {
     });
   };
 
+ 
+
   render() {
 
     const {
@@ -337,10 +341,12 @@ class App extends Component {
       restaurants,
       regions,
       results,
-      quizzesAreLoaded
+      quizzesAreLoaded,
+      quizzesLearner
     } = this.state;
 
     console.log(this.state.quizzesAreLoaded)
+    console.log(this.state.quizzesByLang)
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
@@ -429,7 +435,8 @@ class App extends Component {
           render={props => (
             <>
               <AdminNav />
-              <AdminQuizEditor />
+              <AdminQuizEditor
+              onEdit ={this.handleEditQuestion} />
             </>
           )}
         />
@@ -604,7 +611,7 @@ class App extends Component {
             <>
               <LearnerNav />
               <QuizList
-                QuizList={this.state.quizzesLearner.quizzes}
+                QuizList={quizzesLearner.quizzes}
                 changeQuizIDInPlay={this.changeQuizIDInPlay}
               />
             </>
@@ -621,7 +628,7 @@ class App extends Component {
                 score={this.state.score}
                 checkScore={this.checkScore}
                 refreshQuizState={this.refreshQuizState}
-                questionPackage={this.state.quizzesLearner.quizzes}
+                questionPackage={quizzesLearner.quizzes}
                 startOverallTimer={this.startOverallTimer}
                 overallTime={this.state.overallTime}
                 onNextStep={this.onNextStep}
