@@ -95,7 +95,7 @@ class App extends Component {
   getRegion = () => {
     fetch("http://localhost:3000/admin/region")
       .then(response => response.json())
-      .then(data => { console.log('region')
+      .then(data => { console.log(' get region')
         this.setState(state => ({
           ...state,
           regions: data.Region
@@ -106,7 +106,7 @@ class App extends Component {
   getResults = () => {
     fetch("http://localhost:3000/admin/result")
       .then(response => response.json())
-      .then(data => {
+      .then(data => { console.log('get result')
         this.setState(state => ({
           ...state,
           results: data.Results
@@ -117,7 +117,7 @@ class App extends Component {
   getRestaurants = () => {
     fetch("http://localhost:3000/admin/restaurant")
       .then(response => response.json())
-      .then(data => {
+      .then(data => { console.log('get restos')
         this.setState(state => ({
           ...state,
           restaurants: data.Restaurant
@@ -152,7 +152,7 @@ class App extends Component {
   getDocs = () => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
       .then(response => response.json())
-      .then(data => {
+      .then(data => { console.log('get docs')
         this.setState(state => ({
           ...state,
           documentation: data.Documentation
@@ -225,7 +225,7 @@ class App extends Component {
   getProducts = () => {
     fetch("http://localhost:3000/admin/product")
       .then(response => response.json())
-      .then(data => {
+      .then(data => { console.log('get Products')
         this.setState(state => ({
           ...state,
           products: data.product
@@ -236,7 +236,7 @@ class App extends Component {
   getUsers = () => {
     fetch("http://localhost:3000/admin/user")
       .then(response => response.json())
-      .then(data => {
+      .then(data => { console.log('get Users')
         this.setState(state => ({
           ...state,
           users: data.users
@@ -261,13 +261,21 @@ class App extends Component {
     }, () => {
       console.log(this.state.currentLanguage)
       this.refreshQuizState();
+      console.log('call quiz state')
       this.getQuizzes();
+      console.log('call quizzes')
       this.getProducts();
+      console.log('call products')
       this.getUsers();
+      console.log('call users')
       this.getRestaurants();
+      console.log('call restaurants')
       this.getRegion();
+      console.log('call regions')
       this.getResults();
+      console.log('call results')
       this.getDocs();
+      console.log('call docs')
     });
   };
 
@@ -332,7 +340,7 @@ class App extends Component {
       quizzesAreLoaded
     } = this.state;
 
-    console.log(this.state.questionsAreLoaded)
+    console.log(this.state.quizzesAreLoaded)
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
