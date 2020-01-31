@@ -195,5 +195,5 @@ button:disabled {
 /*-----Lenguage Selector -----*/
 select.ui.button.floating.labeled.search.dropdown.icon {
   width: 8%;
-  min-width: 80px;
+  min-width: 100px;
 }

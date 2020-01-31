@@ -2,19 +2,18 @@ import React, { Component } from "react";
 import "./App.css";
 import { Redirect, Route } from "react-router-dom";
 // Switch, withRouter
-
+//import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
-import AdminAppLogin from "./Admin/AdminAppLogin";
+import AdminLogin from "./Admin/AdminLogin";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
 import AdminQuizEditor from "./Admin/AdminQuizEditor";
-import AdminEditUser from "./Admin/AdminEditUser";
-import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminUserEditor from "./Admin/AdminUserEditor";
 import AdminDocList from "./Admin/AdminDocList";
 import AdminDocEditor from "./Admin/AdminDocEditor";
+import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
 import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
 import AdminRestaurantList from "./Admin/AdminRestaurantList";
 import AdminProductCreator from "./Admin/AdminProductCreator";
@@ -27,7 +26,8 @@ import AdminResultList from "./Admin/AdminResultList";
 
 // Learner portal imports
 
-import LearnerNav from "./LearnerNav.js";
+import LearnerNav from "./LearnerNav";
+import BasicNav from "./BasicNav.js";
 import ContactUs from "./Learners/ContactUs/ContactUs";
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
@@ -40,7 +40,7 @@ import Challenge from "./Learners/Challenge/Challenge";
 // import Question from "./Learners/Quiz/Question";
 // import Results from "./Learners/Quiz/Results";
 import SignUp from "./Learners/SignUp/SignUp";
-import FAQ from "./Learners/FAQ/FAQ.js";
+import FAQ from "./Learners/FAQ/FAQ";
 
 // Translation eng/port
 
@@ -49,24 +49,28 @@ import LanguagesContext, {
 } from "./contexts/languages-context";
 import QuizzesContext from "./contexts/quiz-context";
 
+// EW 30.09.2019: Note, state.placeholderdata is useful for testing and provides a skeleton before API loaded so please leave in state for now.
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentLanguage: availableLanguages.pt,
-      quizzes: [{ id: 0, name: "" }],
+      quizzesLearner: placeholderData,
       placeholderData: placeholderData,
       // Step defines which question you are seeing. Step 0 - 9 are questions, step 10 is results.
       step: 0,
       // Overalltime counts upwards until you are at step 10 i.e. results.
       overallTime: 0,
+      // Score out of 10
+      score: 0,
       // Check whether questions are loaded, else we need to display loading screen when opening quiz.
       quizzesAreLoaded: false,
       // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
       quizIDInPlay: 1,
       timerRunning: false,
+      userQuizAnswers: [],
       token: "",
-      quizzes: [{ id: 0, name: "" }],
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
       restaurants: [{ id: 0, name: "" }],
@@ -77,9 +81,13 @@ class App extends Component {
 
     this.onNextStep = this.onNextStep.bind(this);
 
+    this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
+
     this.timer = null;
     this.stopTimer = this.stopTimer.bind(this);
     this.startOverallTimer = this.startOverallTimer.bind(this);
+
+    this.checkScore = this.checkScore.bind(this);
 
     this.refreshQuizState = this.refreshQuizState.bind(this);
   }
@@ -117,26 +125,32 @@ class App extends Component {
       });
   };
 
+  // EW: This is getQuizzes for learners. If we need this for admin then consider another fetch for http://localhost:3000/admin/quiz as the route exists.
+
   getQuizzes = () => {
     this.setState(
       { quizzesAreLoaded: false },
       () => {
-        fetch("http://localhost:3000/admin/quiz")
-          .then(response => response.json())
-          .then(data => {
-            console.log('hello')
-            this.setState(state => ({
-              ...state,
-              quizzes: data.quizzes,
-              quizzesAreLoaded: true
-            }));
-          });
+        fetch("http://localhost:3000/learner/quiz", {
+          method: "GET",
+          headers: new Headers({
+            'Preferred-Language': this.state.currentLanguage
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          this.setState(state => ({
+            ...state,
+            quizzes: data.quizzes,
+            quizzesAreLoaded: true
+          }));
+        });
       }
     )
   };
 
-  getAllDocs = () => {
-    fetch(process.env.REACT_APP_PATH_ADMIN_DOC)
+  getDocs = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -146,11 +160,12 @@ class App extends Component {
       });
   };
 
-  onNextStep = () => {
+  onNextStep = selectedAnswer => {
     this.setState(state => {
       return {
         ...state,
-        step: ++state.step
+        step: ++state.step,
+        userQuizAnswers: [...this.state.userQuizAnswers, selectedAnswer]
       };
     });
   };
@@ -171,21 +186,41 @@ class App extends Component {
         }),
       1000
     );
-  }
+  };
 
   stopTimer() {
     this.setState({ timer: false });
     // console.log("stopped timer");
     //Clear interval
     clearInterval(this.timer);
-  }
+  };
+
+  checkScore() {
+    var totalScore = 0;
+    for (let i = 0; i < this.state.userQuizAnswers.length; i++) {
+      if (
+        this.state.userQuizAnswers[i].userAnswerID ==
+        this.state.userQuizAnswers[i].correctAnswerID
+      ) {
+        totalScore = totalScore + 1;
+      }
+    }
+
+    this.setState({ score: totalScore });
+  };
+
+  // EW:When you click TAKE QUIZ, this method is called in the quiz card, updating the state. A filter is run to only play the quiz specified in this.state.QuizIDInPlay.
+
+  changeQuizIDInPlay(quizID) {
+    this.setState({ quizIDInPlay: quizID });
+  };
 
   refreshQuizState() {
     // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
     // console.log("refresh");
     this.stopTimer();
     this.setState({ overallTime: 0, step: 0 });
-  }
+  };
 
   getProducts = () => {
     fetch("http://localhost:3000/admin/product")
@@ -215,28 +250,77 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.getQuizzes();
-    this.refreshQuizState();
-    this.getProducts();
-    this.getUsers();
-    this.getRestaurants();
-    this.getRegion();
-    this.getResults();
-    this.getAllDocs();
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
     this.setState({
-      currentLanguage: 
-        currentLanguage ?
-          JSON.parse(currentLanguage)
-          : availableLanguages.pt,
-      token: token ? JSON.parse(token) : "",
-
+      currentLanguage: currentLanguage
+        ? JSON.parse(currentLanguage)
+        : availableLanguages.pt,
+      token: token ? JSON.parse(token) : ""
+    }, () => {
+      console.log(this.state.currentLanguage)
+      this.refreshQuizState();
+      this.getQuizzes();
+      this.getProducts();
+      this.getUsers();
+      this.getRestaurants();
+      this.getRegion();
+      this.getResults();
+      this.getDocs();
     });
-  }
+  };
+
+  handleDelete = (id, resourceType, callback) => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
+      method: "DELETE",
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify({
+        id
+      })
+    })
+      .then(res => res.json())
+      .then(callback);
+  };
+
+  handleDeleteDoc = id => {
+    this.handleDelete(id, "doc", () => {
+      const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
+      this.setState({ documentation: updatedDocs });
+    });
+  };
+
+  handleDeleteProduct = id => {
+    this.handleDelete(id, "product", () => {
+      const updatedProducts = this.state.quizzes.filter(quiz => quiz.id !== id);
+      this.setState({ products: updatedProducts });
+    });
+  };
+  handleDeleteQuiz = id => {
+    this.handleDelete(id, "quiz", () => {
+      const updatedQuizzes = this.state.quizzes.filter(quiz => quiz.id !== id);
+      this.setState({ quizzes: updatedQuizzes });
+    });
+  };
+  handleDeleteRestaurant = id => {
+    this.handleDelete(id, "restaurant", () => {
+      const updatedRestaurants = this.state.restaurants.filter(
+        restaurant => restaurant.id !== id
+      );
+      this.setState({ restaurants: updatedRestaurants });
+    });
+  };
+  handleDeleteUser = id => {
+    this.handleDelete(id, "user", () => {
+      const updatedUsers = this.state.users.filter(user => user.id !== id);
+      this.setState({ users: updatedUsers });
+    });
+  };
 
   render() {
+
     const {
       currentLanguage,
       quizzes,
@@ -256,321 +340,325 @@ class App extends Component {
         <QuizzesContext.Provider 
           value={{ quizzes, onLoadQuizzes: this.getQuizzes, quizzesAreLoaded }}
         >
-          <Route
-            exact
-            path="/"
-            render={() => <Redirect to="/Learners/Login"></Redirect>}
-          />
-          <Route
-            exact
-            path="/Admin"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminHomePage />
-              </>
-            )}
-          />
+           <Route
+          exact
+          path="/"
+          render={() => <Redirect to="/learners/login"></Redirect>}
+        />
+        <Route
+          exact
+          path="/admin"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminHomePage />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Admin/AdminAppLogin"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminAppLogin />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/admin/login"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminLogin />
+            </>
+          )}
+        />
+        {/* {Documentation } */}
+        <Route
+          exact
+          path="/admin/doc_list"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminDocList
+                documentation={this.state.documentation}
+                onDelete={this.handleDeleteDoc}
+              />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Admin/AdminDocList"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminDocList />
-              </>
-            )}
-          />
-
-          <Route
-            exact
-            path="/Admin/AdminDocEditor"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminDocEditor />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/admin/doc_editor"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminDocEditor documentation={this.state.documentation} />
+            </>
+          )}
+        />
         
-          <Route
-            exact
-            path="/Admin/AdminQuizList"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminQuizList />
-              </>
-            )}
-          />
-
-          <Route
-            exact
-            path="/Admin/AdminQuizMaker"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminQuizMaker />
-              </>
-            )}
-          />
-          <Route
-            exact
-            path="/Admin/AdminQuizEditor/:id"
-            render={props => (
-              <>
-                <AdminNav />
-                <AdminQuizEditor 
-                  />
-              </>
-            )}
-          />
-  
-
-          <Route
-            exact
-            path="/Admin/AdminEditUser/:id"
-            render={props => (
-              <>
-                <AdminNav />
-                <AdminEditUser id={props.match.params.id} />
-              </>
-            )}
-          />
-            <Route
-            exact
-            path="/Admin/AdminUserList"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminUserList users={users} />
-              </>
-            )}
-          />
-        
-          <Route
-            exact
-            path="/Admin/AdminRestaurantCreator"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminRestaurantCreator />
-              </>
-            )}
-          />
-
-          <Route
-            exact
-            path="/Admin/AdminUserEditor/:id"
-            render={props => (
-              <>
-                <AdminNav />
-                <AdminUserEditor
-                users = {users}/>
-              </>
-            )}
-          />
-
-          <Route
-            exact
-            path="/Admin/AdminRestaurantList"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminRestaurantList 
+          {/* {QUIZ } */}
+        <Route
+          exact
+          path="/admin/quiz_list"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminQuizList
+                onDelete={this.handleDeleteQuiz}
+              />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/quiz_maker"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminQuizMaker />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/quiz_editor/:id"
+          render={props => (
+            <>
+              <AdminNav />
+              <AdminQuizEditor />
+            </>
+          )}
+        />
+   {/* {Users } */}
+   <Route
+          exact
+          path="/admin/user_list"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminUserList users={users} />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/user_editor/:id"
+          render={props => (
+            <>
+              <AdminNav />
+              <AdminUserEditor users={users} />
+            </>
+          )}
+        />
+          {/* {Restaurant } */}
+        <Route
+          exact
+          path="/admin/restaurant_list"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminRestaurantList
                 restaurants={restaurants}
-                />
-              </>
-            )}
-          />
-          <Route
-            exact
-            path="/Admin/AdminProductList"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminProductList products={products} />
-              </>
-            )}
-          />
+                onDelete={this.handleDeleteRestaurant}
+              />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/restaurant_creator"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminRestaurantCreator />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Admin/AdminProductCreator"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminProductCreator />
-              </>
-            )}
-          />
-          <Route
-            exact
-            path="/Admin/AdminProductEditor/:id"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminProductEditor products={products} />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/admin/restaurant_editor/:id"
+          render={props => (
+            <>
+              <AdminNav />
+              <AdminRestaurantEditor
+                restaurant={restaurants.find((res) => res.id === +props.match.params.id)}
+                regions={regions}
+              />
+            </>
+          )}
+        />
+        {/* {Products } */}
+        <Route
+          exact
+          path="/admin/product_list"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminProductList
+                products={products}
+                onDelete={this.handleDeleteProduct}
+              />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/product_creator"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminProductCreator />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Admin/AdminRestaurantEditor/:id"
-            render={props => (
-              <>
-                <AdminNav />
-                <AdminRestaurantEditor
-                  restaurant={restaurants.find((res) => res.id === +props.match.params.id)}
-                  regions={regions}
-                />
-              </>
-            )}
-          />
-          <Route
-            exact
-            path="/Admin/AdminResultList"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminResultList results={results} />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/admin/product_editor/:id"
+          render={ => (
+            <>
+              <AdminNav />
+              <AdminProductEditor
+                products={products}
+              />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/result_list"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminResultList results={results} />
+            </>
+          )}
+        />
 
-          {/* Learners Route */}
+        {/* Learners Route */}
 
-          <Route
-            exact
-            path="/Learners/ContactUs"
-            render={() => (
-              <>
-                <LearnerNav />
-                <ContactUs />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/learners/contact_us"
+          render={() => (
+            <>
+              <LearnerNav />
+              <ContactUs />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Learners/FAQ"
-            render={() => (
-              <>
-                <LearnerNav />
-                <FAQ />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/learners/faq"
+          render={() => (
+            <>
+              <LearnerNav />
+              <FAQ />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Learners/Documentation"
-            render={() => (
-              <>
-                <LearnerNav />
-                <Documentation documentation={this.state.documentation} />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/learners/documentation"
+          render={() => (
+            <>
+              <LearnerNav />
+              <Documentation documentation={this.state.documentation} />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Learners/LogIn"
-            render={() => (
-              <>
-                <LearnerNav />
-                <LogIn />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/learners/login"
+          render={() => (
+            <>
+              <BasicNav />
+              <LogIn />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Learners/LogIn/ForgotPassword"
-            render={() => (
-              <>
-                <LearnerNav />
-                <ForgotPassword />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/learners/login/forgot_password"
+          render={() => (
+            <>
+              <LearnerNav />
+              <ForgotPassword />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Learners/QuizList"
-            render={() => (
-              <>
-                <LearnerNav />
-                <QuizList />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/learners/quiz_list"
+          render={() => (
+            <>
+              <LearnerNav />
+              <QuizList
+                QuizList={this.state.quizzesLearner.quizzes}
+                changeQuizIDInPlay={this.changeQuizIDInPlay}
+              />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Learners/Quiz/Answer"
-            render={() => (
-              <>
-                <LearnerNav />
-                <Challenge
-                  refreshQuizState={this.refreshQuizState}
-                  questionPackage={this.state.placeholderData.quizzes}
-                  startOverallTimer={this.startOverallTimer}
-                  overallTime={this.state.overallTime}
-                  onNextStep={this.onNextStep}
-                  onClickAnswer={this.onClickAnswer}
-                  step={this.state.step}
-                  quizIDInPlay={this.state.quizIDInPlay}
-                  stopTimer={this.stopTimer}
-                  overallTime={this.state.overallTime}
-                />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/learners/quiz_list/quiz"
+          render={() => (
+            <>
+              <LearnerNav />
+              <Challenge
+                score={this.state.score}
+                checkScore={this.checkScore}
+                refreshQuizState={this.refreshQuizState}
+                questionPackage={this.state.quizzesLearner.quizzes}
+                startOverallTimer={this.startOverallTimer}
+                overallTime={this.state.overallTime}
+                onNextStep={this.onNextStep}
+                onClickAnswer={this.onClickAnswer}
+                step={this.state.step}
+                quizIDInPlay={this.state.quizIDInPlay}
+                stopTimer={this.stopTimer}
+                overallTime={this.state.overallTime}
+                userAnswerClick={this.userAnswerClick}
+                userQuizAnswers={this.state.userQuizAnswers}
+              />
+            </>
+          )}
+        />
 
-          <Route
-            exact
-            path="/Learners/SignUp"
-            render={() => (
-              <>
-                <LearnerNav />
-                <SignUp restaurants={restaurants} />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/learners/signup"
+          render={() => (
+            <>
+              <BasicNav />
+              <SignUp restaurants={restaurants} />
+            </>
+          )}
+        />
         </QuizzesContext.Provider>
       </LanguagesContext.Provider>
       
       
     );
   }
-}
+};
 
 const placeholderData = {
   quizzes: [
     {
       id: 1,
-      name: "Discounts ",
+      name: "Loading Quiz",
       user_type_id: 2,
       language_id: 1,
       product_id: 1,
       questions: [
         {
           id: 1,
-          question: "What is Zomato Gold?",
+          question: "What is blah?",
           correct_answer_id: 1,
           quiz_id: 1,
           answers: [
@@ -626,7 +714,119 @@ const placeholderData = {
         },
         {
           id: 3,
-          question: "Question 3",
+          question: "How many restaraunts?",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsssion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optiosn 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "optison 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 4,
+          question: "What is map?",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optisson 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optiosn 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 5,
+          question: "Is it true?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "opstion 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optison 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 6,
+          question: "Really?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optiosn 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 7,
+          question: "Question 7",
           correct_answer_id: 3,
           quiz_id: 1,
           answers: [
@@ -653,8 +853,8 @@ const placeholderData = {
           ]
         },
         {
-          id: 4,
-          question: "What is Zomato map?",
+          id: 8,
+          question: "Question 8",
           correct_answer_id: 4,
           quiz_id: 1,
           answers: [
@@ -681,8 +881,8 @@ const placeholderData = {
           ]
         },
         {
-          id: 5,
-          question: "Question 5",
+          id: 9,
+          question: "Question 9",
           correct_answer_id: 1,
           quiz_id: 1,
           answers: [
@@ -709,14 +909,769 @@ const placeholderData = {
           ]
         },
         {
-          id: 6,
-          question: "Question 6",
+          id: 10,
+          question: "Question 10",
           correct_answer_id: 2,
           quiz_id: 1,
           answers: [
             {
               id: 1,
               answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 20,
+      name: "Loading Quiz",
+      user_type_id: 2,
+      language_id: 1,
+      product_id: 1,
+      questions: [
+        {
+          id: 1,
+          question: "Is coding fun?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "Not sure",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "Cool discounts",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 2,
+          question: "Are restaurants tasty?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 3,
+          question: "How many restaraunts?",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsssion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optiosn 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "optison 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 4,
+          question: "What is map?",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optisson 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optiosn 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 5,
+          question: "Is it true?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "opstion 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optison 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 6,
+          question: "Really?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optiosn 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 7,
+          question: "Question 7",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 8,
+          question: "Question 8",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 9,
+          question: "Question 9",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 10,
+          question: "Question 10",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 1,
+      name: "Loading Quiz",
+      user_type_id: 2,
+      language_id: 1,
+      product_id: 1,
+      questions: [
+        {
+          id: 1,
+          question: "What is blah?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "Not sure",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "Cool discounts",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 2,
+          question: "Question 2",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 3,
+          question: "How many restaraunts?",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsssion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optiosn 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "optison 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 4,
+          question: "What is map?",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optisson 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optiosn 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 5,
+          question: "Is it true?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "opstion 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optison 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 6,
+          question: "Really?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optiosn 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 7,
+          question: "Question 7",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 8,
+          question: "Question 8",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 9,
+          question: "Question 9",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 10,
+          question: "Question 10",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 20,
+      name: "Zomato Basics",
+      user_type_id: 2,
+      language_id: 1,
+      product_id: 1,
+      questions: [
+        {
+          id: 1,
+          question: "Zomato Basics is it rea:?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "Not sure",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "Cool discounts",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 2,
+          question: "Are restaurants tasty?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "option 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "option 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 3,
+          question: "How many restaraunts?",
+          correct_answer_id: 3,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsssion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optiosn 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "optison 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "option 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 4,
+          question: "What is map?",
+          correct_answer_id: 4,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "optisson 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optiosn 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 5,
+          question: "Is it true?",
+          correct_answer_id: 1,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optsion 1",
+              question_id: 1
+            },
+            {
+              id: 2,
+              answer_option: "opstion 2",
+              question_id: 1
+            },
+            {
+              id: 3,
+              answer_option: "option 3",
+              question_id: 1
+            },
+            {
+              id: 4,
+              answer_option: "optison 4",
+              question_id: 1
+            }
+          ]
+        },
+        {
+          id: 6,
+          question: "Really?",
+          correct_answer_id: 2,
+          quiz_id: 1,
+          answers: [
+            {
+              id: 1,
+              answer_option: "optiosn 1",
               question_id: 1
             },
             {

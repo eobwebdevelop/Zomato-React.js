@@ -1,22 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import QandA from "./QandA";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import QandA from './QandA';
+import ResultsCard from './ResultsCard';
+// import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+// import translations from '../../i18n/translations';
 
-// class Challenge extends React.Component {
-//   render() {
-//     //
-//   }
-
-// return (
-//   <div>
-//
-//   </div>
-// );
-// export default Challenge;
 
 class Challenge extends React.Component {
-
   componentDidMount() {
     this.props.startOverallTimer();
     // console.log("started timer");
@@ -31,13 +22,14 @@ class Challenge extends React.Component {
       onNextStep,
       quizIDInPlay,
       refreshQuizState,
-      stopTimer
+      stopTimer,
+      userQuizAnswers,
+      checkScore,
+      score,
     } = this.props;
 
-    // console.log(questionPackage);
-
     const questionPackageSpecificQuizIDOnly = questionPackage.filter(
-      el => el.id === quizIDInPlay
+      (el) => el.id === quizIDInPlay,
     )[0].questions;
 
     if (step < 10) {
@@ -54,9 +46,16 @@ class Challenge extends React.Component {
               stopTimer={stopTimer}
               step={i}
               overallTime={overallTime}
+              quizIDInPlay={quizIDInPlay}
+              checkScore={checkScore}
             />
           ))}
-          <h3>Current Time: {overallTime} seconds</h3>
+          <h3>
+Current Time:
+            {overallTime}
+            {' '}
+seconds
+          </h3>
         </Container>
       );
     }
@@ -64,16 +63,39 @@ class Challenge extends React.Component {
       <Container>
         <h1>Results</h1>
         <hr />
-        <h2>Your total time was {overallTime} seconds.</h2>
-        <p>Present question by question results here</p>
+        <h2>
+You scored
+          {score}
+          {' '}
+out of 10! 🎉
+        </h2>
+        <h3>
+Your total time was
+          {overallTime}
+          {' '}
+seconds.
+        </h3>
 
-        <Link to="/Learners/QuizList/QuizList">
+        <h3>
+          {userQuizAnswers.map((answerInput, i) => (
+            <ResultsCard
+              correctAnswerID={answerInput.correctAnswerID}
+              correctAnswerText={answerInput.correctAnswerText}
+              questionNumber={answerInput.questionNumber}
+              questionText={answerInput.questionText}
+              userAnswerText={answerInput.userAnswerText}
+              userAnswerID={answerInput.userAnswerID}
+            />
+          ))}
+        </h3>
+
+        <Link to="/learners/quiz_list">
           <a>
             <button onClick={refreshQuizState}>Home</button>
           </a>
         </Link>
 
-        <Link to="/Learners/Documentation/Documentation">
+        <Link to="/learners/documentation">
           <a>
             <button onClick={refreshQuizState}>Documentation</button>
           </a>

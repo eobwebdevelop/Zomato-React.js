@@ -43,7 +43,7 @@ class AdminUserEditor extends Component {
             <br />
             <br />
           </form>
-          <Link to="/Admin/AdminUserList">
+          <Link to="/admin/user_list">
             <button type="submit" className="btn">
             Save
             </button>

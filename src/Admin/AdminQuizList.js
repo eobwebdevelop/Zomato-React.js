@@ -7,7 +7,7 @@ import AdminQuiz from './AdminQuiz';
 import QuizzesContext from '../contexts/quiz-context';
 
 
-const AdminQuizList = () => {
+const AdminQuizList = ({ onDelete }) => {
   const { quizzes, onLoadQuizzes, quizzesAreLoaded } = React.useContext(QuizzesContext);
   if (!quizzesAreLoaded) {
     return <p>Please wait loading... </p>;
@@ -49,5 +49,15 @@ const AdminQuizList = () => {
     </div>
   );
 };
+AdminQuizList.propTypes = {
+  // quizzes: PropTypes.arrayOf(
+  //   PropTypes.shape({
+  //     id: PropTypes.number.isRequired,
+  //     name: PropTypes.string.isRequired,
+  //   }).isRequired,
+  // ).isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
 
 export default AdminQuizList;

@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, Redirect} from 'react';
 // import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
+import { withRouter } from 'react-router-dom'
 import Select from "react-select";
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
+import LogIn from "../LogIn/LogIn";
 
 
 
@@ -28,7 +30,7 @@ class SignUp extends Component  {
       restaurantError: '',
       restaurants: [{id:0, name:''}],
       displayresto: '',
-      flash: ''
+      flash: '',
     }
   }
 
@@ -44,7 +46,7 @@ inputHandeler = e => {
 
 //validate 
 
-validate = () => {
+validate = (currentLanguage) => {
    let isError = false;
    const errors = {
     first_nameError: "",
@@ -58,25 +60,25 @@ validate = () => {
 
    if (this.state.first_name.length === '') {
     isError = true;
-    errors.first_nameError = "Fill your name, please";
+    errors.first_nameError = translations[currentLanguage].SignUp.ErrorName;
   } else if (this.state.last_name.length === '') {
     isError = true;
-    errors.last_nameError = "Fill your last name, please";
+    errors.last_nameError = translations[currentLanguage].SignUp.ErrorLastName;
   } else if (this.state.email.indexOf("@") === -1) {
     isError = true;
-    errors.emailError = "Requires valid email";
+    errors.emailError = translations[currentLanguage].SignUp.ErrorEmail;
   } else if (this.state.phone_number === '') {
     isError = true;
-    errors.phone_numberError = "Fill your phone, please";
+    errors.phone_numberError = translations[currentLanguage].SignUp.ErrorPhone;
   } else if (this.state.restaurant_id === '') {
     isError = true;
-    errors.restaurantError = "Fill your restaurant, please";
+    errors.restaurantError = translations[currentLanguage].SignUp.ErrorRestaurant;
   } else if (this.state.password === '') {
       isError = true;
-      errors.passwordError = "Fill password, please";
+      errors.passwordError = translations[currentLanguage].SignUp.ErrorPassword;
   } else if (this.state.password !== this.state.confPassword) {
       isError = true;
-      errors.confPasswordError = "Passwords need to match";
+      errors.confPasswordError = translations[currentLanguage].SignUp.ErrorPasswordMatch;
   } 
     
     this.setState({
@@ -97,30 +99,35 @@ validate = () => {
 }
 
 
-  handlerSubmit = (e) => {
-    const { first_name, last_name, email, password, phone_number, restaurant_id } = this.state
-    console.log(first_name, last_name, email, password, phone_number, restaurant_id)
-    e.preventDefault();
-    const err = this.validate();
-    if (!err) {
-      fetch("http://localhost:3000/auth/signup",
+handlerSubmit = (e, currentLanguage) => {
+  const { first_name, last_name, email, password, phone_number, restaurant_id } = this.state
+  e.preventDefault();
+  const err = this.validate(currentLanguage);
+  if (!err) {
+    fetch("http://localhost:3000/auth/signup",
       {
           method:  'POST',
           headers:  new Headers({
-                  'Content-Type':  'application/json'
+            'Content-Type':  'application/json',
+            'Preferred-Language': currentLanguage
           }),
           body:  JSON.stringify({first_name, last_name, email, password, phone_number, restaurant_id}),
       })
       .then(res  =>  res.json())
-      .then(
-          res  =>  this.setState({"flash":  res.flash}),
-          err  =>  this.setState({"flash":  err.flash})
-      )
-    }
-
-  }
-
-
+      .then((data)  =>  {
+        this.setState({ flash: data.flash }, () => {
+          if(data.status === 409) {
+            this.props.history.push('/Learners/LogIn');
+          } else {
+            this.props.history.push('/learners/quiz_list');
+          }
+        })
+      })
+  }   
+      
+}
+      
+      
   render() {
     
     return (
@@ -130,7 +137,7 @@ validate = () => {
           <div className="formparentcontainer">
             <h1 id="h1-login"> {translations[currentLanguage].SignUp.Title} </h1>
             <hr />
-            <form className="signup-form" onSubmit={this.handlerSubmit}>
+            <form className="signup-form" onSubmit={(e) => this.handlerSubmit(e, currentLanguage)}>
               <h5>{translations[currentLanguage].SignUp.SubtitleD}</h5>
               <input type="text" name="first_name" placeholder={translations[currentLanguage].SignUp.PlaceholderF} onChange={e => this.inputHandeler(e)} /> 
               {this.state.first_nameError}
@@ -180,4 +187,4 @@ validate = () => {
     );
   }
 }
-export default SignUp;
+export default withRouter(SignUp);

@@ -3,7 +3,7 @@ import { Container, Row, Col}  from 'react-bootstrap';
 import { MDBInput } from "mdbreact";
 import Timer from './Timer';
 import './Quiz.css';
-import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
 
@@ -31,7 +31,6 @@ class Answer extends Component {
   }
 
   render() {
-    console.log('in consumer', LanguagesContext.Consumer)
 
     return (
       <LanguagesContext.Consumer>

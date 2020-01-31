@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
 
@@ -28,7 +28,7 @@ const ContactUs = () => {
               <br />
               <input type="text" title="email" placeholder={translations[currentLanguage].ContactUs.PlaceholderM} />
               <br />
-              <Link to="/Learners/QuizList/QuizList">
+              <Link to="/learners/quiz_list/quiz_list">
                 <button type="submit" className="btn-login">
                   {translations[currentLanguage].ContactUs.Button}
                 </button>

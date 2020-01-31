@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import LanguagesContext, {
-  availableLanguages
-} from "../../contexts/languages-context";
+import { withRouter } from 'react-router-dom';
+import LanguagesContext from "../../contexts/languages-context";
 import translations from "../../i18n/translations";
+import SignUp from "../SignUp/SignUp";
+
 
 class LogIn extends Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class LogIn extends Component {
   };
 
   //Validation form
-  validate = () => {
+  validate = (currentLanguage) => {
     let isError = false;
     const errors = {
       emailError: "",
@@ -34,10 +35,10 @@ class LogIn extends Component {
 
     if(this.state.email === ''){
       isError = true;
-      errors.emailError = "Fill your email, please"
+      errors.emailError = translations[currentLanguage].Login.ErrorEmail;
     } else if (this.state.password === '') {
       isError = true;
-      errors.passwordError = "Fill your password, please";
+      errors.passwordError = translations[currentLanguage].Login.ErrorPassword;
     }
 
     this.setState({
@@ -48,16 +49,17 @@ class LogIn extends Component {
     return isError;
   };
 
-  handlerSubmit = e => {
+  handlerSubmit = (e, currentLanguage) => {
     e.preventDefault();
     const { email, password } = this.state;
-    console.log(this.state.email, this.state.password);
-    const err = this.validate();
+    const err = this.validate(currentLanguage);
+
     if (!err) {
       fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: new Headers({
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Preferred-Language": currentLanguage
         }),
         body: JSON.stringify({ email, password })
       })
@@ -65,16 +67,21 @@ class LogIn extends Component {
         .then(
           res =>
             this.setState({ flash: res.flash }, () => {
-              localStorage.setItem("token", JSON.stringify(res.token));
+              if(res.token) {
+                localStorage.setItem("token", JSON.stringify(res.token));
+              } else if( res.status === 201) {
+                this.props.history.push('/learners/quiz_list');
+              }
             }),
-          err => this.setState({ flash: err.flash })
-        );
-    }
-  };
-  render() {
+        )
+       
+      }
+    };
+
+    render() {
     return (
-      <LanguagesContext>
-        {({ currentLanguage, onChangeLanguage }) => (
+      <LanguagesContext.Consumer>
+        {({ currentLanguage}) => (
           <Container>
             <div className="formparentcontainer">
               <div className="formchildcontainer">
@@ -82,7 +89,7 @@ class LogIn extends Component {
                   {translations[currentLanguage].Login.Title}
                 </h1>
                 <hr />
-                <form onSubmit={this.handlerSubmit}>
+                <form onSubmit={(e) => this.handlerSubmit(e, currentLanguage)}>
                   <input
                     type="email"
                     name="email"
@@ -110,22 +117,23 @@ class LogIn extends Component {
                 </form>
               </div>
               <div className="forgotpassword-signup">
-                <Link to="/Learners/LogIn/ForgotPassword">
+                {/* future feature */}
+                {/* <Link to="/learners/login/forgot_password">
                   {translations[currentLanguage].Login.Forgot}
                   <br />
-                </Link>
+                </Link> */}
                 {translations[currentLanguage].Login.Account}
                 {' '}
-                <Link to="/Learners/SignUp">
+                <Link to="/learners/signup">
                     {translations[currentLanguage].Login.ButtonS}
                 </Link>
               </div>
             </div>
           </Container>
         )}
-      </LanguagesContext>
+      </LanguagesContext.Consumer>
     );
   }
 }
 
-export default LogIn;
+export default withRouter(LogIn);

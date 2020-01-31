@@ -119,7 +119,7 @@ const AdminDocEditor = () => {
   const postDocumentation = (e) => {
     e.preventDefault();
     // updateContent();
-    fetch(process.env.REACT_APP_PATH_ADMIN_DOC_CREATE,
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
       {
         method: 'POST',
         headers: new Headers({
@@ -134,7 +134,6 @@ const AdminDocEditor = () => {
       })
       .then((res) => {
         res.json();
-        console.log('hey', res);
       });
   };
 
@@ -172,7 +171,7 @@ const AdminDocEditor = () => {
           value={text}
           onChange={handleChangeQuill}
         />
-        <Link to="/Admin/AdminQuizList">
+        <Link to="/admin/quiz_list">
           <button
             type="submit"
             className="btn"

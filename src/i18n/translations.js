@@ -3,7 +3,7 @@ const Translations = {
     Full: 'English',
     LearnerNav: {
       LinkS: 'Sign Up',
-      LinkL: 'Login',
+      LinkL: 'Logout',
       LinkQ: 'All Quizzes',
       LinkF: 'FAQ',
       LinkC: 'Contact',
@@ -26,9 +26,10 @@ const Translations = {
     },
 
     FAQ: {
-      Title: 'FAQ',
+      Title: 'Frequently Asked Questions',
       Button: 'Home',
     },
+
     ForgotPassword: {
       Title: 'Forgot Password?',
       Text: "Forgotten your password? Enter your email address here to retrieve it. (Note to team: We haven't agreed this functionality, we don't have to include this page)",
@@ -46,6 +47,8 @@ const Translations = {
       ButtonS: 'Sign-Up',
       PlaceholderU: ' Email',
       PlaceholderP: ' Password',
+      ErrorEmail: 'Fill your email, please',
+      ErrorPassword: 'Fill your password, please',
     },
 
     Answer: {
@@ -88,6 +91,42 @@ const Translations = {
       PlaceholderP: ' Password*',
       PlaceholderC: ' Confirm Password*',
       Button: 'Sign-Up',
+      ErrorName: 'Fill your name, please',
+      ErrorLastName: 'Fill your last name, please',
+      ErrorEmail: 'Requires valid email',
+      ErrorPhone: 'Fill your phone, please',
+      ErrorRestaurant: 'Fill your restaurant, please',
+      ErrorPassword: 'Fill password, please',
+      ErrorPasswordMatch: 'Passwords need to match',
+    },
+
+    Challenge: {
+      Title: 'Results',
+      CurrentT: 'Current Time',
+      TimeSec: 'seconds',
+      ScoreA: 'You scored',
+      ScoreB: 'out of 10!',
+      TimeA: 'Your total time was',
+      TimeB: 'seconds.',
+      ButtonH: 'Home',
+      ButtonD: 'Documentation',
+    },
+
+    NextButton: {
+      Button: 'See results',
+    },
+
+    ResultsCard: {
+      Title: 'Question',
+      Ok: 'Correct',
+      No: 'Incorrect',
+      Ans: 'Your answer:',
+      WhatsOK: 'The correct answer:',
+    },
+
+    QuizCard: {
+      LinkQ: 'Take Quiz',
+      LinkD: 'Read Documentation',
     },
   },
 
@@ -95,7 +134,7 @@ const Translations = {
     Full: 'Português',
     LearnerNav: {
       LinkS: 'Registar-se',
-      LinkL: 'Iniciar Sessão',
+      LinkL: 'Fechar Sessão',
       LinkQ: 'Quizzes ',
       LinkF: 'FAQ',
       LinkC: 'Contactos ',
@@ -114,12 +153,12 @@ const Translations = {
 
     Documentation: {
       Title: 'Documentação',
-      Button: 'Home (portuguese translation plz)',
+      Button: 'Início',
     },
 
     FAQ: {
-      Title: 'FAQ',
-      Button: 'Home (portuguese translation plz)',
+      Title: 'Frequently Asked Questions(in Portuguese please)',
+      Button: 'Início',
     },
 
     ForgotPassword: {
@@ -139,6 +178,8 @@ const Translations = {
       ButtonS: 'Registar-se',
       PlaceholderU: ' Email de utilizador',
       PlaceholderP: ' Password',
+      ErrorEmail: 'Fill your email, please (portuguese translation plz)',
+      ErrorPassword: 'Fill your password, please (portuguese translation plz)',
     },
 
     Answer: {
@@ -154,7 +195,7 @@ const Translations = {
     Results: {
       Title: 'Resultados',
       ButtonD: 'Documentação',
-      ButtonH: 'Home (portuguese translation plz)',
+      ButtonH: 'Início',
     },
 
     QuizList: {
@@ -178,8 +219,41 @@ const Translations = {
       SubtitleP: 'Password: ',
       PlaceholderP: ' Password* ',
       PlaceholderC: ' Confirmar Password*',
-
+      ErrorName: 'Fill your name, please (portuguese translation plz)',
+      ErrorLastName: 'Fill your last name, please (portuguese translation plz)',
+      ErrorEmail: 'Requires valid email (portuguese translation plz)',
+      ErrorPhone: 'Fill your phone, please (portuguese translation plz)',
+      ErrorRestaurant: 'Fill your restaurant, please (portuguese translation plz)',
+      ErrorPassword: 'Fill password, please (portuguese translation plz)',
+      ErrorPasswordMatch: 'Passwords need to match (portuguese translation plz)',
       Button: 'Registar-se',
+    },
+    Challenge: {
+      Title: 'Results (portuguese translation plz)',
+      CurrentT: 'Current Time (portuguese translation plz)',
+      TimeSec: 'seconds (portuguese translation plz)',
+      ScoreA: 'You scored (portuguese translation plz)',
+      ScoreB: 'out of 10! (portuguese translation plz)',
+      TimeA: 'Your total time was (portuguese translation plz)',
+      TimeB: 'seconds. (portuguese translation plz)',
+      ButtonH: 'Home (portuguese translation plz)',
+      ButtonD: 'Documentation (portuguese translation plz)',
+    },
+    NextButton: {
+      Button: 'See results (portuguese translation plz)',
+    },
+
+    ResultsCard: {
+      Title: 'Question (portuguese translation plz)',
+      Ok: 'Correct (portuguese translation plz)',
+      No: 'Incorrect (portuguese translation plz)',
+      Ans: 'Your answer: (portuguese translation plz)',
+      WhatsOK: 'The correct answer:(portuguese translation plz)',
+    },
+
+    QuizCard: {
+      LinkQ: 'Take Quiz (portuguese translation plz)',
+      LinkD: 'Read Documentation (portuguese translation plz)',
     },
   },
 };
