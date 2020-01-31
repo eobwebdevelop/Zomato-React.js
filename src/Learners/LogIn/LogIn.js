@@ -27,7 +27,6 @@ class LogIn extends Component {
 
   //Validation form
   validate = (currentLanguage) => {
-    console.log('validate in ', currentLanguage)
     let isError = false;
     const errors = {
       emailError: "",
@@ -53,13 +52,14 @@ class LogIn extends Component {
   handlerSubmit = (e, currentLanguage) => {
     e.preventDefault();
     const { email, password } = this.state;
-    console.log(this.state.email, this.state.password);
     const err = this.validate(currentLanguage);
+
     if (!err) {
       fetch("http://localhost:3000/auth/login", {
         method: "POST",
         headers: new Headers({
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Preferred-Language": currentLanguage
         }),
         body: JSON.stringify({ email, password })
       })
@@ -69,7 +69,7 @@ class LogIn extends Component {
             this.setState({ flash: res.flash }, () => {
               if(res.token) {
                 localStorage.setItem("token", JSON.stringify(res.token));
-              } else if( res.flash === 'Email and pass are correct') {
+              } else if( res.status === 201) {
                 this.props.history.push('/learners/quiz_list');
               }
             }),
@@ -81,7 +81,7 @@ class LogIn extends Component {
     render() {
     return (
       <LanguagesContext.Consumer>
-        {({ currentLanguage, onChangeLanguage }) => (
+        {({ currentLanguage}) => (
           <Container>
             <div className="formparentcontainer">
               <div className="formchildcontainer">

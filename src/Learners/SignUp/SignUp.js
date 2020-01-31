@@ -99,26 +99,29 @@ validate = (currentLanguage) => {
 }
 
 
-handlerSubmit = (e) => {
+handlerSubmit = (e, currentLanguage) => {
   const { first_name, last_name, email, password, phone_number, restaurant_id } = this.state
-  console.log(first_name, last_name, email, password, phone_number, restaurant_id)
   e.preventDefault();
-  const err = this.validate();
+  const err = this.validate(currentLanguage);
   if (!err) {
     fetch("http://localhost:3000/auth/signup",
       {
           method:  'POST',
           headers:  new Headers({
-                  'Content-Type':  'application/json'
+            'Content-Type':  'application/json',
+            'Preferred-Language': currentLanguage
           }),
           body:  JSON.stringify({first_name, last_name, email, password, phone_number, restaurant_id}),
       })
       .then(res  =>  res.json())
       .then((data)  =>  {
-        this.setState({"flash":  data.flash})
-         if(data.flash == "User has been signed up!") {
-          this.props.history.push('/Learners/LogIn');
-         }
+        this.setState({ flash: data.flash }, () => {
+          if(data.status === 409) {
+            this.props.history.push('/Learners/LogIn');
+          } else {
+            this.props.history.push('/learners/quiz_list');
+          }
+        })
       })
   }   
       
@@ -134,7 +137,7 @@ handlerSubmit = (e) => {
           <div className="formparentcontainer">
             <h1 id="h1-login"> {translations[currentLanguage].SignUp.Title} </h1>
             <hr />
-            <form className="signup-form" onSubmit={this.handlerSubmit}>
+            <form className="signup-form" onSubmit={(e) => this.handlerSubmit(e, currentLanguage)}>
               <h5>{translations[currentLanguage].SignUp.SubtitleD}</h5>
               <input type="text" name="first_name" placeholder={translations[currentLanguage].SignUp.PlaceholderF} onChange={e => this.inputHandeler(e)} /> 
               {this.state.first_nameError}
