@@ -17,7 +17,7 @@ class AdminLogin extends Component {
               <br />
               <input type="password" title="username" placeholder=" Password" />
               <br />
-              <Link to="/admin/quiz_list">
+              <Link to="/admin">
                 <button type="submit" className="btn-login">
                   Login
                 </button>

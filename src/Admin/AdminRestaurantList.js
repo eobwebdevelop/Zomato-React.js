@@ -39,7 +39,7 @@ const AdminRestaurantList = ({ restaurants, onDelete }) => (
             </td>
             <td>{res.region}</td>
             <td>
-              <Link to={`/admin/restaurant_delete/${res.id}`} params={res.id}>
+              <Link to={`/admin/restaurant_editor/${res.id}`}>
                 <button type="submit" className="btn-list">
                         Edit Restaurant ►
                 </button>

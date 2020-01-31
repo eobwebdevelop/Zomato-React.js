@@ -38,12 +38,12 @@ const AdminQuizList = ({ onDelete }) => {
               />
             </Collapsible>
             <button
-                type="submit"
-                className="btn-list"
-                onClick={() => onDelete(q.id)}
-              >
-                        Delete Quiz ►
-              </button>
+              type="submit"
+              className="btn-list"
+              onClick={() => onDelete(q.id)}
+            >
+              Delete Quiz ►
+            </button>
           </section>
         ))}
       </Container>

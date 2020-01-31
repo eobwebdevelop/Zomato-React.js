@@ -67,10 +67,14 @@ class LogIn extends Component {
         .then(
           res =>
             this.setState({ flash: res.flash }, () => {
-              if(res.token) {
-                localStorage.setItem("token", JSON.stringify(res.token));
+              if(res.token) { console.log('hey')
+                localStorage.setItem("token", JSON.stringify(res.token)); 
+                this.props.history.push('/learners/quiz_list');
               } else if( res.status === 201) {
                 this.props.history.push('/learners/quiz_list');
+              } else {
+                console.log('login failed')
+                // DO FLASH MESSAGE
               }
             }),
         )
