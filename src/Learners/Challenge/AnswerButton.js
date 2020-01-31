@@ -25,7 +25,10 @@ class AnswerButton extends React.Component {
 
     return (
       <>
-        <button onClick={() => answerSelect(userInput)}>{answerText}</button>
+     <br />
+      <div className="separator">
+        <button className="answerButton" onClick={() => answerSelect(userInput)}>{answerText}</button>
+      </div>
         <br />
       </>
     );

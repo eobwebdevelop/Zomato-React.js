@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import QandA from './QandA';
+import './Challenge.css'
 import ResultsCard from './ResultsCard';
 // import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
 // import translations from '../../i18n/translations';
@@ -37,25 +38,27 @@ class Challenge extends React.Component {
         <Container>
           <h1>Quiz</h1>
           <hr />
-          {questionPackageSpecificQuizIDOnly.map((questionPackage, i) => (
-            <QandA
-              questionPackage={questionPackageSpecificQuizIDOnly[i]}
-              onNextStep={onNextStep}
-              isVisible={step === i}
-              onClickAnswer={onClickAnswer}
-              stopTimer={stopTimer}
-              step={i}
-              overallTime={overallTime}
-              quizIDInPlay={quizIDInPlay}
-              checkScore={checkScore}
-            />
-          ))}
-          <h3>
+          <div className="grayContainer">
+            {questionPackageSpecificQuizIDOnly.map((questionPackage, i) => (
+              <QandA
+                questionPackage={questionPackageSpecificQuizIDOnly[i]}
+                onNextStep={onNextStep}
+                isVisible={step === i}
+                onClickAnswer={onClickAnswer}
+                stopTimer={stopTimer}
+                step={i}
+                overallTime={overallTime}
+                quizIDInPlay={quizIDInPlay}
+                checkScore={checkScore}
+              />
+            ))}
+            <h3>
 Current Time:
-            {overallTime}
-            {' '}
+              {overallTime}
+              {' '}
 seconds
-          </h3>
+            </h3>
+          </div>
         </Container>
       );
     }
@@ -90,15 +93,11 @@ seconds.
         </h3>
 
         <Link to="/learners/quiz_list">
-          <a>
             <button onClick={refreshQuizState}>Home</button>
-          </a>
         </Link>
 
         <Link to="/learners/documentation">
-          <a>
             <button onClick={refreshQuizState}>Documentation</button>
-          </a>
         </Link>
       </Container>
     );
