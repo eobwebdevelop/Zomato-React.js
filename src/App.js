@@ -24,6 +24,7 @@ import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminResultList from "./Admin/AdminResultList";
 
+
 // Learner portal imports
 
 import LearnerNav from "./LearnerNav.js";
@@ -46,6 +47,7 @@ import FAQ from "./Learners/FAQ/FAQ.js";
 import LanguagesContext, {
   availableLanguages
 } from "./contexts/languages-context";
+import QuizzesContext from "./contexts/quiz-context";
 
 class App extends Component {
   constructor(props) {
@@ -59,7 +61,7 @@ class App extends Component {
       // Overalltime counts upwards until you are at step 10 i.e. results.
       overallTime: 0,
       // Check whether questions are loaded, else we need to display loading screen when opening quiz.
-      questionsAreLoaded: false,
+      quizzesAreLoaded: false,
       // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
       quizIDInPlay: 1,
       timerRunning: false,
@@ -85,7 +87,7 @@ class App extends Component {
   getRegion = () => {
     fetch("http://localhost:3000/admin/region")
       .then(response => response.json())
-      .then(data => {
+      .then(data => { console.log('region')
         this.setState(state => ({
           ...state,
           regions: data.Region
@@ -116,15 +118,21 @@ class App extends Component {
   };
 
   getQuizzes = () => {
-    fetch("http://localhost:3000/admin/quiz")
-      .then(response => response.json())
-      .then(data => {
-        this.setState(state => ({
-          ...state,
-          quizzes: data.quizzes,
-          questionsAreLoaded: true
-        }));
-      });
+    this.setState(
+      { quizzesAreLoaded: false },
+      () => {
+        fetch("http://localhost:3000/admin/quiz")
+          .then(response => response.json())
+          .then(data => {
+            console.log('hello')
+            this.setState(state => ({
+              ...state,
+              quizzes: data.quizzes,
+              quizzesAreLoaded: true
+            }));
+          });
+      }
+    )
   };
 
   getAllDocs = () => {
@@ -207,8 +215,8 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.refreshQuizState();
     this.getQuizzes();
+    this.refreshQuizState();
     this.getProducts();
     this.getUsers();
     this.getRestaurants();
@@ -223,7 +231,8 @@ class App extends Component {
         currentLanguage ?
           JSON.parse(currentLanguage)
           : availableLanguages.pt,
-      token: token ? JSON.parse(token) : ""
+      token: token ? JSON.parse(token) : "",
+
     });
   }
 
@@ -235,346 +244,317 @@ class App extends Component {
       users,
       restaurants,
       regions,
-      results
+      results,
+      quizzesAreLoaded
     } = this.state;
 
+    console.log(this.state.questionsAreLoaded)
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
       >
-        <Route
-          exact
-          path="/"
-          render={() => <Redirect to="/Learners/Login"></Redirect>}
-        />
-        <Route
-          exact
-          path="/Admin"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminHomePage />
-            </>
-          )}
-        />
+        <QuizzesContext.Provider 
+          value={{ quizzes, onLoadQuizzes: this.getQuizzes, quizzesAreLoaded }}
+        >
+          <Route
+            exact
+            path="/"
+            render={() => <Redirect to="/Learners/Login"></Redirect>}
+          />
+          <Route
+            exact
+            path="/Admin"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminHomePage />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminAppLogin"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminAppLogin />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Admin/AdminAppLogin"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminAppLogin />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminDocList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminDocList />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Admin/AdminDocList"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminDocList />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminDocEditor"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminDocEditor />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Admin/AdminDocEditor"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminDocEditor />
+              </>
+            )}
+          />
+        
+          <Route
+            exact
+            path="/Admin/AdminQuizList"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminQuizList />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminQuizList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminQuizList quizzes={quizzes} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Admin/AdminQuizMaker"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminQuizMaker />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/Admin/AdminQuizEditor/:id"
+            render={props => (
+              <>
+                <AdminNav />
+                <AdminQuizEditor 
+                  />
+              </>
+            )}
+          />
+  
 
-        <Route
-          exact
-          path="/Admin/AdminQuizMaker"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminQuizMaker />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Admin/AdminEditUser/:id"
+            render={props => (
+              <>
+                <AdminNav />
+                <AdminEditUser id={props.match.params.id} />
+              </>
+            )}
+          />
+            <Route
+            exact
+            path="/Admin/AdminUserList"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminUserList users={users} />
+              </>
+            )}
+          />
+        
+          <Route
+            exact
+            path="/Admin/AdminRestaurantCreator"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminRestaurantCreator />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminEditUser/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminEditUser id={props.match.params.id} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Admin/AdminUserEditor/:id"
+            render={props => (
+              <>
+                <AdminNav />
+                <AdminUserEditor
+                users = {users}/>
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminQuizEditor/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminQuizEditor 
-              quizzes = {quizzes} /> />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Admin/AdminRestaurantList"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminRestaurantList 
+                restaurants={restaurants}
+                />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/Admin/AdminProductList"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminProductList products={products} />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminRestaurantCreator"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminRestaurantCreator />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Admin/AdminProductCreator"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminProductCreator />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/Admin/AdminProductEditor/:id"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminProductEditor products={products} />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminUserEditor/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminUserEditor
-              users = {users}/>
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Admin/AdminRestaurantEditor/:id"
+            render={props => (
+              <>
+                <AdminNav />
+                <AdminRestaurantEditor
+                  restaurant={restaurants.find((res) => res.id === +props.match.params.id)}
+                  regions={regions}
+                />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/Admin/AdminResultList"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminResultList results={results} />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminRestaurantList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminRestaurantList 
-              restaurants={restaurants}
-               />
-            </>
-          )}
-        />
+          {/* Learners Route */}
 
-        <Route
-          exact
-          path="/Admin/AdminProductList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductList products={products} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Learners/ContactUs"
+            render={() => (
+              <>
+                <LearnerNav />
+                <ContactUs />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminProductCreator"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductCreator />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Learners/FAQ"
+            render={() => (
+              <>
+                <LearnerNav />
+                <FAQ />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminProductEditor/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminRestaurantEditor
-                restaurant={restaurants.find((res) => res.id === +props.match.params.id)}
-                regions={regions}
-              />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Learners/Documentation"
+            render={() => (
+              <>
+                <LearnerNav />
+                <Documentation documentation={this.state.documentation} />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminUserList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminUserList users={users} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Learners/LogIn"
+            render={() => (
+              <>
+                <LearnerNav />
+                <LogIn />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminRestaurantEditor"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminRestaurantEditor />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Learners/LogIn/ForgotPassword"
+            render={() => (
+              <>
+                <LearnerNav />
+                <ForgotPassword />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminProductList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductList />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Learners/QuizList"
+            render={() => (
+              <>
+                <LearnerNav />
+                <QuizList />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/Admin/AdminProductCreator"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductCreator />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Learners/Quiz/Answer"
+            render={() => (
+              <>
+                <LearnerNav />
+                <Challenge
+                  refreshQuizState={this.refreshQuizState}
+                  questionPackage={this.state.placeholderData.quizzes}
+                  startOverallTimer={this.startOverallTimer}
+                  overallTime={this.state.overallTime}
+                  onNextStep={this.onNextStep}
+                  onClickAnswer={this.onClickAnswer}
+                  step={this.state.step}
+                  quizIDInPlay={this.state.quizIDInPlay}
+                  stopTimer={this.stopTimer}
+                  overallTime={this.state.overallTime}
+                />
+              </>
+            )}
+          />
 
-       <Route
-        exact
-        path="/Admin/AdminProductEditor/:id"
-        render={props => (
-          <>
-            <AdminNav />
-            <AdminProductEditor 
-             products = {products}/>
-          </>
-        )}
-      />
-        <Route
-          exact
-          path="/Admin/AdminResultList"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminResultList results={results} />
-            </>
-          )}
-        />
-
-        {/* Learners Route */}
-
-        <Route
-          exact
-          path="/Learners/ContactUs"
-          render={() => (
-            <>
-              <LearnerNav />
-              <ContactUs />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Learners/FAQ"
-          render={() => (
-            <>
-              <LearnerNav />
-              <FAQ />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Learners/Documentation"
-          render={() => (
-            <>
-              <LearnerNav />
-              <Documentation documentation={this.state.documentation} />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Learners/LogIn"
-          render={() => (
-            <>
-              <LearnerNav />
-              <LogIn />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Learners/LogIn/ForgotPassword"
-          render={() => (
-            <>
-              <LearnerNav />
-              <ForgotPassword />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Learners/QuizList"
-          render={() => (
-            <>
-              <LearnerNav />
-              <QuizList />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Learners/Quiz/Answer"
-          render={() => (
-            <>
-              <LearnerNav />
-              <Challenge
-                refreshQuizState={this.refreshQuizState}
-                questionPackage={this.state.placeholderData.quizzes}
-                startOverallTimer={this.startOverallTimer}
-                overallTime={this.state.overallTime}
-                onNextStep={this.onNextStep}
-                onClickAnswer={this.onClickAnswer}
-                step={this.state.step}
-                quizIDInPlay={this.state.quizIDInPlay}
-                stopTimer={this.stopTimer}
-                overallTime={this.state.overallTime}
-              />
-            </>
-          )}
-        />
-
-        <Route
-          exact
-          path="/Learners/SignUp"
-          render={() => (
-            <>
-              <LearnerNav />
-              <SignUp restaurants={restaurants} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/Learners/SignUp"
+            render={() => (
+              <>
+                <LearnerNav />
+                <SignUp restaurants={restaurants} />
+              </>
+            )}
+          />
+        </QuizzesContext.Provider>
       </LanguagesContext.Provider>
+      
+      
     );
   }
 }

@@ -62,7 +62,7 @@ class AdminProductList extends Component {
                 <th>Delete Product</th>
               </tr>
             </thead>
-            { products.map((prod) => (
+            {products.map((prod) => (
               <tbody key={prod.id}>
                 <tr>
                   <td>{prod.id}</td>
@@ -88,7 +88,6 @@ class AdminProductList extends Component {
                 </tr>
               </tbody>
             ))}
-
           </table>
         </Container>
       </div>
