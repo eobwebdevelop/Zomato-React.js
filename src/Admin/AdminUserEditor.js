@@ -14,7 +14,7 @@ class AdminUserEditor extends Component {
   }
 
   render() {
-    const foundProduct = this.props.users.find((user) => user.id === +this.props.id);
+    // const foundUser = this.props.users.find((user) => user.id === +this.props.id);
     return (
       <div>
         <Container>

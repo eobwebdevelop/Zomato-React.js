@@ -23,7 +23,6 @@ const AdminProductList = ({ products, onDelete }) => (
             Export Data
         </button>
       </Link>
-
       <table className="tftable" border="1">
         <tr>
           <th>Product id</th>
@@ -38,9 +37,9 @@ const AdminProductList = ({ products, onDelete }) => (
             <td>{prod.name}</td>
             <td>{prod.description}</td>
             <td>
-              <Link to={`/admin/product_editor/${prod.id}`} params={prod.id}>
+              <Link to={`/Admin/AdminProductEditor/${prod.id}`}>
                 <button type="submit" className="btn-list">
-                        Edit Product ►
+                    Edit Product ►
                 </button>
                 {' '}
               </Link>

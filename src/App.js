@@ -23,6 +23,7 @@ import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminResultList from "./Admin/AdminResultList";
 
+
 // Learner portal imports
 
 import LearnerNav from "./LearnerNav";
@@ -46,6 +47,7 @@ import FAQ from "./Learners/FAQ/FAQ";
 import LanguagesContext, {
   availableLanguages
 } from "./contexts/languages-context";
+import QuizzesContext from "./contexts/quiz-context";
 
 // EW 30.09.2019: Note, state.placeholderdata is useful for testing and provides a skeleton before API loaded so please leave in state for now.
 
@@ -63,7 +65,7 @@ class App extends Component {
       // Score out of 10
       score: 0,
       // Check whether questions are loaded, else we need to display loading screen when opening quiz.
-      questionsAreLoaded: false,
+      quizzesAreLoaded: false,
       // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
       quizIDInPlay: 1,
       timerRunning: false,
@@ -93,7 +95,7 @@ class App extends Component {
   getRegion = () => {
     fetch("http://localhost:3000/admin/region")
       .then(response => response.json())
-      .then(data => {
+      .then(data => { console.log('region')
         this.setState(state => ({
           ...state,
           regions: data.Region
@@ -126,20 +128,25 @@ class App extends Component {
   // EW: This is getQuizzes for learners. If we need this for admin then consider another fetch for http://localhost:3000/admin/quiz as the route exists.
 
   getQuizzes = () => {
-    fetch("http://localhost:3000/learner/quiz", {
-      method: "GET",
-      headers: new Headers({
-        'Preferred-Language': this.state.currentLanguage
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        this.setState(state => ({
-          ...state,
-          quizzesLearner: data,
-          questionsAreLoaded: true
-        }));
-      });
+    this.setState(
+      { quizzesAreLoaded: false },
+      () => {
+        fetch("http://localhost:3000/learner/quiz", {
+          method: "GET",
+          headers: new Headers({
+            'Preferred-Language': this.state.currentLanguage
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          this.setState(state => ({
+            ...state,
+            quizzes: data.quizzes,
+            quizzesAreLoaded: true
+          }));
+        });
+      }
+    )
   };
 
   getDocs = () => {
@@ -179,14 +186,14 @@ class App extends Component {
         }),
       1000
     );
-  }
+  };
 
   stopTimer() {
     this.setState({ timer: false });
     // console.log("stopped timer");
     //Clear interval
     clearInterval(this.timer);
-  }
+  };
 
   checkScore() {
     var totalScore = 0;
@@ -200,20 +207,20 @@ class App extends Component {
     }
 
     this.setState({ score: totalScore });
-  }
+  };
 
   // EW:When you click TAKE QUIZ, this method is called in the quiz card, updating the state. A filter is run to only play the quiz specified in this.state.QuizIDInPlay.
 
   changeQuizIDInPlay(quizID) {
     this.setState({ quizIDInPlay: quizID });
-  }
+  };
 
   refreshQuizState() {
     // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
     // console.log("refresh");
     this.stopTimer();
     this.setState({ overallTime: 0, step: 0 });
-  }
+  };
 
   getProducts = () => {
     fetch("http://localhost:3000/admin/product")
@@ -262,7 +269,7 @@ class App extends Component {
       this.getResults();
       this.getDocs();
     });
-  }
+  };
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -313,6 +320,7 @@ class App extends Component {
   };
 
   render() {
+
     const {
       currentLanguage,
       quizzes,
@@ -320,14 +328,19 @@ class App extends Component {
       users,
       restaurants,
       regions,
-      results
+      results,
+      quizzesAreLoaded
     } = this.state;
 
+    console.log(this.state.questionsAreLoaded)
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
       >
-        <Route
+        <QuizzesContext.Provider 
+          value={{ quizzes, onLoadQuizzes: this.getQuizzes, quizzesAreLoaded }}
+        >
+           <Route
           exact
           path="/"
           render={() => <Redirect to="/learners/login"></Redirect>}
@@ -378,7 +391,8 @@ class App extends Component {
             </>
           )}
         />
-        {/* {QUIZ } */}
+        
+          {/* {QUIZ } */}
         <Route
           exact
           path="/admin/quiz_list"
@@ -386,7 +400,6 @@ class App extends Component {
             <>
               <AdminNav />
               <AdminQuizList
-                quizzes={quizzes}
                 onDelete={this.handleDeleteQuiz}
               />
             </>
@@ -408,16 +421,12 @@ class App extends Component {
           render={props => (
             <>
               <AdminNav />
-              <AdminQuizEditor
-                id={props.match.params.id}
-                quizzes={quizzes}
-              />{" "}
-              />
+              <AdminQuizEditor />
             </>
           )}
         />
-        {/* {Users } */}
-        <Route
+   {/* {Users } */}
+   <Route
           exact
           path="/admin/user_list"
           render={() => (
@@ -433,11 +442,11 @@ class App extends Component {
           render={props => (
             <>
               <AdminNav />
-              <AdminUserEditor id={props.match.params.id} users={users} />
+              <AdminUserEditor users={users} />
             </>
           )}
         />
-        {/* {Restaurant } */}
+          {/* {Restaurant } */}
         <Route
           exact
           path="/admin/restaurant_list"
@@ -469,9 +478,8 @@ class App extends Component {
             <>
               <AdminNav />
               <AdminRestaurantEditor
-                restaurants={restaurants}
+                restaurant={restaurants.find((res) => res.id === +props.match.params.id)}
                 regions={regions}
-                id={props.match.params.id}
               />
             </>
           )}
@@ -504,11 +512,10 @@ class App extends Component {
         <Route
           exact
           path="/admin/product_editor/:id"
-          render={props => (
+          render={ => (
             <>
               <AdminNav />
               <AdminProductEditor
-                id={props.match.params.id}
                 products={products}
               />
             </>
@@ -632,10 +639,13 @@ class App extends Component {
             </>
           )}
         />
+        </QuizzesContext.Provider>
       </LanguagesContext.Provider>
+      
+      
     );
   }
-}
+};
 
 const placeholderData = {
   quizzes: [
