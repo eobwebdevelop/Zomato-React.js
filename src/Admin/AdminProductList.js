@@ -37,7 +37,7 @@ const AdminProductList = ({ products, onDelete }) => (
             <td>{prod.name}</td>
             <td>{prod.description}</td>
             <td>
-              <Link to={`/Admin/AdminProductEditor/${prod.id}`}>
+              <Link to={`/admin/product_editor/${prod.id}`}>
                 <button type="submit" className="btn-list">
                     Edit Product ►
                 </button>
@@ -60,15 +60,15 @@ const AdminProductList = ({ products, onDelete }) => (
   </div>
 );
 
-AdminProductList.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
+// AdminProductList.propTypes = {
+//   products: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number.isRequired,
+//       name: PropTypes.string.isRequired,
+//       description: PropTypes.string.isRequired,
+//     }).isRequired,
+//   ).isRequired,
+//   onDelete: PropTypes.func.isRequired,
+//  };
 
 export default AdminProductList;

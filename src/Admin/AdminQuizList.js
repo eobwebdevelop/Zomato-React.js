@@ -20,7 +20,7 @@ const AdminQuizList = ({ onDelete }) => {
         <p>
         You are viewing all the available Quizzes at the current moment.
         </p>
-        <Link to="/Admin/AdminQuizCreator">
+        <Link to="/admin/quiz_maker">
           <button type="submit" className="btn">
           Add Quiz
           </button>
@@ -37,27 +37,28 @@ const AdminQuizList = ({ onDelete }) => {
                 quiz={q.questions}
               />
             </Collapsible>
-            <Link to={`/Admin/AdminQuizDelete/${q.id}`}>
-              <button type="submit" className="btn-list">
-                      Delete Quiz ►
+            <button
+                type="submit"
+                className="btn-list"
+                onClick={() => onDelete(q.id)}
+              >
+                        Delete Quiz ►
               </button>
-              {' '}
-            </Link>
           </section>
         ))}
       </Container>
     </div>
   );
 };
-AdminQuizList.propTypes = {
-  // quizzes: PropTypes.arrayOf(
-  //   PropTypes.shape({
-  //     id: PropTypes.number.isRequired,
-  //     name: PropTypes.string.isRequired,
-  //   }).isRequired,
-  // ).isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
+// AdminQuizList.propTypes = {
+//   // quizzes: PropTypes.arrayOf(
+//   //   PropTypes.shape({
+//   //     id: PropTypes.number.isRequired,
+//   //     name: PropTypes.string.isRequired,
+//   //   }).isRequired,
+//   // ).isRequired,
+//   onDelete: PropTypes.func.isRequired,
+// };
 
 
 export default AdminQuizList;
