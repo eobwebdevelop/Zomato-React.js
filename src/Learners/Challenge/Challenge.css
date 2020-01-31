@@ -1,0 +1,31 @@
+.grayContainer {
+    background-color: #FAFAFA;
+    padding: 2% ;
+    box-sizing: border-box;
+}
+
+button.answerButton:focus{
+    outline:none;
+}
+button.answerButton:hover{
+    color:#e23744;
+    font-size:18px;
+    transition: all 0.5s ease;
+}
+
+
+button.answerButton {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    margin: 20px 0px;
+    background-color: transparent;
+    font-size: 16px;
+
+}
+.separator{
+    display: block;
+    width: 99%;
+    margin: 0 auto;
+    border-bottom: 1px solid gray;
+}

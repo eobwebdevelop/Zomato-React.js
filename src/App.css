@@ -74,30 +74,32 @@ hr {
 .btn {
   background: #e23744 !important;
   color: #f4f4f2 !important;
-  border-radius: 5px;
-  height: 2.5em;
+  border-radius: 5px!important;
   width: 10em;
   border: none;
   margin-top: 1em;
+  transition: all 0.5s ease;
 }
 
 .btn-login {
   background: #e23744;
   color: #f4f4f2;
   border-radius: 5px;
-  height: 2.5em;
   width: 100%;
   border: none;
   margin-top: 2em;
   margin-bottom: 1em;
+  transition: all 0.5s ease;
 }
 
 .btn-login:hover {
   background: #ff1b62 !important;
+  transition: all 0.5s ease;
 }
 
 .btn:hover {
   background: #ff1b62 !important;
+  transition: all 0.5s ease;
 }
 
 input {
