@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import QuizCard from "./QuizCard";
-import LanguagesContext, {
-  availableLanguages
-} from "../../contexts/languages-context";
-import translations from "../../i18n/translations";
+import React, { useContext } from 'react';
+// import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import QuizCard from './QuizCard';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
-const QuizList = props => {
+const QuizList = (props) => {
   const { currentLanguage } = useContext(LanguagesContext);
   return (
     <>

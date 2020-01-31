@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+// import { Container } from "react-bootstrap";
 
 class QuizCard extends React.Component {
   render() {
@@ -10,7 +10,7 @@ class QuizCard extends React.Component {
       QuizLinkText,
       DocumentationLinkText,
       quizID,
-      changeQuizIDInPlay
+      changeQuizIDInPlay,
     } = this.props;
 
     return (
@@ -22,10 +22,13 @@ class QuizCard extends React.Component {
           className="view-quizzes-page-links-side-by-side"
           onClick={() => changeQuizIDInPlay(quizID)}
         >
-          {QuizLinkText}Take Quiz ><br />
+          {QuizLinkText}
+Take Quiz
+          <br />
         </Link>
         <Link to="/learners/documentation" className="cranberry-link">
-          {DocumentationLinkText}Read Documentation >
+          {DocumentationLinkText}
+Read Documentation
         </Link>
       </>
     );

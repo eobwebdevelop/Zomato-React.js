@@ -2,9 +2,7 @@ import React, { useContext } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import DropdownSelector from './LanguageSelector';
 import './LearnerNav.css';
-import LanguagesContext, {
-  availableLanguages,
-} from './contexts/languages-context';
+import LanguagesContext from './contexts/languages-context';
 import translations from './i18n/translations';
 
 const LearnerNav = () => {
