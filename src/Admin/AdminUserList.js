@@ -24,44 +24,48 @@ const AdminUserList = ({ users, onDelete }) => (
         </button>
       </Link>
       <table className="tftable" border="1">
-        <tr>
-          <th>User id</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone Number</th>
-          <th>User Type</th>
-          <th>Edit User</th>
-          <th>Delete User</th>
-        </tr>
-        {users.map((user) => (
+        <thead>
           <tr>
-            <td>{user.id}</td>
-            <td>
-              {user.first_name}
-                  ,
-              {' '}
-              {user.last_name}
-            </td>
-            <td>{user.email}</td>
-            <td>{user.phone_number}</td>
-            <td>{user.user_type_id}</td>
-            <td>
-              <Link to={`/admin/user_editor/${user.id}`} params={user.id}>
-                <button type="submit" className="btn-list">
-                        Edit User ►
-                </button>
-              </Link>
-            </td>
-            <td>
-              <button
-                type="submit"
-                className="btn-list"
-                onClick={() => onDelete(user.id)}
-              >
-                        Delete User ►
-              </button>
-            </td>
+            <th>User id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>User Type</th>
+            <th>Edit User</th>
+            <th>Delete User</th>
           </tr>
+        </thead>
+        {users.map((user) => (
+          <tbody key={user.id}>
+            <tr>
+              <td>{user.id}</td>
+              <td>
+                {user.first_name}
+                    ,
+                {' '}
+                {user.last_name}
+              </td>
+              <td>{user.email}</td>
+              <td>{user.phone_number}</td>
+              <td>{user.user_type_id}</td>
+              <td>
+                <Link to={`/admin/user_editor/${user.id}`}>
+                  <button type="submit" className="btn-list">
+                          Edit User ►
+                  </button>
+                </Link>
+              </td>
+              <td>
+                <button
+                  type="submit"
+                  className="btn-list"
+                  onClick={() => onDelete(user.id)}
+                >
+                          Delete User ►
+                </button>
+              </td>
+            </tr>
+          </tbody>
         ))}
       </table>
     </Container>

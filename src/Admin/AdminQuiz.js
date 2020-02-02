@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import './AdminList.css';
 import { Container } from 'react-bootstrap';
-import {
-  Link, withRouter, useHistory, Redirect,
-} from 'react-router-dom';
-
 
 class AdminQuiz extends Component {
   constructor(props) {

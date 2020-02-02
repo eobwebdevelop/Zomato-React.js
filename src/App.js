@@ -73,10 +73,11 @@ class App extends Component {
       token: "",
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
-      restaurants: [{ id: 0, name: "" }],
+      restaurants: [{ id: 0, name: "", region:0 }],
       regions: [{ id: 0, name: "" }],
       results: [{ id: 0, name: "" }],
-      documentation: []
+      documentation: [],
+      langOptions: langOptions,
     };
 
     this.onNextStep = this.onNextStep.bind(this);
@@ -270,7 +271,6 @@ class App extends Component {
       console.log(this.state.currentLanguage)
       this.refreshQuizState();
       this.getQuizzes();
-      console.log('get Quizzes')
       this.getQuizzesByLang();
       this.getProducts();
       this.getUsers();
@@ -345,8 +345,8 @@ class App extends Component {
       quizzesLearner
     } = this.state;
 
-    console.log(this.state.quizzesAreLoaded)
-    console.log(this.state.quizzesByLang)
+    
+
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
@@ -401,7 +401,8 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminDocEditor documentation={this.state.documentation} />
+              <AdminDocEditor 
+              documentation={this.state.documentation} />
             </>
           )}
         />
@@ -447,7 +448,9 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminUserList users={users} />
+              <AdminUserList 
+              users={users}
+              onDelete={this.handleDeleteUser} />
             </>
           )}
         />
@@ -457,7 +460,10 @@ class App extends Component {
           render={props => (
             <>
               <AdminNav />
-              <AdminUserEditor users={users} />
+              <AdminUserEditor 
+              regions={regions}
+              restaurants={restaurants}
+              user = {users.find((user) => user.id === +props.match.params.id)} />
             </>
           )}
         />
@@ -481,7 +487,8 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminRestaurantCreator />
+              <AdminRestaurantCreator 
+              regions={regions} />
             </>
           )}
         />
@@ -519,7 +526,8 @@ class App extends Component {
           render={() => (
             <>
               <AdminNav />
-              <AdminProductCreator />
+              <AdminProductCreator 
+              langOptions={langOptions} />
             </>
           )}
         />
@@ -527,11 +535,12 @@ class App extends Component {
         <Route
           exact
           path="/admin/product_editor/:id"
-          render={() => (
+          render={props => (
             <>
               <AdminNav />
               <AdminProductEditor
-                products={products}
+                langOptions={langOptions}
+                product={products.find((prod) => prod.id === +props.match.params.id)}
               />
             </>
           )}
@@ -636,7 +645,6 @@ class App extends Component {
                 step={this.state.step}
                 quizIDInPlay={this.state.quizIDInPlay}
                 stopTimer={this.stopTimer}
-                overallTime={this.state.overallTime}
                 userAnswerClick={this.userAnswerClick}
                 userQuizAnswers={this.state.userQuizAnswers}
               />
@@ -661,6 +669,18 @@ class App extends Component {
     );
   }
 };
+
+const langOptions = [
+  {
+    id: 1,
+    name: 'English',
+
+  },
+  {
+    id: 2,
+    name: 'Português',
+  },
+];
 
 const placeholderData = {
     "quizzes": [
