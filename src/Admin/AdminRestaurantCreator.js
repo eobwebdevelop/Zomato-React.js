@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Select from "react-select";
 import './AdminCreator.css';
@@ -8,6 +8,7 @@ import './AdminCreator.css';
 
 class AdminRestaurantCreator extends Component  {
   constructor(props) {
+    console.log(props)
     super(props);
     this.state = {
       name: 'resto1',
@@ -40,11 +41,11 @@ class AdminRestaurantCreator extends Component  {
         }),
         body:  JSON.stringify({name, region_id}),
     })
-    .then(res  =>  res.json())
-    .then(
-        res  =>  this.setState({"flash":  res.flash}),
-        err  =>  this.setState({"flash":  err.flash})
-    ) 
+    .then(res => {
+          if(res.status === 200){ 
+            this.props.history.push('/admin/restaurant_list')
+          }}
+        )
   }
 
   render() {
@@ -66,7 +67,7 @@ class AdminRestaurantCreator extends Component  {
                 classNamePrefix="select"
                 options={regions.map((item) => ({value: item.id, label: item.name}))} 
                 />
-                <button type="submit" class="btn-login">
+                <button type="submit" className="btn-login">
                 Submit
                 </button>
             </form>
@@ -75,4 +76,4 @@ class AdminRestaurantCreator extends Component  {
       )}
   }
 
-export default AdminRestaurantCreator;
+export default withRouter(AdminRestaurantCreator);

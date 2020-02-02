@@ -38,7 +38,8 @@ class AdminRestaurantEditor extends Component  {
   }
 
   handlerSubmit = (e) => {
-    const { name, region_id, id } = this.state
+    
+    const { name, region_id, id} = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:", id, name, region_id);
     fetch("http://localhost:3000/admin/restaurant/edit",
@@ -49,10 +50,10 @@ class AdminRestaurantEditor extends Component  {
         }),
         body:  JSON.stringify({id, name, region_id}),
     })
-    .then(res  =>  res.json())
-    .then(
-        res  =>  this.setState({"flash":  res.flash}),
-        err  =>  this.setState({"flash":  err.flash})
+    .then(res => {
+      if(res.status === 200){ 
+        this.props.history.push('/admin/restaurant_list')
+      }}
     ) 
   }
 

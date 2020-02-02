@@ -19,16 +19,16 @@ class AdminQuizEditor extends Component {
 
 
 
+  updatequestion = (event) => {
+    this.setState({queston: event.target.value})
+  }
+
   updateName = (event) => {
     this.setState({name: event.target.value})
   }
 
-  updateDescription = (event) => {
-    this.setState({description: event.target.value})
-  }
-
   handlerSubmit = (e) => {
-    const {name, description, id} = this.state
+    const {questions, name, id} = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:",  );
     fetch("http://localhost:3000/admin/quiz/edit",
@@ -37,7 +37,7 @@ class AdminQuizEditor extends Component {
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify({}),
+        body:  JSON.stringify({questions, name, id}),
     })
     .then(res  =>  res.json())
     .then(
