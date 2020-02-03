@@ -208,7 +208,7 @@ class App extends Component {
     var totalScore = 0;
     for (let i = 0; i < this.state.userQuizAnswers.length; i++) {
       if (
-        this.state.userQuizAnswers[i].userAnswerID ==
+        this.state.userQuizAnswers[i].userAnswerID ===
         this.state.userQuizAnswers[i].correctAnswerID
       ) {
         totalScore = totalScore + 1;
@@ -268,7 +268,6 @@ class App extends Component {
         : availableLanguages.pt,
       token: token ? JSON.parse(token) : ""
     }, () => {
-      console.log(this.state.currentLanguage)
       this.refreshQuizState();
       this.getQuizzes();
       this.getQuizzesByLang();
@@ -304,7 +303,7 @@ class App extends Component {
 
   handleDeleteProduct = id => {
     this.handleDelete(id, "product", () => {
-      const updatedProducts = this.state.quizzes.filter(quiz => quiz.id !== id);
+      const updatedProducts = this.state.products.filter(product => product.id !== id);
       this.setState({ products: updatedProducts });
     });
   };
