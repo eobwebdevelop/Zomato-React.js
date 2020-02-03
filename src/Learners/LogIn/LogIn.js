@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import LanguagesContext from "../../contexts/languages-context";
 import translations from "../../i18n/translations";
 import SignUp from "../SignUp/SignUp";
-
 
 class LogIn extends Component {
   constructor(props) {
@@ -26,17 +25,17 @@ class LogIn extends Component {
   };
 
   //Validation form
-  validate = (currentLanguage) => {
+  validate = currentLanguage => {
     let isError = false;
     const errors = {
       emailError: "",
       passwordError: ""
     };
 
-    if(this.state.email === ''){
+    if (this.state.email === "") {
       isError = true;
       errors.emailError = translations[currentLanguage].Login.ErrorEmail;
-    } else if (this.state.password === '') {
+    } else if (this.state.password === "") {
       isError = true;
       errors.passwordError = translations[currentLanguage].Login.ErrorPassword;
     }
@@ -64,28 +63,25 @@ class LogIn extends Component {
         body: JSON.stringify({ email, password })
       })
         .then(res => res.json())
-        .then(
-          res =>
-            this.setState({ flash: res.flash }, () => {
-              if(res.token) { console.log('hey')
-                localStorage.setItem("token", JSON.stringify(res.token)); 
-                this.props.history.push('/learners/quiz_list');
-              } else if( res.status === 201) {
-                this.props.history.push('/learners/quiz_list');
-              } else {
-                console.log('login failed')
-                // DO FLASH MESSAGE
-              }
-            }),
-        )
-       
-      }
-    };
+        .then(res =>
+          this.setState({ flash: res.flash }, () => {
+            if (res.token) {
+              localStorage.setItem("token", JSON.stringify(res.token));
+              this.props.history.push("/learners/quiz_list");
+            } else if (res.status === 201) {
+              setTimeout(() => {
+                this.props.history.push("/learners/quiz_list");
+             }, 2000)
+             } 
+          })
+        );
+    }
+  };
 
-    render() {
+  render() {
     return (
       <LanguagesContext.Consumer>
-        {({ currentLanguage}) => (
+        {({ currentLanguage }) => (
           <Container>
             <div className="formparentcontainer">
               <div className="formchildcontainer">
@@ -93,7 +89,7 @@ class LogIn extends Component {
                   {translations[currentLanguage].Login.Title}
                 </h1>
                 <hr />
-                <form onSubmit={(e) => this.handlerSubmit(e, currentLanguage)}>
+                <form onSubmit={e => this.handlerSubmit(e, currentLanguage)}>
                   <input
                     type="email"
                     name="email"
@@ -126,10 +122,9 @@ class LogIn extends Component {
                   {translations[currentLanguage].Login.Forgot}
                   <br />
                 </Link> */}
-                {translations[currentLanguage].Login.Account}
-                {' '}
+                {translations[currentLanguage].Login.Account}{" "}
                 <Link to="/learners/signup">
-                    {translations[currentLanguage].Login.ButtonS}
+                  {translations[currentLanguage].Login.ButtonS}
                 </Link>
               </div>
             </div>

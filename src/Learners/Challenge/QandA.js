@@ -14,8 +14,7 @@ class QandA extends React.Component {
   answerSelect(userInput) {
     this.setState(state => ({
       ...state,
-      selectedAnswer: userInput,
-      showNextButton: true
+      selectedAnswer: userInput
     }));
   }
 
@@ -24,11 +23,12 @@ class QandA extends React.Component {
       questionPackage,
       step,
       onClickAnswer,
-      onNextStep,
+      addUserInputToState,
       isVisible,
       stopTimer,
       quizIDInPlay,
-      checkScore
+      checkScore,
+      incrementQuizStep
     } = this.props;
 
     // Uncomment this to see the question being rendered
@@ -59,12 +59,13 @@ class QandA extends React.Component {
         ))}
 
         <NextButton
-          onNextStep={onNextStep}
+          addUserInputToState={addUserInputToState}
           step={step}
           stopTimer={stopTimer}
           selectedAnswer={this.state.selectedAnswer}
           isVisible={this.state.selectedAnswer.userAnswerID === undefined}
           checkScore={checkScore}
+          incrementQuizStep={incrementQuizStep}
         />
       </>
     );

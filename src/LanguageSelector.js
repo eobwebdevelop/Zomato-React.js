@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import LanguagesContext, { availableLanguages } from './contexts/languages-context';
 import translations from './i18n/translations';
+import {withRouter} from 'react-router-dom';
 
 
-const LanguageSelector = () => {
+const LanguageSelector = ({ location }) => {
   const { currentLanguage, onChangeLanguage } = useContext(LanguagesContext);
+  if (location.pathname === '/learners/quiz_list/quiz') return null;
+  if (location.pathname.split('/')[1] === 'admin') return null;
 
   return (
     <>
@@ -24,4 +27,4 @@ const LanguageSelector = () => {
   );
 };
 
-export default LanguageSelector;
+export default withRouter(LanguageSelector);

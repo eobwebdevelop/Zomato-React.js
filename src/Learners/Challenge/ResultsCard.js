@@ -2,7 +2,6 @@ import React from "react";
 // import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
 // import translations from '../../i18n/translations';
 
-
 class ResultsCard extends React.Component {
   render() {
     const {
@@ -11,48 +10,39 @@ class ResultsCard extends React.Component {
       questionNumber,
       questionText,
       userAnswerText,
-      userAnswerID,
+      userAnswerID
     } = this.props;
 
-    if (userAnswerID === correctAnswerID) {
+    if (userAnswerText === correctAnswerText) {
       return (
         <>
           <h1>
-            Question
-            {' '}
-            {questionNumber}
-:
-            {' '}
-            {questionText}
+            Question {questionNumber}: {questionText}
           </h1>
 
-          <h2>Correct<span role="img" aria-label="jsx-a11y/accessible-emoji">✅</span> </h2>
-          <p>
-            Your answer:
-            {userAnswerText}
-          </p>
+          <h2>
+            Correct{" "}
+            <span role="img" aria-label="jsx-a11y/accessible-emoji">
+              ✅
+            </span>{" "}
+          </h2>
+          <p>Your answer: {userAnswerText}</p>
         </>
       );
     }
     return (
       <>
         <h1>
-            Question
-          {' '}
-          {questionNumber}
-:
-          {' '}
-          {questionText}
+          Question {questionNumber}: {questionText}
         </h1>
-        <h2>Incorrect <span role="img" aria-label="jsx-a11y/accessible-emoji">❌</span></h2> 
-        <p>
-Your answer:
-          {userAnswerText}
-        </p>
-        <p>
-The correct answer:
-          {correctAnswerText}
-        </p>
+        <h2>
+          Incorrect{" "}
+          <span role="img" aria-label="jsx-a11y/accessible-emoji">
+            ❌
+          </span>
+        </h2>
+        <p>Your answer: {userAnswerText}</p>
+        <p>The correct answer: {correctAnswerText}</p>
       </>
     );
   }
