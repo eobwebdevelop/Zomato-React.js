@@ -277,6 +277,12 @@ class App extends Component {
       this.getDocs();
     });
   };
+  
+  componentDidUpdate(prevProps, pS) {
+    if (this.state.currentLanguage !== pS.currentLanguage) {
+      this.getQuizzesByLang();
+    }
+   }
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
