@@ -69,11 +69,10 @@ class LogIn extends Component {
               localStorage.setItem("token", JSON.stringify(res.token));
               this.props.history.push("/learners/quiz_list");
             } else if (res.status === 201) {
-              this.props.history.push("/learners/quiz_list");
-            } else {
-              console.log("login failed");
-              // DO FLASH MESSAGE
-            }
+              setTimeout(() => {
+                this.props.history.push("/learners/quiz_list");
+             }, 2000)
+             } 
           })
         );
     }
