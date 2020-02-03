@@ -1,12 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import QandA from './QandA';
-import './Challenge.css'
-import ResultsCard from './ResultsCard';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import QandA from "./QandA";
+import "./Challenge.css";
+import ResultsCard from "./ResultsCard";
 // import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
 // import translations from '../../i18n/translations';
-
 
 class Challenge extends React.Component {
   componentDidMount() {
@@ -20,17 +19,18 @@ class Challenge extends React.Component {
       step,
       overallTime,
       onClickAnswer,
-      onNextStep,
+      addUserInputToState,
       quizIDInPlay,
       refreshQuizState,
       stopTimer,
       userQuizAnswers,
       checkScore,
       score,
+      incrementQuizStep
     } = this.props;
 
     const questionPackageSpecificQuizIDOnly = questionPackage.filter(
-      (el) => el.id === quizIDInPlay,
+      el => el.id === quizIDInPlay
     )[0].questions;
 
     if (step < 10) {
@@ -42,10 +42,11 @@ class Challenge extends React.Component {
             {questionPackageSpecificQuizIDOnly.map((questionPackage, i) => (
               <QandA
                 questionPackage={questionPackageSpecificQuizIDOnly[i]}
-                onNextStep={onNextStep}
+                addUserInputToState={addUserInputToState}
                 isVisible={step === i}
                 onClickAnswer={onClickAnswer}
                 stopTimer={stopTimer}
+                incrementQuizStep={incrementQuizStep}
                 step={i}
                 overallTime={overallTime}
                 quizIDInPlay={quizIDInPlay}
@@ -53,10 +54,8 @@ class Challenge extends React.Component {
               />
             ))}
             <h3>
-Current Time:
-              {overallTime}
-              {' '}
-seconds
+              Current Time:
+              {" " + overallTime} seconds
             </h3>
           </div>
         </Container>
@@ -66,17 +65,10 @@ seconds
       <Container>
         <h1>Results</h1>
         <hr />
-        <h2>
-You scored
-          {score}
-          {' '}
-out of 10! 🎉
-        </h2>
+        <h2>You scored {" " + score} out of 10! 🎉</h2>
         <h3>
-Your total time was
-          {overallTime}
-          {' '}
-seconds.
+          Your total time was
+          {" " + overallTime} seconds.
         </h3>
 
         <h3>
@@ -93,11 +85,15 @@ seconds.
         </h3>
 
         <Link to="/learners/quiz_list">
-            <button onClick={refreshQuizState}>Home</button>
+          <button class="btn" onClick={refreshQuizState}>
+            Home
+          </button>
         </Link>
 
         <Link to="/learners/documentation">
-            <button onClick={refreshQuizState}>Documentation</button>
+          <button class="btn" onClick={refreshQuizState}>
+            Documentation
+          </button>
         </Link>
       </Container>
     );

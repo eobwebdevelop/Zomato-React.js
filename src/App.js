@@ -72,32 +72,31 @@ class App extends Component {
       timerRunning: false,
       userQuizAnswers: [],
       token: "",
+      // userid should match auth to post the right quiz result
+      userid: 20,
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
-      restaurants: [{ id: 0, name: "", region:0 }],
+      restaurants: [{ id: 0, name: "", region: 0 }],
       regions: [{ id: 0, name: "" }],
       results: [{ id: 0, name: "" }],
       documentation: [],
-      langOptions: langOptions,
+      langOptions: langOptions
     };
 
-    this.onNextStep = this.onNextStep.bind(this);
-
+    this.addUserInputToState = this.addUserInputToState.bind(this);
+    this.incrementQuizStep = this.incrementQuizStep.bind(this);
     this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
-
-    this.timer = null;
     this.stopTimer = this.stopTimer.bind(this);
     this.startOverallTimer = this.startOverallTimer.bind(this);
-
     this.checkScore = this.checkScore.bind(this);
-
     this.refreshQuizState = this.refreshQuizState.bind(this);
+    this.timer = null;
   }
 
   getRegion = () => {
     fetch("http://localhost:3000/admin/region")
       .then(response => response.json())
-      .then(data => { 
+      .then(data => {
         this.setState(state => ({
           ...state,
           regions: data.Region
@@ -108,7 +107,7 @@ class App extends Component {
   getResults = () => {
     fetch("http://localhost:3000/admin/result")
       .then(response => response.json())
-      .then(data => { 
+      .then(data => {
         this.setState(state => ({
           ...state,
           results: data.Results
@@ -119,7 +118,7 @@ class App extends Component {
   getRestaurants = () => {
     fetch("http://localhost:3000/admin/restaurant")
       .then(response => response.json())
-      .then(data => { 
+      .then(data => {
         this.setState(state => ({
           ...state,
           restaurants: data.Restaurant
@@ -131,38 +130,37 @@ class App extends Component {
     fetch("http://localhost:3000/learner/quiz", {
       method: "GET",
       headers: new Headers({
-        'Preferred-Language': this.state.currentLanguage
+        "Preferred-Language": this.state.currentLanguage
       })
     })
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
           ...state,
-          quizzesLearner: data,
+          quizzesLearner: data
         }));
       });
   };
 
   getQuizzes = () => {
-    this.setState(
-      { quizzesAreLoaded: false },
-      () => {
-        fetch("http://localhost:3000/admin/quiz")
+    this.setState({ quizzesAreLoaded: false }, () => {
+      fetch("http://localhost:3000/admin/quiz")
         .then(response => response.json())
-        .then(data => { console.log('fetch Quizzes')
+        .then(data => {
+          // console.log("fetch Quizzes");
           this.setState(state => ({
             ...state,
             quizzes: data.quizzes,
             quizzesAreLoaded: true
           }));
-      })
+        });
     });
   };
 
   getDocs = () => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
       .then(response => response.json())
-      .then(data => { 
+      .then(data => {
         this.setState(state => ({
           ...state,
           documentation: data.Documentation
@@ -170,19 +168,31 @@ class App extends Component {
       });
   };
 
-  onNextStep = selectedAnswer => {
+  addUserInputToState = selectedAnswer => {
+
+    const newState = this.state.userQuizAnswers;
+    newState.push(selectedAnswer)
+    this.setState(state => {
+      return {
+        userQuizAnswers: newState
+      };
+    });
+   
+  };
+
+  incrementQuizStep = () => {
+
     this.setState(state => {
       return {
         ...state,
-        step: ++state.step,
-        userQuizAnswers: [...this.state.userQuizAnswers, selectedAnswer]
+        step: this.state.step+1
       };
     });
   };
 
   // ew: This timer is called on ComponentDidMount as soon as a user clicks Take Quiz. Once step is 10 (results), it stops.
 
-  startOverallTimer(){
+  startOverallTimer() {
     this.setState({ timerRunning: true });
     this.timer = setInterval(
       () =>
@@ -196,46 +206,45 @@ class App extends Component {
         }),
       1000
     );
-  };
+  }
 
   stopTimer() {
     this.setState({ timer: false });
-    // console.log("stopped timer");
-    //Clear interval
     clearInterval(this.timer);
-  };
+  }
 
   checkScore() {
+  
     var totalScore = 0;
     for (let i = 0; i < this.state.userQuizAnswers.length; i++) {
       if (
-        this.state.userQuizAnswers[i].userAnswerID ===
-        this.state.userQuizAnswers[i].correctAnswerID
+        this.state.userQuizAnswers[i].userAnswerText ===
+        this.state.userQuizAnswers[i].correctAnswerText
       ) {
         totalScore = totalScore + 1;
       }
     }
 
     this.setState({ score: totalScore });
-  };
+  }
 
   // EW:When you click TAKE QUIZ, this method is called in the quiz card, updating the state. A filter is run to only play the quiz specified in this.state.QuizIDInPlay.
 
   changeQuizIDInPlay(quizID) {
     this.setState({ quizIDInPlay: quizID });
-  };
+  }
 
   refreshQuizState() {
     // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
     // console.log("refresh");
     this.stopTimer();
     this.setState({ overallTime: 0, step: 0 });
-  };
+  }
 
   getProducts = () => {
     fetch("http://localhost:3000/admin/product")
       .then(response => response.json())
-      .then(data => { 
+      .then(data => {
         this.setState(state => ({
           ...state,
           products: data.product
@@ -246,7 +255,7 @@ class App extends Component {
   getUsers = () => {
     fetch("http://localhost:3000/admin/user")
       .then(response => response.json())
-      .then(data => { 
+      .then(data => {
         this.setState(state => ({
           ...state,
           users: data.users
@@ -285,7 +294,6 @@ class App extends Component {
       this.setState(this.props.currentLanguage);
     }
    }
-
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -335,10 +343,7 @@ class App extends Component {
     });
   };
 
- 
-
   render() {
-
     const {
       currentLanguage,
       products,
@@ -351,67 +356,65 @@ class App extends Component {
       quizzesLearner
     } = this.state;
 
-
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
       >
-        <QuizzesContext.Provider 
+        <QuizzesContext.Provider
           value={{ quizzes, onLoadQuizzes: this.getQuizzes, quizzesAreLoaded }}
         >
-           <Route
-          exact
-          path="/"
-          render={() => <Redirect to="/learners/login"></Redirect>}
-        />
-        <Route
-          exact
-          path="/admin"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminHomePage />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/"
+            render={() => <Redirect to="/learners/login"></Redirect>}
+          />
+          <Route
+            exact
+            path="/admin"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminHomePage />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/admin/login"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminLogin />
-            </>
-          )}
-        />
-        {/* {Documentation } */}
-        <Route
-          exact
-          path="/admin/doc_list"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminDocList
-                documentation={this.state.documentation}
-                onDelete={this.handleDeleteDoc}
-              />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/admin/login"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminLogin />
+              </>
+            )}
+          />
+          {/* {Documentation } */}
+          <Route
+            exact
+            path="/admin/doc_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminDocList
+                  documentation={this.state.documentation}
+                  onDelete={this.handleDeleteDoc}
+                />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/admin/doc_editor"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminDocEditor 
-              documentation={this.state.documentation} />
-            </>
-          )}
-        />
-        
+          <Route
+            exact
+            path="/admin/doc_editor"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminDocEditor documentation={this.state.documentation} />
+              </>
+            )}
+          />
+
           {/* {QUIZ } */}
         <Route
           exact
@@ -486,204 +489,205 @@ class App extends Component {
           )}
         />
           {/* {Restaurant } */}
-        <Route
-          exact
-          path="/admin/restaurant_list"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminRestaurantList
-                restaurants={restaurants}
-                onDelete={this.handleDeleteRestaurant}
-              />
-            </>
-          )}
-        />
-        <Route
-          exact
-          path="/admin/restaurant_creator"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminRestaurantCreator 
-              regions={regions} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/admin/restaurant_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminRestaurantList
+                  restaurants={restaurants}
+                  onDelete={this.handleDeleteRestaurant}
+                />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/admin/restaurant_creator"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminRestaurantCreator regions={regions} />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/admin/restaurant_editor/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminRestaurantEditor
-                restaurant={restaurants.find((res) => res.id === +props.match.params.id)}
-                regions={regions}
-              />
-            </>
-          )}
-        />
-        {/* {Products } */}
-        <Route
-          exact
-          path="/admin/product_list"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductList
-                products={products}
-                onDelete={this.handleDeleteProduct}
-              />
-            </>
-          )}
-        />
-        <Route
-          exact
-          path="/admin/product_creator"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminProductCreator 
-              langOptions={langOptions} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/admin/restaurant_editor/:id"
+            render={props => (
+              <>
+                <AdminNav />
+                <AdminRestaurantEditor
+                  restaurant={restaurants.find(
+                    res => res.id === +props.match.params.id
+                  )}
+                  regions={regions}
+                />
+              </>
+            )}
+          />
+          {/* {Products } */}
+          <Route
+            exact
+            path="/admin/product_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminProductList
+                  products={products}
+                  onDelete={this.handleDeleteProduct}
+                />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/admin/product_creator"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminProductCreator langOptions={langOptions} />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/admin/product_editor/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminProductEditor
-                langOptions={langOptions}
-                product={products.find((prod) => prod.id === +props.match.params.id)}
-              />
-            </>
-          )}
-        />
-        <Route
-          exact
-          path="/admin/result_list"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminResultList results={results} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/admin/product_editor/:id"
+            render={props => (
+              <>
+                <AdminNav />
+                <AdminProductEditor
+                  langOptions={langOptions}
+                  product={products.find(
+                    prod => prod.id === +props.match.params.id
+                  )}
+                />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/admin/result_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminResultList results={results} />
+              </>
+            )}
+          />
 
-        {/* Learners Route */}
+          {/* Learners Route */}
 
-        <Route
-          exact
-          path="/learners/contact_us"
-          render={() => (
-            <>
-              <LearnerNav />
-              <ContactUs />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/contact_us"
+            render={() => (
+              <>
+                <LearnerNav />
+                <ContactUs />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/learners/faq"
-          render={() => (
-            <>
-              <LearnerNav />
-              <FAQ />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/faq"
+            render={() => (
+              <>
+                <LearnerNav />
+                <FAQ />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/learners/documentation"
-          render={() => (
-            <>
-              <LearnerNav />
-              <Documentation documentation={this.state.documentation} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/documentation"
+            render={() => (
+              <>
+                <LearnerNav />
+                <Documentation documentation={this.state.documentation} />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/learners/login"
-          render={() => (
-            <>
-              <BasicNav />
-              <LogIn />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/login"
+            render={() => (
+              <>
+                <BasicNav />
+                <LogIn />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/learners/login/forgot_password"
-          render={() => (
-            <>
-              <LearnerNav />
-              <ForgotPassword />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/login/forgot_password"
+            render={() => (
+              <>
+                <LearnerNav />
+                <ForgotPassword />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/learners/quiz_list"
-          render={() => (
-            <>
-              <LearnerNav />
-              <QuizList
-                QuizList={quizzesLearner.quizzes}
-                changeQuizIDInPlay={this.changeQuizIDInPlay}
-              />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/quiz_list"
+            render={() => (
+              <>
+                <LearnerNav />
+                <QuizList
+                  QuizList={quizzesLearner.quizzes}
+                  changeQuizIDInPlay={this.changeQuizIDInPlay}
+                />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/learners/quiz_list/quiz"
-          render={() => (
-            <>
-              <LearnerNav />
-              <Challenge
-                score={this.state.score}
-                checkScore={this.checkScore}
-                refreshQuizState={this.refreshQuizState}
-                questionPackage={quizzesLearner.quizzes}
-                startOverallTimer={this.startOverallTimer}
-                overallTime={this.state.overallTime}
-                onNextStep={this.onNextStep}
-                onClickAnswer={this.onClickAnswer}
-                step={this.state.step}
-                quizIDInPlay={this.state.quizIDInPlay}
-                stopTimer={this.stopTimer}
-                userAnswerClick={this.userAnswerClick}
-                userQuizAnswers={this.state.userQuizAnswers}
-              />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/quiz_list/quiz"
+            render={() => (
+              <>
+                <LearnerNav />
+                <Challenge
+                  score={this.state.score}
+                  checkScore={this.checkScore}
+                  refreshQuizState={this.refreshQuizState}
+                  questionPackage={quizzesLearner.quizzes}
+                  startOverallTimer={this.startOverallTimer}
+                  overallTime={this.state.overallTime}
+                  addUserInputToState={this.addUserInputToState}
+                  incrementQuizStep={this.incrementQuizStep}
+                  onClickAnswer={this.onClickAnswer}
+                  step={this.state.step}
+                  quizIDInPlay={this.state.quizIDInPlay}
+                  stopTimer={this.stopTimer}
+                  userAnswerClick={this.userAnswerClick}
+                  userQuizAnswers={this.state.userQuizAnswers}
+                />
+              </>
+            )}
+          />
 
-        <Route
-          exact
-          path="/learners/signup"
-          render={() => (
-            <>
-              <BasicNav />
-              <SignUp restaurants={restaurants} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/signup"
+            render={() => (
+              <>
+                <BasicNav />
+                <SignUp restaurants={restaurants} />
+              </>
+            )}
+          />
         </QuizzesContext.Provider>
       </LanguagesContext.Provider>
-      
-      
     );
   }
 };

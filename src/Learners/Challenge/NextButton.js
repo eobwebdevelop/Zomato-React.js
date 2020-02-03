@@ -1,17 +1,34 @@
-import React from 'react';
-// import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
-// import translations from '../../i18n/translations';
+import React, { Component } from "react";
 
+class NextButton extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      test: "Test"
+    };
 
-class NextButton extends React.Component {
+    this.nextQuestion = this.nextQuestion.bind(this);
+    this.finalQuestion = this.finalQuestion.bind(this);
+  }
+
+  nextQuestion(selectedAnswer) {
+    this.props.addUserInputToState(selectedAnswer);
+    this.props.incrementQuizStep();
+  }
+
+  finalQuestion(selectedAnswer) {
+    this.props.addUserInputToState(selectedAnswer);
+    this.props.checkScore();
+    this.props.incrementQuizStep();
+  }
+
   render() {
     const {
-      onNextStep,
+      addUserInputToState,
       step,
       stopTimer,
       selectedAnswer,
-      isVisible,
-      checkScore,
+      isVisible
     } = this.props;
 
     if (isVisible === true) return null;
@@ -23,7 +40,7 @@ class NextButton extends React.Component {
             type="submit"
             className="btn"
             onClick={() => {
-              onNextStep(selectedAnswer);
+              this.nextQuestion(selectedAnswer);
             }}
           >
             Next
@@ -37,12 +54,10 @@ class NextButton extends React.Component {
           type="submit"
           className="btn"
           onClick={() => {
-            stopTimer();
-            onNextStep(selectedAnswer);
-            checkScore();
+            this.finalQuestion(selectedAnswer);
           }}
         >
-            See results
+          See Results
         </button>
       </>
     );
