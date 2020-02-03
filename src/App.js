@@ -281,7 +281,7 @@ class App extends Component {
   };
   componentDidUpdate(prevProps, pS) {
     if (this.state.currentLanguage !== pS.currentLanguage) {
-      this.setState(this.props.currentLanguage);
+      this.getQuizzesByLang();
     }
    }
 
