@@ -238,7 +238,7 @@ class App extends Component {
     // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
     // console.log("refresh");
     this.stopTimer();
-    this.setState({ overallTime: 0, step: 0 });
+    this.setState({ overallTime: 0, step: 0, userQuizAnswers: [] });
   }
 
   getProducts = () => {
