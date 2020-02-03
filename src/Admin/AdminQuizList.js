@@ -52,6 +52,7 @@ const AdminQuizList = ({ onDelete }) => {
     </div>
   );
 };
+
 AdminQuizList.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
