@@ -21,15 +21,12 @@ class ResultsCard extends React.Component {
           </h1>
 
           <h2>
-            Correct
+            Correct{" "}
             <span role="img" aria-label="jsx-a11y/accessible-emoji">
               ✅
             </span>{" "}
           </h2>
-          <p>
-            Your answer:
-            {userAnswerText}
-          </p>
+          <p>Your answer: {userAnswerText}</p>
         </>
       );
     }
@@ -44,14 +41,8 @@ class ResultsCard extends React.Component {
             ❌
           </span>
         </h2>
-        <p>
-          Your answer:
-          {userAnswerText}
-        </p>
-        <p>
-          The correct answer:
-          {correctAnswerText}
-        </p>
+        <p>Your answer: {userAnswerText}</p>
+        <p>The correct answer: {correctAnswerText}</p>
       </>
     );
   }
