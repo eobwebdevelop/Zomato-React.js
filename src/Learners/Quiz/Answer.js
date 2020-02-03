@@ -60,7 +60,7 @@ class Answer extends Component {
             <Row>
               <Col md='12'>
                 <div className="d-flex justify-content-end">
-                  <button type="submit" className="btn" disabled={!this.state.radio}>
+                  <button type="submit" className="btn resp" disabled={!this.state.radio}>
                   {translations[currentLanguage].Answer.ButtonN}
                   </button>
                 </div>

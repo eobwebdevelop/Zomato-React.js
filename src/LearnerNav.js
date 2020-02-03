@@ -28,7 +28,7 @@ const LearnerNav = () => {
             <Nav.Link href="/learners/faq" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkF}
             </Nav.Link>
-            <Nav.Link href="/learners/contact_us" className="grey-link">
+            <Nav.Link href="/learners/about" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkC}
             </Nav.Link>
             <Nav.Link href="/admin/login" className="grey-link">

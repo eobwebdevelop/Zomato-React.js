@@ -29,7 +29,7 @@ import AdminQuestionEditor from "./Admin/AdminQuestionEditor"
 
 import LearnerNav from "./LearnerNav";
 import BasicNav from "./BasicNav.js";
-import ContactUs from "./Learners/ContactUs/ContactUs";
+import About from "./Learners/About/About";
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
 import ForgotPassword from "./Learners/LogIn/ForgotPassword";
@@ -583,11 +583,11 @@ class App extends Component {
 
           <Route
             exact
-            path="/learners/contact_us"
+            path="/learners/about"
             render={() => (
               <>
                 <LearnerNav />
-                <ContactUs />
+                <About />
               </>
             )}
           />
