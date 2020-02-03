@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Redirect, Route } from "react-router-dom";
+
+
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
@@ -50,6 +52,10 @@ import LanguagesContext, {
 } from "./contexts/languages-context";
 import QuizzesContext from "./contexts/quiz-context";
 
+// EW: The module below JWT decode llows for decoding of JWT token, which is being used to read the user_id payload in the token
+var jwtDecode = require("jwt-decode");
+
+
 // EW 30.09.2019: Note, state.placeholderdata is useful for testing and provides a skeleton before API loaded so please leave in state for now.
 
 class App extends Component {
@@ -69,11 +75,12 @@ class App extends Component {
       quizzesAreLoaded: false,
       // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
       quizIDInPlay: 1,
+      quizNameInPlay: "TestString",
       timerRunning: false,
       userQuizAnswers: [],
       token: "",
+      userID: null,
       // userid should match auth to post the right quiz result
-      userid: 20,
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
       restaurants: [{ id: 0, name: "", region: 0 }],
@@ -90,6 +97,8 @@ class App extends Component {
     this.startOverallTimer = this.startOverallTimer.bind(this);
     this.checkScore = this.checkScore.bind(this);
     this.refreshQuizState = this.refreshQuizState.bind(this);
+    this.postQuizResult = this.postQuizResult.bind(this);
+    this.addUserIDFromTokenToState = this.addUserIDFromTokenToState.bind(this);
     this.timer = null;
   }
 
@@ -168,24 +177,57 @@ class App extends Component {
       });
   };
 
-  addUserInputToState = selectedAnswer => {
+  getCurrentDate(){
+    // this returns in a format friendly to mysql DATETIME
+    return new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+  }
 
+  postQuizResult = () => {
+    const user_id = this.state.userID.toString();
+    const quiz_id = this.state.quizIDInPlay.toString();
+    const quiz_name = this.state.quizNameInPlay.toString();
+    const quiz_language_id = this.state.currentLanguage.toString();
+    const time_to_complete_seconds = this.state.overallTime.toString();
+    const time_of_day = this.getCurrentDate().toString();
+    const score_out_of_10 = this.state.score.toString();
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}/quiz/postresult`, {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify({
+        user_id: user_id,
+        quiz_id: quiz_id,
+        quiz_name: quiz_name,
+        quiz_language_id: quiz_language_id,
+        time_to_complete_seconds: time_to_complete_seconds,
+        time_of_day: time_of_day,
+        score_out_of_10: score_out_of_10
+      })
+    }).then(res => {
+      res.json();
+    });
+  }
+
+  addUserInputToState = selectedAnswer => {
     const newState = this.state.userQuizAnswers;
-    newState.push(selectedAnswer)
+    newState.push(selectedAnswer);
     this.setState(state => {
       return {
         userQuizAnswers: newState
       };
     });
-   
   };
 
   incrementQuizStep = () => {
-
     this.setState(state => {
       return {
         ...state,
-        step: this.state.step+1
+        step: this.state.step + 1
       };
     });
   };
@@ -214,7 +256,6 @@ class App extends Component {
   }
 
   checkScore() {
-  
     var totalScore = 0;
     for (let i = 0; i < this.state.userQuizAnswers.length; i++) {
       if (
@@ -230,8 +271,8 @@ class App extends Component {
 
   // EW:When you click TAKE QUIZ, this method is called in the quiz card, updating the state. A filter is run to only play the quiz specified in this.state.QuizIDInPlay.
 
-  changeQuizIDInPlay(quizID) {
-    this.setState({ quizIDInPlay: quizID });
+  changeQuizIDInPlay(quizID, quizName) {
+    this.setState({ quizIDInPlay: quizID, quizNameInPlay: quizName});
   }
 
   refreshQuizState() {
@@ -239,6 +280,10 @@ class App extends Component {
     // console.log("refresh");
     this.stopTimer();
     this.setState({ overallTime: 0, step: 0, userQuizAnswers: [] });
+  }
+
+  addUserIDFromTokenToState() {
+  this.setState({ userID: jwtDecode(this.state.token).id});
   }
 
   getProducts = () => {
@@ -272,28 +317,31 @@ class App extends Component {
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
-    this.setState({
-      currentLanguage: currentLanguage
-        ? JSON.parse(currentLanguage)
-        : availableLanguages.pt,
-      token: token ? JSON.parse(token) : ""
-    }, () => {
-      this.refreshQuizState();
-      this.getQuizzes();
-      this.getQuizzesByLang();
-      this.getProducts();
-      this.getUsers();
-      this.getRestaurants();
-      this.getRegion();
-      this.getResults();
-      this.getDocs();
-    });
-  };
+    this.setState(
+      {
+        currentLanguage: currentLanguage
+          ? JSON.parse(currentLanguage)
+          : availableLanguages.pt,
+        token: token ? JSON.parse(token) : ""
+      },
+      () => {
+        this.refreshQuizState();
+        this.getQuizzes();
+        this.getQuizzesByLang();
+        this.getProducts();
+        this.getUsers();
+        this.getRestaurants();
+        this.getRegion();
+        this.getResults();
+        this.getDocs();
+      }
+    );
+  }
   componentDidUpdate(prevProps, pS) {
     if (this.state.currentLanguage !== pS.currentLanguage) {
       this.getQuizzesByLang();
     }
-   }
+  }
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -315,10 +363,12 @@ class App extends Component {
       this.setState({ documentation: updatedDocs });
     });
   };
-// Hey Hey this says Quiz and not Product
+  // Hey Hey this says Quiz and not Product
   handleDeleteProduct = id => {
     this.handleDelete(id, "product", () => {
-      const updatedProducts = this.state.products.filter(product => product.id !== id);
+      const updatedProducts = this.state.products.filter(
+        product => product.id !== id
+      );
       this.setState({ products: updatedProducts });
     });
   };
@@ -344,6 +394,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.token);
     const {
       currentLanguage,
       products,
@@ -416,78 +467,71 @@ class App extends Component {
           />
 
           {/* {QUIZ } */}
-        <Route
-          exact
-          path="/admin/quiz_list"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminQuizList
-                onDelete={this.handleDeleteQuiz}
-              />
-            </>
-          )}
-        />
-        <Route
-          exact
-          path="/admin/quiz_maker"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminQuizMaker />
-            </>
-          )}
-        />
-        <Route
-          exact
-          path="/admin/quiz_editor/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminQuizEditor
-              onEdit ={this.handleEditQuestion}
-               />
-            </>
-          )}
-        />
-        <Route
-          exact
-          path="/admin/quiz_editor/:id/questions/:qid"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminQuestionEditor
-              onEdit ={this.handleEditQuestion} 
-              />
-            </>
-          )}
-        />
-   {/* {Users } */}
-   <Route
-          exact
-          path="/admin/user_list"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminUserList 
-              users={users}
-              onDelete={this.handleDeleteUser} />
-            </>
-          )}
-        />
-        <Route
-          exact
-          path="/admin/user_editor/:id"
-          render={props => (
-            <>
-              <AdminNav />
-              <AdminUserEditor 
-              regions={regions}
-              restaurants={restaurants}
-              user = {users.find((user) => user.id === +props.match.params.id)} />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/admin/quiz_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminQuizList onDelete={this.handleDeleteQuiz} />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/admin/quiz_maker"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminQuizMaker />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/admin/quiz_editor/:id"
+            render={props => (
+              <>
+                <AdminNav />
+                <AdminQuizEditor onEdit={this.handleEditQuestion} />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/admin/quiz_editor/:id/questions/:qid"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminQuestionEditor onEdit={this.handleEditQuestion} />
+              </>
+            )}
+          />
+          {/* {Users } */}
+          <Route
+            exact
+            path="/admin/user_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminUserList users={users} onDelete={this.handleDeleteUser} />
+              </>
+            )}
+          />
+          <Route
+            exact
+            path="/admin/user_editor/:id"
+            render={props => (
+              <>
+                <AdminNav />
+                <AdminUserEditor
+                  regions={regions}
+                  restaurants={restaurants}
+                  user={users.find(user => user.id === +props.match.params.id)}
+                />
+              </>
+            )}
+          />
           {/* {Restaurant } */}
           <Route
             exact
@@ -671,6 +715,8 @@ class App extends Component {
                   stopTimer={this.stopTimer}
                   userAnswerClick={this.userAnswerClick}
                   userQuizAnswers={this.state.userQuizAnswers}
+                  postQuizResult={this.postQuizResult}
+                  addUserIDFromTokenToState={this.addUserIDFromTokenToState}
                 />
               </>
             )}
@@ -708,7 +754,7 @@ const placeholderData = {
     "quizzes": [
         {
             "id": 1,
-            "name": "Zomato Gold",
+            "name": "Quiz 1",
             "user_type_id": 2,
             "language_id": 1,
             "product_id": 1,
