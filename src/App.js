@@ -271,27 +271,28 @@ class App extends Component {
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
-    this.setState(
-      {
-        currentLanguage: currentLanguage
-          ? JSON.parse(currentLanguage)
-          : availableLanguages.pt,
-        token: token ? JSON.parse(token) : ""
-      },
-      () => {
-        // console.log(this.state.currentLanguage);
-        this.refreshQuizState();
-        this.getQuizzes();
-        this.getQuizzesByLang();
-        this.getProducts();
-        this.getUsers();
-        this.getRestaurants();
-        this.getRegion();
-        this.getResults();
-        this.getDocs();
-      }
-    );
-  }
+    this.setState({
+      currentLanguage: currentLanguage
+        ? JSON.parse(currentLanguage)
+        : availableLanguages.pt,
+      token: token ? JSON.parse(token) : ""
+    }, () => {
+      this.refreshQuizState();
+      this.getQuizzes();
+      this.getQuizzesByLang();
+      this.getProducts();
+      this.getUsers();
+      this.getRestaurants();
+      this.getRegion();
+      this.getResults();
+      this.getDocs();
+    });
+  };
+  componentDidUpdate(prevProps, pS) {
+    if (this.state.currentLanguage !== pS.currentLanguage) {
+      this.setState(this.props.currentLanguage);
+    }
+   }
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -316,7 +317,7 @@ class App extends Component {
 
   handleDeleteProduct = id => {
     this.handleDelete(id, "product", () => {
-      const updatedProducts = this.state.quizzes.filter(quiz => quiz.id !== id);
+      const updatedProducts = this.state.products.filter(product => product.id !== id);
       this.setState({ products: updatedProducts });
     });
   };
