@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+import React, { Component } from "react";
 import { Link } from 'react-router-dom';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 // import { Container } from "react-bootstrap";
 
-class QuizCard extends React.Component {
+class QuizCard extends Component {
   render() {
     const {
       quizTitle,
-      quizDescription,
       QuizLinkText,
       DocumentationLinkText,
       quizID,
@@ -14,23 +15,27 @@ class QuizCard extends React.Component {
     } = this.props;
 
     return (
-      <>
-        <h2>{quizTitle}</h2>
+      <LanguagesContext.Consumer>
+        {({ currentLanguage }) => (
+          <>
+            <h2>{quizTitle}</h2>
 
-        <Link
-          to="/learners/quiz_list/quiz"
-          className="view-quizzes-page-links-side-by-side"
-          onClick={() => changeQuizIDInPlay(quizID)}
-        >
-          {QuizLinkText}
-Take Quiz
-          <br />
-        </Link>
-        <Link to="/learners/documentation" className="cranberry-link">
-          {DocumentationLinkText}
-Read Documentation
-        </Link>
-      </>
+            <Link
+              to="/learners/quiz_list/quiz"
+              className="view-quizzes-page-links-side-by-side"
+              onClick={() => changeQuizIDInPlay(quizID)}
+            >
+              {QuizLinkText}
+              {translations[currentLanguage].QuizCard.LinkQ}
+              <br />
+            </Link>
+            <Link to="/learners/documentation" className="cranberry-link">
+              {DocumentationLinkText}
+              {translations[currentLanguage].QuizCard.LinkD}
+            </Link>
+          </>
+        )}
+      </LanguagesContext.Consumer>
     );
   }
 }
