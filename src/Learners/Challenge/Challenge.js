@@ -74,6 +74,7 @@ class Challenge extends React.Component {
         <h3>
           {userQuizAnswers.map((answerInput, i) => (
             <ResultsCard
+              key={i}
               correctAnswerID={answerInput.correctAnswerID}
               correctAnswerText={answerInput.correctAnswerText}
               questionNumber={answerInput.questionNumber}
