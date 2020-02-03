@@ -75,6 +75,6 @@ AdminProductList.propTypes = {
     }).isRequired,
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
- };
+};
 
 export default AdminProductList;

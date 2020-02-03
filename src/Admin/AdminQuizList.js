@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './AdminList.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Collapsible from 'react-collapsible';
-import AdminQuiz from './AdminQuiz';
+import AdminQuiz from "./AdminQuiz";
 import QuizzesContext from '../contexts/quiz-context';
 
 
@@ -35,6 +36,7 @@ const AdminQuizList = ({ onDelete }) => {
             <Collapsible trigger={q.name}>
               <AdminQuiz
                 quiz={q.questions}
+                editid={q.id}
               />
             </Collapsible>
             <button
@@ -50,15 +52,9 @@ const AdminQuizList = ({ onDelete }) => {
     </div>
   );
 };
-// AdminQuizList.propTypes = {
-//   // quizzes: PropTypes.arrayOf(
-//   //   PropTypes.shape({
-//   //     id: PropTypes.number.isRequired,
-//   //     name: PropTypes.string.isRequired,
-//   //   }).isRequired,
-//   // ).isRequired,
-//   onDelete: PropTypes.func.isRequired,
-// };
+AdminQuizList.propTypes = {
+  onDelete: PropTypes.func.isRequired,
+};
 
 
 export default AdminQuizList;

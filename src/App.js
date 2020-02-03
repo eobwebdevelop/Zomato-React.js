@@ -22,6 +22,7 @@ import AdminProductEditor from "./Admin/AdminProductEditor";
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminResultList from "./Admin/AdminResultList";
+import AdminQuestionEditor from "./Admin/AdminQuestionEditor"
 
 
 // Learner portal imports
@@ -271,27 +272,29 @@ class App extends Component {
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
-    this.setState(
-      {
-        currentLanguage: currentLanguage
-          ? JSON.parse(currentLanguage)
-          : availableLanguages.pt,
-        token: token ? JSON.parse(token) : ""
-      },
-      () => {
-        // console.log(this.state.currentLanguage);
-        this.refreshQuizState();
-        this.getQuizzes();
-        this.getQuizzesByLang();
-        this.getProducts();
-        this.getUsers();
-        this.getRestaurants();
-        this.getRegion();
-        this.getResults();
-        this.getDocs();
-      }
-    );
-  }
+    this.setState({
+      currentLanguage: currentLanguage
+        ? JSON.parse(currentLanguage)
+        : availableLanguages.pt,
+      token: token ? JSON.parse(token) : ""
+    }, () => {
+      this.refreshQuizState();
+      this.getQuizzes();
+      this.getQuizzesByLang();
+      this.getProducts();
+      this.getUsers();
+      this.getRestaurants();
+      this.getRegion();
+      this.getResults();
+      this.getDocs();
+    });
+  };
+  componentDidUpdate(prevProps, pS) {
+    if (this.state.currentLanguage !== pS.currentLanguage) {
+      this.setState(this.props.currentLanguage);
+    }
+   }
+
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -313,10 +316,10 @@ class App extends Component {
       this.setState({ documentation: updatedDocs });
     });
   };
-
+// Hey Hey this says Quiz and not Product
   handleDeleteProduct = id => {
     this.handleDelete(id, "product", () => {
-      const updatedProducts = this.state.quizzes.filter(quiz => quiz.id !== id);
+      const updatedProducts = this.state.products.filter(product => product.id !== id);
       this.setState({ products: updatedProducts });
     });
   };
@@ -344,13 +347,13 @@ class App extends Component {
   render() {
     const {
       currentLanguage,
-      quizzes,
       products,
       users,
       restaurants,
       regions,
       results,
       quizzesAreLoaded,
+      quizzes,
       quizzesLearner
     } = this.state;
 
@@ -414,61 +417,78 @@ class App extends Component {
           />
 
           {/* {QUIZ } */}
-          <Route
-            exact
-            path="/admin/quiz_list"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminQuizList onDelete={this.handleDeleteQuiz} />
-              </>
-            )}
-          />
-          <Route
-            exact
-            path="/admin/quiz_maker"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminQuizMaker />
-              </>
-            )}
-          />
-          <Route
-            exact
-            path="/admin/quiz_editor/:id"
-            render={props => (
-              <>
-                <AdminNav />
-                <AdminQuizEditor onEdit={this.handleEditQuestion} />
-              </>
-            )}
-          />
-          {/* {Users } */}
-          <Route
-            exact
-            path="/admin/user_list"
-            render={() => (
-              <>
-                <AdminNav />
-                <AdminUserList users={users} onDelete={this.handleDeleteUser} />
-              </>
-            )}
-          />
-          <Route
-            exact
-            path="/admin/user_editor/:id"
-            render={props => (
-              <>
-                <AdminNav />
-                <AdminUserEditor
-                  regions={regions}
-                  restaurants={restaurants}
-                  user={users.find(user => user.id === +props.match.params.id)}
-                />
-              </>
-            )}
-          />
+        <Route
+          exact
+          path="/admin/quiz_list"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminQuizList
+                onDelete={this.handleDeleteQuiz}
+              />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/quiz_maker"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminQuizMaker />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/quiz_editor/:id"
+          render={props => (
+            <>
+              <AdminNav />
+              <AdminQuizEditor
+              onEdit ={this.handleEditQuestion}
+               />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/quiz_editor/:id/questions/:qid"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminQuestionEditor
+              onEdit ={this.handleEditQuestion} 
+              />
+            </>
+          )}
+        />
+   {/* {Users } */}
+   <Route
+          exact
+          path="/admin/user_list"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminUserList 
+              users={users}
+              onDelete={this.handleDeleteUser} />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/user_editor/:id"
+          render={props => (
+            <>
+              <AdminNav />
+              <AdminUserEditor 
+              regions={regions}
+              restaurants={restaurants}
+              user = {users.find((user) => user.id === +props.match.params.id)} />
+            </>
+          )}
+        />
           {/* {Restaurant } */}
           <Route
             exact
