@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import QandA from "./QandA";
-import "./Challenge.css";
-import ResultsCard from "./ResultsCard";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import QandA from './QandA';
+import './Challenge.css';
+import ResultsCard from './ResultsCard';
 // import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
 // import translations from '../../i18n/translations';
 

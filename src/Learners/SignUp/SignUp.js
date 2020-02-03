@@ -1,12 +1,9 @@
 import React, {Component, Redirect} from 'react';
-// import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
-import Select from "react-select";
+import Select from 'react-select';
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
-import LogIn from "../LogIn/LogIn";
-
 
 
 
