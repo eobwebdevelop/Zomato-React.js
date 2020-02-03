@@ -31,7 +31,7 @@ import AdminResultList from "./Admin/AdminResultList";
 
 import LearnerNav from "./LearnerNav";
 import BasicNav from "./BasicNav.js";
-import ContactUs from "./Learners/ContactUs/ContactUs";
+import About from "./Learners/About/About";
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
 import ForgotPassword from "./Learners/LogIn/ForgotPassword";
@@ -576,7 +576,16 @@ class App extends Component {
           )}
         />
 
-        {/* Learners Route */}
+          <Route
+            exact
+            path="/learners/about"
+            render={() => (
+              <>
+                <LearnerNav />
+                <About />
+              </>
+            )}
+          />
 
         <Route
           exact

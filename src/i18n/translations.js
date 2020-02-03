@@ -6,18 +6,16 @@ const Translations = {
       LinkL: 'Logout',
       LinkQ: 'All Quizzes',
       LinkF: 'FAQ',
-      LinkC: 'Contact',
+      LinkC: 'About Us',
       LinkA: 'Admin Portal',
     },
 
-    ContactUs: {
-      Title: 'Contact Us',
-      Feedback: 'We would love to hear from you.',
-      Button: 'Send Message',
-      PlaceholderN: ' Name*',
-      PlaceholderE: ' Email*',
+    About: {
+      Title: 'Who are we?',
+      TitleC: 'Contact Us',
+      TextAbout: 'Launched in Delhi 11 years ago, Zomato has grown from a home project to one of the largest food aggregators in the world. We are present in 24 countries and 10000+ cities globally, enabling our vision of better food for more people. We not only connect people to food in every context but work closely with restaurants to enable a sustainable ecosystem.',
+      TextContact: '+351 211 519 969',
       PlaceholderP: ' Phone number (optional)',
-      PlaceholderM: ' Message*',
     },
 
     Documentation: {
@@ -54,11 +52,6 @@ const Translations = {
     Answer: {
       ButtonN: 'Next',
       ButtonB: 'Back',
-    },
-
-    Quiz: {
-      Title: 'Quiz',
-      ButtonR: 'View Results',
     },
 
     Results: {
@@ -135,18 +128,16 @@ const Translations = {
       LinkL: 'Fechar Sessão',
       LinkQ: 'Quizzes ',
       LinkF: 'FAQ',
-      LinkC: 'Contactos ',
+      LinkC: 'Sobre nós',
       LinkA: 'Admin Portal should not be here',
     },
 
-    ContactUs: {
-      Title: 'Contacte-nos',
-      Feedback: 'Gostariamos de ouvir a sua opinião',
-      Button: 'Enviar mensagem',
-      PlaceholderN: ' Nome* ',
-      PlaceholderE: ' E-mail* ',
-      PlaceholderP: ' Número de telefone (opcional)',
-      PlaceholderM: ' Mensagem* ',
+    About: {
+      Title: 'Who are we? (Portuguese translation please)',
+      TitleC: 'Contact Us',
+      TextAbout: 'Launched in Delhi 11 years ago, Zomato has grown from a home project to one of the largest food aggregators in the world. We are present in 24 countries and 10000+ cities globally, enabling our vision of better food for more people. We not only connect people to food in every context but work closely with restaurants to enable a sustainable ecosystem.',
+      TextContact: '+351 211 519 969',
+      PlaceholderP: ' Phone number (optional)',
     },
 
     Documentation: {
@@ -183,11 +174,6 @@ const Translations = {
     Answer: {
       ButtonN: 'Seguinte',
       ButtonB: 'Anterior',
-    },
-
-    Quiz: {
-      Title: 'Quiz',
-      ButtonR: 'Ver resultados',
     },
 
     Results: {
