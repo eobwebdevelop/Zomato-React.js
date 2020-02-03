@@ -21,6 +21,7 @@ const AdminDocList = ({ documentation, onDelete }) => (
     <table className="tftable" border="1">
       <thead>
         <th>ID</th>
+        <th>Product</th>
         <th>Title</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -28,6 +29,7 @@ const AdminDocList = ({ documentation, onDelete }) => (
       {documentation.map((doc) => (
         <tbody key={doc.id}>
           <td>{doc.id}</td>
+          <td>{doc.product_name}</td>
           <td>{doc.title}</td>
           <td>
             <button type="submit" className="view-quizzes-page-links-side-by-side">
@@ -37,7 +39,6 @@ const AdminDocList = ({ documentation, onDelete }) => (
           <td>
             <button
               type="submit"
-                // method="post"
               className="view-quizzes-page-links-side-by-side"
               onClick={() => onDelete(doc.id)}
             >
