@@ -390,31 +390,6 @@ class App extends Component {
 
         <Route
           exact
-          path="/admin/login"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminLogin />
-            </>
-          )}
-        />
-        {/* {Documentation } */}
-        <Route
-          exact
-          path="/admin/doc_list"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminDocList
-                documentation={this.state.documentation}
-                onDelete={this.handleDeleteDoc}
-              />
-            </>
-          )}
-        />
-
-        <Route
-          exact
           path="/admin/doc_editor"
           render={() => (
             <>
