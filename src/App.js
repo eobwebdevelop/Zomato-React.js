@@ -295,7 +295,6 @@ class App extends Component {
     }
    }
 
-
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
       method: "DELETE",
