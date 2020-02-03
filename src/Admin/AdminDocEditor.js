@@ -6,15 +6,14 @@ import PropTypes from 'prop-types';
 import './AdminDocEditor.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import DropDown from '../Learners/SignUp/DropDown';
+import Select from "react-select";
+
 
 class AdminDocEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // post
       title: '',
-      // quill
       text: '',
       lastUploadedFile: {},
       base64Url: {},
@@ -73,14 +72,15 @@ class AdminDocEditor extends Component {
     }
   };
   
-  onChangeProduct = () => {
-    console.log('product', this.props.product);
-    // not working
+  onChangeProduct = (e) => {
+    console.log(e.value);
+    this.setState({
+      product: e.value,
+      displayProduct: e})
   };
   
   onChangeTitle = (e) => {
     this.setState({title: e.target.value});
-    this.setState({product: 1});
   };
   
   postDocumentation = (e) => {
@@ -113,30 +113,28 @@ class AdminDocEditor extends Component {
   };
 
   render() {
-    console.log('text', this.state.text);
-    
-
     return (
       <div>
         <Container>
           <h1>Create new</h1>
           <label>
-      Product:
+            Product:
           </label>
-          {/* <DropDown
-          selectOptions={products.map((prod) => ({ value: prod.id, label: prod.name }))}
-          placeholder="Select product"
-          onChange={onChangeProduct}
-        /> */}
-          <label>
-            Title:
-          </label>
+              <Select
+                  placeholder = "Select a Product"
+                  value = {this.state.displayProduct}
+                  onChange={this.onChangeProduct}
+                  classNamePrefix="select"
+                  options={this.props.products.map((prod) => ({value: prod.id, label: prod.name}))} 
+              />
           <input
+            placeholder="Title"
             type="text"
             name="name"
             onChange={this.onChangeTitle}
           />
           <ReactQuill
+            className='quill'
             modules={this.quillModules}
             onChange={this.handleChangeQuill}
           />
