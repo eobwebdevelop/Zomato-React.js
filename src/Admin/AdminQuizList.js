@@ -3,7 +3,7 @@ import './AdminList.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Collapsible from 'react-collapsible';
-import AdminQuiz from './AdminQuiz';
+import AdminQuiz from "./AdminQuiz";
 import QuizzesContext from '../contexts/quiz-context';
 
 
@@ -35,6 +35,7 @@ const AdminQuizList = ({ onDelete }) => {
             <Collapsible trigger={q.name}>
               <AdminQuiz
                 quiz={q.questions}
+                editid={q.id}
               />
             </Collapsible>
             <button

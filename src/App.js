@@ -22,6 +22,7 @@ import AdminProductEditor from "./Admin/AdminProductEditor";
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminResultList from "./Admin/AdminResultList";
+import AdminQuestionEditor from "./Admin/AdminQuestionEditor"
 
 
 // Learner portal imports
@@ -301,7 +302,7 @@ class App extends Component {
       this.setState({ documentation: updatedDocs });
     });
   };
-
+// Hey Hey this says Quiz and not Product
   handleDeleteProduct = id => {
     this.handleDelete(id, "product", () => {
       const updatedProducts = this.state.quizzes.filter(quiz => quiz.id !== id);
@@ -335,17 +336,16 @@ class App extends Component {
 
     const {
       currentLanguage,
-      quizzes,
       products,
       users,
       restaurants,
       regions,
       results,
       quizzesAreLoaded,
+      quizzes,
       quizzesLearner
     } = this.state;
 
-    
 
     return (
       <LanguagesContext.Provider
@@ -437,7 +437,20 @@ class App extends Component {
             <>
               <AdminNav />
               <AdminQuizEditor
-              onEdit ={this.handleEditQuestion} />
+              onEdit ={this.handleEditQuestion}
+               />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/quiz_editor/:id/questions/:qid"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminQuestionEditor
+              onEdit ={this.handleEditQuestion} 
+              />
             </>
           )}
         />
