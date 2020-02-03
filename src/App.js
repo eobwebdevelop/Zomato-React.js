@@ -589,17 +589,6 @@ class App extends Component {
 
         <Route
           exact
-          path="/learners/contact_us"
-          render={() => (
-            <>
-              <LearnerNav />
-              <ContactUs />
-            </>
-          )}
-        />
-
-        <Route
-          exact
           path="/learners/faq"
           render={() => (
             <>
