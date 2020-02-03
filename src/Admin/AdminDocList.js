@@ -19,14 +19,14 @@ const AdminDocList = ({ documentation, onDelete }) => (
     </Link>
 
     <table className="tftable" border="1">
-      <tr>
+      <thead>
         <th>ID</th>
         <th>Title</th>
         <th>Edit</th>
         <th>Delete</th>
-      </tr>
+      </thead>
       {documentation.map((doc) => (
-        <tr key={doc.id}>
+        <tbody key={doc.id}>
           <td>{doc.id}</td>
           <td>{doc.title}</td>
           <td>
@@ -44,7 +44,7 @@ const AdminDocList = ({ documentation, onDelete }) => (
                   Delete Documentation ►
             </button>
           </td>
-        </tr>
+        </tbody>
       ))}
     </table>
   </Container>

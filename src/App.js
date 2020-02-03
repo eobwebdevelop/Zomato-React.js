@@ -148,7 +148,7 @@ class App extends Component {
       () => {
         fetch("http://localhost:3000/admin/quiz")
         .then(response => response.json())
-        .then(data => { console.log('fetch Quizzes')
+        .then(data => {
           this.setState(state => ({
             ...state,
             quizzes: data.quizzes,
@@ -335,6 +335,7 @@ class App extends Component {
     const {
       currentLanguage,
       quizzes,
+      documentation,
       products,
       users,
       restaurants,
@@ -344,7 +345,6 @@ class App extends Component {
       quizzesLearner
     } = this.state;
 
-    
 
     return (
       <LanguagesContext.Provider
@@ -401,7 +401,9 @@ class App extends Component {
             <>
               <AdminNav />
               <AdminDocEditor 
-              documentation={this.state.documentation} />
+              products={products}
+              documentation={documentation} 
+              />
             </>
           )}
         />
