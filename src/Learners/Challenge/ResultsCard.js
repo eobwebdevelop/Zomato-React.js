@@ -1,5 +1,5 @@
 import React from 'react';
-import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
 
@@ -18,9 +18,9 @@ class ResultsCard extends React.Component {
       return (
         <LanguagesContext.Consumer>
           {({ currentLanguage }) => (
-            <>
+            <div>
               <h1>
-            Question
+                {translations[currentLanguage].ResultsCard.Title}
                 {' '}
                 {questionNumber}
 :
@@ -29,7 +29,7 @@ class ResultsCard extends React.Component {
               </h1>
 
               <h2>
-            Correct
+                {translations[currentLanguage].ResultsCard.Ok}
                 {' '}
                 <span role="img" aria-label="jsx-a11y/accessible-emoji">
               ✅
@@ -37,40 +37,44 @@ class ResultsCard extends React.Component {
                 {' '}
               </h2>
               <p>
-Your answer:
+                {translations[currentLanguage].ResultsCard.Ans}
                 {userAnswerText}
               </p>
-            </>
+            </div>
           )}
         </LanguagesContext.Consumer>
       );
     }
     return (
-      <>
-        <h1>
-          Question
-          {' '}
-          {questionNumber}
+      <LanguagesContext.Consumer>
+        {({ currentLanguage }) => (
+          <div>
+            <h1>
+              {translations[currentLanguage].ResultsCard.Title}
+              {' '}
+              {questionNumber}
 :
-          {' '}
-          {questionText}
-        </h1>
-        <h2>
-          Incorrect
-          {' '}
-          <span role="img" aria-label="jsx-a11y/accessible-emoji">
+              {' '}
+              {questionText}
+            </h1>
+            <h2>
+              {translations[currentLanguage].ResultsCard.No}
+              {' '}
+              <span role="img" aria-label="jsx-a11y/accessible-emoji">
             ❌
-          </span>
-        </h2>
-        <p>
-Your answer:
-          {userAnswerText}
-        </p>
-        <p>
-The correct answer:
-          {correctAnswerText}
-        </p>
-      </>
+              </span>
+            </h2>
+            <p>
+              {translations[currentLanguage].ResultsCard.Ans}
+              {userAnswerText}
+            </p>
+            <p>
+              {translations[currentLanguage].ResultsCard.WhatsOK}
+              {correctAnswerText}
+            </p>
+          </div>
+        )}
+      </LanguagesContext.Consumer>
     );
   }
 }

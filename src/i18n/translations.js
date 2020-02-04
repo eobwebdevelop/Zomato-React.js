@@ -92,11 +92,12 @@ const Translations = {
     },
 
     Challenge: {
-      Title: 'Results',
+      TitleQ: 'Quiz',
+      TitleR: 'Results',
       CurrentT: 'Current Time',
       TimeSec: 'seconds',
       ScoreA: 'You scored',
-      ScoreB: 'out of 10!',
+      ScoreB: 'out of 10! 🎉',
       TimeA: 'Your total time was',
       TimeB: 'seconds.',
       ButtonH: 'Home',
@@ -104,7 +105,8 @@ const Translations = {
     },
 
     NextButton: {
-      Button: 'See results',
+      ButtonN: 'Next',
+      ButtonR: 'See results',
     },
 
     ResultsCard: {
@@ -112,7 +114,7 @@ const Translations = {
       Ok: 'Correct',
       No: 'Incorrect',
       Ans: 'Your answer:',
-      WhatsOK: 'The correct answer:',
+      WhatsOK: 'The correct answer: ',
     },
 
     QuizCard: {
@@ -128,16 +130,16 @@ const Translations = {
       LinkL: 'Fechar Sessão',
       LinkQ: 'Quizzes ',
       LinkF: 'FAQ',
-      LinkC: 'Sobre nós',
-      LinkA: 'Admin Portal should not be here',
+      LinkC: 'Contactos ',
+      LinkA: 'Admin Portal (portuguese translation,plz)',
     },
 
     About: {
-      Title: 'Who are we? (Portuguese translation please)',
-      TitleC: 'Contact Us',
+      Title: 'Quem somos?',
+      TitleC: 'Contacte-nos',
       TextAbout: 'Launched in Delhi 11 years ago, Zomato has grown from a home project to one of the largest food aggregators in the world. We are present in 24 countries and 10000+ cities globally, enabling our vision of better food for more people. We not only connect people to food in every context but work closely with restaurants to enable a sustainable ecosystem.',
       TextContact: '+351 211 519 969',
-      PlaceholderP: ' Phone number (optional)',
+      PlaceholderP: ' Número de telefone (opcional)',
     },
 
     Documentation: {
@@ -211,18 +213,21 @@ const Translations = {
       Button: 'Registar-se',
     },
     Challenge: {
+      TitleQ: 'Quiz',
       Title: 'Resultados',
       CurrentT: 'Tempo decorrido',
       TimeSec: 'segundos',
       ScoreA: 'Acertou em',
-      ScoreB: 'de 10 perguntas!',
+      ScoreB: 'de 10 perguntas 🎉',
       TimeA: 'Completou o desafio em',
       TimeB: 'segundos.',
       ButtonH: 'Início',
       ButtonD: 'Documentação',
     },
+
     NextButton: {
-      Button: 'Ver resultados',
+      ButtonN: 'Next',
+      ButtonR: 'Ver resultados',
     },
 
     ResultsCard: {

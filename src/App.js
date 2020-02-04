@@ -6,8 +6,9 @@ import { Redirect, Route, withRouter, matchPath } from "react-router-dom";
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
-//Routes
-import LearnersAuth from "./Routes/LearnersAuth";
+//Routers
+import LearnersAuth from "./Routers/LearnersAuth";
+import Learners from "./Routers/Learners"
 
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
@@ -30,18 +31,12 @@ import AdminResultList from "./Admin/AdminResultList";
 import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
 
 
-// Learner portal imports
+// Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
 
-import LearnerNav from "./LearnerNav";
-import BasicNav from "./BasicNav.js";
-import About from "./Learners/About/About";
-import Documentation from "./Learners/Documentation/Documentation";
-import LogIn from "./Learners/LogIn/LogIn";
-import ForgotPassword from "./Learners/LogIn/ForgotPassword";
-import QuizList from "./Learners/QuizList/QuizList";
-import Challenge from "./Learners/Challenge/Challenge";
-// import SignUp from "./Learners/SignUp/SignUp";
-import FAQ from "./Learners/FAQ/FAQ";
+//Future feature
+// import ForgotPassword from "./Learners/LogIn/ForgotPassword";
+
+
 
 // Translation eng/port
 
@@ -52,7 +47,6 @@ import QuizzesContext from "./contexts/quiz-context";
 
 // EW: The module below JWT decode llows for decoding of JWT token, which is being used to read the user_id payload in the token
 var jwtDecode = require("jwt-decode");
-
 
 // EW 30.09.2019: Note, state.placeholderdata is useful for testing and provides a skeleton before API loaded so please leave in state for now.
 
@@ -104,7 +98,7 @@ class App extends Component {
   }
 
   getRegion = () => {
-    fetch("http://localhost:3000/admin/region")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/region`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -115,7 +109,7 @@ class App extends Component {
   };
 
   getResults = () => {
-    fetch("http://localhost:3000/admin/result")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/result`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -123,10 +117,11 @@ class App extends Component {
           results: data.Results
         }));
       });
+      console.log(this.state.results);
   };
 
   getRestaurants = () => {
-    fetch("http://localhost:3000/admin/restaurant")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -137,7 +132,7 @@ class App extends Component {
   };
 
   getQuizzesByLang = () => {
-    fetch("http://localhost:3000/learner/quiz", {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/learner/quiz`, {
       method: "GET",
       headers: new Headers({
         "Preferred-Language": this.state.currentLanguage
@@ -153,8 +148,10 @@ class App extends Component {
   };
 
   getQuizzes = () => {
-    this.setState({ quizzesAreLoaded: false }, () => {
-      fetch("http://localhost:3000/admin/quiz")
+    this.setState(
+      { quizzesAreLoaded: false },
+      () => {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz`)
         .then(response => response.json())
         .then(data => {
           this.setState(state => ({
@@ -258,14 +255,16 @@ class App extends Component {
   }
 
   checkScore() {
+
     var totalScore = 0;
     for (let i = 0; i < this.state.userQuizAnswers.length; i++) {
       if (
-        this.state.userQuizAnswers[i].userAnswerID ===
-        this.state.userQuizAnswers[i].correctAnswerID
+        this.state.userQuizAnswers[i].userAnswerText ===
+        this.state.userQuizAnswers[i].correctAnswerText
       ) {
         totalScore = totalScore + 1;
       }
+    
     }
 
     this.setState({ score: totalScore });
@@ -280,8 +279,13 @@ class App extends Component {
   refreshQuizState() {
     // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
     // console.log("refresh");
+
     this.stopTimer();
-    this.setState({ overallTime: 0, step: 0 });
+    this.setState({ overallTime: 0, step: 0, score: 0, userQuizAnswers: [] });
+  }
+
+  addUserIDFromTokenToState() {
+    this.setState({ userID: jwtDecode(this.state.token).id });
   }
 
   addUserIDFromTokenToState() {
@@ -289,7 +293,7 @@ class App extends Component {
   }
 
   getProducts = () => {
-    fetch("http://localhost:3000/admin/product")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/product`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -300,7 +304,7 @@ class App extends Component {
   };
 
   getUsers = () => {
-    fetch("http://localhost:3000/admin/user")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/user`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -342,8 +346,16 @@ class App extends Component {
   componentDidUpdate(prevProps, pS) {
     if (this.state.currentLanguage !== pS.currentLanguage) {
       this.getQuizzesByLang();
-    }
-  }
+      this.getProducts();
+      this.getUsers();
+      this.getRestaurants();
+      this.getRegion();
+      this.getResults();
+      this.getDocs();
+    };
+  };
+
+
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -423,12 +435,34 @@ class App extends Component {
       restaurants,
       regions,
       results,
+<<<<<<< HEAD
       quizzesAreLoaded,
       quizzesLearner,
       quizfound,
       questionfound
     } = this.state;
 
+=======
+      quizzesAreLoaded
+    } = this.state;
+
+    // console.log(this.props);
+    const quizfound = quizzes.find(
+      quiz => quiz.id === +this.props.match.params.id
+    );
+    const questionfound = quizfound
+      ? quizfound.questions.find(
+          question => question.id === +this.props.match.params.qid
+        )
+      : [];
+    // console.log(quizfound, questionfound, "hey");
+    // console.log(
+    //   matchPath(this.props.location.search, {
+    //     path: "/admin/quiz_editor/:id/questions/:qid"
+    //   })
+    // );
+
+>>>>>>> master
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
@@ -654,41 +688,11 @@ class App extends Component {
               </>
             )}
           />
+        
 
-          <Route
-            exact
-            path="/learners/about"
-            render={() => (
-              <>
-                <LearnerNav />
-                <About />
-              </>
-            )}
-          />
+         {/* //Future feature for Learners */}
 
-          <Route
-            exact
-            path="/learners/faq"
-            render={() => (
-              <>
-                <LearnerNav />
-                <FAQ />
-              </>
-            )}
-          />
-
-          <Route
-            exact
-            path="/learners/documentation"
-            render={() => (
-              <>
-                <LearnerNav />
-                <Documentation documentation={this.state.documentation} />
-              </>
-            )}
-          />
-
-          <Route
+          {/* <Route
             exact
             path="/learners/login/forgot_password"
             render={() => (
@@ -697,60 +701,52 @@ class App extends Component {
                 <ForgotPassword />
               </>
             )}
-          />
+          /> */}
 
+
+        {/* Learnes Auth */}
           <Route
             exact
-            path="/learners/quiz_list"
             render={() => (
               <>
-                <LearnerNav />
-                <QuizList
-                  QuizList={quizzesLearner.quizzes}
-                  changeQuizIDInPlay={this.changeQuizIDInPlay}
+                <LearnersAuth restaurants={this.state.restaurants}/>
+              </>
+            )}
+          />
+        {/* //Learnes Auth */} 
+
+        {/*Learners */}
+        <Route
+            exact
+            render={() => (
+              <>
+                <Learners 
+                documentation={this.state.documentation}
+                QuizList={this.state.quizzesLearner.quizzes}
+                changeQuizIDInPlay={this.changeQuizIDInPlay}
+                score={this.state.score}
+                checkScore={this.checkScore}
+                refreshQuizState={this.refreshQuizState}
+                questionPackage={this.state.quizzesLearner.quizzes}
+                startOverallTimer={this.startOverallTimer}
+                overallTime={this.state.overallTime}
+                addUserInputToState={this.addUserInputToState}
+                incrementQuizStep={this.incrementQuizStep}
+                onClickAnswer={this.onClickAnswer}
+                step={this.state.step}
+                quizIDInPlay={this.state.quizIDInPlay}
+                stopTimer={this.stopTimer}
+                userAnswerClick={this.userAnswerClick}
+                userQuizAnswers={this.state.userQuizAnswers}
+                addUserIDFromTokenToState={this.addUserIDFromTokenToState}
+                postQuizResult={this.postQuizResult}
                 />
               </>
             )}
           />
 
-          <Route
-            exact
-            path="/learners/quiz_list/quiz"
-            render={() => (
-              <>
-                <LearnerNav />
-                <Challenge
-                  score={this.state.score}
-                  checkScore={this.checkScore}
-                  refreshQuizState={this.refreshQuizState}
-                  questionPackage={quizzesLearner.quizzes}
-                  startOverallTimer={this.startOverallTimer}
-                  overallTime={this.state.overallTime}
-                  addUserInputToState={this.addUserInputToState}
-                  incrementQuizStep={this.incrementQuizStep}
-                  onClickAnswer={this.onClickAnswer}
-                  step={this.state.step}
-                  quizIDInPlay={this.state.quizIDInPlay}
-                  stopTimer={this.stopTimer}
-                  userAnswerClick={this.userAnswerClick}
-                  userQuizAnswers={this.state.userQuizAnswers}
-                  postQuizResult={this.postQuizResult}
-                  addUserIDFromTokenToState={this.addUserIDFromTokenToState}
-                />
-              </>
-            )}
-          />
+        {/*//Learners */}
 
-          {/* Learnes Auth */}
-          <Route
-            exact
-            render={() => (
-              <>
-                <LearnersAuth restaurants={this.state.restaurants} />
-              </>
-            )}
-          />
-          {/* //Learnes Auth */}
         </QuizzesContext.Provider>
       </LanguagesContext.Provider>
     );

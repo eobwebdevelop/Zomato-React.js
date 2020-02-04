@@ -1,0 +1,52 @@
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutImage {
+  width: 50%;
+  text-align: center;
+  justify-content: center;
+}
+
+.contact {
+  padding-top: 30px ;
+
+}
+
+.aboutText {
+  width: 60%;
+  text-align: center;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  padding-top: 15px;
+}
+
+.aboutTitle {
+  text-align: center;
+}
+
+.aboutContactContainer {
+  text-align: center;
+}
+
+.title{
+  text-align:left;
+}
+
+.number {
+  padding-top: 10px;
+  font-size: 1.5em;
+}
+
+.flag{
+  width: 4%;
+}
+
+.country{
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.aboutContact {
+  padding-top: 25px;
+}
