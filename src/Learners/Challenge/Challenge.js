@@ -10,7 +10,7 @@ import translations from '../../i18n/translations';
 class Challenge extends Component {
   componentDidMount() {
     this.props.startOverallTimer();
-    // console.log("started timer");
+    this.props.addUserIDFromTokenToState();
   }
 
   render() {
@@ -27,6 +27,7 @@ class Challenge extends Component {
       checkScore,
       score,
       incrementQuizStep,
+      postQuizResult
     } = this.props;
 
     const questionPackageSpecificQuizIDOnly = questionPackage.filter(
@@ -53,6 +54,7 @@ class Challenge extends Component {
                     overallTime={overallTime}
                     quizIDInPlay={quizIDInPlay}
                     checkScore={checkScore}
+                    postQuizResult={postQuizResult}
                   />
                 ))}
                 <h3>
