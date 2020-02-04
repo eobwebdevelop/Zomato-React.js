@@ -8,7 +8,6 @@ import './AdminCreator.css';
 
 class AdminRestaurantCreator extends Component  {
   constructor(props) {
-    console.log(props)
     super(props);
     this.state = {
       name: 'resto1',
@@ -32,7 +31,6 @@ class AdminRestaurantCreator extends Component  {
   handlerSubmit = (e) => {
     const {name, region_id} = this.state
     e.preventDefault();
-    console.log("the form has been submited with these fields:",  );
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant/create`,
     {
         method:  'POST',

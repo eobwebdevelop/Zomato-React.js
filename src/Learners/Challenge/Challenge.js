@@ -30,7 +30,6 @@ class Challenge extends Component {
       postQuizResult
     } = this.props;
 
-    // console.log(questionPackage);
     const questionPackageSpecificQuizIDOnly = questionPackage.filter(
       (el) => el.id === quizIDInPlay,
     )[0].questions;

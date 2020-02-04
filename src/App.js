@@ -247,8 +247,6 @@ class App extends Component {
 
   stopTimer() {
     this.setState({ timer: false });
-    // console.log("stopped timer");
-    //Clear interval
     clearInterval(this.timer);
   }
 
@@ -276,7 +274,6 @@ class App extends Component {
 
   refreshQuizState() {
     // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
-    // console.log("refresh");
     this.stopTimer();
     this.setState({ overallTime: 0, step: 0, score: 0, userQuizAnswers: [] });
   }
@@ -421,7 +418,6 @@ class App extends Component {
       quizzesAreLoaded
     } = this.state;
 
-    // console.log(this.props);
     const quizfound = quizzes.find(
       quiz => quiz.id === +this.props.match.params.id
     );
@@ -430,12 +426,6 @@ class App extends Component {
           question => question.id === +this.props.match.params.qid
         )
       : [];
-    // console.log(quizfound, questionfound, "hey");
-    // console.log(
-    //   matchPath(this.props.location.search, {
-    //     path: "/admin/quiz_editor/:id/questions/:qid"
-    //   })
-    // );
 
     return (
       <LanguagesContext.Provider

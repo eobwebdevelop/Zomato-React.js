@@ -17,7 +17,6 @@ class AdminRestaurantEditor extends Component  {
     }
 
     componentDidUpdate(prevProps) {
-      console.log(prevProps)
       if (!prevProps.restaurant && this.props.restaurant) {
         this.setState({
           name: this.props.restaurant.name,
@@ -41,7 +40,6 @@ class AdminRestaurantEditor extends Component  {
     
     const { name, region_id, id} = this.state
     e.preventDefault();
-    console.log("the form has been submited with these fields:", id, name, region_id);
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant/edit`,
     {
         method:  'PUT',

@@ -31,7 +31,6 @@ class AdminQuizEditor extends Component {
   handlerSubmit = (e) => {
     const {questions, name, id} = this.state
     e.preventDefault();
-    console.log("the form has been submited with these fields:",  );
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/edit`,
     {
         method:  'PUT',
