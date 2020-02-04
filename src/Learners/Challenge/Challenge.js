@@ -10,7 +10,7 @@ import ResultsCard from './ResultsCard';
 class Challenge extends React.Component {
   componentDidMount() {
     this.props.startOverallTimer();
-    // console.log("started timer");
+    this.props.addUserIDFromTokenToState();
   }
 
   render() {
@@ -26,7 +26,8 @@ class Challenge extends React.Component {
       userQuizAnswers,
       checkScore,
       score,
-      incrementQuizStep
+      incrementQuizStep,
+      postQuizResult
     } = this.props;
 
     const questionPackageSpecificQuizIDOnly = questionPackage.filter(
@@ -51,6 +52,7 @@ class Challenge extends React.Component {
                 overallTime={overallTime}
                 quizIDInPlay={quizIDInPlay}
                 checkScore={checkScore}
+                postQuizResult={postQuizResult}
               />
             ))}
             <h3>

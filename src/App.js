@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
+
 import { Redirect, Route, withRouter, matchPath } from "react-router-dom";
+
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
@@ -47,6 +49,10 @@ import LanguagesContext, {
 } from "./contexts/languages-context";
 import QuizzesContext from "./contexts/quiz-context";
 
+// EW: The module below JWT decode llows for decoding of JWT token, which is being used to read the user_id payload in the token
+var jwtDecode = require("jwt-decode");
+
+
 // EW 30.09.2019: Note, state.placeholderdata is useful for testing and provides a skeleton before API loaded so please leave in state for now.
 
 class App extends Component {
@@ -66,9 +72,12 @@ class App extends Component {
       quizzesAreLoaded: false,
       // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
       quizIDInPlay: 1,
+      quizNameInPlay: "TestString",
       timerRunning: false,
       userQuizAnswers: [],
       token: "",
+      userID: null,
+      // userid should match auth to post the right quiz result
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
       restaurants: [{ id: 0, name: "", region:0 }],
@@ -90,6 +99,9 @@ class App extends Component {
     this.checkScore = this.checkScore.bind(this);
 
     this.refreshQuizState = this.refreshQuizState.bind(this);
+    this.postQuizResult = this.postQuizResult.bind(this);
+    this.addUserIDFromTokenToState = this.addUserIDFromTokenToState.bind(this);
+    this.timer = null;
   }
 
   getRegion = () => {
@@ -168,12 +180,66 @@ class App extends Component {
       });
   };
 
+
+  getCurrentDate(){
+    // this returns in a format friendly to mysql DATETIME
+    return new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+  }
+
+  postQuizResult = () => {
+    const user_id = this.state.userID.toString();
+    const quiz_id = this.state.quizIDInPlay.toString();
+    const quiz_name = this.state.quizNameInPlay.toString();
+    const quiz_language_id = this.state.currentLanguage.toString();
+    const time_to_complete_seconds = this.state.overallTime.toString();
+    const time_of_day = this.getCurrentDate().toString();
+    const score_out_of_10 = this.state.score.toString();
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}/quiz/postresult`, {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify({
+        user_id: user_id,
+        quiz_id: quiz_id,
+        quiz_name: quiz_name,
+        quiz_language_id: quiz_language_id,
+        time_to_complete_seconds: time_to_complete_seconds,
+        time_of_day: time_of_day,
+        score_out_of_10: score_out_of_10
+      })
+    }).then(res => {
+      res.json();
+    });
+  }
+
+  addUserInputToState = selectedAnswer => {
+    const newState = this.state.userQuizAnswers;
+    newState.push(selectedAnswer);
+    this.setState(state => {
+      return {
+        userQuizAnswers: newState
+      };
+    });
+  };
+
+  incrementQuizStep = () => {
+    this.setState(state => {
+      return {
+        ...state,
+        step: this.state.step + 1
+
   onNextStep = selectedAnswer => {
     this.setState(state => {
       return {
         ...state,
         step: ++state.step,
         userQuizAnswers: [...this.state.userQuizAnswers, selectedAnswer]
+
       };
     });
   };
@@ -219,9 +285,9 @@ class App extends Component {
 
   // EW:When you click TAKE QUIZ, this method is called in the quiz card, updating the state. A filter is run to only play the quiz specified in this.state.QuizIDInPlay.
 
-  changeQuizIDInPlay(quizID) {
-    this.setState({ quizIDInPlay: quizID });
-  };
+  changeQuizIDInPlay(quizID, quizName) {
+    this.setState({ quizIDInPlay: quizID, quizNameInPlay: quizName});
+  }
 
   refreshQuizState() {
     // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
@@ -229,6 +295,10 @@ class App extends Component {
     this.stopTimer();
     this.setState({ overallTime: 0, step: 0 });
   };
+
+  addUserIDFromTokenToState() {
+  this.setState({ userID: jwtDecode(this.state.token).id});
+  }
 
   getProducts = () => {
     fetch("http://localhost:3000/admin/product")
@@ -261,23 +331,31 @@ class App extends Component {
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
-    this.setState({
-      currentLanguage: currentLanguage
-        ? JSON.parse(currentLanguage)
-        : availableLanguages.pt,
-      token: token ? JSON.parse(token) : ""
-    }, () => {
-      this.refreshQuizState();
-      this.getQuizzes();
+    this.setState(
+      {
+        currentLanguage: currentLanguage
+          ? JSON.parse(currentLanguage)
+          : availableLanguages.pt,
+        token: token ? JSON.parse(token) : ""
+      },
+      () => {
+        this.refreshQuizState();
+        this.getQuizzes();
+        this.getQuizzesByLang();
+        this.getProducts();
+        this.getUsers();
+        this.getRestaurants();
+        this.getRegion();
+        this.getResults();
+        this.getDocs();
+      }
+    );
+  }
+  componentDidUpdate(prevProps, pS) {
+    if (this.state.currentLanguage !== pS.currentLanguage) {
       this.getQuizzesByLang();
-      this.getProducts();
-      this.getUsers();
-      this.getRestaurants();
-      this.getRegion();
-      this.getResults();
-      this.getDocs();
-    });
-  };
+    }
+  }
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -302,7 +380,9 @@ class App extends Component {
 
   handleDeleteProduct = id => {
     this.handleDelete(id, "product", () => {
-      const updatedProducts = this.state.products.filter(product => product.id !== id);
+      const updatedProducts = this.state.products.filter(
+        product => product.id !== id
+      );
       this.setState({ products: updatedProducts });
     });
   };
@@ -334,7 +414,6 @@ class App extends Component {
   };
 
   render() {
-
     const {
       currentLanguage,
       quizzes,
@@ -490,6 +569,7 @@ class App extends Component {
             </>
           )}
         />
+
           {/* {Restaurant } */}
         <Route
           exact
@@ -638,30 +718,33 @@ class App extends Component {
           )}
         />
 
-        <Route
-          exact
-          path="/learners/quiz_list/quiz"
-          render={() => (
-            <>
-              <LearnerNav />
-              <Challenge
-                score={this.state.score}
-                checkScore={this.checkScore}
-                refreshQuizState={this.refreshQuizState}
-                questionPackage={quizzesLearner.quizzes}
-                startOverallTimer={this.startOverallTimer}
-                overallTime={this.state.overallTime}
-                onNextStep={this.onNextStep}
-                onClickAnswer={this.onClickAnswer}
-                step={this.state.step}
-                quizIDInPlay={this.state.quizIDInPlay}
-                stopTimer={this.stopTimer}
-                userAnswerClick={this.userAnswerClick}
-                userQuizAnswers={this.state.userQuizAnswers}
-              />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/quiz_list/quiz"
+            render={() => (
+              <>
+                <LearnerNav />
+                <Challenge
+                  score={this.state.score}
+                  checkScore={this.checkScore}
+                  refreshQuizState={this.refreshQuizState}
+                  questionPackage={quizzesLearner.quizzes}
+                  startOverallTimer={this.startOverallTimer}
+                  overallTime={this.state.overallTime}
+                  addUserInputToState={this.addUserInputToState}
+                  incrementQuizStep={this.incrementQuizStep}
+                  onClickAnswer={this.onClickAnswer}
+                  step={this.state.step}
+                  quizIDInPlay={this.state.quizIDInPlay}
+                  stopTimer={this.stopTimer}
+                  userAnswerClick={this.userAnswerClick}
+                  userQuizAnswers={this.state.userQuizAnswers}
+                  postQuizResult={this.postQuizResult}
+                  addUserIDFromTokenToState={this.addUserIDFromTokenToState}
+                />
+              </>
+            )}
+          />
 
         {/* Learnes Auth */}
           <Route
@@ -699,7 +782,7 @@ const placeholderData = {
     "quizzes": [
         {
             "id": 1,
-            "name": "Zomato Gold",
+            "name": "Quiz 1",
             "user_type_id": 2,
             "language_id": 1,
             "product_id": 1,

@@ -28,7 +28,8 @@ class QandA extends React.Component {
       stopTimer,
       quizIDInPlay,
       checkScore,
-      incrementQuizStep
+      incrementQuizStep,
+      postQuizResult
     } = this.props;
 
     // Uncomment this to see the question being rendered
@@ -66,6 +67,7 @@ class QandA extends React.Component {
           isVisible={this.state.selectedAnswer.userAnswerID === undefined}
           checkScore={checkScore}
           incrementQuizStep={incrementQuizStep}
+          postQuizResult={postQuizResult}
         />
       </>
     );

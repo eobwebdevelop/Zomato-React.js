@@ -13,23 +13,19 @@ class NextButton extends Component {
 
   nextQuestion(selectedAnswer) {
     this.props.addUserInputToState(selectedAnswer);
+    this.props.checkScore();
     this.props.incrementQuizStep();
   }
 
   finalQuestion(selectedAnswer) {
     this.props.addUserInputToState(selectedAnswer);
-    this.props.checkScore();
+    this.props.stopTimer();
     this.props.incrementQuizStep();
+    this.props.postQuizResult();
   }
 
   render() {
-    const {
-      addUserInputToState,
-      step,
-      stopTimer,
-      selectedAnswer,
-      isVisible
-    } = this.props;
+    const { step, selectedAnswer, isVisible } = this.props;
 
     if (isVisible === true) return null;
 
