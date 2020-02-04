@@ -431,27 +431,11 @@ class App extends Component {
       restaurants,
       regions,
       results,
-<<<<<<< HEAD
       quizzesAreLoaded,
-      quizzesLearner,
       quizfound,
       questionfound
     } = this.state;
 
-=======
-      quizzesAreLoaded
-    } = this.state;
-
-    const quizfound = quizzes.find(
-      quiz => quiz.id === +this.props.match.params.id
-    );
-    const questionfound = quizfound
-      ? quizfound.questions.find(
-          question => question.id === +this.props.match.params.qid
-        )
-      : [];
-
->>>>>>> master
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
