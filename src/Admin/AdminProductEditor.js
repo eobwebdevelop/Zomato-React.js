@@ -16,7 +16,6 @@ class AdminProductEditor extends Component  {
   };
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps)
     if (!prevProps.product && this.props.product) {
       this.setState({
         name: this.props.product.name,
@@ -44,7 +43,6 @@ class AdminProductEditor extends Component  {
   handlerSubmit = (e) => {
     const {name, description, language_id, id} = this.state
     e.preventDefault();
-    console.log("the form has been submited with these fields:");
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/product/edit`,
     {
         method:  'PUT',
