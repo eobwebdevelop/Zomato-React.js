@@ -27,6 +27,7 @@ import AdminProductEditor from "./Admin/AdminProductEditor";
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminResultList from "./Admin/AdminResultList";
+import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
 
 
 // Learner portal imports
@@ -395,8 +396,21 @@ class App extends Component {
   };
 
   handleAnswerEdit = answer => {
-    console.log(answer);
     this.setState({ answer_option: answer });
+  };
+
+  handleQuizFound = (quizId) => {
+    this.setState({
+      quizfound: this.state.quizzes.find(quiz => quiz.id === +quizId)
+    })
+  };
+
+  handleQuestionFound = (questionId) => {
+    if (this.state.quizfound){
+    this.setState({
+        questionfound: this.state.quizfound.questions.find(question => question.id === +questionId)
+      })
+    }
   };
 
   render() {
@@ -410,24 +424,10 @@ class App extends Component {
       regions,
       results,
       quizzesAreLoaded,
-      quizzesLearner
+      quizzesLearner,
+      quizfound,
+      questionfound
     } = this.state;
-
-    console.log(this.props);
-    const quizfound = quizzes.find(
-      quiz => quiz.id === +this.props.match.params.id
-    );
-    const questionfound = quizfound
-      ? quizfound.questions.find(
-          question => question.id === +this.props.match.params.qid
-        )
-      : [];
-    console.log(quizfound, questionfound, "hey");
-    console.log(
-      matchPath(this.props.location.search, {
-        path: "/admin/quiz_editor/:id/questions/:qid"
-      })
-    );
 
     return (
       <LanguagesContext.Provider
@@ -437,9 +437,7 @@ class App extends Component {
           value={{
             quizzes,
             onLoadQuizzes: this.getQuizzes,
-            quizzesAreLoaded,
-            quizfound,
-            questionfound
+            quizzesAreLoaded
           }}
         >
           <Route
@@ -527,9 +525,16 @@ class App extends Component {
             exact
             path="/admin/quiz_editor/:id/questions/:qid"
             render={() => (
-              <>
+              <> 
                 <AdminNav />
-                <AdminQuizEditor onEdit={this.handleAnswerEdit} />
+                <AdminQuestionEditor
+                  onEdit={this.handleAnswerEdit}
+                  quizfound={quizfound}
+                  questionfound={questionfound}
+                  onQuizfound={this.handleQuizFound}
+                  onQuestionfound={this.handleQuestionFound}
+                  quizzesAreLoaded={quizzesAreLoaded}
+                />
               </>
             )}
           />
