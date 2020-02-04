@@ -15,22 +15,22 @@ const AdminNav = () => (
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto admin-navlinks">
           <Nav.Link id="navbar-link-admin" href="/admin/login">
-              Login
+            Login
           </Nav.Link>
           <Nav.Link href="/admin/">
-              Backoffice Home
+            Backoffice Home
           </Nav.Link>
           <Nav.Link href="/admin/quiz_list">
-              Manage Quizzes
+            Manage Quizzes
           </Nav.Link>
           <Nav.Link href="/admin/doc_list">
-              Manage Documentation
+            Manage Documentation
           </Nav.Link>
           <Nav.Link href="/admin/login">
-              Log Out
+            Log Out
           </Nav.Link>
           <Nav.Link href="/learners/login">
-              Learner Portal
+            Learner Portal
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

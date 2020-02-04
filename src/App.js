@@ -405,7 +405,6 @@ class App extends Component {
   };
 
   handleAnswerEdit = answer => {
-    console.log(answer);
     this.setState({ answer_option: answer });
   };
 
