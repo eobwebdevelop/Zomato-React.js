@@ -135,11 +135,11 @@ const Translations = {
     },
 
     About: {
-      Title: 'Who are we? (Portuguese translation please)',
-      TitleC: 'Contact Us',
+      Title: 'Quem somos',
+      TitleC: 'Contacte-nos',
       TextAbout: 'Launched in Delhi 11 years ago, Zomato has grown from a home project to one of the largest food aggregators in the world. We are present in 24 countries and 10000+ cities globally, enabling our vision of better food for more people. We not only connect people to food in every context but work closely with restaurants to enable a sustainable ecosystem.',
       TextContact: '+351 211 519 969',
-      PlaceholderP: ' Phone number (optional)',
+      PlaceholderP: ' Número de telefone (opcional)',
     },
 
     Documentation: {
