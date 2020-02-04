@@ -116,6 +116,7 @@ class App extends Component {
           results: data.Results
         }));
       });
+      console.log(this.state.results);
   };
 
   getRestaurants = () => {
@@ -709,6 +710,7 @@ class App extends Component {
                 userAnswerClick={this.userAnswerClick}
                 userQuizAnswers={this.state.userQuizAnswers}
                 addUserIDFromTokenToState={this.addUserIDFromTokenToState}
+                postQuizResult={this.postQuizResult}
                 />
               </>
             )}
