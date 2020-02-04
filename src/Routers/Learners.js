@@ -88,6 +88,7 @@ const Learners = props => (
               incrementQuizStep={props.incrementQuizStep}
               addUserIDFromTokenToState={props.addUserIDFromTokenToState}
               refreshQuizState={props.refreshQuizState}
+              postQuizResult={props.postQuizResult}
             />
           </>
         )}
