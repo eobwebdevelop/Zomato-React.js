@@ -130,7 +130,7 @@ const Translations = {
       LinkL: 'Fechar Sessão',
       LinkQ: 'Quizzes ',
       LinkF: 'FAQ',
-      LinkC: 'Contactos ',
+      LinkC: 'Sobre nós',
       LinkA: 'Admin Portal (portuguese translation,plz)',
     },
 
