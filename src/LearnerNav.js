@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import DropdownSelector from './LanguageSelector';
 import './LearnerNav.css';
@@ -23,9 +24,9 @@ const LearnerNav = () => {
             <Nav.Link href="/learners/quiz_list" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkQ}
             </Nav.Link>
-            <Nav.Link href="/learners/faq" className="grey-link">
+            <Link to="/learners/faq" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkF}
-            </Nav.Link>
+            </Link>
             <Nav.Link href="/learners/about" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkC}
             </Nav.Link>
