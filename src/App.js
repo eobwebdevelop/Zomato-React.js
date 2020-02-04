@@ -259,14 +259,16 @@ class App extends Component {
   }
 
   checkScore() {
+
     var totalScore = 0;
     for (let i = 0; i < this.state.userQuizAnswers.length; i++) {
       if (
-        this.state.userQuizAnswers[i].userAnswerID ===
-        this.state.userQuizAnswers[i].correctAnswerID
+        this.state.userQuizAnswers[i].userAnswerText ===
+        this.state.userQuizAnswers[i].correctAnswerText
       ) {
         totalScore = totalScore + 1;
       }
+      console.log("score at present", this.state.score)
     }
 
     this.setState({ score: totalScore });
@@ -423,7 +425,7 @@ class App extends Component {
       quizzesLearner
     } = this.state;
 
-    console.log(this.props);
+    // console.log(this.props);
     const quizfound = quizzes.find(
       quiz => quiz.id === +this.props.match.params.id
     );
@@ -432,12 +434,12 @@ class App extends Component {
           question => question.id === +this.props.match.params.qid
         )
       : [];
-    console.log(quizfound, questionfound, "hey");
-    console.log(
-      matchPath(this.props.location.search, {
-        path: "/admin/quiz_editor/:id/questions/:qid"
-      })
-    );
+    // console.log(quizfound, questionfound, "hey");
+    // console.log(
+    //   matchPath(this.props.location.search, {
+    //     path: "/admin/quiz_editor/:id/questions/:qid"
+    //   })
+    // );
 
     return (
       <LanguagesContext.Provider
