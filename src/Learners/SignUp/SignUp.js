@@ -1,12 +1,9 @@
 import React, {Component, Redirect} from 'react';
-// import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
-import Select from "react-select";
+import Select from 'react-select';
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
-import LogIn from "../LogIn/LogIn";
-
 
 
 
@@ -117,9 +114,13 @@ handlerSubmit = (e, currentLanguage) => {
       .then((data)  =>  {
         this.setState({ flash: data.flash }, () => {
           if(data.status === 409) {
-            this.props.history.push('/learners/login');
+            setTimeout(() => {
+             this.props.history.push('/learners/login')
+          }, 2000)
           } else {
-            this.props.history.push('/learners/quiz_list');
+            setTimeout(() => {
+              this.props.history.push('/learners/quiz_list')
+           }, 2000)
           }
         })
       })

@@ -1,7 +1,9 @@
+
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import LanguagesContext from "../../contexts/languages-context";
 import translations from "../../i18n/translations";
+
 // import { Container } from "react-bootstrap";
 
 class QuizCard extends Component {

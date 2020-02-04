@@ -1,10 +1,9 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import { withRouter } from "react-router-dom";
-import LanguagesContext from "../../contexts/languages-context";
-import translations from "../../i18n/translations";
-import SignUp from "../SignUp/SignUp";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
 class LogIn extends Component {
   constructor(props) {
@@ -69,11 +68,10 @@ class LogIn extends Component {
               localStorage.setItem("token", JSON.stringify(res.token));
               this.props.history.push("/learners/quiz_list");
             } else if (res.status === 201) {
-              this.props.history.push("/learners/quiz_list");
-            } else {
-              console.log("login failed");
-              // DO FLASH MESSAGE
-            }
+              setTimeout(() => {
+                this.props.history.push("/learners/quiz_list");
+             }, 2000)
+             } 
           })
         );
     }

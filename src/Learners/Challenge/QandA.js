@@ -1,6 +1,6 @@
-import React from "react";
-import NextButton from "./NextButton";
-import AnswerButton from "./AnswerButton";
+import React from 'react';
+import NextButton from './NextButton';
+import AnswerButton from './AnswerButton';
 
 class QandA extends React.Component {
   constructor(props) {

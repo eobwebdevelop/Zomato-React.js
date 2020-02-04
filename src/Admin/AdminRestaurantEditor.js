@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { withRouter}  from "react-router-dom";
-import { Container } from "react-bootstrap";
-import Select from "react-select";
+import { withRouter}  from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Select from 'react-select';
 
 
 
