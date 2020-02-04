@@ -32,7 +32,6 @@ class AdminUserEditor extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
     if (!prevProps.user && this.props.user) {
       this.setState({
         first_name: this.props.user.first_name,
@@ -64,10 +63,8 @@ class AdminUserEditor extends Component {
   }
 
   handlerSubmit = (e) => {
-    console.log('hey')
     const {first_name, last_name, email, phone_number, user_type_id, id } = this.state
     e.preventDefault();
-    console.log("the form has been submited with these fields:");
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/user/edit`,
     {
         method:  'PUT',
@@ -90,7 +87,6 @@ class AdminUserEditor extends Component {
   }
 
   render() {
-    console.log(this.props.user)
     return (
       <>
         <Container>

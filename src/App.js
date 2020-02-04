@@ -28,6 +28,7 @@ import AdminProductEditor from "./Admin/AdminProductEditor";
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminResultList from "./Admin/AdminResultList";
+import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
 
 
 // Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
@@ -249,8 +250,6 @@ class App extends Component {
 
   stopTimer() {
     this.setState({ timer: false });
-    // console.log("stopped timer");
-    //Clear interval
     clearInterval(this.timer);
   }
 
@@ -408,6 +407,20 @@ class App extends Component {
     this.setState({ answer_option: answer });
   };
 
+  handleQuizFound = (quizId) => {
+    this.setState({
+      quizfound: this.state.quizzes.find(quiz => quiz.id === +quizId)
+    })
+  };
+
+  handleQuestionFound = (questionId) => {
+    if (this.state.quizfound){
+    this.setState({
+        questionfound: this.state.quizfound.questions.find(question => question.id === +questionId)
+      })
+    }
+  };
+
   render() {
     const {
       currentLanguage,
@@ -418,8 +431,11 @@ class App extends Component {
       restaurants,
       regions,
       results,
-      quizzesAreLoaded
+      quizzesAreLoaded,
+      quizfound,
+      questionfound
     } = this.state;
+
 
   
     const quizfound = quizzes.find(
@@ -445,9 +461,7 @@ class App extends Component {
           value={{
             quizzes,
             onLoadQuizzes: this.getQuizzes,
-            quizzesAreLoaded,
-            quizfound,
-            questionfound
+            quizzesAreLoaded
           }}
         >
           <Route
@@ -535,9 +549,16 @@ class App extends Component {
             exact
             path="/admin/quiz_editor/:id/questions/:qid"
             render={() => (
-              <>
+              <> 
                 <AdminNav />
-                <AdminQuizEditor onEdit={this.handleAnswerEdit} />
+                <AdminQuestionEditor
+                  onEdit={this.handleAnswerEdit}
+                  quizfound={quizfound}
+                  questionfound={questionfound}
+                  onQuizfound={this.handleQuizFound}
+                  onQuestionfound={this.handleQuestionFound}
+                  quizzesAreLoaded={quizzesAreLoaded}
+                />
               </>
             )}
           />

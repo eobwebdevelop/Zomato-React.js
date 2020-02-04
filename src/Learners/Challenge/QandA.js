@@ -32,9 +32,6 @@ class QandA extends React.Component {
       postQuizResult
     } = this.props;
 
-    // Uncomment this to see the question being rendered
-    // console.log(questionPackage);
-
     if (!isVisible) return null;
 
     return (

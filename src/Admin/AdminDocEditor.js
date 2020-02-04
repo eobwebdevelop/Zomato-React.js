@@ -73,7 +73,6 @@ class AdminDocEditor extends Component {
   };
   
   onChangeProduct = (e) => {
-    console.log(e.value);
     this.setState({
       product: e.value,
       displayProduct: e})
@@ -104,10 +103,8 @@ class AdminDocEditor extends Component {
         }),
       })
       .then((res) => {
-        console.log('hey', res);
         if (res.status === 200) {
-          // history.push('/admin/doc_list');
-          console.log('cool, fix hist later')
+          this.props.history.push('/admin/doc_list');
         }
       });
   };
