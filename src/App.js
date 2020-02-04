@@ -116,7 +116,6 @@ class App extends Component {
           ...state,
           results: data.Results
         }));
-        console.log(data.Results);
       });
     
   };
@@ -436,34 +435,11 @@ class App extends Component {
       restaurants,
       regions,
       results,
-<<<<<<< HEAD
       quizzesAreLoaded,
-      quizzesLearner,
       quizfound,
       questionfound
     } = this.state;
 
-=======
-      quizzesAreLoaded
-    } = this.state;
-
-    // console.log(this.props);
-    const quizfound = quizzes.find(
-      quiz => quiz.id === +this.props.match.params.id
-    );
-    const questionfound = quizfound
-      ? quizfound.questions.find(
-          question => question.id === +this.props.match.params.qid
-        )
-      : [];
-    // console.log(quizfound, questionfound, "hey");
-    // console.log(
-    //   matchPath(this.props.location.search, {
-    //     path: "/admin/quiz_editor/:id/questions/:qid"
-    //   })
-    // );
-
->>>>>>> master
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}

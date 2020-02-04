@@ -23,8 +23,11 @@ const AdminAnswerEditor = (props) => (
               Tick the correct answer?
               <input
                 type="checkbox"
-                name="correctanswer"
-                value="correctanswer"
+                name={ans.id}
+                checked={ans.id === props.correctAnswer}
+                onClick={(e) => {
+                  props.updateCorrectAnswer(e);
+                }}
               />
             </div>
           </div>

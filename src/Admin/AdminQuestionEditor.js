@@ -10,8 +10,34 @@ class AdminQuestionEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      id: this.props.match.params.id,
     };
+  }
+
+  
+  handlerSubmit = (e) => {
+    const answeroptions = [
+      this.state.answer_option_1,
+      this.state.answer_option_2,
+      this.state.answer_option_3,
+      this.state.answer_option_4
+    ]
+    const answerids = [ ];
+    e.preventDefault();
+    console.log("the form has been submited with these fields:");
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/product/edit`,
+    {
+        method:  'PUT',
+        headers:  new Headers({
+                'Content-Type':  'application/json'
+        }),
+        body:  JSON.stringify({}),
+    })
+    .then(res => {
+      if(res.status === 200){ 
+        this.props.history.push('/admin/product_list')
+      }}
+    ) 
   }
 
 
@@ -49,7 +75,14 @@ class AdminQuestionEditor extends Component {
     });
   }
 
+  updateCorrectAnswer = (event) =>{
+    this.setState({
+      correct_answer_id: event.target.name
+    });
+  }
+
   render() {
+    console.log(this.state)
     const {
       quizfound,
       questionfound,
@@ -68,7 +101,7 @@ class AdminQuestionEditor extends Component {
             {' '}
             {quizfound.name}
           </p>
-          <form>
+          <form onSubmit={this.handlerSubmit}>
             <div className="Question-Edit">
               <div className="Question-Edit-Inner">
                 <h2>
@@ -86,6 +119,8 @@ class AdminQuestionEditor extends Component {
                     this.state.answer_option_3,
                     this.state.answer_option_4
                   ]}
+                  correctAnswer={+this.state.correct_answer_id}
+                  updateCorrectAnswer={this.updateCorrectAnswer}
                 />
               </div>
             </div>
