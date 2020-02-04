@@ -715,6 +715,7 @@ class App extends Component {
                 <QuizList
                   QuizList={quizzesLearner.quizzes}
                   changeQuizIDInPlay={this.changeQuizIDInPlay}
+                  refreshQuizState={this.refreshQuizState}
                 />
               </>
             )}
