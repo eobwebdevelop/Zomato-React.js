@@ -19,11 +19,11 @@ class AdminResultList extends Component {
           <p>
             You are viewing all the available results at the current moment.
           </p>
-          <Link to="/">
+          {/* <Link to="/">
             <button type="submit" className="btn">
               Export Data
             </button>
-          </Link>
+          </Link> */}
           <table className="tftable" border="1">
             <tr>
               <th>Result ID</th>
