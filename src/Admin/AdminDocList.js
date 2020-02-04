@@ -1,48 +1,50 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-
+import React from "react";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const AdminDocList = ({ documentation, onDelete }) => (
   <Container>
-    <Link to="/admin/doc_editor">
+    {/* <Link to="/admin/doc_editor">
       <button type="submit" className="btn">
-          Add New Documentation
+        Add New Documentation
       </button>
-    </Link>
+    </Link> */}
     <br />
-    <Link to="/">
+    {/* <Link to="/">
       <button type="submit" className="btn">
           Export Data
       </button>
-    </Link>
+    </Link> */}
 
     <table className="tftable" border="1">
       <thead>
         <th>ID</th>
         <th>Product</th>
         <th>Title</th>
-        <th>Edit</th>
+        {/* <th>Edit</th> */}
         <th>Delete</th>
       </thead>
-      {documentation.map((doc) => (
+      {documentation.map(doc => (
         <tbody key={doc.id}>
           <td>{doc.id}</td>
           <td>{doc.product_name}</td>
           <td>{doc.title}</td>
-          <td>
-            <button type="submit" className="view-quizzes-page-links-side-by-side">
-                  Edit Documentation ►
+          {/* <td>
+            <button
+              type="submit"
+              className="view-quizzes-page-links-side-by-side"
+            >
+              Edit Documentation ►
             </button>
-          </td>
+          </td> */}
           <td>
             <button
               type="submit"
               className="view-quizzes-page-links-side-by-side"
               onClick={() => onDelete(doc.id)}
             >
-                  Delete Documentation ►
+              Delete Documentation ►
             </button>
           </td>
         </tbody>
@@ -55,10 +57,10 @@ AdminDocList.propTypes = {
   documentation: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-    }).isRequired,
+      title: PropTypes.string.isRequired
+    }).isRequired
   ).isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 export default AdminDocList;
