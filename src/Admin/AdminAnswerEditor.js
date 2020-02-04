@@ -8,11 +8,11 @@ const AdminAnswerEditor = (props) => {
   return (
     <div>
       <Container>
-        {props.answers.map((ans) => (
+        {props.answers && props.answers.map((ans) => (
           <div className="row">
             <div key={ans.id} className="col">
             Answer Option:
-              <textarea type="text" name="quizname" value={ans.answer_option} />
+              <textarea type="text" name="quizname" value={ans.answer_option} onChange={(e)=>{props.onEdit(e.target.value)}} />
               <br />
               Tick the correct answer?
               <input
