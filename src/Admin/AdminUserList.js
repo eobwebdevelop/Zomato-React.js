@@ -9,7 +9,9 @@ const AdminUserList = ({ users, onDelete }) => (
     <Container>
       <h1>Manage Users</h1>
       <hr />
-      <p>You are viewing all the available Users at the current moment.</p>
+      <p>
+        You are viewing all the available Users at the current moment.
+      </p>
       <Link to="/learners/signup">
         <button type="submit" className="btn">
           Add Users
@@ -17,7 +19,7 @@ const AdminUserList = ({ users, onDelete }) => (
       </Link>
       {/* <Link to="/">
         <button type="submit" className="btn">
-            Export Data
+          Export Data
         </button>
       </Link> */}
       <table className="tftable" border="1">
@@ -37,7 +39,10 @@ const AdminUserList = ({ users, onDelete }) => (
             <tr>
               <td>{user.id}</td>
               <td>
-                {user.first_name}, {user.last_name}
+                {user.first_name}
+                ,
+                {' '}
+                {user.last_name}
               </td>
               <td>{user.email}</td>
               <td>{user.phone_number}</td>

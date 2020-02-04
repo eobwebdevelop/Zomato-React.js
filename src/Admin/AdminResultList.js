@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import "./AdminList.css";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import './AdminList.css';
+import { Container } from 'react-bootstrap';
+
 
 class AdminResultList extends Component {
   constructor(props) {

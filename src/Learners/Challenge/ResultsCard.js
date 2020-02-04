@@ -23,7 +23,7 @@ class ResultsCard extends React.Component {
                 {translations[currentLanguage].ResultsCard.Title}
                 {' '}
                 {questionNumber}
-:
+                :
                 {' '}
                 {questionText}
               </h1>
@@ -32,7 +32,7 @@ class ResultsCard extends React.Component {
                 {translations[currentLanguage].ResultsCard.Ok}
                 {' '}
                 <span role="img" aria-label="jsx-a11y/accessible-emoji">
-              ✅
+                  ✅
                 </span>
                 {' '}
               </h2>
@@ -53,7 +53,7 @@ class ResultsCard extends React.Component {
               {translations[currentLanguage].ResultsCard.Title}
               {' '}
               {questionNumber}
-:
+              :
               {' '}
               {questionText}
             </h1>
@@ -61,7 +61,7 @@ class ResultsCard extends React.Component {
               {translations[currentLanguage].ResultsCard.No}
               {' '}
               <span role="img" aria-label="jsx-a11y/accessible-emoji">
-            ❌
+                ❌
               </span>
             </h2>
             <p>

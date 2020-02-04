@@ -29,7 +29,7 @@ class QandA extends React.Component {
       quizIDInPlay,
       checkScore,
       incrementQuizStep,
-      postQuizResult
+      postQuizResult,
     } = this.props;
 
     if (!isVisible) return null;
@@ -39,7 +39,7 @@ class QandA extends React.Component {
         <h1>
           Q
           {step + 1}
-:
+          :
           {' '}
           {questionPackage.question}
         </h1>

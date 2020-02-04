@@ -9,63 +9,63 @@ const AdminQuizMaker = () => (
       <h1>Create/Edit Quiz</h1>
       <hr />
       <p>
-          You are creating a new quiz. MESSAGE FROM ED: This is just a
-          placeholder that needs developing.
+        You are creating a new quiz. MESSAGE FROM ED: This is just a
+        placeholder that needs developing.
       </p>
       <form>
-          Quiz Name:
+        Quiz Name:
         <input type="text" name="quizname" />
         <br />
         {' '}
         <br />
-          Staff Type:
+        Staff Type:
         <input type="text" name="quizname" />
         <br />
         {' '}
         <br />
-          Product:
+        Product:
         <input type="text" name="quizname" />
         {' '}
         <br />
         {' '}
         <br />
-          Language:
+        Language:
         <input type="text" name="quizname" />
         <br />
         <br />
         <div className="Question-Edit">
           <div className="Question-Edit-Inner">
             <h2>Question 1</h2>
-              Question:
+            Question:
             <input type="text" name="quizname" />
             <br />
-              Answer 1:
+            Answer 1:
             <input type="text" name="quizname" />
-Correct Answer?
+            Correct Answer?
             <input
               type="checkbox"
               name="correctanswer"
               value="correctanswer"
             />
-              Answer 2:
+            Answer 2:
             <input type="text" name="quizname" />
-              Correct Answer?
+            Correct Answer?
             <input
               type="checkbox"
               name="correctanswer"
               value="correctanswer"
             />
-              Answer 3:
+            Answer 3:
             <input type="text" name="quizname" />
-              Correct Answer?
+            Correct Answer?
             <input
               type="checkbox"
               name="correctanswer"
               value="correctanswer"
             />
-              Answer 4:
+            Answer 4:
             <input type="text" name="quizname" />
-              Correct Answer?
+            Correct Answer?
             <input
               type="checkbox"
               name="correctanswer"
@@ -76,7 +76,7 @@ Correct Answer?
       </form>
       <Link to="/admin/quiz_list">
         <button type="submit" className="btn">
-            Save Quiz
+          Save Quiz
         </button>
       </Link>
     </Container>

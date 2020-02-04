@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import './AdminDocEditor.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import Select from "react-select";
+import Select from 'react-select';
 
 
 class AdminDocEditor extends Component {

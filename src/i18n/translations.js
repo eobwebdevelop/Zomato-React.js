@@ -7,7 +7,6 @@ const Translations = {
       LinkQ: 'All Quizzes',
       LinkF: 'FAQ',
       LinkC: 'About Us',
-      LinkA: 'Admin Portal',
     },
 
     About: {
@@ -131,7 +130,6 @@ const Translations = {
       LinkQ: 'Quizzes ',
       LinkF: 'FAQ',
       LinkC: 'Sobre nós',
-      LinkA: 'Admin Portal (portuguese translation,plz)',
     },
 
     About: {
