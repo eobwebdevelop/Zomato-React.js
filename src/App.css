@@ -199,3 +199,5 @@ select.ui.button.floating.labeled.search.dropdown.icon {
   width: 8%;
   min-width: 100px;
 }
+/*quiz*/
+.answerButton{text-align: left!important;}

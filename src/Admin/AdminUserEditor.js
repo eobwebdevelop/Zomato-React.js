@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
-import { withRouter}  from "react-router-dom";
-import Select from "react-select";
+import { withRouter}  from 'react-router-dom';
+import Select from 'react-select';
 
 const userType = [
   { value: 1, label: 'Admin' },

@@ -1,6 +1,6 @@
-import React from "react";
-// import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
-// import translations from '../../i18n/translations';
+import React from 'react';
+import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
 
 class ResultsCard extends React.Component {
@@ -14,37 +14,54 @@ class ResultsCard extends React.Component {
       userAnswerID,
     } = this.props;
 
-    if (userAnswerID === correctAnswerID) {
+    if (userAnswerText === correctAnswerText) {
       return (
-        <>
-          <h1>
+        <LanguagesContext.Consumer>
+          {({ currentLanguage }) => (
+            <>
+              <h1>
             Question
-            {' '}
-            {questionNumber}
+                {' '}
+                {questionNumber}
 :
-            {' '}
-            {questionText}
-          </h1>
+                {' '}
+                {questionText}
+              </h1>
 
-          <h2>Correct<span role="img" aria-label="jsx-a11y/accessible-emoji">✅</span> </h2>
-          <p>
-            Your answer:
-            {userAnswerText}
-          </p>
-        </>
+              <h2>
+            Correct
+                {' '}
+                <span role="img" aria-label="jsx-a11y/accessible-emoji">
+              ✅
+                </span>
+                {' '}
+              </h2>
+              <p>
+Your answer:
+                {userAnswerText}
+              </p>
+            </>
+          )}
+        </LanguagesContext.Consumer>
       );
     }
     return (
       <>
         <h1>
-            Question
+          Question
           {' '}
           {questionNumber}
 :
           {' '}
           {questionText}
         </h1>
-        <h2>Incorrect <span role="img" aria-label="jsx-a11y/accessible-emoji">❌</span></h2> 
+        <h2>
+          Incorrect
+          {' '}
+          <span role="img" aria-label="jsx-a11y/accessible-emoji">
+            ❌
+          </span>
+        </h2>
         <p>
 Your answer:
           {userAnswerText}

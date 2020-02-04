@@ -1,50 +1,26 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './AdminDocEditor.css';
 import ReactQuill from 'react-quill';
-import DropDown from '../Learners/SignUp/DropDown';
 import 'react-quill/dist/quill.snow.css';
+import Select from "react-select";
 
 
-const langOptions = [
-  {
-    key: 'English',
-    text: 'English',
-    value: 'English',
-  },
-  {
-    key: 'Português',
-    text: 'Português',
-    value: 'Português',
-  },
-];
-const productOptions = [
-  {
-    key: 'Gold',
-    text: 'Gold',
-    value: 'Gold',
-  },
-  {
-    key: 'Book',
-    text: 'Book',
-    value: 'Book',
-  },
-];
+class AdminDocEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      text: '',
+      lastUploadedFile: {},
+      base64Url: {},
+    };
+  }
 
-const AdminDocEditor = () => {
-  // post
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [language, setLanguage] = useState([]);
-  const [product, setProduct] = useState([]);
-  // quill
-  const [text, setText] = useState('');
-  const [lastUploadedFile, setLastUploadedFile] = useState({});
-  const [base64Url, setBase64Url] = useState({});
-
-  const quillModules = {
+  quillModules = {
     toolbar: [
       [{ header: [1, 2, false] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
@@ -55,7 +31,7 @@ const AdminDocEditor = () => {
     ],
   };
 
-  const uploadToCloudinary = async (base64) => {
+  uploadToCloudinary = async (base64) => {
     const data = new FormData();
     data.append('file', base64);
     data.append('upload_preset', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
@@ -67,13 +43,13 @@ const AdminDocEditor = () => {
       },
     );
     const file = await res.json();
-    setLastUploadedFile(file);
+    this.setState({ lastUploadedFile: file });
   };
 
-  const deleteFromCloudinary = async () => {
+  deleteFromCloudinary = async () => {
     const data = new FormData();
-    data.append('file', lastUploadedFile);
-    data.append('token', lastUploadedFile.delete_token);
+    data.append('file', this.state.lastUploadedFile);
+    data.append('token', this.state.lastUploadedFile.delete_token);
     await fetch(
       process.env.REACT_APP_CLOUDINARY_DELETE_LINK,
       {
@@ -83,42 +59,38 @@ const AdminDocEditor = () => {
     );
   };
 
-  const handleChangeQuill = (value, delta) => {
-    setText(value);
-    if (typeof delta.ops[0].insert === 'object') {
-      setBase64Url(delta.ops[0].insert.image);
-      uploadToCloudinary(delta.ops[0].insert.image);
-    } else if (delta.ops[0].delete) {
-      deleteFromCloudinary();
+  handleChangeQuill = (value, delta) => {
+    for(let i=0; i<delta.ops.length; i++){
+      if (typeof delta.ops[i].insert === 'object') {
+        this.setState({base64Url: delta.ops[i].insert.image});
+        this.uploadToCloudinary(delta.ops[i].insert.image);
+      } else if (delta.ops[i].delete) {
+        this.deleteFromCloudinary();
+      } else {
+        this.setState({ text: value });
+    }
     }
   };
-
-  const updateContent = () => {
-    console.log('file in update content', lastUploadedFile);
-    // const textWithCloudinaryUrl = text.replace(base64Url, lastUploadedFile.secure_url);
-    const textWithCloudinaryUrl = text.replace('oi', 'olá olá');
-    console.log('heyho', lastUploadedFile.secure_url);
-    // console.log('textWithCloudinaryUrl', textWithCloudinaryUrl);
-    setContent(textWithCloudinaryUrl);
+  
+  onChangeProduct = (e) => {
+    console.log(e.value);
+    this.setState({
+      product: e.value,
+      displayProduct: e})
   };
-
-  const onChangeLanguage = () => {
-    console.log('language', language);
-    // not working
+  
+  onChangeTitle = (e) => {
+    this.setState({title: e.target.value});
   };
-  const onChangeProduct = () => {
-    console.log('language', language);
-    // not working
-  };
-  const onChangeTitle = (e) => {
-    setTitle(e.target.value);
-    setLanguage(1);
-    setProduct(1);
-  };
-
-  const postDocumentation = (e) => {
+  
+  postDocumentation = (e) => {
     e.preventDefault();
-    // updateContent();
+
+    this.setState(() => {
+      const textWithCloudinaryUrl = this.state.text.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
+      return { text: textWithCloudinaryUrl }
+    });
+
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
       {
         method: 'POST',
@@ -126,63 +98,67 @@ const AdminDocEditor = () => {
           'Content-Type': 'application/json',
         }),
         body: JSON.stringify({
-          title,
-          content,
-          language_id: language,
-          product_id: product,
+          title: this.state.title,
+          content: this.state.text,
+          product_id: this.state.product,
         }),
       })
       .then((res) => {
-        res.json();
+        console.log('hey', res);
+        if (res.status === 200) {
+          // history.push('/admin/doc_list');
+          console.log('cool, fix hist later')
+        }
       });
   };
 
-
-  return (
-    <div>
-      <Container>
-        <h1>Create new</h1>
-        <label>
-      Language:
-        </label>
-        <DropDown
-          selectOptions={langOptions}
-          placeholder="Select language"
-          onChange={onChangeLanguage}
-        />
-        <label>
-      Product:
-        </label>
-        <DropDown
-          selectOptions={productOptions}
-          placeholder="Select product"
-          onChange={onChangeProduct}
-        />
-        <label>
-            Title:
-        </label>
-        <input
-          type="text"
-          name="name"
-          onChange={onChangeTitle}
-        />
-        <ReactQuill
-          modules={quillModules}
-          value={text}
-          onChange={handleChangeQuill}
-        />
-        <Link to="/admin/quiz_list">
+  render() {
+    return (
+      <div>
+        <Container>
+          <h1>Create new</h1>
+          <label>
+            Product:
+          </label>
+              <Select
+                  placeholder = "Select a Product"
+                  value = {this.state.displayProduct}
+                  onChange={this.onChangeProduct}
+                  classNamePrefix="select"
+                  options={this.props.products.map((prod) => ({value: prod.id, label: prod.name}))} 
+              />
+          <input
+            placeholder="Title"
+            type="text"
+            name="name"
+            onChange={this.onChangeTitle}
+          />
+          <ReactQuill
+            className='quill'
+            modules={this.quillModules}
+            onChange={this.handleChangeQuill}
+          />
           <button
             type="submit"
             className="btn"
-            onClick={postDocumentation}
+            onClick={this.postDocumentation}
           >
             Save
           </button>
-        </Link>
-      </Container>
-    </div>
-  );
+        </Container>
+      </div>
+    );
+  }
+}
+
+AdminDocEditor.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
 };
 
-export default AdminDocEditor;
+export default withRouter(AdminDocEditor);

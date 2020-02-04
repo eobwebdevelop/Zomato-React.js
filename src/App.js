@@ -4,6 +4,9 @@ import { Redirect, Route, withRouter, matchPath } from "react-router-dom";
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
+//Routes
+import LearnersAuth from "./Routes/LearnersAuth";
+
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
 import AdminLogin from "./Admin/AdminLogin";
@@ -22,25 +25,19 @@ import AdminProductEditor from "./Admin/AdminProductEditor";
 import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminResultList from "./Admin/AdminResultList";
-import AdminQuestionEditor from "./Admin/AdminQuestionEditor"
 
 
 // Learner portal imports
 
 import LearnerNav from "./LearnerNav";
 import BasicNav from "./BasicNav.js";
-import ContactUs from "./Learners/ContactUs/ContactUs";
+import About from "./Learners/About/About";
 import Documentation from "./Learners/Documentation/Documentation";
 import LogIn from "./Learners/LogIn/LogIn";
 import ForgotPassword from "./Learners/LogIn/ForgotPassword";
 import QuizList from "./Learners/QuizList/QuizList";
 import Challenge from "./Learners/Challenge/Challenge";
-// import Answer from "./Learners/Quiz/Answer";
-// import Quiz from "./Learners/Quiz/Quiz";
-// import Timer from "./Learners/Quiz/Timer";
-// import Question from "./Learners/Quiz/Question";
-// import Results from "./Learners/Quiz/Results";
-import SignUp from "./Learners/SignUp/SignUp";
+// import SignUp from "./Learners/SignUp/SignUp";
 import FAQ from "./Learners/FAQ/FAQ";
 
 // Translation eng/port
@@ -150,7 +147,7 @@ class App extends Component {
       () => {
         fetch("http://localhost:3000/admin/quiz")
         .then(response => response.json())
-        .then(data => { console.log('fetch Quizzes')
+        .then(data => {
           this.setState(state => ({
             ...state,
             quizzes: data.quizzes,
@@ -281,12 +278,6 @@ class App extends Component {
       this.getDocs();
     });
   };
-  componentDidUpdate(prevProps, pS) {
-    if (this.state.currentLanguage !== pS.currentLanguage) {
-      this.setState(this.props.currentLanguage);
-    }
-   }
-
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -345,14 +336,15 @@ class App extends Component {
   render() {
 
     const {
-      currentLanguage, 
+      currentLanguage,
+      quizzes,
+      documentation,
       products,
       users,
       restaurants,
       regions,
       results,
       quizzesAreLoaded,
-      quizzes,
       quizzesLearner
     } = this.state;
     
@@ -374,46 +366,42 @@ class App extends Component {
               questionfound,
             }}
         >
-           <Route
-          exact
-          path="/"
-          render={() => <Redirect to="/learners/login"></Redirect>}
-        />
-        <Route
-          exact
-          path="/admin"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminHomePage />
-            </>
-          )}
-        />
 
-        <Route
-          exact
-          path="/admin/login"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminLogin />
-            </>
-          )}
-        />
-        {/* {Documentation } */}
-        <Route
-          exact
-          path="/admin/doc_list"
-          render={() => (
-            <>
-              <AdminNav />
-              <AdminDocList
-                documentation={this.state.documentation}
-                onDelete={this.handleDeleteDoc}
-              />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/admin"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminHomePage />
+              </>
+            )}
+          />
+
+          <Route
+            exact
+            path="/admin/login"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminLogin />
+              </>
+            )}
+          />
+          {/* {Documentation } */}
+          <Route
+            exact
+            path="/admin/doc_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminDocList
+                  documentation={this.state.documentation}
+                  onDelete={this.handleDeleteDoc}
+                />
+              </>
+            )}
+          />
 
         <Route
           exact
@@ -422,7 +410,9 @@ class App extends Component {
             <>
               <AdminNav />
               <AdminDocEditor 
-              documentation={this.state.documentation} />
+              products={products}
+              documentation={documentation} 
+              />
             </>
           )}
         />
@@ -589,18 +579,16 @@ class App extends Component {
           )}
         />
 
-        {/* Learners Route */}
-
-        <Route
-          exact
-          path="/learners/contact_us"
-          render={() => (
-            <>
-              <LearnerNav />
-              <ContactUs />
-            </>
-          )}
-        />
+          <Route
+            exact
+            path="/learners/about"
+            render={() => (
+              <>
+                <LearnerNav />
+                <About />
+              </>
+            )}
+          />
 
         <Route
           exact
@@ -624,16 +612,6 @@ class App extends Component {
           )}
         />
 
-        <Route
-          exact
-          path="/learners/login"
-          render={() => (
-            <>
-              <BasicNav />
-              <LogIn />
-            </>
-          )}
-        />
 
         <Route
           exact
@@ -685,16 +663,18 @@ class App extends Component {
           )}
         />
 
-        <Route
-          exact
-          path="/learners/signup"
-          render={() => (
-            <>
-              <BasicNav />
-              <SignUp restaurants={restaurants} />
-            </>
-          )}
-        />
+        {/* Learnes Auth */}
+          <Route
+            exact
+            render={() => (
+              <>
+                <LearnersAuth restaurants={this.state.restaurants}/>
+              </>
+            )}
+          />
+        {/* //Learnes Auth */} 
+
+
         </QuizzesContext.Provider>
       </LanguagesContext.Provider>
       
