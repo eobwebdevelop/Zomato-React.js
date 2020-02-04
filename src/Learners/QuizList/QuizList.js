@@ -8,7 +8,6 @@ import translations from "../../i18n/translations";
 const QuizList = props => {
   useEffect(() => {
     props.refreshQuizState();
-    console.log("use effect");
   }, []);
 
   const { currentLanguage } = useContext(LanguagesContext);

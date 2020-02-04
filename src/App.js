@@ -115,8 +115,9 @@ class App extends Component {
           ...state,
           results: data.Results
         }));
+        console.log(data.Results);
       });
-      console.log(this.state.results);
+    
   };
 
   getRestaurants = () => {
@@ -407,7 +408,6 @@ class App extends Component {
   };
 
   handleAnswerEdit = answer => {
-    console.log(answer);
     this.setState({ answer_option: answer });
   };
 
