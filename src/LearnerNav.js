@@ -14,7 +14,7 @@ const LearnerNav = () => {
       {/* Example */}
       <Navbar className="learner-navbar" bg="tyrolean" expand="lg">
         <Navbar.Brand href="/learners/quiz_list">
-          <img src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" />
+          <img src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" alt="Zomato logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="learner-basic-navbar-nav">
@@ -28,7 +28,7 @@ const LearnerNav = () => {
             <Nav.Link href="/learners/faq" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkF}
             </Nav.Link>
-            <Nav.Link href="/learners/contact_us" className="grey-link">
+            <Nav.Link href="/learners/about" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkC}
             </Nav.Link>
             <Nav.Link href="/admin/login" className="grey-link">

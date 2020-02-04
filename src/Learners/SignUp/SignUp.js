@@ -1,12 +1,9 @@
 import React, {Component, Redirect} from 'react';
-// import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
-import Select from "react-select";
+import Select from 'react-select';
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
-import LogIn from "../LogIn/LogIn";
-
 
 
 
@@ -104,7 +101,7 @@ handlerSubmit = (e, currentLanguage) => {
   e.preventDefault();
   const err = this.validate(currentLanguage);
   if (!err) {
-    fetch("http://localhost:3000/auth/signup",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`,
       {
           method:  'POST',
           headers:  new Headers({

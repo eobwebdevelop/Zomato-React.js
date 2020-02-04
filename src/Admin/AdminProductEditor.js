@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { withRouter}  from "react-router-dom";
-import { Container } from "react-bootstrap";
-import Select from "react-select";
+import { withRouter}  from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Select from 'react-select';
 
 class AdminProductEditor extends Component  {
   constructor(props) {
@@ -45,7 +45,7 @@ class AdminProductEditor extends Component  {
     const {name, description, language_id, id} = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:");
-    fetch("http://localhost:3000/admin/product/edit",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/product/edit`,
     {
         method:  'PUT',
         headers:  new Headers({

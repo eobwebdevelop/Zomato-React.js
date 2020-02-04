@@ -1,6 +1,7 @@
-import React from "react";
-// import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
-// import translations from '../../i18n/translations';
+import React from 'react';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
+
 
 class ResultsCard extends React.Component {
   render() {
@@ -10,40 +11,70 @@ class ResultsCard extends React.Component {
       questionNumber,
       questionText,
       userAnswerText,
-      userAnswerID
+      userAnswerID,
     } = this.props;
 
     if (userAnswerText === correctAnswerText) {
       return (
-        <>
-          <h1>
-            Question {questionNumber}: {questionText}
-          </h1>
+        <LanguagesContext.Consumer>
+          {({ currentLanguage }) => (
+            <div>
+              <h1>
+                {translations[currentLanguage].ResultsCard.Title}
+                {' '}
+                {questionNumber}
+:
+                {' '}
+                {questionText}
+              </h1>
 
-          <h2>
-            Correct{" "}
-            <span role="img" aria-label="jsx-a11y/accessible-emoji">
+              <h2>
+                {translations[currentLanguage].ResultsCard.Ok}
+                {' '}
+                <span role="img" aria-label="jsx-a11y/accessible-emoji">
               ✅
-            </span>{" "}
-          </h2>
-          <p>Your answer: {userAnswerText}</p>
-        </>
+                </span>
+                {' '}
+              </h2>
+              <p>
+                {translations[currentLanguage].ResultsCard.Ans}
+                {userAnswerText}
+              </p>
+            </div>
+          )}
+        </LanguagesContext.Consumer>
       );
     }
     return (
-      <>
-        <h1>
-          Question {questionNumber}: {questionText}
-        </h1>
-        <h2>
-          Incorrect{" "}
-          <span role="img" aria-label="jsx-a11y/accessible-emoji">
+      <LanguagesContext.Consumer>
+        {({ currentLanguage }) => (
+          <div>
+            <h1>
+              {translations[currentLanguage].ResultsCard.Title}
+              {' '}
+              {questionNumber}
+:
+              {' '}
+              {questionText}
+            </h1>
+            <h2>
+              {translations[currentLanguage].ResultsCard.No}
+              {' '}
+              <span role="img" aria-label="jsx-a11y/accessible-emoji">
             ❌
-          </span>
-        </h2>
-        <p>Your answer: {userAnswerText}</p>
-        <p>The correct answer: {correctAnswerText}</p>
-      </>
+              </span>
+            </h2>
+            <p>
+              {translations[currentLanguage].ResultsCard.Ans}
+              {userAnswerText}
+            </p>
+            <p>
+              {translations[currentLanguage].ResultsCard.WhatsOK}
+              {correctAnswerText}
+            </p>
+          </div>
+        )}
+      </LanguagesContext.Consumer>
     );
   }
 }

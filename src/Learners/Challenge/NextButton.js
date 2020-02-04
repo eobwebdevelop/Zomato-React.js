@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import LanguagesContext from "../../contexts/languages-context";
+import translations from "../../i18n/translations";
 
 class NextButton extends Component {
   constructor(props) {
@@ -19,7 +21,9 @@ class NextButton extends Component {
   finalQuestion(selectedAnswer) {
     this.props.addUserInputToState(selectedAnswer);
     this.props.checkScore();
+    this.props.stopTimer();
     this.props.incrementQuizStep();
+    this.props.postQuizResult();
   }
 
   render() {
@@ -35,31 +39,39 @@ class NextButton extends Component {
 
     if (step < 9) {
       return (
-        <>
-          <button
-            type="submit"
-            className="btn"
-            onClick={() => {
-              this.nextQuestion(selectedAnswer);
-            }}
-          >
-            Next
-          </button>
-        </>
+        <LanguagesContext.Consumer>
+          {({ currentLanguage }) => (
+            <div>
+              <button
+                type="submit"
+                className="btn"
+                onClick={() => {
+                  this.nextQuestion(selectedAnswer);
+                }}
+              >
+                {translations[currentLanguage].NextButton.ButtonN}
+              </button>
+            </div>
+          )}
+        </LanguagesContext.Consumer>
       );
     }
     return (
-      <>
-        <button
-          type="submit"
-          className="btn"
-          onClick={() => {
-            this.finalQuestion(selectedAnswer);
-          }}
-        >
-          See Results
-        </button>
-      </>
+      <LanguagesContext.Consumer>
+        {({ currentLanguage }) => (
+          <div>
+            <button
+              type="submit"
+              className="btn"
+              onClick={() => {
+                this.finalQuestion(selectedAnswer);
+              }}
+            >
+              {translations[currentLanguage].NextButton.ButtonR}
+            </button>
+          </div>
+        )}
+      </LanguagesContext.Consumer>
     );
   }
 }

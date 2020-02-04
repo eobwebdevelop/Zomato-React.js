@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { withRouter } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { withRouter } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import './AdminCreator.css';
-import Select from "react-select";
+import Select from 'react-select';
 
 class AdminProductCreator extends Component  {
   constructor(props) {
@@ -33,7 +33,7 @@ class AdminProductCreator extends Component  {
     const {name, description, language_id} = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:",  );
-    fetch("http://localhost:3000/admin/product/create",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/product/create`,
     {
         method:  'POST',
         headers:  new Headers({

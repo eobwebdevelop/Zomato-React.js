@@ -1,20 +1,20 @@
-import React from "react";
-import NextButton from "./NextButton";
-import AnswerButton from "./AnswerButton";
+import React from 'react';
+import NextButton from './NextButton';
+import AnswerButton from './AnswerButton';
 
 class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedAnswer: {}
+      selectedAnswer: {},
     };
     this.answerSelect = this.answerSelect.bind(this);
   }
 
   answerSelect(userInput) {
-    this.setState(state => ({
+    this.setState((state) => ({
       ...state,
-      selectedAnswer: userInput
+      selectedAnswer: userInput,
     }));
   }
 
@@ -28,7 +28,8 @@ class QandA extends React.Component {
       stopTimer,
       quizIDInPlay,
       checkScore,
-      incrementQuizStep
+      incrementQuizStep,
+      postQuizResult
     } = this.props;
 
     // Uncomment this to see the question being rendered
@@ -39,7 +40,11 @@ class QandA extends React.Component {
     return (
       <>
         <h1>
-          Q{step + 1}: {questionPackage.question}
+          Q
+          {step + 1}
+:
+          {' '}
+          {questionPackage.question}
         </h1>
 
         {questionPackage.answers.map((answer, i) => (
@@ -66,6 +71,7 @@ class QandA extends React.Component {
           isVisible={this.state.selectedAnswer.userAnswerID === undefined}
           checkScore={checkScore}
           incrementQuizStep={incrementQuizStep}
+          postQuizResult={postQuizResult}
         />
       </>
     );

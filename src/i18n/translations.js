@@ -6,18 +6,16 @@ const Translations = {
       LinkL: 'Logout',
       LinkQ: 'All Quizzes',
       LinkF: 'FAQ',
-      LinkC: 'Contact',
+      LinkC: 'About Us',
       LinkA: 'Admin Portal',
     },
 
-    ContactUs: {
-      Title: 'Contact Us',
-      Feedback: 'We would love to hear from you.',
-      Button: 'Send Message',
-      PlaceholderN: ' Name*',
-      PlaceholderE: ' Email*',
+    About: {
+      Title: 'Who are we?',
+      TitleC: 'Contact Us',
+      TextAbout: 'Launched in Delhi 11 years ago, Zomato has grown from a home project to one of the largest food aggregators in the world. We are present in 24 countries and 10000+ cities globally, enabling our vision of better food for more people. We not only connect people to food in every context but work closely with restaurants to enable a sustainable ecosystem.',
+      TextContact: '+351 211 519 969',
       PlaceholderP: ' Phone number (optional)',
-      PlaceholderM: ' Message*',
     },
 
     Documentation: {
@@ -54,11 +52,6 @@ const Translations = {
     Answer: {
       ButtonN: 'Next',
       ButtonB: 'Back',
-    },
-
-    Quiz: {
-      Title: 'Quiz',
-      ButtonR: 'View Results',
     },
 
     Results: {
@@ -99,11 +92,12 @@ const Translations = {
     },
 
     Challenge: {
-      Title: 'Results',
+      TitleQ: 'Quiz',
+      TitleR: 'Results',
       CurrentT: 'Current Time',
       TimeSec: 'seconds',
       ScoreA: 'You scored',
-      ScoreB: 'out of 10!',
+      ScoreB: 'out of 10! 🎉',
       TimeA: 'Your total time was',
       TimeB: 'seconds.',
       ButtonH: 'Home',
@@ -111,7 +105,8 @@ const Translations = {
     },
 
     NextButton: {
-      Button: 'See results',
+      ButtonN: 'Next',
+      ButtonR: 'See results',
     },
 
     ResultsCard: {
@@ -119,7 +114,7 @@ const Translations = {
       Ok: 'Correct',
       No: 'Incorrect',
       Ans: 'Your answer:',
-      WhatsOK: 'The correct answer:',
+      WhatsOK: 'The correct answer: ',
     },
 
     QuizCard: {
@@ -139,14 +134,12 @@ const Translations = {
       LinkA: 'Admin Portal (portuguese translation,plz)',
     },
 
-    ContactUs: {
-      Title: 'Contacte-nos',
-      Feedback: 'Gostariamos de ouvir a sua opinião',
-      Button: 'Enviar mensagem',
-      PlaceholderN: ' Nome* ',
-      PlaceholderE: ' E-mail* ',
-      PlaceholderP: ' Número de telefone (opcional)',
-      PlaceholderM: ' Mensagem* ',
+    About: {
+      Title: 'Who are we? (Portuguese translation please)',
+      TitleC: 'Contact Us',
+      TextAbout: 'Launched in Delhi 11 years ago, Zomato has grown from a home project to one of the largest food aggregators in the world. We are present in 24 countries and 10000+ cities globally, enabling our vision of better food for more people. We not only connect people to food in every context but work closely with restaurants to enable a sustainable ecosystem.',
+      TextContact: '+351 211 519 969',
+      PlaceholderP: ' Phone number (optional)',
     },
 
     Documentation: {
@@ -185,11 +178,6 @@ const Translations = {
       ButtonB: 'Anterior',
     },
 
-    Quiz: {
-      Title: 'Quiz',
-      ButtonR: 'Ver resultados',
-    },
-
     Results: {
       Title: 'Resultados',
       ButtonD: 'Documentação',
@@ -225,18 +213,21 @@ const Translations = {
       Button: 'Registar-se',
     },
     Challenge: {
+      TitleQ: 'Quiz',
       Title: 'Resultados',
       CurrentT: 'Tempo decorrido',
       TimeSec: 'segundos',
       ScoreA: 'Acertou em',
-      ScoreB: 'de 10 perguntas!',
+      ScoreB: 'de 10 perguntas 🎉',
       TimeA: 'Completou o desafio em',
       TimeB: 'segundos.',
       ButtonH: 'Início',
       ButtonD: 'Documentação',
     },
+
     NextButton: {
-      Button: 'Ver resultados',
+      ButtonN: 'Next',
+      ButtonR: 'Ver resultados',
     },
 
     ResultsCard: {

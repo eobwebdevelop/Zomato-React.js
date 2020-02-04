@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
-import { withRouter}  from "react-router-dom";
-import Select from "react-select";
+import { withRouter}  from 'react-router-dom';
+import Select from 'react-select';
 
 const userType = [
   { value: 1, label: 'Admin' },
@@ -26,8 +26,6 @@ class AdminUserEditor extends Component {
       passwordError: '',
       confPassword: '',
       confPasswordError: '',
-      restaurant_id: '',
-      restaurants: [{id:0, name:''}],
       displayresto: '',
       flash: '',
     };
@@ -42,7 +40,6 @@ class AdminUserEditor extends Component {
         email: this.props.user.email,
         password: this.props.user.password,
         phone_number: this.props.user.phone_number,
-        restaurant_id: this.props.user.restaurant_id,
         id: this.props.user.id,
         user_type_id: this.props.user_type_id,
       })
@@ -68,16 +65,16 @@ class AdminUserEditor extends Component {
 
   handlerSubmit = (e) => {
     console.log('hey')
-    const {first_name, last_name, email, phone_number, restaurant_id, user_type_id, id } = this.state
+    const {first_name, last_name, email, phone_number, user_type_id, id } = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:");
-    fetch("http://localhost:3000/admin/user/edit",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/user/edit`,
     {
         method:  'PUT',
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify({email, first_name, last_name, phone_number, user_type_id, restaurant_id, id}),
+        body:  JSON.stringify({email, first_name, last_name, phone_number, user_type_id, id}),
     })
     .then(res => {
       if(res.status === 200){ 
@@ -90,12 +87,6 @@ class AdminUserEditor extends Component {
     this.setState({
     user_type_id: item.value,
     displayuserType:item })
-  }
-
-  updateRestaurant = (item) => {
-    this.setState({
-    restaurant_id: item.value,
-    displayRestaurant: item })
   }
 
   render() {
@@ -123,13 +114,7 @@ class AdminUserEditor extends Component {
             <input type="text" name="name" value={this.state.email} required onChange={this.updateEmail} />    
             <h5>Phone Number: </h5>
             <input type="text" name="name" value={this.state.phone_number} required onChange={this.updatePhone_number} /> 
-            <h5>Restaurant: </h5>
-            <Select
-                  value = {this.state.displayRestaurant}
-                  onChange={this.updateRestaurant}
-                  classNamePrefix="select"
-                  options={this.props.restaurants.map((item) => ({value: item.id, label: item.name}))}
-                  />
+          
               <button type="submit" className="btn-login">
                 Update
               </button>

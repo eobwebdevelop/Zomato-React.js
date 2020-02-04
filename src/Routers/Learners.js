@@ -5,7 +5,7 @@ import {
 // Learners
 import Documentation from '../Learners/Documentation/Documentation';
 import LearnerNav from '../LearnerNav';
-import ContactUs from '../Learners/ContactUs/ContactUs';
+import About from '../Learners/About/About';
 import FAQ from '../Learners/FAQ/FAQ';
 import Challenge from '../Learners/Challenge/Challenge';
 import QuizList from '../Learners/QuizList/QuizList';
@@ -30,11 +30,11 @@ const Learners = (props) => (
 
       <Route
         exact
-        path="/learners/contact_us"
+        path="/learners/about"
         render={() => (
           <>
             <LearnerNav />
-            <ContactUs />
+            <About />
           </>
         )}
       />
@@ -88,7 +88,7 @@ const Learners = (props) => (
               userQuizAnswers={props.userQuizAnswers}
               addUserInputToState={props.addUserInputToState}
               incrementQuizStep={props.incrementQuizStep}
-
+              addUserIDFromTokenToState={props.addUserIDFromTokenToState}
             />
           </>
         )}

@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
-import { withRouter}  from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { withRouter}  from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 import './AdminCreator.css';
 import QuizzesContext from '../contexts/quiz-context';
 
@@ -32,7 +32,7 @@ class AdminQuizEditor extends Component {
     const {questions, name, id} = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:",  );
-    fetch("http://localhost:3000/admin/quiz/edit",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/edit`,
     {
         method:  'PUT',
         headers:  new Headers({
