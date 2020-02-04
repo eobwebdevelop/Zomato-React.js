@@ -33,7 +33,7 @@ class AdminRestaurantCreator extends Component  {
     const {name, region_id} = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:",  );
-    fetch("http://localhost:3000/admin/restaurant/create",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant/create`,
     {
         method:  'POST',
         headers:  new Headers({

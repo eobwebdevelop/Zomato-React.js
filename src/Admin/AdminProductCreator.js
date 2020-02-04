@@ -33,7 +33,7 @@ class AdminProductCreator extends Component  {
     const {name, description, language_id} = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:",  );
-    fetch("http://localhost:3000/admin/product/create",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/product/create`,
     {
         method:  'POST',
         headers:  new Headers({

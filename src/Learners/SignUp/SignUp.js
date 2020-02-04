@@ -101,7 +101,7 @@ handlerSubmit = (e, currentLanguage) => {
   e.preventDefault();
   const err = this.validate(currentLanguage);
   if (!err) {
-    fetch("http://localhost:3000/auth/signup",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`,
       {
           method:  'POST',
           headers:  new Headers({

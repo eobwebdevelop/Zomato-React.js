@@ -68,7 +68,7 @@ class AdminUserEditor extends Component {
     const {first_name, last_name, email, phone_number, user_type_id, id } = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:");
-    fetch("http://localhost:3000/admin/user/edit",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/user/edit`,
     {
         method:  'PUT',
         headers:  new Headers({
