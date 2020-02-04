@@ -438,14 +438,14 @@ class App extends Component {
 
 
   
-    const quizfound = quizzes.find(
-      quiz => quiz.id === +this.props.match.params.id
-    );
-    const questionfound = quizfound
-      ? quizfound.questions.find(
-          question => question.id === +this.props.match.params.qid
-        )
-      : [];
+    // const quizfound = quizzes.find(
+    //   quiz => quiz.id === +this.props.match.params.id
+    // );
+    // const questionfound = quizfound
+    //   ? quizfound.questions.find(
+    //       question => question.id === +this.props.match.params.qid
+    //     )
+    //   : [];
     // console.log(quizfound, questionfound, "hey");
     // console.log(
     //   matchPath(this.props.location.search, {
