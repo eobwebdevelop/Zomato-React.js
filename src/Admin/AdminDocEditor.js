@@ -104,7 +104,7 @@ class AdminDocEditor extends Component {
       })
       .then((res) => {
         if (res.status === 200) {
-          history.push('/admin/doc_list');
+          this.props.history.push('/admin/doc_list');
         }
       });
   };
