@@ -1,34 +1,34 @@
-import React, { Component } from "react";
-import "./App.css";
+import React, { Component } from 'react';
+import './App.css';
 
-import { Redirect, Route, withRouter, matchPath } from "react-router-dom";
+import { Redirect, Route, withRouter, matchPath } from 'react-router-dom';
 
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 //Routers
-import LearnersAuth from "./Routers/LearnersAuth";
-import Learners from "./Routers/Learners"
+import LearnersAuth from './Routers/LearnersAuth';
+import Learners from './Routers/Learners';
 
 // Admin portal imports
-import AdminNav from "./Admin/AdminNav.js";
-import AdminLogin from "./Admin/AdminLogin";
-import AdminQuizList from "./Admin/AdminQuizList";
-import AdminQuizMaker from "./Admin/AdminQuizMaker";
-import AdminQuizEditor from "./Admin/AdminQuizEditor";
-import AdminUserEditor from "./Admin/AdminUserEditor";
-import AdminDocList from "./Admin/AdminDocList";
-import AdminDocEditor from "./Admin/AdminDocEditor";
-import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
-import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
-import AdminRestaurantList from "./Admin/AdminRestaurantList";
-import AdminProductCreator from "./Admin/AdminProductCreator";
-import AdminHomePage from "./Admin/AdminHomePage";
-import AdminProductEditor from "./Admin/AdminProductEditor";
-import AdminProductList from "./Admin/AdminProductList";
-import AdminUserList from "./Admin/AdminUserList";
-import AdminResultList from "./Admin/AdminResultList";
-import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
+import AdminNav from './Admin/AdminNav.js';
+import AdminLogin from './Admin/AdminLogin';
+import AdminQuizList from './Admin/AdminQuizList';
+import AdminQuizMaker from './Admin/AdminQuizMaker';
+import AdminQuizEditor from './Admin/AdminQuizEditor';
+import AdminUserEditor from './Admin/AdminUserEditor';
+import AdminDocList from './Admin/AdminDocList';
+import AdminDocEditor from './Admin/AdminDocEditor';
+import AdminRestaurantEditor from './Admin/AdminRestaurantEditor';
+import AdminRestaurantCreator from './Admin/AdminRestaurantCreator';
+import AdminRestaurantList from './Admin/AdminRestaurantList';
+import AdminProductCreator from './Admin/AdminProductCreator';
+import AdminHomePage from './Admin/AdminHomePage';
+import AdminProductEditor from './Admin/AdminProductEditor';
+import AdminProductList from './Admin/AdminProductList';
+import AdminUserList from './Admin/AdminUserList';
+import AdminResultList from './Admin/AdminResultList';
+import AdminQuestionEditor from './Admin/AdminQuestionEditor';
 
 
 // Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
@@ -42,8 +42,8 @@ import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
 
 import LanguagesContext, {
   availableLanguages
-} from "./contexts/languages-context";
-import QuizzesContext from "./contexts/quiz-context";
+} from './contexts/languages-context';
+import QuizzesContext from './contexts/quiz-context';
 
 // EW: The module below JWT decode llows for decoding of JWT token, which is being used to read the user_id payload in the token
 var jwtDecode = require("jwt-decode");

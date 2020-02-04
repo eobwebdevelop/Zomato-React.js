@@ -10,25 +10,25 @@ class AnswerButton extends React.Component {
       quizIDinPlay,
       answerSelect,
       correctAnswerID,
-      correctAnswerText
+      correctAnswerText,
     } = this.props;
 
     const userInput = {
       quiz_ID: quizIDinPlay,
       questionNumber: step + 1,
-      questionText: questionText,
+      questionText,
       userAnswerID: answerID,
       userAnswerText: answerText,
-      correctAnswerID: correctAnswerID,
-      correctAnswerText: correctAnswerText
+      correctAnswerID,
+      correctAnswerText,
     };
 
     return (
       <>
-     <br />
-      <div className="separator">
-        <button className="answerButton" onClick={() => answerSelect(userInput)}>{answerText}</button>
-      </div>
+        <br />
+        <div className="separator">
+          <button className="answerButton" onClick={() => answerSelect(userInput)}>{answerText}</button>
+        </div>
         <br />
       </>
     );

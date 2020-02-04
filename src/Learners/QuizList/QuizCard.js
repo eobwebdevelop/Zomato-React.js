@@ -1,8 +1,8 @@
 
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import LanguagesContext from "../../contexts/languages-context";
-import translations from "../../i18n/translations";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
 // import { Container } from "react-bootstrap";
 
@@ -13,7 +13,7 @@ class QuizCard extends Component {
       QuizLinkText,
       DocumentationLinkText,
       quizID,
-      changeQuizIDInPlay
+      changeQuizIDInPlay,
     } = this.props;
 
     return (

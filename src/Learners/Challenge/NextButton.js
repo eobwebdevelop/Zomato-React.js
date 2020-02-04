@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import LanguagesContext from "../../contexts/languages-context";
-import translations from "../../i18n/translations";
+import React, { Component } from 'react';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
 class NextButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      test: "Test"
+      test: 'Test',
     };
 
     this.nextQuestion = this.nextQuestion.bind(this);
@@ -32,7 +32,7 @@ class NextButton extends Component {
       step,
       stopTimer,
       selectedAnswer,
-      isVisible
+      isVisible,
     } = this.props;
 
     if (isVisible === true) return null;

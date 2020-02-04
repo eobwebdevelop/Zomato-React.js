@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-// import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
