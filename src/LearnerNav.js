@@ -29,9 +29,6 @@ const LearnerNav = () => {
             <Nav.Link href="/learners/about" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkC}
             </Nav.Link>
-            <Nav.Link href="/admin/login" className="grey-link">
-              {translations[currentLanguage].LearnerNav.LinkA}
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <DropdownSelector />
