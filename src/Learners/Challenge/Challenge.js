@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import QandA from "./QandA";
-import "./Challenge.css";
-import ResultsCard from "./ResultsCard";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import QandA from './QandA';
+import './Challenge.css';
+import ResultsCard from './ResultsCard';
 // import LanguagesContext, { availableLanguages } from '../../contexts/languages-context';
 // import translations from '../../i18n/translations';
 
@@ -26,12 +26,14 @@ class Challenge extends React.Component {
       userQuizAnswers,
       checkScore,
       score,
-      incrementQuizStep
+      incrementQuizStep,
     } = this.props;
 
+    // console.log(questionPackage);
     const questionPackageSpecificQuizIDOnly = questionPackage.filter(
-      el => el.id === quizIDInPlay
+      (el) => el.id === quizIDInPlay,
     )[0].questions;
+
 
     if (step < 10) {
       return (
@@ -55,7 +57,9 @@ class Challenge extends React.Component {
             ))}
             <h3>
               Current Time:
-              {" " + overallTime} seconds
+              {` ${overallTime}`}
+              {' '}
+seconds
             </h3>
           </div>
         </Container>
@@ -65,10 +69,17 @@ class Challenge extends React.Component {
       <Container>
         <h1>Results</h1>
         <hr />
-        <h2>You scored {" " + score} out of 10! 🎉</h2>
+        <h2>
+You scored
+          {` ${score}`}
+          {' '}
+out of 10! 🎉
+        </h2>
         <h3>
           Your total time was
-          {" " + overallTime} seconds.
+          {` ${overallTime}`}
+          {' '}
+seconds.
         </h3>
 
         <h3>
@@ -86,13 +97,13 @@ class Challenge extends React.Component {
         </h3>
 
         <Link to="/learners/quiz_list">
-          <button class="btn" onClick={refreshQuizState}>
+          <button className="btn" onClick={refreshQuizState}>
             Home
           </button>
         </Link>
 
         <Link to="/learners/documentation">
-          <button class="btn" onClick={refreshQuizState}>
+          <button className="btn" onClick={refreshQuizState}>
             Documentation
           </button>
         </Link>

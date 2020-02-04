@@ -4,8 +4,9 @@ import { Redirect, Route } from "react-router-dom";
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
-//Routes
-import LearnersAuth from "./Routes/LearnersAuth";
+//Routers
+import LearnersAuth from "./Routers/LearnersAuth";
+import Learners from "./Routers/Learners"
 
 // Admin portal imports
 import AdminNav from "./Admin/AdminNav.js";
@@ -28,18 +29,12 @@ import AdminResultList from "./Admin/AdminResultList";
 import AdminQuestionEditor from "./Admin/AdminQuestionEditor"
 
 
-// Learner portal imports
+// Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
 
-import LearnerNav from "./LearnerNav";
-import BasicNav from "./BasicNav.js";
-import ContactUs from "./Learners/ContactUs/ContactUs";
-import Documentation from "./Learners/Documentation/Documentation";
-import LogIn from "./Learners/LogIn/LogIn";
-import ForgotPassword from "./Learners/LogIn/ForgotPassword";
-import QuizList from "./Learners/QuizList/QuizList";
-import Challenge from "./Learners/Challenge/Challenge";
-// import SignUp from "./Learners/SignUp/SignUp";
-import FAQ from "./Learners/FAQ/FAQ";
+//Future feature
+// import ForgotPassword from "./Learners/LogIn/ForgotPassword";
+
+
 
 // Translation eng/port
 
@@ -350,8 +345,7 @@ class App extends Component {
       regions,
       results,
       quizzesAreLoaded,
-      quizzes,
-      quizzesLearner
+      quizzes
     } = this.state;
 
     return (
@@ -572,45 +566,11 @@ class App extends Component {
               </>
             )}
           />
+        
 
-          {/* Learners Route */}
+         {/* //Future feature for Learners */}
 
-          <Route
-            exact
-            path="/learners/contact_us"
-            render={() => (
-              <>
-                <LearnerNav />
-                <ContactUs />
-              </>
-            )}
-          />
-
-          <Route
-            exact
-            path="/learners/faq"
-            render={() => (
-              <>
-                <LearnerNav />
-                <FAQ />
-              </>
-            )}
-          />
-
-          <Route
-            exact
-            path="/learners/documentation"
-            render={() => (
-              <>
-                <LearnerNav />
-                <Documentation documentation={this.state.documentation} />
-              </>
-            )}
-          />
-
-
-
-          <Route
+          {/* <Route
             exact
             path="/learners/login/forgot_password"
             render={() => (
@@ -619,47 +579,8 @@ class App extends Component {
                 <ForgotPassword />
               </>
             )}
-          />
+          /> */}
 
-          <Route
-            exact
-            path="/learners/quiz_list"
-            render={() => (
-              <>
-                <LearnerNav />
-                <QuizList
-                  QuizList={quizzesLearner.quizzes}
-                  changeQuizIDInPlay={this.changeQuizIDInPlay}
-                />
-              </>
-            )}
-          />
-
-          <Route
-            exact
-            path="/learners/quiz_list/quiz"
-            render={() => (
-              <>
-                <LearnerNav />
-                <Challenge
-                  score={this.state.score}
-                  checkScore={this.checkScore}
-                  refreshQuizState={this.refreshQuizState}
-                  questionPackage={quizzesLearner.quizzes}
-                  startOverallTimer={this.startOverallTimer}
-                  overallTime={this.state.overallTime}
-                  addUserInputToState={this.addUserInputToState}
-                  incrementQuizStep={this.incrementQuizStep}
-                  onClickAnswer={this.onClickAnswer}
-                  step={this.state.step}
-                  quizIDInPlay={this.state.quizIDInPlay}
-                  stopTimer={this.stopTimer}
-                  userAnswerClick={this.userAnswerClick}
-                  userQuizAnswers={this.state.userQuizAnswers}
-                />
-              </>
-            )}
-          />
 
         {/* Learnes Auth */}
           <Route
@@ -672,6 +593,35 @@ class App extends Component {
           />
         {/* //Learnes Auth */} 
 
+        {/*Learners */}
+        <Route
+            exact
+            render={() => (
+              <>
+                <Learners 
+                documentation={this.state.documentation}
+                QuizList={this.state.quizzesLearner.quizzes}
+                changeQuizIDInPlay={this.changeQuizIDInPlay}
+                score={this.state.score}
+                checkScore={this.checkScore}
+                refreshQuizState={this.refreshQuizState}
+                questionPackage={this.state.quizzesLearner.quizzes}
+                startOverallTimer={this.startOverallTimer}
+                overallTime={this.state.overallTime}
+                addUserInputToState={this.addUserInputToState}
+                incrementQuizStep={this.incrementQuizStep}
+                onClickAnswer={this.onClickAnswer}
+                step={this.state.step}
+                quizIDInPlay={this.state.quizIDInPlay}
+                stopTimer={this.stopTimer}
+                userAnswerClick={this.userAnswerClick}
+                userQuizAnswers={this.state.userQuizAnswers}
+                />
+              </>
+            )}
+          />
+
+        {/*//Learners */}
 
         </QuizzesContext.Provider>
       </LanguagesContext.Provider>

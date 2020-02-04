@@ -136,7 +136,7 @@ const Translations = {
       LinkQ: 'Quizzes ',
       LinkF: 'FAQ',
       LinkC: 'Contactos ',
-      LinkA: 'Admin Portal should not be here',
+      LinkA: 'Admin Portal (portuguese translation,plz)',
     },
 
     ContactUs: {
