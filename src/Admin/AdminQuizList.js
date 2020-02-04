@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './AdminList.css';
-import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import Collapsible from 'react-collapsible';
-import AdminQuiz from './AdminQuiz';
-import QuizzesContext from '../contexts/quiz-context';
-
+import React from "react";
+import PropTypes from "prop-types";
+import "./AdminList.css";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Collapsible from "react-collapsible";
+import AdminQuiz from "./AdminQuiz";
+import QuizzesContext from "../contexts/quiz-context";
 
 const AdminQuizList = ({ onDelete }) => {
-  const { quizzes, onLoadQuizzes, quizzesAreLoaded } = React.useContext(QuizzesContext);
+  const { quizzes, onLoadQuizzes, quizzesAreLoaded } = React.useContext(
+    QuizzesContext
+  );
   if (!quizzesAreLoaded) {
     return <p>Please wait loading... </p>;
   }
@@ -18,26 +19,21 @@ const AdminQuizList = ({ onDelete }) => {
       <Container>
         <h1>Manage Quizzes</h1>
         <hr />
-        <p>
-        You are viewing all the available Quizzes at the current moment.
-        </p>
-        <Link to="/admin/quiz_maker">
+        <p>You are viewing all the available Quizzes at the current moment.</p>
+        {/* <Link to="/admin/quiz_maker">
           <button type="submit" className="btn">
           Add Quiz
           </button>
-        </Link>
-        <Link to="/">
+        </Link> */}
+        {/* <Link to="/">
           <button type="submit" className="btn">
           Export Data
           </button>
-        </Link>
-        {quizzes.map((q) => (
+        </Link> */}
+        {quizzes.map(q => (
           <section key={q.id}>
             <Collapsible trigger={q.name}>
-              <AdminQuiz
-                quiz={q.questions}
-                editid={q.id}
-              />
+              <AdminQuiz quiz={q.questions} editid={q.id} />
             </Collapsible>
             <button
               type="submit"
@@ -54,8 +50,7 @@ const AdminQuizList = ({ onDelete }) => {
 };
 
 AdminQuizList.propTypes = {
-  onDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
-
 
 export default AdminQuizList;
