@@ -16,13 +16,14 @@ class NextButton extends Component {
   nextQuestion(selectedAnswer) {
     this.props.addUserInputToState(selectedAnswer);
     this.props.incrementQuizStep();
+    this.props.checkScore();
   }
 
   finalQuestion(selectedAnswer) {
     this.props.addUserInputToState(selectedAnswer);
-    this.props.checkScore();
     this.props.stopTimer();
     this.props.incrementQuizStep();
+    this.props.checkScore();
     this.props.postQuizResult();
   }
 

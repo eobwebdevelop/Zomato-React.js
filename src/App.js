@@ -190,6 +190,7 @@ class App extends Component {
     const time_to_complete_seconds = this.state.overallTime.toString();
     const time_of_day = this.getCurrentDate().toString();
     const score_out_of_10 = this.state.score.toString();
+    
 
     fetch(`${process.env.REACT_APP_SERVER_URL}/quiz/postresult`, {
       method: "POST",
@@ -253,7 +254,6 @@ class App extends Component {
   }
 
   checkScore() {
-
     var totalScore = 0;
     for (let i = 0; i < this.state.userQuizAnswers.length; i++) {
       if (
@@ -262,10 +262,9 @@ class App extends Component {
       ) {
         totalScore = totalScore + 1;
       }
-    
     }
-
     this.setState({ score: totalScore });
+   
   }
 
   // EW:When you click TAKE QUIZ, this method is called in the quiz card, updating the state. A filter is run to only play the quiz specified in this.state.QuizIDInPlay.
@@ -275,6 +274,7 @@ class App extends Component {
   }
 
   refreshQuizState() {
+    
     // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
     this.stopTimer();
     this.setState({ overallTime: 0, step: 0, score: 0, userQuizAnswers: [] });
@@ -327,7 +327,7 @@ class App extends Component {
         token: token ? JSON.parse(token) : ""
       },
       () => {
-        this.refreshQuizState();
+        
         this.getQuizzes();
         this.getQuizzesByLang();
         this.getProducts();
@@ -435,6 +435,23 @@ class App extends Component {
       quizfound,
       questionfound
     } = this.state;
+
+
+  
+    const quizfound = quizzes.find(
+      quiz => quiz.id === +this.props.match.params.id
+    );
+    const questionfound = quizfound
+      ? quizfound.questions.find(
+          question => question.id === +this.props.match.params.qid
+        )
+      : [];
+    // console.log(quizfound, questionfound, "hey");
+    // console.log(
+    //   matchPath(this.props.location.search, {
+    //     path: "/admin/quiz_editor/:id/questions/:qid"
+    //   })
+    // );
 
     return (
       <LanguagesContext.Provider
