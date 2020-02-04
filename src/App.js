@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Redirect, Route } from "react-router-dom";
 
+import { Redirect, Route, withRouter, matchPath } from "react-router-dom";
 
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
@@ -85,6 +85,7 @@ class App extends Component {
       results: [{ id: 0, name: "" }],
       documentation: [],
       langOptions: langOptions,
+      quizzes:[{id: 0, name: ''}],
     };
 
     this.onNextStep = this.onNextStep.bind(this);
@@ -406,7 +407,11 @@ class App extends Component {
     });
   };
 
- 
+
+  handleAnswerEdit = (answer) => {
+    console.log(answer)
+      this.setState({ answer_option: answer });
+  };
 
   render() {
     const {
@@ -421,14 +426,24 @@ class App extends Component {
       quizzesAreLoaded,
       quizzesLearner
     } = this.state;
-
+    
+    console.log(this.props)
+    const quizfound = quizzes.find((quiz) => quiz.id === +this.props.match.params.id);
+    const questionfound = quizfound ? quizfound.questions.find((question) => question.id === +this.props.match.params.qid) : []
+    console.log(quizfound, questionfound, 'hey')
+    console.log(matchPath(this.props.location.search, { path: '/admin/quiz_editor/:id/questions/:qid'}));
 
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
       >
         <QuizzesContext.Provider 
-          value={{ quizzes, onLoadQuizzes: this.getQuizzes, quizzesAreLoaded }}
+          value={{ quizzes, 
+              onLoadQuizzes: this.getQuizzes,
+              quizzesAreLoaded,
+              quizfound,
+              questionfound,
+            }}
         >
 
           <Route
@@ -511,7 +526,20 @@ class App extends Component {
             <>
               <AdminNav />
               <AdminQuizEditor
-              onEdit ={this.handleEditQuestion} />
+              onEdit ={this.handleEditQuestion}
+               />
+            </>
+          )}
+        />
+        <Route
+          exact
+          path="/admin/quiz_editor/:id/questions/:qid"
+          render={() => (
+            <>
+              <AdminNav />
+              <AdminQuestionEditor
+              onEdit ={this.handleAnswerEdit} 
+              />
             </>
           )}
         />
@@ -1931,4 +1959,4 @@ const placeholderData = {
     ]
 }
 
-export default App;
+export default  withRouter(App);
