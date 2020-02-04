@@ -10,29 +10,29 @@ const About = () => {
   const { currentLanguage } = useContext(LanguagesContext);
 
   return (
-    <div>
-      <Container>
-        <div className="formparentcontainer aboutText">
-          <div className="formchildcontainer">
-            <h1>{translations[currentLanguage].About.Title}</h1>
-            <hr />
-            <p>
-              {translations[currentLanguage].About.TextAbout}
-            </p>
-            <img className="aboutImage" src="https://i.imgur.com/Ebx0XsR.jpg" />
-          </div>
+    <Container>
+      <div className="formchildcontainer aboutContactContainer">
+        <h1 className="title">{translations[currentLanguage].About.Title}</h1>
+        <hr />
+        <p className="aboutText">
+          {translations[currentLanguage].About.TextAbout}
+        </p>
+        <img src="https://i.imgur.com/Ebx0XsR.jpg" className="aboutImage" />
+
+        <div className="formchildcontainer contact">
+          <h1 className="title">{translations[currentLanguage].About.TitleC}</h1>
+          <hr />
+          <p className="aboutContact">
+            <img src="https://i.imgur.com/8Ea79Bg.png" className="flag"/> 
+            <span className="country"> PORTUGAL</span>
+          </p>
+          <p className="number">
+            {translations[currentLanguage].About.TextContact}
+          </p>
         </div>
-        <div className="formparentcontainer contact">
-          <div className="formchildcontainer">
-            <h1>{translations[currentLanguage].About.TitleC}</h1>
-            <hr />
-            <p>
-              {translations[currentLanguage].About.TextContact}
-            </p>
-          </div>
-        </div>
-      </Container>
-    </div>
+      </div>
+
+    </Container>
   );
 };
 export default About;
