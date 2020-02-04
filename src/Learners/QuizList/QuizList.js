@@ -1,12 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from "react";
 // import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import QuizCard from './QuizCard';
-import LanguagesContext from '../../contexts/languages-context';
-import translations from '../../i18n/translations';
+import { Container } from "react-bootstrap";
+import QuizCard from "./QuizCard";
+import LanguagesContext from "../../contexts/languages-context";
+import translations from "../../i18n/translations";
 
 const QuizList = props => {
+  useEffect(() => {
+    props.refreshQuizState();
+    console.log("use effect");
+  }, []);
+
   const { currentLanguage } = useContext(LanguagesContext);
+
   return (
     <>
       <div>
