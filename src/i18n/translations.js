@@ -92,11 +92,12 @@ const Translations = {
     },
 
     Challenge: {
-      Title: 'Results',
+      TitleQ: 'Quiz',
+      TitleR: 'Results',
       CurrentT: 'Current Time',
       TimeSec: 'seconds',
       ScoreA: 'You scored',
-      ScoreB: 'out of 10!',
+      ScoreB: 'out of 10! 🎉',
       TimeA: 'Your total time was',
       TimeB: 'seconds.',
       ButtonH: 'Home',
@@ -104,7 +105,8 @@ const Translations = {
     },
 
     NextButton: {
-      Button: 'See results',
+      ButtonN: 'Next',
+      ButtonR: 'See results',
     },
 
     ResultsCard: {
@@ -112,7 +114,7 @@ const Translations = {
       Ok: 'Correct',
       No: 'Incorrect',
       Ans: 'Your answer:',
-      WhatsOK: 'The correct answer:',
+      WhatsOK: 'The correct answer: ',
     },
 
     QuizCard: {
@@ -211,18 +213,21 @@ const Translations = {
       Button: 'Registar-se',
     },
     Challenge: {
+      TitleQ: 'Quiz',
       Title: 'Resultados',
       CurrentT: 'Tempo decorrido',
       TimeSec: 'segundos',
       ScoreA: 'Acertou em',
-      ScoreB: 'de 10 perguntas!',
+      ScoreB: 'de 10 perguntas 🎉',
       TimeA: 'Completou o desafio em',
       TimeB: 'segundos.',
       ButtonH: 'Início',
       ButtonD: 'Documentação',
     },
+
     NextButton: {
-      Button: 'Ver resultados',
+      ButtonN: 'Next',
+      ButtonR: 'Ver resultados',
     },
 
     ResultsCard: {

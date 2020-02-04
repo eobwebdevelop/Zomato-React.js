@@ -341,8 +341,16 @@ class App extends Component {
   componentDidUpdate(prevProps, pS) {
     if (this.state.currentLanguage !== pS.currentLanguage) {
       this.getQuizzesByLang();
-    }
-  }
+      this.getProducts();
+      this.getUsers();
+      this.getRestaurants();
+      this.getRegion();
+      this.getResults();
+      this.getDocs();
+    };
+  };
+
+
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
