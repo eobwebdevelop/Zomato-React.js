@@ -42,7 +42,7 @@ class AdminRestaurantEditor extends Component  {
     const { name, region_id, id} = this.state
     e.preventDefault();
     console.log("the form has been submited with these fields:", id, name, region_id);
-    fetch("http://localhost:3000/admin/restaurant/edit",
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant/edit`,
     {
         method:  'PUT',
         headers:  new Headers({

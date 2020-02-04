@@ -53,7 +53,7 @@ class LogIn extends Component {
     const err = this.validate(currentLanguage);
 
     if (!err) {
-      fetch("http://localhost:3000/auth/login", {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",

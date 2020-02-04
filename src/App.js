@@ -105,7 +105,7 @@ class App extends Component {
   }
 
   getRegion = () => {
-    fetch("http://localhost:3000/admin/region")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/region`)
       .then(response => response.json())
       .then(data => { 
         this.setState(state => ({
@@ -116,7 +116,7 @@ class App extends Component {
   };
 
   getResults = () => {
-    fetch("http://localhost:3000/admin/result")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/result`)
       .then(response => response.json())
       .then(data => { 
         this.setState(state => ({
@@ -127,7 +127,7 @@ class App extends Component {
   };
 
   getRestaurants = () => {
-    fetch("http://localhost:3000/admin/restaurant")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant`)
       .then(response => response.json())
       .then(data => { 
         this.setState(state => ({
@@ -138,7 +138,7 @@ class App extends Component {
   };
 
   getQuizzesByLang = () => {
-    fetch("http://localhost:3000/learner/quiz", {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/learner/quiz`, {
       method: "GET",
       headers: new Headers({
         'Preferred-Language': this.state.currentLanguage
@@ -157,7 +157,7 @@ class App extends Component {
     this.setState(
       { quizzesAreLoaded: false },
       () => {
-        fetch("http://localhost:3000/admin/quiz")
+        fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz`)
         .then(response => response.json())
         .then(data => {
           this.setState(state => ({
@@ -298,10 +298,10 @@ class App extends Component {
 
   addUserIDFromTokenToState() {
   this.setState({ userID: jwtDecode(this.state.token).id});
-  }
+  };
 
   getProducts = () => {
-    fetch("http://localhost:3000/admin/product")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/product`)
       .then(response => response.json())
       .then(data => { 
         this.setState(state => ({
@@ -312,7 +312,7 @@ class App extends Component {
   };
 
   getUsers = () => {
-    fetch("http://localhost:3000/admin/user")
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/user`)
       .then(response => response.json())
       .then(data => { 
         this.setState(state => ({
