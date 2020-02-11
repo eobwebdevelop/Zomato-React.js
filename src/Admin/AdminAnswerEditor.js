@@ -1,36 +1,46 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './AdminQuizMaker.css';
 import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const AdminAnswerEditor = (props) => (
+const AdminAnswerEditor = ({ answers, answeroptions, updateAnswer }) => (
   <div>
     <Container>
-      {props.answers && props.answers.map((ans, i) => {
-        return (
-          <div className="row">
-            <div key={ans.id} className="col">
+      {answers && answers.map((ans, i) => (
+        <div className="row">
+          <div key={ans.id} className="col">
             Answer Option:
-              <textarea
-                type="text"
-                name={`answer_option_${i + 1}`}
-                value={props.answeroptions[i]}
-                onChange={(e) => {
-                  props.updateAnswer(e);
-                }}
-              />
-              <br />
-              Tick the correct answer?
-              <input
-                type="checkbox"
-                name="correctanswer"
-                value="correctanswer"
-              />
-            </div>
+            <textarea
+              type="text"
+              name={`answer_option_${i + 1}`}
+              value={answeroptions[i]}
+              onChange={(e) => {
+                updateAnswer(e);
+              }}
+            />
+            <br />
+            Tick the correct answer?
+            <input
+              type="checkbox"
+              name="correctanswer"
+              value="correctanswer"
+            />
           </div>
-        );
-      })}
+        </div>
+      ))}
     </Container>
   </div>
 );
+
+AdminAnswerEditor.propTypes = {
+  updateAnswer: PropTypes.func.isRequired,
+  answers: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+    }),
+  ).isRequired,
+  answeroptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
 export default withRouter(AdminAnswerEditor);

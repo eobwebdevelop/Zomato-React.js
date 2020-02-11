@@ -1,8 +1,7 @@
-import React from "react";
-import "./AdminList.css";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const AdminRestaurantList = ({ restaurants, onDelete }) => (
   <div>
@@ -32,7 +31,7 @@ const AdminRestaurantList = ({ restaurants, onDelete }) => (
             <th>Delete Restaurant</th>
           </tr>
         </thead>
-        {restaurants.map(res => (
+        {restaurants.map((res) => (
           <tbody key={res.id}>
             <tr>
               <td>{res.id}</td>
@@ -42,7 +41,8 @@ const AdminRestaurantList = ({ restaurants, onDelete }) => (
                 <Link to={`/admin/restaurant_editor/${res.id}`}>
                   <button type="submit" className="btn-list">
                     Edit Restaurant ►
-                  </button>{" "}
+                  </button>
+                  {' '}
                 </Link>
               </td>
               <td>
@@ -67,10 +67,10 @@ AdminRestaurantList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      region: PropTypes.number.isRequired
-    }).isRequired
+      region: PropTypes.number.isRequired,
+    }).isRequired,
   ).isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default AdminRestaurantList;

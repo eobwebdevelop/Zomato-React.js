@@ -1,5 +1,4 @@
 import React from 'react';
-import './AdminHomePage.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -20,22 +19,22 @@ const AdminQuizList = () => (
       </Link>
       <Link to="/admin/user_list">
         <button type="submit" className="btn">
-           Users
+          Users
         </button>
       </Link>
       <Link to="/admin/restaurant_list">
         <button type="submit" className="btn">
-            Restaurants
+          Restaurants
         </button>
       </Link>
       <Link to="/admin/product_list">
         <button type="submit" className="btn">
-           Products
+          Products
         </button>
       </Link>
       <Link to="/admin/result_list">
         <button type="submit" className="btn">
-           Results
+          Results
         </button>
       </Link>
     </Container>

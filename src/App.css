@@ -148,20 +148,20 @@ input {
 
 .tftable {
   font-size: 12px;
-  color: #333333;
+  color: #A21E4D;
   width: 100%;
   border-width: 1px;
-  border-color: #729ea5;
+  border-color: #A21E4D;
   border-collapse: collapse;
   margin-top: 2em;
 }
 .tftable th {
   font-size: 12px;
-  background-color: #acc8cc;
+  background-color: #ffffff;
   border-width: 1px;
   padding: 8px;
   border-style: solid;
-  border-color: #729ea5;
+  border-color: #A21E4D;
   text-align: left;
 }
 .tftable tr {

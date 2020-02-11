@@ -4,7 +4,7 @@ import QuizCard from './QuizCard';
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
-const QuizList = props => {
+const QuizList = (props) => {
   useEffect(() => {
     props.refreshQuizState();
   }, []);

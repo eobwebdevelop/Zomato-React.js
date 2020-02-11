@@ -1,8 +1,7 @@
-import React from "react";
-import "./AdminList.css";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const AdminUserList = ({ users, onDelete }) => (
   <div>
@@ -34,7 +33,7 @@ const AdminUserList = ({ users, onDelete }) => (
             <th>Delete User</th>
           </tr>
         </thead>
-        {users.map(user => (
+        {users.map((user) => (
           <tbody key={user.id}>
             <tr>
               <td>{user.id}</td>
@@ -79,9 +78,9 @@ AdminUserList.propTypes = {
       last_name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       phone_number: PropTypes.string.isRequired,
-      user_type_id: PropTypes.number.isRequired
-    }).isRequired
+      user_type_id: PropTypes.number.isRequired,
+    }).isRequired,
   ).isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
 };
 export default AdminUserList;

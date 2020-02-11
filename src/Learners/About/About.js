@@ -22,7 +22,7 @@ const About = () => {
           <h1 className="title">{translations[currentLanguage].About.TitleC}</h1>
           <hr />
           <p className="aboutContact">
-            <img src="https://i.imgur.com/8Ea79Bg.png" className="flag"/> 
+            <img src="https://i.imgur.com/8Ea79Bg.png" className="flag" />
             <span className="country"> PORTUGAL</span>
           </p>
           <p className="number">

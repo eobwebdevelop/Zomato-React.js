@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import QandA from "./QandA";
-import "./Challenge.css";
-import ResultsCard from "./ResultsCard";
-import LanguagesContext from "../../contexts/languages-context";
-import translations from "../../i18n/translations";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import QandA from './QandA';
+import './Challenge.css';
+import ResultsCard from './ResultsCard';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
 class Challenge extends Component {
   componentDidMount() {
@@ -27,11 +27,11 @@ class Challenge extends Component {
       checkScore,
       score,
       incrementQuizStep,
-      postQuizResult
+      postQuizResult,
     } = this.props;
 
     const questionPackageSpecificQuizIDOnly = questionPackage.filter(
-      el => el.id === quizIDInPlay
+      (el) => el.id === quizIDInPlay,
     )[0].questions;
 
     if (step < 10) {
@@ -59,7 +59,8 @@ class Challenge extends Component {
                 ))}
                 <h3>
                   {translations[currentLanguage].Challenge.CurrentT}
-                  {` ${overallTime}`}{" "}
+                  {` ${overallTime}`}
+                  {' '}
                   {translations[currentLanguage].Challenge.TimeSec}
                 </h3>
               </div>
@@ -76,11 +77,14 @@ class Challenge extends Component {
             <hr />
             <h2>
               {translations[currentLanguage].Challenge.ScoreA}
-              {` ${score}`} {translations[currentLanguage].Challenge.ScoreB}
+              {` ${score}`}
+              {' '}
+              {translations[currentLanguage].Challenge.ScoreB}
             </h2>
             <h3>
               {translations[currentLanguage].Challenge.TimeA}
-              {` ${overallTime}`}{" "}
+              {` ${overallTime}`}
+              {' '}
               {translations[currentLanguage].Challenge.TimeB}
             </h3>
 
