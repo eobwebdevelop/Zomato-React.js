@@ -1,5 +1,4 @@
 import React from 'react';
-import './AdminList.css';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -11,16 +10,16 @@ const AdminProductList = ({ products, onDelete }) => (
       <h1>Manage Products</h1>
       <hr />
       <p>
-          You are viewing all the available Products or Services at the current moment.
+        You are viewing all the available Products or Services at the current moment.
       </p>
       <Link to="/admin/product_creator">
         <button type="submit" className="btn">
-            Add Product
+          Add Product
         </button>
       </Link>
       <Link to="/">
         <button type="submit" className="btn">
-            Export Data
+          Export Data
         </button>
       </Link>
       <table className="tftable" border="1">
@@ -44,7 +43,7 @@ const AdminProductList = ({ products, onDelete }) => (
               <td>
                 <Link to={`/admin/product_editor/${prod.id}`}>
                   <button type="submit" className="btn-list">
-                      Edit Product ►
+                    Edit Product ►
                   </button>
                   {' '}
                 </Link>
@@ -55,7 +54,7 @@ const AdminProductList = ({ products, onDelete }) => (
                   className="btn-list"
                   onClick={() => onDelete(prod.id)}
                 >
-                          Delete Product ►
+                  Delete Product ►
                 </button>
               </td>
             </tr>

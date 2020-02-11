@@ -1,5 +1,7 @@
 import React from 'react';
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import {
+  Switch, Route, Redirect, Link,
+} from 'react-router-dom';
 // Learners
 import Documentation from '../Learners/Documentation/Documentation';
 import LearnerNav from '../LearnerNav';

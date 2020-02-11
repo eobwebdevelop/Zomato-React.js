@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
+import { withRouter } from 'react-router-dom';
 import LanguagesContext, { availableLanguages } from './contexts/languages-context';
 import translations from './i18n/translations';
-import {withRouter} from 'react-router-dom';
 
 
 const LanguageSelector = ({ location }) => {

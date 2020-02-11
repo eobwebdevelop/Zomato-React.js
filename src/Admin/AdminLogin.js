@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import './AdminDocEditor.css';
@@ -17,7 +17,7 @@ const AdminLogin = () => (
           <br />
           <Link to="/admin">
             <button type="submit" className="btn-login">
-                  Login
+              Login
             </button>
           </Link>
         </form>

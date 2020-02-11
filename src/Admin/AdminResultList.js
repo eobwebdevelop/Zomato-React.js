@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './AdminList.css';
 import { Container } from 'react-bootstrap';
 
 
@@ -35,7 +34,7 @@ class AdminResultList extends Component {
               <th>Completion Date</th>
               <th>Score</th>
             </tr>
-            {results.map(res => (
+            {results.map((res) => (
               <tr>
                 <td>{res.id}</td>
                 <td>{res.user_id}</td>
