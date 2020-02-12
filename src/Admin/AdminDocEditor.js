@@ -87,26 +87,27 @@ class AdminDocEditor extends Component {
 
     this.setState(() => {
       const textWithCloudinaryUrl = this.state.text.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
+      console.log('textWithCloudinaryUrl', textWithCloudinaryUrl)
       return { text: textWithCloudinaryUrl }
+    }, () => {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
+        {
+          method: 'POST',
+          headers: new Headers({
+            'Content-Type': 'application/json',
+          }),
+          body: JSON.stringify({
+            title: this.state.title,
+            content: this.state.text,
+            product_id: this.state.product,
+          }),
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            this.props.history.push('/admin/doc_list');
+          }
+        });
     });
-
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
-      {
-        method: 'POST',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-        body: JSON.stringify({
-          title: this.state.title,
-          content: this.state.text,
-          product_id: this.state.product,
-        }),
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          this.props.history.push('/admin/doc_list');
-        }
-      });
   };
 
   render() {
