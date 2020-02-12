@@ -73,9 +73,10 @@ class AdminDocEditor extends Component {
   };
   
   onChangeProduct = (e) => {
+    console.log(e);
     this.setState({
       product: e.value,
-      displayProduct: e})
+      displayProduct: e.label})
   };
   
   onChangeTitle = (e) => {
