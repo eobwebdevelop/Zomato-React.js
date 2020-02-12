@@ -11,24 +11,25 @@ import LearnersAuth from "./Routers/LearnersAuth";
 import Learners from "./Routers/Learners";
 
 // Admin portal imports
-import AdminNav from "./Admin/AdminNav.js";
-import AdminLogin from "./Admin/AdminLogin";
-import AdminQuizList from "./Admin/AdminQuizList";
-import AdminQuizMaker from "./Admin/AdminQuizMaker";
-import AdminQuizEditor from "./Admin/AdminQuizEditor";
-import AdminUserEditor from "./Admin/AdminUserEditor";
-import AdminDocList from "./Admin/AdminDocList";
-import AdminDocEditor from "./Admin/AdminDocEditor";
-import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
-import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
-import AdminRestaurantList from "./Admin/AdminRestaurantList";
-import AdminProductCreator from "./Admin/AdminProductCreator";
-import AdminHomePage from "./Admin/AdminHomePage";
-import AdminProductEditor from "./Admin/AdminProductEditor";
-import AdminProductList from "./Admin/AdminProductList";
-import AdminUserList from "./Admin/AdminUserList";
-import AdminResultList from "./Admin/AdminResultList";
-import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
+import AdminNav from './Admin/AdminNav.js';
+import AdminLogin from './Admin/AdminLogin';
+import AdminQuizList from './Admin/AdminQuizList';
+import AdminQuizMaker from './Admin/AdminQuizMaker';
+import AdminQuizEditor from './Admin/AdminQuizEditor';
+import AdminUserEditor from './Admin/AdminUserEditor';
+import AdminDocList from './Admin/AdminDocList';
+import AdminDocEditor from './Admin/AdminDocEditor';
+import AdminRestaurantEditor from './Admin/AdminRestaurantEditor';
+import AdminRestaurantCreator from './Admin/AdminRestaurantCreator';
+import AdminRestaurantList from './Admin/AdminRestaurantList';
+import AdminProductCreator from './Admin/AdminProductCreator';
+import AdminHomePage from './Admin/AdminHomePage';
+import AdminProductEditor from './Admin/AdminProductEditor';
+import AdminProductList from './Admin/AdminProductList';
+import AdminUserList from './Admin/AdminUserList';
+import AdminResultList from './Admin/AdminResultList';
+import AdminQuestionEditor from './Admin/AdminQuestionEditor';
+import BasicNavbar from './Admin/BasicNavbar';
 
 // Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
 
@@ -468,7 +469,7 @@ class App extends Component {
             path="/admin/login"
             render={() => (
               <>
-                <AdminNav />
+                <BasicNavbar />
                 <AdminLogin />
               </>
             )}
