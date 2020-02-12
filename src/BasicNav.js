@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
 import DropdownSelector from './LanguageSelector';
-import './BasicNav.css';
+
 
 
 const BasicNav = () => (
