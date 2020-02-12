@@ -29,6 +29,7 @@ import AdminProductList from './Admin/AdminProductList';
 import AdminUserList from './Admin/AdminUserList';
 import AdminResultList from './Admin/AdminResultList';
 import AdminQuestionEditor from './Admin/AdminQuestionEditor';
+import BasicNavbar from './Admin/BasicNavbar'
 
 
 // Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
@@ -480,7 +481,7 @@ class App extends Component {
             path="/admin/login"
             render={() => (
               <>
-                <AdminNav />
+                <BasicNavbar />
                 <AdminLogin />
               </>
             )}
