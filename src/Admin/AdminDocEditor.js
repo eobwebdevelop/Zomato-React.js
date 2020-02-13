@@ -18,7 +18,7 @@ class AdminDocEditor extends Component {
       lastUploadedFile: {},
       base64Url: {},
       product: this.props.selectedDoc ? this.props.selectedDoc.product_id : '',
-      productLabel: this.props.selectedDoc ? this.props.selectedDoc.product_name : '',
+      displayProduct: this.props.selectedDoc ? this.props.selectedDoc.product_name : '',
     };
   }
 
@@ -97,27 +97,32 @@ class AdminDocEditor extends Component {
   
   postDocumentation = (e) => {
     e.preventDefault();
-    // if(this.props.doc_id){
-    //   fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/edit`,
-    //   {
-    //       method:  'PUT',
-    //       headers:  new Headers({
-    //               'Content-Type':  'application/json'
-    //       }),
-    //       body:  JSON.stringify({
-              //   questions, 
-              //   name, 
-              //   id
-              // }),
-    //   })
-    //   .then(res  =>  res.json())
-    // }
-    // } else
 
     this.setState(() => {
       const textWithCloudinaryUrl = this.state.text.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
       return { text: textWithCloudinaryUrl }
     }, () => {
+
+      if(this.props.match.isExact === false){
+        fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/edit`,
+        {
+            method:  'PUT',
+            headers:  new Headers({
+                    'Content-Type':  'application/json'
+            }),
+            body:  JSON.stringify({
+              title: this.state.title,
+              content: this.state.text,
+              product_id: this.state.product,
+              id: this.props.selectedDoc.id
+            }),
+        }
+        ).then((res) => {
+          if (res.status === 200) {
+            this.props.history.push('/admin/doc_list');
+          }
+        });
+      }
       fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
         {
           method: 'POST',
@@ -138,21 +143,25 @@ class AdminDocEditor extends Component {
     });
   };
 
+  displayTitle = () => {
+    return this.props.match.isExact ? "Create new documentation" : "Edit Documentation"
+  };
+
   render() {
     return (
       <div>
         <Container>
-          <h1>Create new</h1>
+          <h1>{this.displayTitle()}</h1>
           <label>
             Product:
           </label>
-              <Select
-                  placeholder = "Select a Product"
-                  value={{value: this.state.product , label: this.state.productLabel}}
-                  onChange={this.onChangeProduct}
-                  classNamePrefix="select"
-                  options={this.props.products.map((prod) => ({value: prod.id, label: prod.name}))} 
-              />
+          <Select
+            placeholder = "Select a Product"
+            value={{value: this.state.product , label: this.state.displayProduct}}
+            onChange={this.onChangeProduct}
+            classNamePrefix="select"
+            options={this.props.products.map((prod) => ({value: prod.id, label: prod.name}))} 
+          />
           <input
             placeholder="Title"
             type="text"
