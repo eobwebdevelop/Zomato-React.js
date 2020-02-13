@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const AdminDocList = ({ documentation, onDelete }) => (
+const AdminDocList = ({ documentation, onDelete, onEdit }) => (
   <Container>
     <Link to="/admin/doc_editor">
       <button type="submit" className="btn">
@@ -33,6 +33,8 @@ const AdminDocList = ({ documentation, onDelete }) => (
             <button
               type="submit"
               className="view-quizzes-page-links-side-by-side"
+              onClick={() => onEdit(doc.id)}
+
             >
               Edit Documentation ►
             </button>

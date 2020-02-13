@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './AdminDocEditor.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import './AdminDocEditor.css';
+import { Container } from 'react-bootstrap';
 import Select from 'react-select';
 
 
@@ -56,10 +56,20 @@ class AdminDocEditor extends Component {
         method: 'POST',
         body: data,
       },
-    );
+      );
+    };
+    
+  onChangeProduct = (e) => {
+    this.setState({
+      product: e.value,
+      displayProduct: e})
+  };
+    
+  onChangeTitle = (e) => {
+    this.setState({title: e.target.value});
   };
 
-  handleChangeQuill = (value, delta) => {
+  onChangeQuill = (value, delta) => {
     for(let i=0; i<delta.ops.length; i++){
       if (typeof delta.ops[i].insert === 'object') {
         this.setState({base64Url: delta.ops[i].insert.image});
@@ -72,22 +82,28 @@ class AdminDocEditor extends Component {
     }
   };
   
-  onChangeProduct = (e) => {
-    this.setState({
-      product: e.value,
-      displayProduct: e})
-  };
-  
-  onChangeTitle = (e) => {
-    this.setState({title: e.target.value});
-  };
   
   postDocumentation = (e) => {
     e.preventDefault();
+    // if(this.props.doc_id){
+    //   fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/edit`,
+    //   {
+    //       method:  'PUT',
+    //       headers:  new Headers({
+    //               'Content-Type':  'application/json'
+    //       }),
+    //       body:  JSON.stringify({
+              //   questions, 
+              //   name, 
+              //   id
+              // }),
+    //   })
+    //   .then(res  =>  res.json())
+    // }
+    // } else
 
     this.setState(() => {
       const textWithCloudinaryUrl = this.state.text.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
-      console.log('textWithCloudinaryUrl', textWithCloudinaryUrl)
       return { text: textWithCloudinaryUrl }
     }, () => {
       fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
@@ -129,12 +145,13 @@ class AdminDocEditor extends Component {
             placeholder="Title"
             type="text"
             name="name"
+            value={this.state.title}
             onChange={this.onChangeTitle}
           />
           <ReactQuill
             className='quill'
             modules={this.quillModules}
-            onChange={this.handleChangeQuill}
+            onChange={this.onChangeQuill}
           />
           <button
             type="submit"
