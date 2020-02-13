@@ -11,25 +11,25 @@ import LearnersAuth from "./Routers/LearnersAuth";
 import Learners from "./Routers/Learners";
 
 // Admin portal imports
-import AdminNav from './Admin/AdminNav.js';
-import AdminLogin from './Admin/AdminLogin';
-import AdminQuizList from './Admin/AdminQuizList';
-import AdminQuizMaker from './Admin/AdminQuizMaker';
-import AdminQuizEditor from './Admin/AdminQuizEditor';
-import AdminUserEditor from './Admin/AdminUserEditor';
-import AdminDocList from './Admin/AdminDocList';
-import AdminDocEditor from './Admin/AdminDocEditor';
-import AdminRestaurantEditor from './Admin/AdminRestaurantEditor';
-import AdminRestaurantCreator from './Admin/AdminRestaurantCreator';
-import AdminRestaurantList from './Admin/AdminRestaurantList';
-import AdminProductCreator from './Admin/AdminProductCreator';
-import AdminHomePage from './Admin/AdminHomePage';
-import AdminProductEditor from './Admin/AdminProductEditor';
-import AdminProductList from './Admin/AdminProductList';
-import AdminUserList from './Admin/AdminUserList';
-import AdminResultList from './Admin/AdminResultList';
-import AdminQuestionEditor from './Admin/AdminQuestionEditor';
-import BasicNavbar from './Admin/BasicNavbar';
+import AdminNav from "./Admin/AdminNav.js";
+import AdminLogin from "./Admin/AdminLogin";
+import AdminQuizList from "./Admin/AdminQuizList";
+import AdminQuizMaker from "./Admin/AdminQuizMaker";
+import AdminQuizEditor from "./Admin/AdminQuizEditor";
+import AdminUserEditor from "./Admin/AdminUserEditor";
+import AdminDocList from "./Admin/AdminDocList";
+import AdminDocEditor from "./Admin/AdminDocEditor";
+import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
+import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
+import AdminRestaurantList from "./Admin/AdminRestaurantList";
+import AdminProductCreator from "./Admin/AdminProductCreator";
+import AdminHomePage from "./Admin/AdminHomePage";
+import AdminProductEditor from "./Admin/AdminProductEditor";
+import AdminProductList from "./Admin/AdminProductList";
+import AdminUserList from "./Admin/AdminUserList";
+import AdminResultList from "./Admin/AdminResultList";
+import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
+import BasicNavbar from "./Admin/BasicNavbar";
 
 // Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
 
@@ -82,6 +82,8 @@ class App extends Component {
     };
 
     this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
+
+    this.reduceQuizStep = this.reduceQuizStep.bind(this);
 
     this.timer = null;
     this.stopTimer = this.stopTimer.bind(this);
@@ -206,13 +208,35 @@ class App extends Component {
   };
 
   addUserInputToState = selectedAnswer => {
-    const newState = this.state.userQuizAnswers;
-    newState.push(selectedAnswer);
+    // take state, make it equal to temp variable
+    const userAnswersTemp = this.state.userQuizAnswers;
+
+    console.log(userAnswersTemp);
+
+    // if selected user answer exists, overwrite it
+    userAnswersTemp.forEach(el => {
+      if (el.questionNumber === selectedAnswer.questionNumber) {
+        el.userAnswerID = selectedAnswer.userAnswerID;
+        el.userAnswerText = selectedAnswer.userAnswerText;
+      }
+    });
+
+    // if it doesn't exist, add it on.
+    const found = userAnswersTemp.some(
+      el => el.questionNumber === selectedAnswer.questionNumber
+    );
+
+    if (!found) userAnswersTemp.push(selectedAnswer);
+
+    // add it to state
+
     this.setState(state => {
       return {
-        userQuizAnswers: newState
+        userQuizAnswers: userAnswersTemp
       };
     });
+
+    console.log("state", this.state.userQuizAnswers);
   };
 
   incrementQuizStep = () => {
@@ -220,6 +244,15 @@ class App extends Component {
       return {
         ...state,
         step: this.state.step + 1
+      };
+    });
+  };
+
+  reduceQuizStep = () => {
+    this.setState(state => {
+      return {
+        ...state,
+        step: this.state.step - 1
       };
     });
   };
@@ -709,6 +742,7 @@ class App extends Component {
                   overallTime={this.state.overallTime}
                   addUserInputToState={this.addUserInputToState}
                   incrementQuizStep={this.incrementQuizStep}
+                  reduceQuizStep={this.reduceQuizStep}
                   onClickAnswer={this.onClickAnswer}
                   step={this.state.step}
                   quizIDInPlay={this.state.quizIDInPlay}
@@ -717,6 +751,7 @@ class App extends Component {
                   userQuizAnswers={this.state.userQuizAnswers}
                   addUserIDFromTokenToState={this.addUserIDFromTokenToState}
                   postQuizResult={this.postQuizResult}
+                  reduceQuizStep={this.reduceQuizStep}
                 />
               </>
             )}

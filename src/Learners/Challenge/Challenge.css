@@ -22,6 +22,15 @@ button.answerButton {
   font-size: 1em;
 }
 
+.back-button-quiz:hover {
+  border-radius: 5px;
+}
+
+.back-button-quiz:hover {
+  background-color: #fafafa;
+  border-radius: 5px;
+}
+
 .activeAnswer {
   display: block;
   width: 100%;
