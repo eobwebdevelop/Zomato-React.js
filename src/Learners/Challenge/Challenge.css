@@ -1,31 +1,51 @@
 .grayContainer {
-    background-color: #FAFAFA;
-    padding: 2% ;
-    box-sizing: border-box;
+  background-color: #fafafa;
+  padding: 2%;
+  box-sizing: border-box;
 }
 
-button.answerButton:focus{
-    outline:none;
+button.answerButton:focus {
+  outline: none;
 }
-button.answerButton:hover{
-    color:#e23744;
-    font-size:18px;
-    transition: all 0.5s ease;
+button.answerButton:hover {
+  font-size: 1.1em;
+  transition: all 0.5s ease;
+  color: #a21e4d;
 }
-
 
 button.answerButton {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: none;
-    margin: 20px 0px;
-    background-color: transparent;
-    font-size: 16px;
-
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  margin: 20px 0px;
+  background-color: transparent;
+  font-size: 1em;
 }
-.separator{
-    display: block;
-    width: 99%;
-    margin: 0 auto;
-    border-bottom: 1px solid gray;
+
+.back-button-quiz:hover {
+  border-radius: 5px;
+}
+
+.back-button-quiz:hover {
+  background-color: #fafafa;
+  border-radius: 5px;
+}
+
+.activeAnswer {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 1px solid gray;
+}
+
+.activeAnswer > .answerButton {
+  color: #a21e4d;
+  font-size: 1.1em;
+}
+
+.inactiveAnswer {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 1px solid gray;
 }
