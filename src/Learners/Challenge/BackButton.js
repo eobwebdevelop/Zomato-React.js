@@ -1,4 +1,6 @@
 import React from "react";
+import translations from "../../i18n/translations";
+import LanguagesContext from "../../contexts/languages-context";
 
 class BackButton extends React.Component {
   render() {
@@ -7,11 +9,16 @@ class BackButton extends React.Component {
 
     if (isBackButtonShown === "show") {
       return (
-        <>
-          <button class="back-button-quiz" onClick={() => reduceQuizStep()}>
-            &#8592; Previous Question
-          </button>
-        </>
+        <LanguagesContext.Consumer>
+          {({ currentLanguage }) => (
+            <>
+              <button class="back-button-quiz" onClick={() => reduceQuizStep()}>
+                &#8592;{" "}
+                {translations[currentLanguage].BackButton.BackButtonText}
+              </button>
+            </>
+          )}
+        </LanguagesContext.Consumer>
       );
     } else return null;
   }
