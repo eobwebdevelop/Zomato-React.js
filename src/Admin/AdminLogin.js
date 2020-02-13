@@ -54,7 +54,7 @@ class AdminLogin extends Component {
     const err = this.validate(currentLanguage);
 
     if (!err) {
-      fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/auth/loginadim`, {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -66,6 +66,7 @@ class AdminLogin extends Component {
         .then(res =>
           this.setState({ flash: res.flash }, () => {
             if (res.token) {
+              console.log(res)
               localStorage.setItem("token", JSON.stringify(res.token));
               this.props.history.push("/admin");
             } else if (res.status === 201) {
