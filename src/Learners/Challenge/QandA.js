@@ -1,6 +1,7 @@
 import React from "react";
 import NextButton from "./NextButton";
 import AnswerButton from "./AnswerButton";
+import BackButton from "./BackButton";
 
 class QandA extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class QandA extends React.Component {
       quizIDInPlay,
       checkScore,
       incrementQuizStep,
+      reduceQuizStep,
       postQuizResult
     } = this.props;
 
@@ -39,6 +41,11 @@ class QandA extends React.Component {
 
     return (
       <>
+        <BackButton
+          reduceQuizStep={reduceQuizStep}
+          isBackButtonShown={step > 0 ? "show" : "don't show"}
+        />
+
         <h1>
           Q{step + 1}: {questionPackage.question}
         </h1>

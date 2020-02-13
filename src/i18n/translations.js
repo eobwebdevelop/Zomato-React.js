@@ -105,6 +105,10 @@ const Translations = {
       ButtonD: "Documentation"
     },
 
+    BackButton: {
+      BackButtonText: "Previous question"
+    },
+
     NextButton: {
       ButtonN: "Next",
       ButtonR: "See results"
@@ -224,6 +228,10 @@ const Translations = {
       TimeB: "segundos.",
       ButtonH: "Início",
       ButtonD: "Documentação"
+    },
+
+    BackButton: {
+      BackButtonText: "Pergunta anterior"
     },
 
     NextButton: {
