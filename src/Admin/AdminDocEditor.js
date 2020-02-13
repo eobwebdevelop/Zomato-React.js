@@ -13,10 +13,12 @@ class AdminDocEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      text: '',
+      title: this.props.selectedDoc ? this.props.selectedDoc.title : '',
+      text: this.props.selectedDoc ? this.props.selectedDoc.content : '',
       lastUploadedFile: {},
       base64Url: {},
+      product: this.props.selectedDoc ? this.props.selectedDoc.product_id : '',
+      productLabel: this.props.selectedDoc ? this.props.selectedDoc.product_name : '',
     };
   }
 
@@ -136,7 +138,7 @@ class AdminDocEditor extends Component {
           </label>
               <Select
                   placeholder = "Select a Product"
-                  value = {this.state.displayProduct}
+                  value={{value: this.state.product , label: this.state.productLabel}}
                   onChange={this.onChangeProduct}
                   classNamePrefix="select"
                   options={this.props.products.map((prod) => ({value: prod.id, label: prod.name}))} 
@@ -145,13 +147,14 @@ class AdminDocEditor extends Component {
             placeholder="Title"
             type="text"
             name="name"
-            value={this.state.title}
+            value={this.state.title}  
             onChange={this.onChangeTitle}
           />
           <ReactQuill
             className='quill'
             modules={this.quillModules}
             onChange={this.onChangeQuill}
+            value={this.state.text}
           />
           <button
             type="submit"

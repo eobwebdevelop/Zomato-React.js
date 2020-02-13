@@ -3,10 +3,16 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const AdminDocList = ({ documentation, onDelete, onEdit }) => (
+const AdminDocList = ({
+  documentation, onDelete, onEdit, clearSelectedDoc,
+}) => (
   <Container>
     <Link to="/admin/doc_editor">
-      <button type="submit" className="btn">
+      <button
+        type="submit"
+        className="btn"
+        onClick={() => clearSelectedDoc()}
+      >
         Add New Documentation
       </button>
     </Link>
@@ -30,14 +36,15 @@ const AdminDocList = ({ documentation, onDelete, onEdit }) => (
           <td>{doc.product_name}</td>
           <td>{doc.title}</td>
           <td>
-            <button
-              type="submit"
-              className="view-quizzes-page-links-side-by-side"
-              onClick={() => onEdit(doc.id)}
-
-            >
-              Edit Documentation ►
-            </button>
+            <Link to={`/admin/doc_editor/${doc.id}`}>
+              <button
+                type="submit"
+                className="view-quizzes-page-links-side-by-side"
+                onClick={() => onEdit(doc)}
+              >
+                Edit Documentation ►
+              </button>
+            </Link>
           </td>
           <td>
             <button
@@ -62,6 +69,8 @@ AdminDocList.propTypes = {
     }).isRequired,
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  clearSelectedDoc: PropTypes.func.isRequired,
 };
 
 export default AdminDocList;

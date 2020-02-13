@@ -422,11 +422,24 @@ class App extends Component {
     }
   };
 
+  handleEdit = (doc) => {
+    this.setState({
+      selectedDoc: doc
+    })
+  }
+
+  clearSelectedDoc = () => {
+    this.setState({
+      selectedDoc: {}
+    })
+  }
+
   render() {
     const {
       currentLanguage,
       quizzes,
       documentation,
+      selectedDoc,
       products,
       users,
       restaurants,
@@ -494,15 +507,16 @@ class App extends Component {
               <>
                 <AdminNav />
                 <AdminDocList
-                  documentation={this.state.documentation}
+                  documentation={documentation}
                   onDelete={this.handleDeleteDoc}
+                  onEdit={this.handleEdit}
+                  clearSelectedDoc={this.clearSelectedDoc}
                 />
               </>
             )}
           />
 
           <Route
-            exact
             path="/admin/doc_editor"
             render={() => (
               <>
@@ -510,6 +524,7 @@ class App extends Component {
                 <AdminDocEditor
                   products={products}
                   documentation={documentation}
+                  selectedDoc={selectedDoc}
                 />
               </>
             )}
