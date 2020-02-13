@@ -19,6 +19,8 @@ import AdminQuizEditor from './Admin/AdminQuizEditor';
 import AdminUserEditor from './Admin/AdminUserEditor';
 import AdminDocList from './Admin/AdminDocList';
 import AdminDocEditor from './Admin/AdminDocEditor';
+// import AdminFaqList from './Admin/AdminFaqList';
+// import AdminFaqEditor from './Admin/AdminFaqEditor';
 import AdminRestaurantEditor from './Admin/AdminRestaurantEditor';
 import AdminRestaurantCreator from './Admin/AdminRestaurantCreator';
 import AdminRestaurantList from './Admin/AdminRestaurantList';
@@ -66,6 +68,8 @@ class App extends Component {
       score: 0,
       // Check whether questions are loaded, else we need to display loading screen when opening quiz.
       quizzesAreLoaded: false,
+      // Check whether Faqs are loaded, else we need to display loading screen when opening quiz.
+      faqsAreLoaded : false,
       // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
       quizIDInPlay: 1,
       quizNameInPlay: "TestString",
@@ -80,6 +84,7 @@ class App extends Component {
       regions: [{ id: 0, name: "" }],
       results: [{ id: 0, name: "" }],
       documentation: [],
+      faq:[],
       langOptions: langOptions,
       quizzes: [{ id: 0, name: "" }]
     };
@@ -174,6 +179,42 @@ class App extends Component {
         }));
       });
   };
+
+  getFaqs = () => {
+    this.setState(
+    { faqsAreLoaded: false },
+      () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
+      .then(response => response.json())
+      .then(data => {
+        console.log('got F ', data)
+        this.setState(state => ({
+          ...state,
+          faq: data.Faq,
+          faqsAreLoaded: true
+        }));
+      });
+    });
+  };
+
+  getFaqsByLang = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/learner/faq`, {
+      method: "GET",
+      headers: new Headers({
+        "Preferred-Language": this.state.currentLanguage
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('got ', data)
+        this.setState(state => ({
+          ...state,
+          faq: data
+        }));
+      });
+  };
+
+  
 
   getCurrentDate() {
     // this returns in a format friendly to mysql DATETIME
@@ -337,6 +378,8 @@ class App extends Component {
         this.getRegion();
         this.getResults();
         this.getDocs();
+        this.getFaqs();
+        this.getFaqsByLang();
       }
     );
   }
@@ -349,6 +392,7 @@ class App extends Component {
       this.getRegion();
       this.getResults();
       this.getDocs();
+      // this.getFaqs();
     };
   };
 
@@ -374,6 +418,12 @@ class App extends Component {
       this.setState({ documentation: updatedDocs });
     });
   };
+  // handleDeleteFaq = id => {
+  //   this.handleDelete(id, "faq", () => {
+  //     const updatedFaqs = this.state.faqs.filter(faq => faq.id !== id);
+  //     this.setState({ faq: updatedFaqs });
+  //   });
+  // };
 
   handleDeleteProduct = id => {
     this.handleDelete(id, "product", () => {
@@ -427,6 +477,7 @@ class App extends Component {
       currentLanguage,
       quizzes,
       documentation,
+      faq,
       products,
       users,
       restaurants,
@@ -437,8 +488,6 @@ class App extends Component {
       questionfound
     } = this.state;
 
-
-  
     // const quizfound = quizzes.find(
     //   quiz => quiz.id === +this.props.match.params.id
     // );
@@ -514,6 +563,34 @@ class App extends Component {
               </>
             )}
           />
+
+          {/* { Faq }
+          <Route
+            exact
+            path="/admin/faq_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminFaqList
+                  faq={this.state.faq}
+                  onDelete={this.handleDeleteFaq}
+                />
+              </>
+            )}
+          />
+
+          <Route
+            exact
+            path="/admin/faq_editor"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminFaqEditor
+                  faq={faq}
+                />
+              </>
+            )}
+          /> */}
 
           {/* {QUIZ } */}
           <Route
