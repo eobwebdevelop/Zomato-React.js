@@ -11,7 +11,6 @@ class BackButton extends React.Component {
           <button class="back-button-quiz" onClick={() => reduceQuizStep()}>
             &#8592; Previous Question
           </button>
-          ;
         </>
       );
     } else return null;
