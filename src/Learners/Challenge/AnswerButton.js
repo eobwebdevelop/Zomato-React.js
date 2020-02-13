@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class AnswerButton extends React.Component {
   render() {
@@ -11,6 +11,8 @@ class AnswerButton extends React.Component {
       answerSelect,
       correctAnswerID,
       correctAnswerText,
+      styleHighlight,
+      answerNumber
     } = this.props;
 
     const userInput = {
@@ -21,13 +23,19 @@ class AnswerButton extends React.Component {
       userAnswerText: answerText,
       correctAnswerID,
       correctAnswerText,
+      answerNumber
     };
 
     return (
       <>
         <br />
-        <div className="separator">
-          <button className="answerButton" onClick={() => answerSelect(userInput)}>{answerText}</button>
+        <div className={styleHighlight}>
+          <button
+            className="answerButton"
+            onClick={() => answerSelect(userInput)}
+          >
+            {answerText}
+          </button>
         </div>
         <br />
       </>

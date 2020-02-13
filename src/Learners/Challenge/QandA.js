@@ -1,20 +1,22 @@
-import React from 'react';
-import NextButton from './NextButton';
-import AnswerButton from './AnswerButton';
+import React from "react";
+import NextButton from "./NextButton";
+import AnswerButton from "./AnswerButton";
+import BackButton from "./BackButton";
 
 class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedAnswer: {},
+      selectedAnswerNumber: {}
     };
     this.answerSelect = this.answerSelect.bind(this);
   }
 
   answerSelect(userInput) {
-    this.setState((state) => ({
-      ...state,
+    this.setState(state => ({
       selectedAnswer: userInput,
+      selectedAnswerNumber: userInput.answerNumber
     }));
   }
 
@@ -29,23 +31,28 @@ class QandA extends React.Component {
       quizIDInPlay,
       checkScore,
       incrementQuizStep,
-      postQuizResult,
+      reduceQuizStep,
+      postQuizResult
     } = this.props;
+
+    console.log(this.state.selectedAnswer);
 
     if (!isVisible) return null;
 
     return (
       <>
+        <BackButton
+          reduceQuizStep={reduceQuizStep}
+          isBackButtonShown={step > 0 ? "show" : "don't show"}
+        />
+
         <h1>
-          Q
-          {step + 1}
-          :
-          {' '}
-          {questionPackage.question}
+          Q{step + 1}: {questionPackage.question}
         </h1>
 
         {questionPackage.answers.map((answer, i) => (
           <AnswerButton
+            answerNumber={i}
             questionText={questionPackage.question}
             correctAnswerID={questionPackage.correct_answer_id}
             correctAnswerText={
@@ -57,6 +64,11 @@ class QandA extends React.Component {
             step={step}
             quizIDinPlay={quizIDInPlay}
             answerSelect={this.answerSelect}
+            styleHighlight={
+              i === this.state.selectedAnswerNumber
+                ? "activeAnswer"
+                : "inactiveAnswer"
+            }
           />
         ))}
 
