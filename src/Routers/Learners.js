@@ -69,7 +69,6 @@ const Learners = props => (
         path="/learners/quiz_list/quiz"
         render={() => (
           <>
-            <LearnerNav />
             <Challenge
               score={props.score}
               checkScore={props.checkScore}
