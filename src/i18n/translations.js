@@ -235,7 +235,7 @@ const Translations = {
     },
 
     NextButton: {
-      ButtonN: "Next",
+      ButtonN: "Próxima",
       ButtonR: "Ver resultados"
     },
 
