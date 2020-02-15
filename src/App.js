@@ -184,7 +184,6 @@ class App extends Component {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
       .then(response => response.json())
       .then(data => {
-        console.log('got F ', data)
         this.setState(state => ({
           ...state,
           faq: data.Faq,
@@ -203,7 +202,6 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('got ', data)
         this.setState(state => ({
           ...state,
           faq: data
@@ -253,8 +251,6 @@ class App extends Component {
     // take state, make it equal to temp variable
     const userAnswersTemp = this.state.userQuizAnswers;
 
-    console.log(userAnswersTemp);
-
     // if selected user answer exists, overwrite it
     userAnswersTemp.forEach(el => {
       if (el.questionNumber === selectedAnswer.questionNumber) {
@@ -277,8 +273,6 @@ class App extends Component {
         userQuizAnswers: userAnswersTemp
       };
     });
-
-    console.log("state", this.state.userQuizAnswers);
   };
 
   incrementQuizStep = () => {

@@ -97,28 +97,27 @@ class AdminDocEditor extends Component {
   
   postDocumentation = (e) => {
     e.preventDefault();
-    // if(this.props.doc_id){
-    //   fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/edit`,
-    //   {
-    //       method:  'PUT',
-    //       headers:  new Headers({
-    //               'Content-Type':  'application/json'
-    //       }),
-    //       body:  JSON.stringify({
-              //   questions, 
-              //   name, 
-              //   id
-              // }),
-    //   })
-    //   .then(res  =>  res.json())
-    // }
-    // } else
-
-    this.setState(() => {
-      const textWithCloudinaryUrl = this.state.text.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
-      return { text: textWithCloudinaryUrl }
-    }, () => {
-      fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
+    if(this.props.selectedDoc){
+      fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/edit`,
+      {
+          method:  'PUT',
+          headers:  new Headers({
+                  'Content-Type':  'application/json'
+          }),
+          body:  JSON.stringify({
+            title: this.state.title,
+            content: this.state.text,
+            product_id: this.state.product,
+            id: this.props.selectedDoc.id,
+          }),
+      })
+      .then(res  =>  res.json())
+    }else{
+      this.setState(() => {
+        const textWithCloudinaryUrl = this.state.text.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
+        return { text: textWithCloudinaryUrl }
+      }, () => {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
         {
           method: 'POST',
           headers: new Headers({
@@ -135,10 +134,12 @@ class AdminDocEditor extends Component {
             this.props.history.push('/admin/doc_list');
           }
         });
-    });
+      });
+    }
   };
 
   render() {
+    console.log('this.props', this.props)
     return (
       <div>
         <Container>
