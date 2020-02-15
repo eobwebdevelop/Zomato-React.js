@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import LanguagesContext from '../../contexts/languages-context';
-import translations from '../../i18n/translations';
+import React, { Component } from "react";
+import LanguagesContext from "../../contexts/languages-context";
+import translations from "../../i18n/translations";
 
 class NextButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      test: 'Test',
+      test: "Test"
     };
 
     this.nextQuestion = this.nextQuestion.bind(this);
@@ -33,7 +33,7 @@ class NextButton extends Component {
       step,
       stopTimer,
       selectedAnswer,
-      isVisible,
+      isVisible
     } = this.props;
 
     if (isVisible === true) return null;
@@ -42,17 +42,15 @@ class NextButton extends Component {
       return (
         <LanguagesContext.Consumer>
           {({ currentLanguage }) => (
-            <div>
-              <button
-                type="submit"
-                className="btn"
-                onClick={() => {
-                  this.nextQuestion(selectedAnswer);
-                }}
-              >
-                {translations[currentLanguage].NextButton.ButtonN}
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="btnnext"
+              onClick={() => {
+                this.nextQuestion(selectedAnswer);
+              }}
+            >
+              {translations[currentLanguage].NextButton.ButtonN}
+            </button>
           )}
         </LanguagesContext.Consumer>
       );
@@ -63,7 +61,7 @@ class NextButton extends Component {
           <div>
             <button
               type="submit"
-              className="btn"
+              className="btnresults"
               onClick={() => {
                 this.finalQuestion(selectedAnswer);
               }}

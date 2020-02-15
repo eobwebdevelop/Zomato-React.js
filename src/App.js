@@ -11,25 +11,28 @@ import LearnersAuth from "./Routers/LearnersAuth";
 import Learners from "./Routers/Learners";
 
 // Admin portal imports
-import AdminNav from "./Admin/AdminNav.js";
-import AdminLogin from "./Admin/AdminLogin";
-import AdminQuizList from "./Admin/AdminQuizList";
-import AdminQuizMaker from "./Admin/AdminQuizMaker";
-import AdminQuizEditor from "./Admin/AdminQuizEditor";
-import AdminUserEditor from "./Admin/AdminUserEditor";
-import AdminDocList from "./Admin/AdminDocList";
-import AdminDocEditor from "./Admin/AdminDocEditor";
-import AdminRestaurantEditor from "./Admin/AdminRestaurantEditor";
-import AdminRestaurantCreator from "./Admin/AdminRestaurantCreator";
-import AdminRestaurantList from "./Admin/AdminRestaurantList";
-import AdminProductCreator from "./Admin/AdminProductCreator";
-import AdminHomePage from "./Admin/AdminHomePage";
-import AdminProductEditor from "./Admin/AdminProductEditor";
-import AdminProductList from "./Admin/AdminProductList";
-import AdminUserList from "./Admin/AdminUserList";
-import AdminResultList from "./Admin/AdminResultList";
-import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
-import BasicNavbar from "./Admin/BasicNavbar";
+import AdminNav from './Admin/AdminNav.js';
+import AdminLogin from './Admin/AdminLogin';
+import AdminQuizList from './Admin/AdminQuizList';
+import AdminQuizMaker from './Admin/AdminQuizMaker';
+import AdminQuizEditor from './Admin/AdminQuizEditor';
+import AdminUserEditor from './Admin/AdminUserEditor';
+import AdminDocList from './Admin/AdminDocList';
+import AdminDocEditor from './Admin/AdminDocEditor';
+// import AdminFaqList from './Admin/AdminFaqList';
+// import AdminFaqEditor from './Admin/AdminFaqEditor';
+import AdminRestaurantEditor from './Admin/AdminRestaurantEditor';
+import AdminRestaurantCreator from './Admin/AdminRestaurantCreator';
+import AdminRestaurantList from './Admin/AdminRestaurantList';
+import AdminProductCreator from './Admin/AdminProductCreator';
+import AdminHomePage from './Admin/AdminHomePage';
+import AdminProductEditor from './Admin/AdminProductEditor';
+import AdminProductList from './Admin/AdminProductList';
+import AdminUserList from './Admin/AdminUserList';
+import AdminResultList from './Admin/AdminResultList';
+import AdminQuestionEditor from './Admin/AdminQuestionEditor';
+import BasicNavbar from './Admin/BasicNavbar'
+
 
 // Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
 
@@ -63,6 +66,8 @@ class App extends Component {
       score: 0,
       // Check whether questions are loaded, else we need to display loading screen when opening quiz.
       quizzesAreLoaded: false,
+      // Check whether Faqs are loaded, else we need to display loading screen when opening quiz.
+      faqsAreLoaded : false,
       // This defines which QuizID the user is playing. Needs to update with the quiz number used on ""
       quizIDInPlay: 1,
       quizNameInPlay: "TestString",
@@ -77,6 +82,7 @@ class App extends Component {
       regions: [{ id: 0, name: "" }],
       results: [{ id: 0, name: "" }],
       documentation: [],
+      faq:[],
       langOptions: langOptions,
       quizzes: [{ id: 0, name: "" }]
     };
@@ -170,6 +176,42 @@ class App extends Component {
         }));
       });
   };
+
+  getFaqs = () => {
+    this.setState(
+    { faqsAreLoaded: false },
+      () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
+      .then(response => response.json())
+      .then(data => {
+        console.log('got F ', data)
+        this.setState(state => ({
+          ...state,
+          faq: data.Faq,
+          faqsAreLoaded: true
+        }));
+      });
+    });
+  };
+
+  getFaqsByLang = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/learner/faq`, {
+      method: "GET",
+      headers: new Headers({
+        "Preferred-Language": this.state.currentLanguage
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('got ', data)
+        this.setState(state => ({
+          ...state,
+          faq: data
+        }));
+      });
+  };
+
+  
 
   getCurrentDate() {
     // this returns in a format friendly to mysql DATETIME
@@ -300,7 +342,7 @@ class App extends Component {
   }
 
   refreshQuizState() {
-    // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
+    // This is called on results page, and also required to be in ComponentDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
     this.stopTimer();
     this.setState({ overallTime: 0, step: 0, score: 0, userQuizAnswers: [] });
   }
@@ -360,6 +402,8 @@ class App extends Component {
         this.getRegion();
         this.getResults();
         this.getDocs();
+        this.getFaqs();
+        this.getFaqsByLang();
       }
     );
   }
@@ -372,8 +416,11 @@ class App extends Component {
       this.getRegion();
       this.getResults();
       this.getDocs();
-    }
-  }
+      // this.getFaqs();
+    };
+  };
+
+
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -395,6 +442,12 @@ class App extends Component {
       this.setState({ documentation: updatedDocs });
     });
   };
+  // handleDeleteFaq = id => {
+  //   this.handleDelete(id, "faq", () => {
+  //     const updatedFaqs = this.state.faqs.filter(faq => faq.id !== id);
+  //     this.setState({ faq: updatedFaqs });
+  //   });
+  // };
 
   handleDeleteProduct = id => {
     this.handleDelete(id, "product", () => {
@@ -463,6 +516,7 @@ class App extends Component {
       quizzes,
       documentation,
       selectedDoc,
+      //faq,
       products,
       users,
       restaurants,
@@ -550,6 +604,34 @@ class App extends Component {
               </>
             )}
           />
+
+          {/* { Faq }
+          <Route
+            exact
+            path="/admin/faq_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminFaqList
+                  faq={this.state.faq}
+                  onDelete={this.handleDeleteFaq}
+                />
+              </>
+            )}
+          />
+
+          <Route
+            exact
+            path="/admin/faq_editor"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminFaqEditor
+                  faq={faq}
+                />
+              </>
+            )}
+          /> */}
 
           {/* {QUIZ } */}
           <Route
