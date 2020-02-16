@@ -1,0 +1,24 @@
+.single-doc img{
+    max-width: 300px;
+    max-height: auto;
+}
+
+.single-doc{
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.27);
+}
+
+.single-doc h1{
+    margin: 20px;
+}
+
+.single-doc div{
+    margin: 20px;
+    padding: 20px;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: space-between;
+}
