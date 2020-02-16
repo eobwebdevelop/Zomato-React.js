@@ -37,20 +37,26 @@ class Documentation extends Component {
       });
       if(!this.state.resultDocs[0]){
         console.log('no match found')
+        // if no docs are returned say ooops couldn't find anything 
       }
     }
 
-    // if no docs are returned say ooops couldn't find anything 
+    // show See All Documentation BUTTON
+    // <button onclick={handleBackToAllDocs}> See all documentation </button>
+    // handleBackToAllDocs = () => {
+    //  this.setState({resultDocs: []});   
+    //}
   }
 
   pickDocs = () => this.state.resultDocs[0] ? this.state.resultDocs : this.props.documentation
-    // return this.props.documentation
 
+  // handleDisplay = () => {
+  //   if( search return nothing aka map is not possible)
+  // <h1> No results found. </h1>
+  // AL: CAN WE STILL SHOW ALL THE DOCS AS WELL AS A COUNDN'T FIND MESSAGE OR IS IT BETTER TO SHOW ONLY THE MESSAGE??
+  // };
 
   render() {
-    console.log('this.state.resultDocs', this.state.resultDocs)
-    // const { currentLanguage } = useContext(LanguagesContext);
-    const { documentation } = this.props;
     const { query } = this.state;
     return (
       <LanguagesContext.Consumer>
