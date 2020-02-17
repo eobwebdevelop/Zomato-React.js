@@ -10,21 +10,22 @@ class AdminQuestionMaker extends Component {
   }
 
   handleSubmit = (e) => {
-    const {question_id, } = this.state
-    e.preventDefault();
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/create`,
-    {
-        method:  'POST',
-        headers:  new Headers({
-                'Content-Type':  'application/json'
-        }),
-        body:  JSON.stringify({name, region_id}),
-    })
-    .then(res => {
-          if(res.status === 200){ 
-            this.props.history.push('/admin/quiz_list')
-          }}
-        )
+    console.log('');
+  //   const {question_id } = this.state
+  //   e.preventDefault();
+  //   fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/create`,
+  //   {
+  //       method:  'POST',
+  //       headers:  new Headers({
+  //               'Content-Type':  'application/json'
+  //       }),
+  //       body:  JSON.stringify({name, region_id}),
+  //   })
+  //   .then(res => {
+  //         if(res.status === 200){ 
+  //           this.props.history.push('/admin/quiz_list')
+  //         }}
+  //       )
   }
   
   render() {
