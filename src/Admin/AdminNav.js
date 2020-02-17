@@ -22,7 +22,7 @@ const AdminNav = () => (
           <Nav.Link href="/admin/">Dashboard</Nav.Link>
           <Nav.Link href="/admin/quiz_list">Quizzes</Nav.Link>
           <Nav.Link href="/admin/doc_list">Documentation</Nav.Link>
-          <Nav.Link href="/admin/users_list">Users</Nav.Link>
+          <Nav.Link href="/admin/user_list">Users</Nav.Link>
           <Nav.Link href="/admin/restaurant_list">Restaurant</Nav.Link>
           <Nav.Link href="/admin/product_list">Products</Nav.Link>
           <Nav.Link href="/admin/result_list">Results</Nav.Link>
