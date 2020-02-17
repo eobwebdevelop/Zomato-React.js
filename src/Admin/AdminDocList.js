@@ -24,37 +24,41 @@ const AdminDocList = ({
 
     <table className="tftable" border="1">
       <thead>
-        <th>ID</th>
-        <th>Product</th>
-        <th>Title</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <tr>
+          <th>ID</th>
+          <th>Product</th>
+          <th>Title</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
       </thead>
       {documentation.map((doc) => (
         <tbody key={doc.id}>
-          <td>{doc.id}</td>
-          <td>{doc.product_name}</td>
-          <td>{doc.title}</td>
-          <td>
-            <Link to={`/admin/doc_editor/${doc.id}`}>
+          <tr>
+            <td>{doc.id}</td>
+            <td>{doc.product_name}</td>
+            <td>{doc.title}</td>
+            <td>
+              <Link to={`/admin/doc_editor/${doc.id}`}>
+                <button
+                  type="submit"
+                  className="view-quizzes-page-links-side-by-side"
+                  onClick={() => onEdit(doc)}
+                >
+                  Edit Documentation ►
+                </button>
+              </Link>
+            </td>
+            <td>
               <button
                 type="submit"
                 className="view-quizzes-page-links-side-by-side"
-                onClick={() => onEdit(doc)}
+                onClick={() => onDelete(doc.id)}
               >
-                Edit Documentation ►
+                Delete Documentation ►
               </button>
-            </Link>
-          </td>
-          <td>
-            <button
-              type="submit"
-              className="view-quizzes-page-links-side-by-side"
-              onClick={() => onDelete(doc.id)}
-            >
-              Delete Documentation ►
-            </button>
-          </td>
+            </td>
+          </tr>
         </tbody>
       ))}
     </table>

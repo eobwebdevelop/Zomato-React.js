@@ -1,14 +1,16 @@
-import React from "react";
-import { Switch, Route, Redirect, Link } from "react-router-dom";
+import React from 'react';
+import {
+  Switch, Route, Redirect, Link,
+} from 'react-router-dom';
 // Learners
-import Documentation from "../Learners/Documentation/Documentation";
-import LearnerNav from "../LearnerNav";
-import About from "../Learners/About/About";
-import FAQ from "../Learners/FAQ/FAQ";
-import Challenge from "../Learners/Challenge/Challenge";
-import QuizList from "../Learners/QuizList/QuizList";
+import Documentation from '../Learners/Documentation/Documentation';
+import LearnerNav from '../LearnerNav';
+import About from '../Learners/About/About';
+import FAQ from '../Learners/FAQ/FAQ';
+import Challenge from '../Learners/Challenge/Challenge';
+import QuizList from '../Learners/QuizList/QuizList';
 
-const Learners = props => (
+const Learners = (props) => (
   <>
     <Switch>
       {/* Documentation */}

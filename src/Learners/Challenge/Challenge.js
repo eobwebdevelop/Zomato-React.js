@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import QandA from "./QandA";
@@ -6,6 +7,7 @@ import "./Challenge.css";
 import ResultsCard from "./ResultsCard";
 import LanguagesContext from "../../contexts/languages-context";
 import translations from "../../i18n/translations";
+import BackButton from "../Challenge/BackButton";
 
 class Challenge extends Component {
   componentDidMount() {
@@ -39,30 +41,35 @@ class Challenge extends Component {
         <LanguagesContext.Consumer>
           {({ currentLanguage }) => (
             <Container>
-              <h1>{translations[currentLanguage].Challenge.TitleQ}</h1>
-              <hr />
-              <div className="grayContainer">
-                {questionPackageSpecificQuizIDOnly.map((questionPackage, i) => (
-                  <QandA
-                    questionPackage={questionPackageSpecificQuizIDOnly[i]}
-                    addUserInputToState={addUserInputToState}
-                    isVisible={step === i}
-                    onClickAnswer={onClickAnswer}
-                    stopTimer={stopTimer}
-                    incrementQuizStep={incrementQuizStep}
-                    reduceQuizStep={reduceQuizStep}
-                    step={i}
-                    overallTime={overallTime}
-                    quizIDInPlay={quizIDInPlay}
-                    checkScore={checkScore}
-                    postQuizResult={postQuizResult}
-                  />
-                ))}
-                <h3>
-                  {translations[currentLanguage].Challenge.CurrentT}
-                  {` ${overallTime}`}{" "}
-                  {translations[currentLanguage].Challenge.TimeSec}
-                </h3>
+              <div class="gameplay-container">
+                <h1>
+                  {questionPackage.filter(el => el.id === quizIDInPlay)[0].name}
+                </h1>
+                <hr />
+                <BackButton
+                  reduceQuizStep={reduceQuizStep}
+                  isBackButtonShown={step > 0 ? "show" : "don't show"}
+                />
+                <div className="grayContainer">
+                  {questionPackageSpecificQuizIDOnly.map(
+                    (questionPackage, i) => (
+                      <QandA
+                        questionPackage={questionPackageSpecificQuizIDOnly[i]}
+                        addUserInputToState={addUserInputToState}
+                        isVisible={step === i}
+                        onClickAnswer={onClickAnswer}
+                        stopTimer={stopTimer}
+                        incrementQuizStep={incrementQuizStep}
+                        reduceQuizStep={reduceQuizStep}
+                        step={i}
+                        overallTime={overallTime}
+                        quizIDInPlay={quizIDInPlay}
+                        checkScore={checkScore}
+                        postQuizResult={postQuizResult}
+                      />
+                    )
+                  )}
+                </div>
               </div>
             </Container>
           )}

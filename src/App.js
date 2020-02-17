@@ -11,6 +11,7 @@ import LearnersAuth from "./Routers/LearnersAuth";
 import Learners from "./Routers/Learners";
 
 // Admin portal imports
+<<<<<<< HEAD
 import AdminNav from "./Admin/AdminNav.js";
 import AdminQuizList from "./Admin/AdminQuizList";
 import AdminQuizMaker from "./Admin/AdminQuizMaker";
@@ -28,6 +29,30 @@ import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminResultList from "./Admin/AdminResultList";
 import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
+=======
+import AdminNav from './Admin/AdminNav.js';
+import AdminLogin from './Admin/AdminLogin';
+import AdminQuizList from './Admin/AdminQuizList';
+import AdminQuizMaker from './Admin/AdminQuizMaker';
+import AdminQuizEditor from './Admin/AdminQuizEditor';
+import AdminUserEditor from './Admin/AdminUserEditor';
+import AdminDocList from './Admin/AdminDocList';
+import AdminDocEditor from './Admin/AdminDocEditor';
+import AdminFaqList from './Admin/AdminFaqList';
+import AdminFaqEditor from './Admin/AdminFaqEditor';
+import AdminRestaurantEditor from './Admin/AdminRestaurantEditor';
+import AdminRestaurantCreator from './Admin/AdminRestaurantCreator';
+import AdminRestaurantList from './Admin/AdminRestaurantList';
+import AdminProductCreator from './Admin/AdminProductCreator';
+import AdminHomePage from './Admin/AdminHomePage';
+import AdminProductEditor from './Admin/AdminProductEditor';
+import AdminProductList from './Admin/AdminProductList';
+import AdminUserList from './Admin/AdminUserList';
+import AdminResultList from './Admin/AdminResultList';
+import AdminQuestionEditor from './Admin/AdminQuestionEditor';
+import BasicNavbar from './Admin/BasicNavbar'
+
+>>>>>>> master
 
 // Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
 
@@ -76,6 +101,8 @@ class App extends Component {
       regions: [{ id: 0, name: "" }],
       results: [{ id: 0, name: "" }],
       documentation: [],
+      adminFaq:[],
+      learnerFaq:[],
       langOptions: langOptions,
       quizzes: [{ id: 0, name: "" }]
     };
@@ -196,6 +223,38 @@ class App extends Component {
       });
   };
 
+  getFaqs = () => {
+    this.setState(
+    { faqsAreLoaded: false },
+      () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data, 'cornichon')
+        this.setState(state => ({
+          ...state,
+          adminFaq: data.faqs,
+        }));
+      });
+    });
+  };
+
+  getFaqsByLang = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/learner/faq`, {
+      method: "GET",
+      headers: new Headers({
+        "Preferred-Language": this.state.currentLanguage
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          ...this.state,
+          learnerFaq: data.faqs
+        });
+      });
+  };
+  
   getCurrentDate() {
     // this returns in a format friendly to mysql DATETIME
     return new Date()
@@ -322,7 +381,7 @@ class App extends Component {
   }
 
   refreshQuizState() {
-    // This is called on results page, and also required to be in ComponerntDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
+    // This is called on results page, and also required to be in ComponentDidMount on the homepage to refresh quiz-related state variables should the user click out / navigate from a quiz in play.
     this.stopTimer();
     this.setState({ overallTime: 0, step: 0, score: 0, userQuizAnswers: [] });
   }
@@ -392,6 +451,8 @@ class App extends Component {
         this.getResults();
         this.getDocs();
         this.addUserIDFromTokenToState();
+        this.getFaqs();
+        this.getFaqsByLang();
       }
     );
   }
@@ -404,8 +465,12 @@ class App extends Component {
       this.getRegion();
       this.getResults();
       this.getDocs();
-    }
-  }
+      this.getFaqs();
+      this.getFaqsByLang();
+    };
+  };
+
+
 
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
@@ -425,6 +490,13 @@ class App extends Component {
     this.handleDelete(id, "doc", () => {
       const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
       this.setState({ documentation: updatedDocs });
+    });
+  };
+
+  handleDeleteFaq = id => {
+    this.handleDelete(id, "faq", () => {
+      const updatedFaq = this.state.adminFaq.filter(faq => faq.id !== id);
+      this.setState({ adminFaq: updatedFaq });
     });
   };
 
@@ -479,7 +551,7 @@ class App extends Component {
 
   handleEdit = (doc) => {
     this.setState({
-      selectedDoc: doc
+      selectedDoc: doc,
     })
   }
 
@@ -489,12 +561,26 @@ class App extends Component {
     })
   }
 
+  handleEditFaq =(faq) => {
+    this.setState({
+      selectedFaq: faq,
+    })
+  }
+
+  clearSelectedFaq = () => {
+    this.setState({
+      selectedFaq: {}
+    })
+  }
+
   render() {
     const {
       currentLanguage,
       quizzes,
       documentation,
       selectedDoc,
+      selectedFaq,
+      adminFaq,
       products,
       users,
       restaurants,
@@ -504,22 +590,6 @@ class App extends Component {
       quizfound,
       questionfound
     } = this.state;
-
-
-    // const quizfound = quizzes.find(
-    //   quiz => quiz.id === +this.props.match.params.id
-    // );
-    // const questionfound = quizfound
-    //   ? quizfound.questions.find(
-    //       question => question.id === +this.props.match.params.qid
-    //     )
-    //   : [];
-    // console.log(quizfound, questionfound, "hey");
-    // console.log(
-    //   matchPath(this.props.location.search, {
-    //     path: "/admin/quiz_editor/:id/questions/:qid"
-    //   })
-    // );
 
     return (
       <LanguagesContext.Provider
@@ -574,6 +644,37 @@ class App extends Component {
             )}
           />
 
+          {/* { Faq }*/}
+          <Route
+            exact
+            path="/admin/faq_list"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminFaqList
+                  adminFaq={adminFaq}
+                  onDelete={this.handleDeleteFaq}
+                  onEdit={this.handleEditFaq}
+                  clearSelectedFaq={this.clearSelectedFaq}
+                />
+              </>
+            )}
+          />
+
+          <Route
+            exact
+            path="/admin/faq_editor"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminFaqEditor
+                  adminFaq={adminFaq}
+                  selectedFac={selectedFaq}
+                />
+              </>
+            )}
+          /> 
+
           {/* {QUIZ } */}
           <Route
             exact
@@ -591,7 +692,8 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav />
-                <AdminQuizMaker />
+                <AdminQuizMaker  
+                products={products}/>
               </>
             )}
           />
@@ -790,6 +892,7 @@ class App extends Component {
                   userQuizAnswers={this.state.userQuizAnswers}
                   postQuizResult={this.postQuizResult}
                   reduceQuizStep={this.reduceQuizStep}
+                  learnerFaq={this.state.learnerFaq}
                 />
               </>
             )}

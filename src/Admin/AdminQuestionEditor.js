@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './AdminQuizMaker.css';
 import { Container } from 'react-bootstrap';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import AdminAnswerEditor from './AdminAnswerEditor';
 import QuizzesContext from '../contexts/quiz-context';
 
@@ -28,6 +28,25 @@ class AdminQuestionEditor extends Component {
     }
   }
 
+  handlerSubmit = (e) => {
+    const {question, id} = this.state
+    e.preventDefault();
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/edit`,
+    {
+        method:  'PUT',
+        headers:  new Headers({
+                'Content-Type':  'application/json'
+        }),
+        body:  JSON.stringify({id, question, answers:[
+          this.state.answer_option_1,
+          this.state.answer_option_2,
+          this.state.answer_option_3,
+          this.state.answer_option_4
+        ]}),
+    })
+    .then(res  =>  res.json())
+  }
+
   updateQuestion = (event) => {
     this.setState({question: event.target.value})
   }
@@ -43,13 +62,20 @@ class AdminQuestionEditor extends Component {
     })
   }
 
-  updateAnswer = (event) =>{
+  updateAnswer = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  updateChecked = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
   render() {
+    console.log(this.state)
     const {
       quizfound,
       questionfound,
@@ -68,7 +94,7 @@ class AdminQuestionEditor extends Component {
             {' '}
             {quizfound.name}
           </p>
-          <form>
+          <form className="product-form" onSubmit={this.handlerSubmit}>
             <div className="Question-Edit">
               <div className="Question-Edit-Inner">
                 <h2>
@@ -78,6 +104,7 @@ class AdminQuestionEditor extends Component {
                 </h2>
                 <input type="text" name="quizname" value={question} onChange={this.updateQuestion} />
                 <AdminAnswerEditor
+                  updateChecked={this.updateChecked}
                   updateAnswer={this.updateAnswer}
                   answers={questionfound.answers}
                   answeroptions={[
@@ -88,13 +115,11 @@ class AdminQuestionEditor extends Component {
                   ]}
                 />
               </div>
-            </div>
-          </form>
-          <Link to="/admin/quiz_list">
+            </div>  
             <button type="submit" className="btn">
             Save Question
             </button>
-          </Link>
+          </form>
         </Container>
       </div>
     );
