@@ -1,15 +1,15 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const AdminQuizList = () => (
   <div>
     <Container>
-      <h1>Back Office Managers</h1>
+      <h1>Dashboard</h1>
       <hr />
       <Link to="/admin/quiz_list">
         <button type="submit" className="btn">
-          Quiz
+          Quizzes
         </button>
       </Link>
       <Link to="/admin/doc_list">
@@ -35,6 +35,11 @@ const AdminQuizList = () => (
       <Link to="/admin/result_list">
         <button type="submit" className="btn">
           Results
+        </button>
+      </Link>
+      <Link to="/admin/faq_list">
+        <button type="submit" className="btn">
+          FAQ
         </button>
       </Link>
     </Container>

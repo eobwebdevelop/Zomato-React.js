@@ -10,7 +10,6 @@ class AdminQuizMaker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      answer_options: [{answer_option_1: ''}, {answer_option_2:''}, {answer_option_3: ''}, {answer_option_4:''}],
     };
   }
 
@@ -89,8 +88,7 @@ class AdminQuizMaker extends Component {
   }
 
   render() {
-    console.log(this.state.answer_options)
-      const optionsStaff = [
+    const optionsStaff = [
       { value: 1, label: 'Restauranter' },
       { value: 2, label: 'Zomato Employee' },
       { value: 3, label: 'Admin' },
