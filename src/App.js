@@ -82,7 +82,8 @@ class App extends Component {
       regions: [{ id: 0, name: "" }],
       results: [{ id: 0, name: "" }],
       documentation: [],
-      faq:[],
+      adminFaq:[],
+      learnerFaq:[],
       langOptions: langOptions,
       quizzes: [{ id: 0, name: "" }]
     };
@@ -186,7 +187,7 @@ class App extends Component {
       .then(data => {
         this.setState(state => ({
           ...state,
-          faq: data.Faq,
+          adminFaq: data.Faq,
           faqsAreLoaded: true
         }));
       });
@@ -202,15 +203,13 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.setState(state => ({
-          ...state,
-          faq: data
-        }));
+        this.setState({
+          ...this.state,
+          learnerFaq: data.faqs
+        });
       });
   };
-
   
-
   getCurrentDate() {
     // this returns in a format friendly to mysql DATETIME
     return new Date()
@@ -410,7 +409,8 @@ class App extends Component {
       this.getRegion();
       this.getResults();
       this.getDocs();
-      // this.getFaqs();
+      this.getFaqs();
+      this.getFaqsByLang();
     };
   };
 
@@ -510,7 +510,7 @@ class App extends Component {
       quizzes,
       documentation,
       selectedDoc,
-      //faq,
+      faq,
       products,
       users,
       restaurants,
@@ -520,7 +520,6 @@ class App extends Component {
       quizfound,
       questionfound
     } = this.state;
-
 
     return (
       <LanguagesContext.Provider
@@ -830,6 +829,7 @@ class App extends Component {
                   addUserIDFromTokenToState={this.addUserIDFromTokenToState}
                   postQuizResult={this.postQuizResult}
                   reduceQuizStep={this.reduceQuizStep}
+                  learnerFaq={this.state.learnerFaq}
                 />
               </>
             )}
