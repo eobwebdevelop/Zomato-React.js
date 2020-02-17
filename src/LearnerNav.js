@@ -18,7 +18,7 @@ const LearnerNav = (props) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="learner-basic-navbar-nav">
           <Nav className="mr-auto learner-navlinks">
-            <Nav.Link href="/learners/login" className="grey-link">
+            <Nav.Link href="/learners/quiz_list" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkL}
             </Nav.Link>
             <Nav.Link href="/learners/quiz_list" className="grey-link">
