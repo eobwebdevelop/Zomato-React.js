@@ -1,15 +1,17 @@
-import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import DropdownSelector from '../LanguageSelector';
-import './AdminNav.css';
-
+import React from "react";
+import { Navbar, Nav } from "react-bootstrap";
+import DropdownSelector from "../LanguageSelector";
+import "./AdminNav.css";
 
 const AdminNav = () => (
   <div>
     {/* Example */}
     <Navbar id="navbar-admin" bg="black" expand="lg">
       <Navbar.Brand href="/admin/login">
-        <img alt="logo" src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" />
+        <img
+          alt="logo"
+          src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png"
+        />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -17,24 +19,16 @@ const AdminNav = () => (
           <Nav.Link id="navbar-link-admin" href="/admin/login">
             Login
           </Nav.Link>
-          <Nav.Link href="/admin/">
-            Backoffice Home
-          </Nav.Link>
-          <Nav.Link href="/admin/quiz_list">
-            Manage Quizzes
-          </Nav.Link>
-          <Nav.Link href="/admin/doc_list">
-            Manage Documentation
-          </Nav.Link>
-          <Nav.Link href="/admin/faq_list">
-            Manage FAQ
-          </Nav.Link>
-          <Nav.Link href="/admin/login">
-            Log Out
-          </Nav.Link>
-          <Nav.Link href="/learners/login">
-            Learner Portal
-          </Nav.Link>
+          <Nav.Link href="/admin/">Dashboard</Nav.Link>
+          <Nav.Link href="/admin/quiz_list">Quizzes</Nav.Link>
+          <Nav.Link href="/admin/doc_list">Documentation</Nav.Link>
+          <Nav.Link href="/admin/users_list">Users</Nav.Link>
+          <Nav.Link href="/admin/restaurant_list">Restaurant</Nav.Link>
+          <Nav.Link href="/admin/product_list">Products</Nav.Link>
+          <Nav.Link href="/admin/result_list">Results</Nav.Link>
+          <Nav.Link href="/admin/faq_list">FAQ</Nav.Link>
+          <Nav.Link href="/admin/login">Log Out</Nav.Link>
+          <Nav.Link href="/learners/login">Learner Portal</Nav.Link>
         </Nav>
       </Navbar.Collapse>
       <DropdownSelector />
