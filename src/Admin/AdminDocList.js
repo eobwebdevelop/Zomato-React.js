@@ -3,10 +3,16 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const AdminDocList = ({ documentation, onDelete }) => (
+const AdminDocList = ({
+  documentation, onDelete, onEdit, clearSelectedDoc,
+}) => (
   <Container>
     <Link to="/admin/doc_editor">
-      <button type="submit" className="btn">
+      <button
+        type="submit"
+        className="btn"
+        onClick={() => clearSelectedDoc()}
+      >
         Add New Documentation
       </button>
     </Link>
@@ -18,34 +24,41 @@ const AdminDocList = ({ documentation, onDelete }) => (
 
     <table className="tftable" border="1">
       <thead>
-        <th>ID</th>
-        <th>Product</th>
-        <th>Title</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <tr>
+          <th>ID</th>
+          <th>Product</th>
+          <th>Title</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
       </thead>
       {documentation.map((doc) => (
         <tbody key={doc.id}>
-          <td>{doc.id}</td>
-          <td>{doc.product_name}</td>
-          <td>{doc.title}</td>
-          <td>
-            <button
-              type="submit"
-              className="view-quizzes-page-links-side-by-side"
-            >
-              Edit Documentation ►
-            </button>
-          </td>
-          <td>
-            <button
-              type="submit"
-              className="view-quizzes-page-links-side-by-side"
-              onClick={() => onDelete(doc.id)}
-            >
-              Delete Documentation ►
-            </button>
-          </td>
+          <tr>
+            <td>{doc.id}</td>
+            <td>{doc.product_name}</td>
+            <td>{doc.title}</td>
+            <td>
+              <Link to={`/admin/doc_editor/${doc.id}`}>
+                <button
+                  type="submit"
+                  className="view-quizzes-page-links-side-by-side"
+                  onClick={() => onEdit(doc)}
+                >
+                  Edit Documentation ►
+                </button>
+              </Link>
+            </td>
+            <td>
+              <button
+                type="submit"
+                className="view-quizzes-page-links-side-by-side"
+                onClick={() => onDelete(doc.id)}
+              >
+                Delete Documentation ►
+              </button>
+            </td>
+          </tr>
         </tbody>
       ))}
     </table>
@@ -60,6 +73,8 @@ AdminDocList.propTypes = {
     }).isRequired,
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  clearSelectedDoc: PropTypes.func.isRequired,
 };
 
 export default AdminDocList;

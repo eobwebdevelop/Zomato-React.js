@@ -8,7 +8,7 @@ const AdminNav = () => (
   <div>
     {/* Example */}
     <Navbar id="navbar-admin" bg="black" expand="lg">
-      <Navbar.Brand href="/learners/quiz_list">
+      <Navbar.Brand href="/admin/login">
         <img alt="logo" src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -25,6 +25,9 @@ const AdminNav = () => (
           </Nav.Link>
           <Nav.Link href="/admin/doc_list">
             Manage Documentation
+          </Nav.Link>
+          <Nav.Link href="/admin/faq_list">
+            Manage FAQ
           </Nav.Link>
           <Nav.Link href="/admin/login">
             Log Out

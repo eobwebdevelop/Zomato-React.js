@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './AdminDocEditor.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import './AdminDocEditor.css';
+import { Container } from 'react-bootstrap';
 import Select from 'react-select';
 
 
@@ -13,10 +13,12 @@ class AdminDocEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      text: '',
+      title: this.props.selectedDoc ? this.props.selectedDoc.title : '',
+      text: this.props.selectedDoc ? this.props.selectedDoc.content : '',
       lastUploadedFile: {},
       base64Url: {},
+      product: this.props.selectedDoc ? this.props.selectedDoc.product_id : '',
+      productLabel: this.props.selectedDoc ? this.props.selectedDoc.product_name : '',
     };
   }
 
@@ -56,10 +58,20 @@ class AdminDocEditor extends Component {
         method: 'POST',
         body: data,
       },
-    );
+      );
+    };
+    
+  onChangeProduct = (e) => {
+    this.setState({
+      product: e.value,
+      displayProduct: e})
+  };
+    
+  onChangeTitle = (e) => {
+    this.setState({title: e.target.value});
   };
 
-  handleChangeQuill = (value, delta) => {
+  onChangeQuill = (value, delta) => {
     for(let i=0; i<delta.ops.length; i++){
       if (typeof delta.ops[i].insert === 'object') {
         this.setState({base64Url: delta.ops[i].insert.image});
@@ -73,9 +85,10 @@ class AdminDocEditor extends Component {
   };
   
   onChangeProduct = (e) => {
+    console.log(e);
     this.setState({
       product: e.value,
-      displayProduct: e})
+      displayProduct: e.label})
   };
   
   onChangeTitle = (e) => {
@@ -88,38 +101,64 @@ class AdminDocEditor extends Component {
     this.setState(() => {
       const textWithCloudinaryUrl = this.state.text.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
       return { text: textWithCloudinaryUrl }
-    });
+    },  () => {
+      if(this.props.match.isExact === false){
+        fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/edit`,
+        {
+            method:  'PUT',
+            headers:  new Headers({
+                    'Content-Type':  'application/json'
+            }),
+            body:  JSON.stringify({
+              title: this.state.title,
+              content: this.state.text,
+              product_id: this.state.product,
+              id: this.props.selectedDoc.id,
+            }),
+        })
+        .then(res  => {
+          if (res.status === 200) {
+            this.props.history.push('/admin/doc_list');
+          }
+        })
+      }else{
+          fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
+            {
+              method: 'POST',
+              headers: new Headers({
+                'Content-Type': 'application/json',
+              }),
+              body: JSON.stringify({
+                title: this.state.title,
+                content: this.state.text,
+                product_id: this.state.product,
+              }),
+            }
+          ).then((res) => {
+              if (res.status === 200) {
+                this.props.history.push('/admin/doc_list');
+              }
+            });
+        };
+    })
+  }
 
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/create`,
-      {
-        method: 'POST',
-        headers: new Headers({
-          'Content-Type': 'application/json',
-        }),
-        body: JSON.stringify({
-          title: this.state.title,
-          content: this.state.text,
-          product_id: this.state.product,
-        }),
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          this.props.history.push('/admin/doc_list');
-        }
-      });
-  };
+  headerContentDisplay = () => {
+    return this.props.match.isExact ? 'Create Documentation' : 'Edit Documentation' ;
+  }
 
   render() {
+    console.log('this.props', this.props)
     return (
       <div>
         <Container>
-          <h1>Create new</h1>
+          <h1>{this.headerContentDisplay()}</h1>
           <label>
             Product:
           </label>
               <Select
                   placeholder = "Select a Product"
-                  value = {this.state.displayProduct}
+                  value={{value: this.state.product , label: this.state.productLabel}}
                   onChange={this.onChangeProduct}
                   classNamePrefix="select"
                   options={this.props.products.map((prod) => ({value: prod.id, label: prod.name}))} 
@@ -128,12 +167,14 @@ class AdminDocEditor extends Component {
             placeholder="Title"
             type="text"
             name="name"
+            value={this.state.title}  
             onChange={this.onChangeTitle}
           />
           <ReactQuill
             className='quill'
             modules={this.quillModules}
-            onChange={this.handleChangeQuill}
+            onChange={this.onChangeQuill}
+            value={this.state.text}
           />
           <button
             type="submit"
