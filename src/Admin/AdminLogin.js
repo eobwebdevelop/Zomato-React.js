@@ -66,7 +66,6 @@ class AdminLogin extends Component {
         .then(res =>
           this.setState({ flash: res.flash }, () => {
             if (res.token) {
-              console.log(res)
               localStorage.setItem("token", JSON.stringify(res.token));
               this.props.history.push("/admin");
             } else if (res.status === 201) {
