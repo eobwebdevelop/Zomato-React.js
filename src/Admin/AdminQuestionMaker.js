@@ -19,12 +19,12 @@ class AdminQuestionMaker extends Component {
                 'Content-Type':  'application/json'
         }),
         body:  JSON.stringify(question,quiz_id, 
-          answers_options:[
-            this.state.answer_option_1,
-            this.state.answer_option_2,
-            this.state.answer_option_3,
-            this.state.answer_option_4
-            ],
+          // answers_options:[
+          //   this.state.answer_option_1,
+          //   this.state.answer_option_2,
+          //   this.state.answer_option_3,
+          //   this.state.answer_option_4
+          //   ],
           this.state.correct_answer
         ),
     })
