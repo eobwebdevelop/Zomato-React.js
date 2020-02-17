@@ -10,6 +10,7 @@ class AdminQuizMaker extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      answer_options: [{answer_option_1: ''}, {answer_option_2:''}, {answer_option_3: ''}, {answer_option_4:''}],
     };
   }
 
@@ -47,12 +48,48 @@ class AdminQuizMaker extends Component {
         }),
         body:  JSON.stringify({name, user_type_id, product_id, language_id})
     })
+    .then(response => response.json())
+    .then(data => {
+      this.setState(state => ({
+        ...state,
+        quiz_id: data.id
+      }));
+    })
   }
 
+
+  handleQuestionSubmit = (e) => {
+    const {question, correct_answer, answer_options, quiz_id} = this.state
+    e.preventDefault();
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/question/create`,
+    {
+        method:  'POST',
+        headers:  new Headers({
+                'Content-Type':  'application/json'
+        }),
+         body:  JSON.stringify(question, correct_answer, answer_options, quiz_id),
+    })
+  }
   
+  updateAnswer = (event) => {
+    const { name, value } = event.target
+    console.log(name, value)
+     this.setState(prevState => ({
+        answer_options: {
+          ...prevState.answer_options,
+          [name]: value,
+        }
+     })
+    )
+  }
+  updateCorrectAns = (event) => {
+    this.setState({
+      correct_answer: event.target.value
+    });
+  }
 
   render() {
-    console.log(this.state.name)
+    console.log(this.state.answer_options)
       const optionsStaff = [
       { value: 1, label: 'Restauranter' },
       { value: 2, label: 'Zomato Employee' },
@@ -106,17 +143,65 @@ class AdminQuizMaker extends Component {
             </button>
             </form>
               <div className="Question-Edit">
-                <AdminQuestionMaker />
-                <AdminQuestionMaker />
-                <AdminQuestionMaker />
-                <AdminQuestionMaker />
-                <AdminQuestionMaker />
-                <AdminQuestionMaker />
-                <AdminQuestionMaker />
-                <AdminQuestionMaker />
-                <AdminQuestionMaker />
-                <AdminQuestionMaker />
-              </div>
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit}
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  answer_options={this.state.answer_options}
+                  />
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit}
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  answer_options={this.state.answer_options}
+                  /> 
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit}
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  answer_options={this.state.answer_options}
+                  /> 
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit} 
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  answer_options={this.state.answer_options}
+                  /> 
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit} 
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  answer_options={this.state.answer_options}
+                  /> 
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit} 
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  answer_options={this.state.answer_options}
+                  /> 
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit} 
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  answer_options={this.state.answer_options}
+                  /> 
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit} 
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  answer_options={this.state.answer_options}
+                  /> 
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit} 
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  answer_options={this.state.answer_options}
+                  /> 
+                <AdminQuestionMaker 
+                  handleQuestionSubmit={this.handleQuestionSubmit} 
+                  updateCorrectAns={this.updateCorrectAns}
+                  updateAnswer={this.updateAnswer}
+                  />              </div>
           <Link to="/admin/quiz_list">
             <button className="btn">
             Save Quiz

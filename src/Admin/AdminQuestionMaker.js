@@ -6,42 +6,43 @@ class AdminQuestionMaker extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      answer_options:[],
     };
   }
 
   handleSubmit = (e) => {
+    const {question, correct_answer, answers_options} = this.state
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/create`,
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/question/create`,
     {
         method:  'POST',
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        // body:  JSON.stringify(question, 
-        //   // answers_options:[
-        //   //   this.state.answer_option_1,
-        //   //   this.state.answer_option_2,
-        //   //   this.state.answer_option_3,
-        //   //   this.state.answer_option_4
-        //   //   ]
-        //   this.state.correct_answer
-        // ),
+         body:  JSON.stringify(question, correct_answer, answers_options),
     })
   }
 
-  updateChecked = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+  updateAnswer = (event) => {
+    const { name, value } = event.target
+    console.log(name, value)
+     this.setState(prevState => ({
+        answer_options: {
+          ...prevState.answer_options,
+          [name]: value,
+        }
+     })
+    )
   }
 
-  updateAnswer = (event) => {
+  updateCorrectAns = (event) => {
     this.setState({
       correct_answer: event.target.value
     });
   }
   
   render() {
+    console.log(this.state)
     return (
       <div>
         <Container>
@@ -53,43 +54,43 @@ class AdminQuestionMaker extends Component {
               <br />
               Answer 1:
               <br />
-              <textarea
+              <textarea className="answeroption"
                 type="text"
-                name="ans"
-                value={this.state.answer_2}
-                on
+                name="answer_option_1"
+                value={this.state.answer_options.answer_option_1}
+                onChange={this.updateAnswer}
               />
               <div className="row">
               <input
               type="checkbox"
               name="correctanswer"
-              value={this.state.answer_option_1}
-              onClick={this.updateChecked()
-              }
+              value={this.state.answer_options.answer_option_1}
+              onClick={this.updateCorrectAns}
                />
               </div>
               Answer 2:
               <br />
-              <textarea
+              <textarea className="answeroption"
                 type="text"
-                name="ans"
-                value={this.state.answer_option_2}
+                name="answer_option_2"
+                value={this.state.answer_options.answer_option_2}
+                onChange={this.updateAnswer}
               />
                <div className="row">
                 Correct Answer?
-                <input
+                <input 
               type="checkbox"
               name="correctanswer"
-              value={this.state.answer_option_2}
-              onClick={this.updateChecked()}
+              value={this.state.answer_options.answer_option_2}
+              onClick={this.updateCorrectAns}
                />
               </div>
               Answer 3:
               <br />
-              <textarea
+              <textarea className="answeroption"
                 type="text"
-                name="ans"
-                value={this.state.answer_option_3}
+                name="answer_option_3"
+                value={this.state.answer_options.answer_option_3}
                 onChange={this.updateAnswer}
               />
               <div className="row">
@@ -97,23 +98,24 @@ class AdminQuestionMaker extends Component {
                 <input
               type="checkbox"
               name="correctanswer"
-              value={this.state.answer_option_3}
-              onClick={this.updateChecked()} />
+              value={this.state.answer_options.answer_option_3}
+              onClick={this.updateCorrectAns} />
               </div>
               Answer 4:
               <br />
-              <textarea
+              <textarea className="answeroption"
                 type="text"
-                name="ans"
-                value={this.state.answer_option_4}
+                name="answer_option_4"
+                value={this.state.answer_options.answer_option_4}
+                onChange={this.updateAnswer}
               />
               <div className="row">
                 Correct Answer?
                 <input
               type="checkbox"
               name="correctanswer"
-              value={this.state.answer_option_4}
-              onClick={this.updateChecked()} />
+              value={this.state.answer_options.answer_option_4}
+              onClick={this.updateCorrectAns} />
               </div>
             </div>
             <button type="submit"> 
