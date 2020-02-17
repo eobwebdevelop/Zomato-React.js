@@ -437,21 +437,6 @@ class App extends Component {
     } = this.state;
 
 
-  
-    // const quizfound = quizzes.find(
-    //   quiz => quiz.id === +this.props.match.params.id
-    // );
-    // const questionfound = quizfound
-    //   ? quizfound.questions.find(
-    //       question => question.id === +this.props.match.params.qid
-    //     )
-    //   : [];
-    // console.log(quizfound, questionfound, "hey");
-    // console.log(
-    //   matchPath(this.props.location.search, {
-    //     path: "/admin/quiz_editor/:id/questions/:qid"
-    //   })
-    // );
 
     return (
       <LanguagesContext.Provider
@@ -531,7 +516,8 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav />
-                <AdminQuizMaker />
+                <AdminQuizMaker  
+                products={products}/>
               </>
             )}
           />

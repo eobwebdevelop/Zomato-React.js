@@ -19,16 +19,16 @@ const AdminQuizList = ({ onDelete }) => {
         <h1>Manage Quizzes</h1>
         <hr />
         <p>You are viewing all the available Quizzes at the current moment.</p>
-        {/* <Link to="/admin/quiz_maker">
+        <Link to="/admin/quiz_maker">
           <button type="submit" className="btn">
           Add Quiz
           </button>
-        </Link> */}
-        {/* <Link to="/">
+        </Link>
+        <Link to="/">
           <button type="submit" className="btn">
           Export Data
           </button>
-        </Link> */}
+        </Link>
         {quizzes.map((q) => (
           <section key={q.id}>
             <Collapsible trigger={q.name}>
