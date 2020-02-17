@@ -36,7 +36,6 @@ class Documentation extends Component {
         }
       });
       if(!this.state.resultDocs[0]){
-        console.log('no match found')
       }
     }
 
@@ -48,7 +47,6 @@ class Documentation extends Component {
 
 
   render() {
-    console.log('this.state.resultDocs', this.state.resultDocs)
     // const { currentLanguage } = useContext(LanguagesContext);
     const { documentation } = this.props;
     const { query } = this.state;
