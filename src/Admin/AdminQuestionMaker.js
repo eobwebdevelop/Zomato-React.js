@@ -10,7 +10,6 @@ class AdminQuestionMaker extends Component {
   }
 
   handleSubmit = (e) => {
-    const {question_id, } = this.state
     e.preventDefault();
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/create`,
     {
@@ -18,15 +17,15 @@ class AdminQuestionMaker extends Component {
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify(question,quiz_id, 
-          // answers_options:[
-          //   this.state.answer_option_1,
-          //   this.state.answer_option_2,
-          //   this.state.answer_option_3,
-          //   this.state.answer_option_4
-          //   ],
-          this.state.correct_answer
-        ),
+        // body:  JSON.stringify(question, 
+        //   // answers_options:[
+        //   //   this.state.answer_option_1,
+        //   //   this.state.answer_option_2,
+        //   //   this.state.answer_option_3,
+        //   //   this.state.answer_option_4
+        //   //   ]
+        //   this.state.correct_answer
+        // ),
     })
   }
 
