@@ -6,7 +6,8 @@ const Translations = {
       LinkL: "Logout",
       LinkQ: "All Quizzes",
       LinkF: "FAQ",
-      LinkC: "About Us"
+      LinkC: "About Us",
+      LinkD: "Admin Portal"
     },
 
     About: {

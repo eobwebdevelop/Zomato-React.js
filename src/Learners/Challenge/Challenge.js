@@ -10,7 +10,6 @@ import translations from "../../i18n/translations";
 class Challenge extends Component {
   componentDidMount() {
     this.props.startOverallTimer();
-    this.props.addUserIDFromTokenToState();
   }
 
   render() {
