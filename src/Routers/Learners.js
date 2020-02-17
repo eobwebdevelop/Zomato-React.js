@@ -19,8 +19,8 @@ const Learners = (props) => (
         path="/learners/documentation"
         render={() => (
           <>
-            <LearnerNav />
-            <Documentation documentation={props.documentation} />
+          <LearnerNav currentUser={props.currentUser}/>
+          <Documentation documentation={props.documentation} />
           </>
         )}
       />
@@ -32,7 +32,7 @@ const Learners = (props) => (
         path="/learners/about"
         render={() => (
           <>
-            <LearnerNav />
+            <LearnerNav currentUser={props.currentUser}/>   
             <About />
           </>
         )}
@@ -44,10 +44,8 @@ const Learners = (props) => (
         path="/learners/faq"
         render={() => (
           <>
-            <LearnerNav />
-            <FAQ
-              learnerFaq={props.learnerFaq}
-            />
+            <LearnerNav currentUser={props.currentUser}/>
+            <FAQ />
           </>
         )}
       />
@@ -55,9 +53,9 @@ const Learners = (props) => (
       <Route
         exact
         path="/learners/quiz_list"
-        render={() => (
-          <>
-            <LearnerNav />
+        render={() => (        
+          <>  
+            <LearnerNav currentUser={props.currentUser}/>
             <QuizList
               QuizList={props.QuizList}
               changeQuizIDInPlay={props.changeQuizIDInPlay}
@@ -72,7 +70,8 @@ const Learners = (props) => (
         exact
         path="/learners/quiz_list/quiz"
         render={() => (
-          <>
+            <>
+            <LearnerNav currentUser={props.currentUser}/>
             <Challenge
               score={props.score}
               checkScore={props.checkScore}
@@ -89,7 +88,6 @@ const Learners = (props) => (
               userQuizAnswers={props.userQuizAnswers}
               addUserInputToState={props.addUserInputToState}
               incrementQuizStep={props.incrementQuizStep}
-              addUserIDFromTokenToState={props.addUserIDFromTokenToState}
               postQuizResult={props.postQuizResult}
               reduceQuizStep={props.reduceQuizStep}
             />

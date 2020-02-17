@@ -7,7 +7,7 @@ const AdminNav = () => (
   <div>
     {/* Example */}
     <Navbar id="navbar-admin" bg="black" expand="lg">
-      <Navbar.Brand href="/admin/login">
+      <Navbar.Brand href="/admin">
         <img
           alt="logo"
           src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png"
@@ -16,7 +16,7 @@ const AdminNav = () => (
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto admin-navlinks">
-          <Nav.Link id="navbar-link-admin" href="/admin/login">
+          <Nav.Link id="navbar-link-admin" href="/admin">
             Login
           </Nav.Link>
           <Nav.Link href="/admin/">Dashboard</Nav.Link>

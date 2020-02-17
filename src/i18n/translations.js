@@ -2,11 +2,12 @@ const Translations = {
   en: {
     Full: 'English',
     LearnerNav: {
-      LinkS: 'Sign Up',
-      LinkL: 'Logout',
-      LinkQ: 'All Quizzes',
-      LinkF: 'FAQ',
-      LinkC: 'About Us',
+      LinkS: "Sign Up",
+      LinkL: "Logout",
+      LinkQ: "All Quizzes",
+      LinkF: "FAQ",
+      LinkC: "About Us",
+      LinkD: "Admin Portal"
     },
 
     About: {

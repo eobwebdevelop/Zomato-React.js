@@ -12,7 +12,6 @@ import Learners from "./Routers/Learners";
 
 // Admin portal imports
 import AdminNav from './Admin/AdminNav.js';
-import AdminLogin from './Admin/AdminLogin';
 import AdminQuizList from './Admin/AdminQuizList';
 import AdminQuizMaker from './Admin/AdminQuizMaker';
 import AdminQuizEditor from './Admin/AdminQuizEditor';
@@ -31,7 +30,7 @@ import AdminProductList from './Admin/AdminProductList';
 import AdminUserList from './Admin/AdminUserList';
 import AdminResultList from './Admin/AdminResultList';
 import AdminQuestionEditor from './Admin/AdminQuestionEditor';
-import BasicNavbar from './Admin/BasicNavbar'
+
 
 
 // Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
@@ -73,6 +72,7 @@ class App extends Component {
       userQuizAnswers: [],
       token: "",
       userID: null,
+      currentUser: {userID: null, isadmin: null},
       // userid should match auth to post the right quiz result
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
@@ -103,7 +103,12 @@ class App extends Component {
   }
 
   getRegion = () => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/region`)
+    if(!this.state.token) return null;
+    const options = {
+      method: 'GET',
+      headers: new Headers({ "Authorization": `Bearer ${this.state.token}` }),
+    };
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/region`, options)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -114,7 +119,12 @@ class App extends Component {
   };
 
   getResults = () => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/result`)
+    if(!this.state.token) return null;
+    const options = {
+      method: 'GET',
+      headers: new Headers({ "Authorization": `Bearer ${this.state.token}` }),
+    };
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/result`, options)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -125,7 +135,12 @@ class App extends Component {
   };
 
   getRestaurants = () => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant`)
+    if(!this.state.token) return null;
+    const options = {
+      method: 'GET',
+      headers: new Headers({ "Authorization": `Bearer ${this.state.token}` }),
+    };
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant`,options)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -152,8 +167,14 @@ class App extends Component {
   };
 
   getQuizzes = () => {
+    if(!this.state.token) return null;
+    
     this.setState({ quizzesAreLoaded: false }, () => {
-      fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz`)
+      const options = {
+        method: 'GET',
+        headers: new Headers({ "Authorization": `Bearer ${this.state.token}` }),
+      };
+      fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz`, options)
         .then(response => response.json())
         .then(data => {
           this.setState(state => ({
@@ -166,7 +187,12 @@ class App extends Component {
   };
 
   getDocs = () => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
+    if(!this.state.token) return null;
+    const options = {
+      method: 'GET',
+      headers: new Headers({ "Authorization": `Bearer ${this.state.token}` }),
+    };
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`, options)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -216,8 +242,9 @@ class App extends Component {
       .replace("T", " ");
   }
 
+
   postQuizResult = () => {
-    const user_id = this.state.userID.toString();
+    const user_id = this.state.currentUser.userID.toString();
     const quiz_id = this.state.quizIDInPlay.toString();
     const quiz_name = this.state.quizNameInPlay.toString();
     const quiz_language_id = this.state.currentLanguage.toString();
@@ -339,15 +366,18 @@ class App extends Component {
   }
 
   addUserIDFromTokenToState() {
-    this.setState({ userID: jwtDecode(this.state.token).id });
-  }
-
-  addUserIDFromTokenToState() {
-    this.setState({ userID: jwtDecode(this.state.token).id });
+    this.setState({
+      currentUser: { userID: jwtDecode(this.state.token).id, isadmin:jwtDecode(this.state.token).isadmin}
+    });
   }
 
   getProducts = () => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/product`)
+    if(!this.state.token) return null;
+    const options = {
+      method: 'GET',
+      headers: new Headers({ "Authorization": `Bearer ${this.state.token}` }),
+    };
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/product`, options)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -358,7 +388,12 @@ class App extends Component {
   };
 
   getUsers = () => {
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/user`)
+    if(!this.state.token) return null;
+    const options = {
+      method: 'GET',
+      headers: new Headers({ "Authorization": `Bearer ${this.state.token}` }),
+    };
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/user`,options)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -374,6 +409,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+
     const currentLanguage = localStorage.getItem("currentLanguage");
     const token = localStorage.getItem("token");
 
@@ -393,6 +429,7 @@ class App extends Component {
         this.getRegion();
         this.getResults();
         this.getDocs();
+        this.addUserIDFromTokenToState();
         this.getFaqs();
         this.getFaqsByLang();
       }
@@ -555,16 +592,6 @@ class App extends Component {
             )}
           />
 
-          <Route
-            exact
-            path="/admin/login"
-            render={() => (
-              <>
-                <BasicNavbar />
-                <AdminLogin />
-              </>
-            )}
-          />
           {/* {Documentation } */}
           <Route
             exact
@@ -823,6 +850,7 @@ class App extends Component {
             render={() => (
               <>
                 <Learners
+                  currentUser={this.state.currentUser}
                   documentation={this.state.documentation}
                   QuizList={this.state.quizzesLearner.quizzes}
                   changeQuizIDInPlay={this.changeQuizIDInPlay}
@@ -841,7 +869,6 @@ class App extends Component {
                   stopTimer={this.stopTimer}
                   userAnswerClick={this.userAnswerClick}
                   userQuizAnswers={this.state.userQuizAnswers}
-                  addUserIDFromTokenToState={this.addUserIDFromTokenToState}
                   postQuizResult={this.postQuizResult}
                   reduceQuizStep={this.reduceQuizStep}
                   learnerFaq={this.state.learnerFaq}
