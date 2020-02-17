@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const AdminAnswerEditor = ({ answers, answeroptions, updateAnswer }) => (
+const AdminAnswerEditor = ({ answers, answeroptions, updateAnswer, updateChecked }) => (
   <div>
     <Container>
       {answers && answers.map((ans, i) => (
@@ -24,7 +24,10 @@ const AdminAnswerEditor = ({ answers, answeroptions, updateAnswer }) => (
             <input
               type="checkbox"
               name="correctanswer"
-              value="correctanswer"
+              value={ans.id}
+              onClick={(e) => {
+                updateChecked(e);
+              }}
             />
           </div>
         </div>
