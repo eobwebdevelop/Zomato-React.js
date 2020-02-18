@@ -111,6 +111,7 @@ class AdminDocEditor extends Component {
         .then(res  => {
           if (res.status === 200) {
             //call set state in Doc list here
+            //clean selected doc here pls
             this.props.history.push('/admin/doc_list');
           }
         })
