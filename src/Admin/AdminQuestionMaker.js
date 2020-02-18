@@ -11,25 +11,27 @@ class AdminQuestionMaker extends Component {
   }
 
   handleSubmit = (e) => {
-    const {question, correct_answer, answers_options} = this.state
     e.preventDefault();
+    
+    const {question, correct_answer, answer_options} = this.state
+    const {quiz_id} = this.props
+    console.log(answer_options)
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/question/create`,
     {
         method:  'POST',
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-         body:  JSON.stringify(question, correct_answer, answers_options),
+         body:  JSON.stringify({question, quiz_id, answer_options, correct_answer}),
     })
   }
 
   updateAnswer = (event) => {
     const { name, value } = event.target
-    console.log(name, value)
      this.setState(prevState => ({
         answer_options: {
           ...prevState.answer_options,
-          [name]: value,
+         [name]: value,
         }
      })
     )
@@ -41,13 +43,21 @@ class AdminQuestionMaker extends Component {
     });
   }
   
+
+  updateQuestion = (event) => {
+    this.setState({
+      question: event.target.value
+    });
+  }
+  
   render() {
+    console.log(this.state)
     return (
       <div>
         <Container>
           <form onSubmit={this.handleSubmit}>
             New question: 
-            <input type="text" name="question" />
+            <input type="text"  value={this.state.question} onChange={this.updateQuestion}/>
             <div className="col-sm">
               Answer Option:
               <br />
