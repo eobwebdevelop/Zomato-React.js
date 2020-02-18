@@ -82,10 +82,16 @@ class App extends Component {
       langOptions: langOptions,
       quizzes: [{ id: 0, name: "" }],
       selectedDoc: {
-        title: "",
-        content: "",
-        product_id: undefined
-      }
+        title: '',
+        text: '',
+        product_id: undefined 
+      },
+      selectedFaq: {
+        question: '',
+        content: '',
+        language_id: undefined 
+      },
+
     };
 
     this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
@@ -603,7 +609,7 @@ class App extends Component {
       quizfound,
       questionfound
     } = this.state;
-
+    
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
@@ -665,13 +671,11 @@ class App extends Component {
                   adminFaq={adminFaq}
                   onDelete={this.handleDeleteFaq}
                   onEdit={this.handleEditFaq}
-                  clearSelectedFaq={this.clearSelectedFaq}
                 />
               </>
             )}
           />
           <Route
-            exact
             path="/admin/faq_editor"
             render={() => (
               <>

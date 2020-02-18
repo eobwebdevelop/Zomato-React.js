@@ -1,12 +1,12 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const AdminFaqList = ({ adminFaq, onDelete }) => (
+const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
   <Container>
     <h1>FAQ</h1>
-    <hr></hr>
+    <hr />
     <Link to="/admin/faq_editor">
       <button type="submit" className="btn">
         Add New Faq
@@ -22,25 +22,28 @@ const AdminFaqList = ({ adminFaq, onDelete }) => (
         <th>Edit</th>
         <th>Delete</th>
       </thead>
-      {adminFaq.map(el => (
+      {adminFaq.map((el) => (
         <tbody key={el.id}>
           <td>{el.id}</td>
           <td>{el.faq_question}</td>
           <td>{el.content}</td>
           <td>{el.language_name}</td>
           <td>
-            <button
-              type="submit"
-              className="view-quizzes-page-links-side-by-side"
-            >
-              Edit FAQ ►
-            </button>
+            <Link to={`/admin/faq_editor/${el.id}`}>
+              <button
+                type="submit"
+                className="view-quizzes-page-links-side-by-side"
+                onClick={() => onEdit(el)}
+              >
+                Edit FAQ ►
+              </button>
+            </Link>
           </td>
           <td>
             <button
               type="submit"
               className="view-quizzes-page-links-side-by-side"
-              onClick={() => onDelete(adminFaq.id)}
+              onClick={() => onDelete(el.id)}
             >
               Delete FAQ ►
             </button>
@@ -57,10 +60,11 @@ AdminFaqList.propTypes = {
       id: PropTypes.number.isRequired,
       faq_question: PropTypes.string.isRequired,
       faq_answer: PropTypes.string.isRequired,
-      faq: PropTypes.string.isRequired
-    }).isRequired
+      faq: PropTypes.string.isRequired,
+    }).isRequired,
   ).isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
 
 export default AdminFaqList;

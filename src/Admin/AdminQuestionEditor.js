@@ -75,7 +75,6 @@ class AdminQuestionEditor extends Component {
   }
 
   render() {
-    console.log(this.state)
     const {
       quizfound,
       questionfound,

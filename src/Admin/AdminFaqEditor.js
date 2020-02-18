@@ -10,8 +10,10 @@ class AdminFaqEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: '',
-      content: '',
+      question: this.props.selectedFaq.faq_question,
+      content: this.props.selectedFaq.content,
+      language_id: this.props.selectedFaq.language_id,
+      languageLabel: this.props.selectedFaq.language_name,
       lastUploadedFile: {},
       base64Url: {},
     };
@@ -57,8 +59,8 @@ class AdminFaqEditor extends Component {
     };
   
   
-    onChangeLanguage = (e) => {
-      this.setState({
+  onChangeLanguage = (e) => {
+    this.setState({
         language: e.value,
         languageLabel: e.label})
     };
@@ -85,28 +87,30 @@ class AdminFaqEditor extends Component {
     e.preventDefault();
 
     this.setState(() => {
-      const textWithCloudinaryUrl = this.state.content.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
-      return { text: textWithCloudinaryUrl }
+      const contentWithCloudinaryUrl = this.state.content.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
+     
+      return { content: contentWithCloudinaryUrl }
     },  () => {
-    //   if(this.props.match.isExact === false){
-    //     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq/edit`,
-    //     {
-    //         method:  'PUT',
-    //         headers:  new Headers({
-    //                 'Content-Type':  'application/json'
-    //         }),
-    //         body:  JSON.stringify({
-    //           faq_question: this.state.question,
-    //           content: this.state.content,
-    //           id: this.props.selectedFaq.id,
-    //         }),
-    //     })
-    //     .then(res  => {
-    //       if (res.status === 200) {
-    //         this.props.history.push('/admin/faq_list');
-    //       }
-    //     })
-    //   }else{
+      if(this.props.match.isExact === false){
+        fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq/edit`,
+        {
+            method:  'PUT',
+            headers:  new Headers({
+                    'Content-Type':  'application/json'
+            }),
+            body:  JSON.stringify({
+              faq_question: this.state.question,
+              content: this.state.content,
+              language_id: this.state.language_id,
+              id: this.props.selectedFaq.id,
+            }),
+        })
+        .then(res  => {
+          if (res.status === 200) {
+            this.props.history.push('/admin/faq_list');
+          }
+        })
+      }else{
           fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq/create`,
             {
               method: 'POST',
@@ -124,7 +128,7 @@ class AdminFaqEditor extends Component {
                 this.props.history.push('/admin/faq_list');
               }
             });
-        // };
+        };
     })
   }
 
