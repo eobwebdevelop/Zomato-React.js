@@ -27,6 +27,7 @@ const AdminNav = () => (
           <Nav.Link href="/admin/product_list">Products</Nav.Link>
           <Nav.Link href="/admin/result_list">Results</Nav.Link>
           <Nav.Link href="/admin/faq_list">FAQ</Nav.Link>
+          <Nav.Link href="/admin/export_data">Export</Nav.Link>
           <Nav.Link href="/admin/login">Log Out</Nav.Link>
           <Nav.Link href="/learners/login">Learner Portal</Nav.Link>
         </Nav>

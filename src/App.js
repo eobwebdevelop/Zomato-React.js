@@ -30,6 +30,7 @@ import AdminProductList from "./Admin/AdminProductList";
 import AdminUserList from "./Admin/AdminUserList";
 import AdminResultList from "./Admin/AdminResultList";
 import AdminQuestionEditor from "./Admin/AdminQuestionEditor";
+import AdminExportData from "./Admin/AdminExportData";
 
 // Learner portal imports Now is everything in Routes/LearnersAuth and Routes/Learnes
 
@@ -79,11 +80,11 @@ class App extends Component {
       adminFaq: [],
       learnerFaq: [],
       langOptions: langOptions,
-      quizzes: [{ id: 0, name: "" }], 
+      quizzes: [{ id: 0, name: "" }],
       selectedDoc: {
-        title: '',
-        text: '',
-        product_id: undefined 
+        title: "",
+        text: "",
+        product_id: undefined
       }
     };
 
@@ -202,9 +203,7 @@ class App extends Component {
       method: "GET",
       headers: new Headers({ Authorization: `Bearer ${this.state.token}` })
     };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`
-    , options
-    )
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`, options)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -228,8 +227,6 @@ class App extends Component {
         });
     });
   };
-
-  
 
   getFaqsByLang = () => {
     if (!this.state.token) return null;
@@ -565,20 +562,20 @@ class App extends Component {
     });
   };
 
-  updateDocList = (doc) => {
+  updateDocList = doc => {
     //if create, just add
-    this.setState((prevState) => {
-      let addCreatedDoc = this.state.documentation+doc
-      console.log('addCreatedDoc', addCreatedDoc)
-      return {documentation: addCreatedDoc}
-    })
+    this.setState(prevState => {
+      let addCreatedDoc = this.state.documentation + doc;
+      console.log("addCreatedDoc", addCreatedDoc);
+      return { documentation: addCreatedDoc };
+    });
 
     //if edit, must replace
     // this.handleDelete(id, "doc", () => {
     //   const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
     //   this.setState({ documentation: updatedDocs });
     // });
-  }
+  };
 
   render() {
     const {
@@ -619,7 +616,6 @@ class App extends Component {
               </>
             )}
           />
-
           {/* {Documentation } */}
           <Route
             exact
@@ -635,7 +631,6 @@ class App extends Component {
               </>
             )}
           />
-
           <Route
             path="/admin/doc_editor"
             render={() => (
@@ -650,7 +645,6 @@ class App extends Component {
               </>
             )}
           />
-
           {/* { Faq }*/}
           <Route
             exact
@@ -667,18 +661,20 @@ class App extends Component {
               </>
             )}
           />
-
           <Route
             exact
             path="/admin/faq_editor"
             render={() => (
               <>
                 <AdminNav />
-                <AdminFaqEditor adminFaq={adminFaq} selectedFac={selectedFaq} langOptions={langOptions}/>
+                <AdminFaqEditor
+                  adminFaq={adminFaq}
+                  selectedFac={selectedFaq}
+                  langOptions={langOptions}
+                />
               </>
             )}
           />
-
           {/* {QUIZ } */}
           <Route
             exact
@@ -752,7 +748,6 @@ class App extends Component {
               </>
             )}
           />
-
           {/* {Restaurant } */}
           <Route
             exact
@@ -777,7 +772,6 @@ class App extends Component {
               </>
             )}
           />
-
           <Route
             exact
             path="/admin/restaurant_editor/:id"
@@ -817,6 +811,16 @@ class App extends Component {
               </>
             )}
           />
+          <Route
+            exact
+            path="/admin/export_data"
+            render={() => (
+              <>
+                <AdminNav />
+                <AdminExportData />
+              </>
+            )}
+          />
 
           <Route
             exact
@@ -843,9 +847,7 @@ class App extends Component {
               </>
             )}
           />
-
           {/* //Future feature for Learners */}
-
           {/* <Route
             exact
             path="/learners/login/forgot_password"
@@ -856,7 +858,6 @@ class App extends Component {
               </>
             )}
           /> */}
-
           {/* Learnes Auth */}
           <Route
             exact
@@ -867,7 +868,6 @@ class App extends Component {
             )}
           />
           {/* //Learnes Auth */}
-
           {/*Learners */}
           <Route
             exact
@@ -900,7 +900,6 @@ class App extends Component {
               </>
             )}
           />
-
           {/*//Learners */}
         </QuizzesContext.Provider>
       </LanguagesContext.Provider>
