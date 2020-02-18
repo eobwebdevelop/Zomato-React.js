@@ -58,7 +58,6 @@ class AdminQuizMaker extends Component {
 
 
   render() {
-    console.log(this.state)
     const optionsStaff = [
       { value: 1, label: 'Restauranter' },
       { value: 2, label: 'Zomato Employee' },
