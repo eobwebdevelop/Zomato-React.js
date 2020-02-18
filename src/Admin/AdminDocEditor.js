@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -85,7 +84,6 @@ class AdminDocEditor extends Component {
   };
   
   onChangeProduct = (e) => {
-    console.log(e);
     this.setState({
       product: e.value,
       displayProduct: e.label})
@@ -148,7 +146,6 @@ class AdminDocEditor extends Component {
   }
 
   render() {
-    console.log('this.props', this.props)
     return (
       <div>
         <Container>

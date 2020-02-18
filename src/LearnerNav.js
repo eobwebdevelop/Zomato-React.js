@@ -5,8 +5,9 @@ import './LearnerNav.css';
 import LanguagesContext from './contexts/languages-context';
 import translations from './i18n/translations';
 
-const LearnerNav = () => {
+const LearnerNav = (props) => {
   const { currentLanguage } = useContext(LanguagesContext);
+  console.log('is admin', props.currentUser.isadmin);
   return (
     <div>
       {/* Example */}
@@ -17,7 +18,7 @@ const LearnerNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="learner-basic-navbar-nav">
           <Nav className="mr-auto learner-navlinks">
-            <Nav.Link href="/learners/login" className="grey-link">
+            <Nav.Link href="/learners/quiz_list" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkL}
             </Nav.Link>
             <Nav.Link href="/learners/quiz_list" className="grey-link">
@@ -29,6 +30,12 @@ const LearnerNav = () => {
             <Nav.Link href="/learners/about" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkC}
             </Nav.Link>
+            { props.currentUser.isadmin ? 
+            <Nav.Link href="/admin/" className="grey-link">
+              {translations[currentLanguage].LearnerNav.LinkD}
+            </Nav.Link>
+            : null }
+  
           </Nav>
         </Navbar.Collapse>
         <DropdownSelector />

@@ -38,7 +38,6 @@ class QandA extends React.Component {
       overallTime
     } = this.props;
 
-    console.log(this.state.selectedAnswer);
 
     if (!isVisible) return null;
 

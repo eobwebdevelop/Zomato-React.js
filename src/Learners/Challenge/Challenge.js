@@ -12,7 +12,6 @@ import BackButton from "../Challenge/BackButton";
 class Challenge extends Component {
   componentDidMount() {
     this.props.startOverallTimer();
-    this.props.addUserIDFromTokenToState();
   }
 
   render() {
