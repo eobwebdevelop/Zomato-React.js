@@ -147,6 +147,8 @@ class App extends Component {
   };
 
   getQuizzesByLang = () => {
+    if (!this.state.token) return null;
+
     fetch(`${process.env.REACT_APP_SERVER_URL}/learner/quiz`, {
       method: "GET",
       headers: new Headers({
@@ -199,6 +201,8 @@ class App extends Component {
   };
 
   getFaqs = () => {
+    if (!this.state.token) return null;
+
     this.setState({ faqsAreLoaded: false }, () => {
       fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
         .then(response => response.json())
@@ -213,6 +217,8 @@ class App extends Component {
   };
 
   getFaqsByLang = () => {
+    if (!this.state.token) return null;
+
     fetch(`${process.env.REACT_APP_SERVER_URL}/learner/faq`, {
       method: "GET",
       headers: new Headers({
@@ -359,12 +365,16 @@ class App extends Component {
   }
 
   addUserIDFromTokenToState() {
-    this.setState({
-      currentUser: {
-        userID: jwtDecode(this.state.token).id,
-        isadmin: jwtDecode(this.state.token).isadmin
-      }
-    });
+    try {
+      this.setState({
+        currentUser: {
+          userID: jwtDecode(this.state.token).id,
+          isadmin: jwtDecode(this.state.token).isadmin
+        }
+      });
+    } catch {
+      return;
+    }
   }
 
   getProducts = () => {
