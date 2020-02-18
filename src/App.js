@@ -79,7 +79,12 @@ class App extends Component {
       adminFaq: [],
       learnerFaq: [],
       langOptions: langOptions,
-      quizzes: [{ id: 0, name: "" }]
+      quizzes: [{ id: 0, name: "" }], 
+      selectedDoc: {
+        title: '',
+        text: '',
+        product_id: undefined 
+      }
     };
 
     this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
@@ -197,7 +202,9 @@ class App extends Component {
       method: "GET",
       headers: new Headers({ Authorization: `Bearer ${this.state.token}` })
     };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`, options)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`
+    , options
+    )
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -538,15 +545,9 @@ class App extends Component {
     }
   };
 
-  handleEdit = doc => {
+  handleDocEdit = doc => {
     this.setState({
       selectedDoc: doc
-    });
-  };
-
-  clearSelectedDoc = () => {
-    this.setState({
-      selectedDoc: {}
     });
   };
 
@@ -561,6 +562,21 @@ class App extends Component {
       selectedFaq: {}
     });
   };
+
+  updateDocList = (doc) => {
+    //if create, just add
+    this.setState((prevState) => {
+      let addCreatedDoc = this.state.documentation+doc
+      console.log('addCreatedDoc', addCreatedDoc)
+      return {documentation: addCreatedDoc}
+    })
+
+    //if edit, must replace
+    // this.handleDelete(id, "doc", () => {
+    //   const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
+    //   this.setState({ documentation: updatedDocs });
+    // });
+  }
 
   render() {
     const {
@@ -612,8 +628,7 @@ class App extends Component {
                 <AdminDocList
                   documentation={documentation}
                   onDelete={this.handleDeleteDoc}
-                  onEdit={this.handleEdit}
-                  clearSelectedDoc={this.clearSelectedDoc}
+                  onEdit={this.handleDocEdit}
                 />
               </>
             )}
@@ -628,6 +643,7 @@ class App extends Component {
                   products={products}
                   documentation={documentation}
                   selectedDoc={selectedDoc}
+                  updateDocList={this.updateDocList}
                 />
               </>
             )}
