@@ -13,7 +13,7 @@ class AdminDocEditor extends Component {
     super(props);
     this.state = {
       title: this.props.selectedDoc.title,
-      text: this.props.selectedDoc.text,
+      content: this.props.selectedDoc.content,
       lastUploadedFile: {},
       base64Url: {},
       product: this.props.selectedDoc.product_id,
@@ -78,7 +78,7 @@ class AdminDocEditor extends Component {
       } else if (delta.ops[i].delete) {
         this.deleteFromCloudinary();
       } else {
-        this.setState({ text: value });
+        this.setState({ content: value });
     }
     }
   };
@@ -91,8 +91,8 @@ class AdminDocEditor extends Component {
     e.preventDefault();
 
     this.setState(() => {
-      const textWithCloudinaryUrl = this.state.text.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
-      return { text: textWithCloudinaryUrl }
+      const contentWithCloudinaryUrl = this.state.content.replace(this.state.base64Url, this.state.lastUploadedFile.secure_url);
+      return { content: contentWithCloudinaryUrl }
     },  () => {
       if(this.props.match.isExact === false){
         fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc/edit`,
@@ -103,7 +103,7 @@ class AdminDocEditor extends Component {
             }),
             body:  JSON.stringify({
               title: this.state.title,
-              content: this.state.text,
+              content: this.state.content,
               product_id: this.state.product,
               id: this.props.selectedDoc.id,
             }),
@@ -123,7 +123,7 @@ class AdminDocEditor extends Component {
               }),
               body: JSON.stringify({
                 title: this.state.title,
-                content: this.state.text,
+                content: this.state.content,
                 product_id: this.state.product,
               }),
             }
@@ -141,6 +141,7 @@ class AdminDocEditor extends Component {
   }
 
   render() {
+    console.log('this.props.selectedDoc', this.props.selectedDoc)
     return (
       <div>
         <Container>
@@ -166,7 +167,7 @@ class AdminDocEditor extends Component {
             className='quill'
             modules={this.quillModules}
             onChange={this.onChangeQuill}
-            value={this.state.text}
+            value={this.state.content}
           />
           <button
             type="submit"

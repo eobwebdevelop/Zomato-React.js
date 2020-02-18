@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import DropdownSelector from "./LanguageSelector";
-import "./LearnerNav.css";
-import LanguagesContext from "./contexts/languages-context";
-import translations from "./i18n/translations";
+import React, { useContext } from 'react';
+import { Navbar, Nav } from 'react-bootstrap';
+import DropdownSelector from './LanguageSelector';
+import './LearnerNav.css';
+import LanguagesContext from './contexts/languages-context';
+import translations from './i18n/translations';
 
-const LearnerNav = props => {
+const LearnerNav = (props) => {
   const { currentLanguage } = useContext(LanguagesContext);
 
   return (
@@ -21,7 +21,7 @@ const LearnerNav = props => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="learner-basic-navbar-nav">
           <Nav className="mr-auto learner-navlinks">
-            <Nav.Link href="/learners/quiz_list" className="grey-link">
+            <Nav.Link href="/learners/login" className="grey-link" onClick={props.clearTokenLogOut}>
               {translations[currentLanguage].LearnerNav.LinkL}
             </Nav.Link>
             <Nav.Link href="/learners/quiz_list" className="grey-link">
@@ -33,11 +33,13 @@ const LearnerNav = props => {
             <Nav.Link href="/learners/about" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkC}
             </Nav.Link>
-            {props.currentUser.isadmin ? (
-              <Nav.Link href="/admin/" className="grey-link">
-                {translations[currentLanguage].LearnerNav.LinkD}
-              </Nav.Link>
-            ) : null}
+            { props.currentUser.isadmin
+              ? (
+                <Nav.Link href="/admin/" className="grey-link">
+                  {translations[currentLanguage].LearnerNav.LinkD}
+                </Nav.Link>
+              )
+              : null }
           </Nav>
         </Navbar.Collapse>
         <DropdownSelector />

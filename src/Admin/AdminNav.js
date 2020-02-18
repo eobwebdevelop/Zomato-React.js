@@ -3,7 +3,8 @@ import { Navbar, Nav } from "react-bootstrap";
 import DropdownSelector from "../LanguageSelector";
 import "./AdminNav.css";
 
-const AdminNav = () => (
+const AdminNav = (props) => {
+  return (
   <div>
     {/* Example */}
     <Navbar id="navbar-admin" bg="black" expand="lg">
@@ -16,9 +17,6 @@ const AdminNav = () => (
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto admin-navlinks">
-          <Nav.Link id="navbar-link-admin" href="/admin">
-            Login
-          </Nav.Link>
           <Nav.Link href="/admin/">Dashboard</Nav.Link>
           <Nav.Link href="/admin/quiz_list">Quizzes</Nav.Link>
           <Nav.Link href="/admin/doc_list">Documentation</Nav.Link>
@@ -27,13 +25,19 @@ const AdminNav = () => (
           <Nav.Link href="/admin/product_list">Products</Nav.Link>
           <Nav.Link href="/admin/result_list">Results</Nav.Link>
           <Nav.Link href="/admin/faq_list">FAQ</Nav.Link>
+<<<<<<< HEAD
           <Nav.Link href="/admin/export_data">Export</Nav.Link>
           <Nav.Link href="/admin/login">Log Out</Nav.Link>
           <Nav.Link href="/learners/login">Learner Portal</Nav.Link>
+=======
+          <Nav.Link href="/learners/login" onClick={props.clearTokenLogOut} >Log Out</Nav.Link>
+          <Nav.Link href="/learners/quiz_list">Learner Portal</Nav.Link>
+>>>>>>> 7f4f0d2cd2436119670d274fc077d44b283e1cc6
         </Nav>
       </Navbar.Collapse>
       <DropdownSelector />
     </Navbar>
   </div>
-);
+  )
+}
 export default AdminNav;
