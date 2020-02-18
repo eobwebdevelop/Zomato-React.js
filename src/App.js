@@ -207,7 +207,6 @@ class App extends Component {
       fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
         .then(response => response.json())
         .then(data => {
-          console.log(data, "cornichon");
           this.setState(state => ({
             ...state,
             adminFaq: data.faqs
@@ -215,6 +214,8 @@ class App extends Component {
         });
     });
   };
+
+  
 
   getFaqsByLang = () => {
     if (!this.state.token) return null;
@@ -649,7 +650,7 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav />
-                <AdminFaqEditor adminFaq={adminFaq} selectedFac={selectedFaq} />
+                <AdminFaqEditor adminFaq={adminFaq} selectedFac={selectedFaq} langOptions={langOptions}/>
               </>
             )}
           />
