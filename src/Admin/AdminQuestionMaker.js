@@ -11,11 +11,11 @@ class AdminQuestionMaker extends Component {
   }
 
   handleSubmit = (e) => {
+    e.preventDefault();
+    
     const {question, correct_answer, answer_options} = this.state
     const {quiz_id} = this.props
-    const answer_option_sending = answer_options.map((a, index) => a.answer_option_index)
-    console.log(answer_option_sending)
-    e.preventDefault();
+    console.log(answer_options)
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/question/create`,
     {
         method:  'POST',
@@ -65,7 +65,7 @@ class AdminQuestionMaker extends Component {
               <br />
               <textarea className="answeroption"
                 type="text"
-                name="answer_option"
+                name="answer_option_1"
                 value={this.state.answer_options.answer_option_1}
                 onChange={this.updateAnswer}
               />
