@@ -229,6 +229,8 @@ class App extends Component {
     });
   };
 
+  
+
   getFaqsByLang = () => {
     if (!this.state.token) return null;
 
@@ -672,7 +674,7 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav />
-                <AdminFaqEditor adminFaq={adminFaq} selectedFac={selectedFaq} />
+                <AdminFaqEditor adminFaq={adminFaq} selectedFac={selectedFaq} langOptions={langOptions}/>
               </>
             )}
           />

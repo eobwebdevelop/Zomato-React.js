@@ -21,6 +21,7 @@ const AdminFaqList = ({ adminFaq, onDelete }) => (
         <th>ID</th>
         <th>Question</th>
         <th>Answer</th>
+        <th>Language</th>
         <th>Edit</th>
         <th>Delete</th>
       </thead>
@@ -29,6 +30,7 @@ const AdminFaqList = ({ adminFaq, onDelete }) => (
           <td>{el.id}</td>
           <td>{el.faq_question}</td>
           <td>{el.content}</td>
+          <td>{el.language_name}</td>
           <td>
             <button
               type="submit"
