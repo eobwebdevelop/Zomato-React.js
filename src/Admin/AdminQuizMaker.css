@@ -7,8 +7,11 @@
 .Question-Edit-Inner {
   padding: 1em 1em 1em 1em;
 }
+.row{
+  margin: inherit;
+}
 
-
-.answeroption {
+.answerOption {
   width: 100%;
 }
+

@@ -68,7 +68,7 @@ class App extends Component {
       userQuizAnswers: [],
       token: "",
       userID: null,
-      currentUser: { userID: null, isadmin: null },
+      currentUser: { userID: null, isadmin: null, userTypeId: null },
       // userid should match auth to post the right quiz result
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
@@ -79,7 +79,12 @@ class App extends Component {
       adminFaq: [],
       learnerFaq: [],
       langOptions: langOptions,
-      quizzes: [{ id: 0, name: "" }]
+      quizzes: [{ id: 0, name: "" }], 
+      selectedDoc: {
+        title: '',
+        text: '',
+        product_id: undefined 
+      }
     };
 
     this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
@@ -157,9 +162,16 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(data => {
+        let filteredByUserID =
+          this.state.userTypeID === 3
+            ? data.quizzes.filter(
+                el => el.currentUser.user_type_id === this.state.userTypeID
+              )
+            : data.quizzes;
+
         this.setState(state => ({
           ...state,
-          quizzesLearner: data
+          quizzesLearner: filteredByUserID
         }));
       });
   };
@@ -190,7 +202,9 @@ class App extends Component {
       method: "GET",
       headers: new Headers({ Authorization: `Bearer ${this.state.token}` })
     };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`, options)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`
+    , options
+    )
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -207,7 +221,6 @@ class App extends Component {
       fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
         .then(response => response.json())
         .then(data => {
-          console.log(data, "cornichon");
           this.setState(state => ({
             ...state,
             adminFaq: data.faqs
@@ -215,6 +228,8 @@ class App extends Component {
         });
     });
   };
+
+  
 
   getFaqsByLang = () => {
     if (!this.state.token) return null;
@@ -368,6 +383,7 @@ class App extends Component {
     try {
       this.setState({
         currentUser: {
+          userTypeID: jwtDecode(this.state.token).user_type_id,
           userID: jwtDecode(this.state.token).id,
           isadmin: jwtDecode(this.state.token).isadmin
         }
@@ -426,6 +442,7 @@ class App extends Component {
         token: token ? JSON.parse(token) : ""
       },
       () => {
+        this.addUserIDFromTokenToState();
         this.getQuizzes();
         this.getQuizzesByLang();
         this.getProducts();
@@ -434,7 +451,6 @@ class App extends Component {
         this.getRegion();
         this.getResults();
         this.getDocs();
-        this.addUserIDFromTokenToState();
         this.getFaqs();
         this.getFaqsByLang();
       }
@@ -531,15 +547,9 @@ class App extends Component {
     }
   };
 
-  handleEdit = doc => {
+  handleDocEdit = doc => {
     this.setState({
       selectedDoc: doc
-    });
-  };
-
-  clearSelectedDoc = () => {
-    this.setState({
-      selectedDoc: {}
     });
   };
 
@@ -563,6 +573,20 @@ class App extends Component {
     });
     localStorage.clear();
   };
+  updateDocList = (doc) => {
+    //if create, just add
+    this.setState((prevState) => {
+      let addCreatedDoc = this.state.documentation+doc
+      console.log('addCreatedDoc', addCreatedDoc)
+      return {documentation: addCreatedDoc}
+    })
+
+    //if edit, must replace
+    // this.handleDelete(id, "doc", () => {
+    //   const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
+    //   this.setState({ documentation: updatedDocs });
+    // });
+  }
 
   render() {
     console.log(this.state.token);
@@ -615,8 +639,7 @@ class App extends Component {
                 <AdminDocList
                   documentation={documentation}
                   onDelete={this.handleDeleteDoc}
-                  onEdit={this.handleEdit}
-                  clearSelectedDoc={this.clearSelectedDoc}
+                  onEdit={this.handleDocEdit}
                 />
               </>
             )}
@@ -631,6 +654,7 @@ class App extends Component {
                   products={products}
                   documentation={documentation}
                   selectedDoc={selectedDoc}
+                  updateDocList={this.updateDocList}
                 />
               </>
             )}
@@ -659,7 +683,7 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
-                <AdminFaqEditor adminFaq={adminFaq} selectedFac={selectedFaq} />
+                <AdminFaqEditor adminFaq={adminFaq} selectedFac={selectedFaq} langOptions={langOptions}/>
               </>
             )}
           />
@@ -863,12 +887,12 @@ class App extends Component {
                   clearTokenLogOut= {this.clearTokenLogOut}
                   currentUser={this.state.currentUser}
                   documentation={this.state.documentation}
-                  QuizList={this.state.quizzesLearner.quizzes}
+                  QuizList={this.state.quizzesLearner}
                   changeQuizIDInPlay={this.changeQuizIDInPlay}
                   score={this.state.score}
                   checkScore={this.checkScore}
                   refreshQuizState={this.refreshQuizState}
-                  questionPackage={this.state.quizzesLearner.quizzes}
+                  questionPackage={this.state.quizzesLearner}
                   startOverallTimer={this.startOverallTimer}
                   overallTime={this.state.overallTime}
                   addUserInputToState={this.addUserInputToState}

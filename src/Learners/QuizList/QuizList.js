@@ -18,6 +18,15 @@ const QuizList = props => {
       </Container>
     );
 
+  if (props.QuizList.length === 0)
+    return (
+      <Container>
+        <h1>{translations[currentLanguage].QuizList.Title}</h1>
+        <hr />
+        <h1>{translations[currentLanguage].QuizList.Error}</h1>
+      </Container>
+    );
+
   return (
     <>
       <div>

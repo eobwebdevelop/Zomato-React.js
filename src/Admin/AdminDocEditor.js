@@ -12,12 +12,12 @@ class AdminDocEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: this.props.selectedDoc ? this.props.selectedDoc.title : '',
-      text: this.props.selectedDoc ? this.props.selectedDoc.content : '',
+      title: this.props.selectedDoc.title,
+      text: this.props.selectedDoc.text,
       lastUploadedFile: {},
       base64Url: {},
-      product: this.props.selectedDoc ? this.props.selectedDoc.product_id : '',
-      productLabel: this.props.selectedDoc ? this.props.selectedDoc.product_name : '',
+      product: this.props.selectedDoc.product_id,
+      productLabel: this.props.selectedDoc.product_name,
     };
   }
 
@@ -63,7 +63,7 @@ class AdminDocEditor extends Component {
   onChangeProduct = (e) => {
     this.setState({
       product: e.value,
-      displayProduct: e})
+      productLabel: e.label})
   };
     
   onChangeTitle = (e) => {
@@ -81,12 +81,6 @@ class AdminDocEditor extends Component {
         this.setState({ text: value });
     }
     }
-  };
-  
-  onChangeProduct = (e) => {
-    this.setState({
-      product: e.value,
-      displayProduct: e.label})
   };
   
   onChangeTitle = (e) => {
@@ -116,6 +110,7 @@ class AdminDocEditor extends Component {
         })
         .then(res  => {
           if (res.status === 200) {
+            //call set state in Doc list here
             this.props.history.push('/admin/doc_list');
           }
         })

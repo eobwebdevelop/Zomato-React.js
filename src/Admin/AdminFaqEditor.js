@@ -10,8 +10,8 @@ class AdminFaqEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: this.props.selectedFaq ? this.props.selectedFaq.faq_question : '',
-      content: this.props.selectedFaq ? this.props.selectedFaq.content : '',
+      question: '',
+      content: '',
       lastUploadedFile: {},
       base64Url: {},
     };
@@ -55,7 +55,13 @@ class AdminFaqEditor extends Component {
       },
       );
     };
-    
+  
+  
+    onChangeLanguage = (e) => {
+      this.setState({
+        language: e.value,
+        languageLabel: e.label})
+    };
     
   onChangeQuestion = (e) => {
     this.setState({question: e.target.value});
@@ -90,7 +96,7 @@ class AdminFaqEditor extends Component {
     //                 'Content-Type':  'application/json'
     //         }),
     //         body:  JSON.stringify({
-    //           title: this.state.question,
+    //           faq_question: this.state.question,
     //           content: this.state.content,
     //           id: this.props.selectedFaq.id,
     //         }),
@@ -108,8 +114,9 @@ class AdminFaqEditor extends Component {
                 'Content-Type': 'application/json',
               }),
               body: JSON.stringify({
-                title: this.state.question,
+                faq_question: this.state.question,
                 content: this.state.content,
+                language_id: this.state.language,
               }),
             }
           ).then((res) => {
@@ -130,11 +137,21 @@ class AdminFaqEditor extends Component {
       <div>
         <Container>
           <h1>{this.headerContentDisplay()}</h1>
+          <label>
+            Language:
+          </label>
+              <Select
+                  placeholder = "Select a language"
+                  value={{value: this.state.language , label: this.state.languageLabel}}
+                  onChange={this.onChangeLanguage}
+                  classNamePrefix="select"
+                  options={this.props.langOptions.map((lg) => ({value: lg.id, label: lg.name}))} 
+              />
           <input
-            placeholder="Faq"
+            placeholder="Write your question here"
             type="text"
             value={this.state.question}  
-            onChange={this.onChangeFaq}
+            onChange={this.onChangeQuestion}
           />
           <ReactQuill
             className='quill'
