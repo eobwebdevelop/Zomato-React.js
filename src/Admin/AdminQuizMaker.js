@@ -121,7 +121,7 @@ class AdminQuizMaker extends Component {
                   quiz_id={this.state.quiz_id}
                   /> 
                 <AdminQuestionMaker 
-                  quiz_id={this.state.quiz_id} 
+                  quiz_id={this.state.quiz_id}
                   /> 
                 <AdminQuestionMaker 
                   quiz_id={this.state.quiz_id} 
