@@ -133,20 +133,12 @@ const Translations = {
   pt: {
     Full: "Português",
     LearnerNav: {
-<<<<<<< HEAD
       LinkS: 'Registar-se',
       LinkL: 'Fechar Sessão',
       LinkQ: 'Quizzes ',
       LinkF: 'FAQ',
       LinkC: 'Sobre nós',
       LinkD: 'Admin Portal'
-=======
-      LinkS: "Registar-se",
-      LinkL: "Fechar Sessão",
-      LinkQ: "Quizzes ",
-      LinkF: "FAQ",
-      LinkC: "Sobre nós"
->>>>>>> master
     },
 
     About: {
