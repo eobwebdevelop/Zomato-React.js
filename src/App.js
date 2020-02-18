@@ -84,7 +84,7 @@ class App extends Component {
       selectedDoc: {
         title: '',
         text: '',
-        product_id: undefined 
+        product_id: undefined, 
       },
       selectedFaq: {
         question: '',
@@ -580,7 +580,6 @@ class App extends Component {
     //if create, just add
     this.setState(prevState => {
       let addCreatedDoc = this.state.documentation + doc;
-      console.log("addCreatedDoc", addCreatedDoc);
       return { documentation: addCreatedDoc };
     });
 
@@ -591,8 +590,22 @@ class App extends Component {
     // });
   };
 
+  clearSelectedDoc = () => {
+    this.setState({selectedDoc: {
+      title: '',
+      text: '',
+      product_id: undefined 
+    }})
+  }
+  clearSelectedFaq = () => {
+    this.setState({selectedFaq: {
+      question: '',
+      content: '',
+      language_id: undefined 
+    }})
+  }
+
   render() {
-    console.log(this.state.token);
     const {
       currentLanguage,
       quizzes,
@@ -656,6 +669,7 @@ class App extends Component {
                   documentation={documentation}
                   selectedDoc={selectedDoc}
                   updateDocList={this.updateDocList}
+                  clearSelectedDoc={this.clearSelectedDoc}
                 />
               </>
             )}
@@ -684,6 +698,7 @@ class App extends Component {
                   adminFaq={adminFaq}
                   selectedFac={selectedFaq}
                   langOptions={langOptions}
+                  clearSelectedFaq={this.clearSelectedFaq}
                 />
               </>
             )}
