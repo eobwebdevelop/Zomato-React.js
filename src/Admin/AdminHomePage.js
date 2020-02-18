@@ -42,6 +42,11 @@ const AdminQuizList = () => (
           FAQ
         </button>
       </Link>
+      <Link to="/admin/export_data">
+        <button type="submit" className="btn">
+          Export Data
+        </button>
+      </Link>
     </Container>
   </div>
 );

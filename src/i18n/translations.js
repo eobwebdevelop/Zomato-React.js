@@ -21,7 +21,7 @@ const Translations = {
 
     Documentation: {
       Title: "Documentation",
-      Button: "Home"
+      Button: "Go Back"
     },
 
     FAQ: {
@@ -133,11 +133,12 @@ const Translations = {
   pt: {
     Full: "Português",
     LearnerNav: {
-      LinkS: "Registar-se",
-      LinkL: "Fechar Sessão",
-      LinkQ: "Quizzes ",
-      LinkF: "FAQ",
-      LinkC: "Sobre nós"
+      LinkS: 'Registar-se',
+      LinkL: 'Fechar Sessão',
+      LinkQ: 'Quizzes ',
+      LinkF: 'FAQ',
+      LinkC: 'Sobre nós',
+      LinkD: 'Admin Portal'
     },
 
     About: {
@@ -151,7 +152,7 @@ const Translations = {
 
     Documentation: {
       Title: "Documentação",
-      Button: "Início"
+      Button: "Voltar"
     },
 
     FAQ: {

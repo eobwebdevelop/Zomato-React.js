@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
-
+import React, { Component } from "react";
+import { Container } from "react-bootstrap";
 
 class AdminResultList extends Component {
   constructor(props) {
@@ -18,11 +17,7 @@ class AdminResultList extends Component {
           <p>
             You are viewing all the available results at the current moment.
           </p>
-          {/* <Link to="/">
-            <button type="submit" className="btn">
-              Export Data
-            </button>
-          </Link> */}
+
           <table className="tftable" border="1">
             <tr>
               <th>Result ID</th>
@@ -34,7 +29,7 @@ class AdminResultList extends Component {
               <th>Completion Date</th>
               <th>Score</th>
             </tr>
-            {results.map((res) => (
+            {results.map(res => (
               <tr>
                 <td>{res.id}</td>
                 <td>{res.user_id}</td>

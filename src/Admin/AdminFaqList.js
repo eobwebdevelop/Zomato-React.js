@@ -5,14 +5,11 @@ import PropTypes from 'prop-types';
 
 const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
   <Container>
+    <h1>FAQ</h1>
+    <hr />
     <Link to="/admin/faq_editor">
       <button type="submit" className="btn">
         Add New Faq
-      </button>
-    </Link>
-    <Link to="/">
-      <button type="submit" className="btn">
-        Export Data
       </button>
     </Link>
 
