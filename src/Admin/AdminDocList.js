@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const AdminDocList = ({
-  documentation, onDelete, onDocEdit 
+  documentation, onDelete, onDocEdit,
 }) => (
   <Container>
     <Link to="/admin/doc_editor">

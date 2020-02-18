@@ -630,7 +630,7 @@ class App extends Component {
                 <AdminDocList
                   documentation={documentation}
                   onDelete={this.handleDeleteDoc}
-                  onEdit={this.handleDocEdit}
+                  onDocEdit={this.handleDocEdit}
                 />
               </>
             )}
