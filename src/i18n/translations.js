@@ -21,7 +21,7 @@ const Translations = {
 
     Documentation: {
       Title: "Documentation",
-      Button: "Home"
+      Button: "Go Back"
     },
 
     FAQ: {
@@ -151,7 +151,7 @@ const Translations = {
 
     Documentation: {
       Title: "Documentação",
-      Button: "Início"
+      Button: "Voltar"
     },
 
     FAQ: {
