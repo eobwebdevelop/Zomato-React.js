@@ -137,6 +137,7 @@ const Translations = {
       LinkQ: 'Quizzes ',
       LinkF: 'FAQ',
       LinkC: 'Sobre nós',
+      LinkD: 'Admin Portal'
     },
 
     About: {

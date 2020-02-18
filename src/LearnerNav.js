@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import DropdownSelector from './LanguageSelector';
 import './LearnerNav.css';
 import LanguagesContext from './contexts/languages-context';
 import translations from './i18n/translations';
 
+
 const LearnerNav = (props) => {
+  //Declaramos una variable de estado
+
   const { currentLanguage } = useContext(LanguagesContext);
-  console.log('is admin', props.currentUser.isadmin);
   return (
     <div>
       {/* Example */}
@@ -18,7 +20,7 @@ const LearnerNav = (props) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="learner-basic-navbar-nav">
           <Nav className="mr-auto learner-navlinks">
-            <Nav.Link href="/learners/quiz_list" className="grey-link">
+            <Nav.Link href="/learners/login" className="grey-link" onClick={props.clearTokenLogOut}>
               {translations[currentLanguage].LearnerNav.LinkL}
             </Nav.Link>
             <Nav.Link href="/learners/quiz_list" className="grey-link">
@@ -35,7 +37,6 @@ const LearnerNav = (props) => {
               {translations[currentLanguage].LearnerNav.LinkD}
             </Nav.Link>
             : null }
-  
           </Nav>
         </Navbar.Collapse>
         <DropdownSelector />
