@@ -82,7 +82,7 @@ class App extends Component {
       quizzes: [{ id: 0, name: "" }], 
       selectedDoc: {
         title: '',
-        text: '',
+        content: '',
         product_id: undefined 
       }
     };
