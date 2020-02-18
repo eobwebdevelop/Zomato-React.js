@@ -15,7 +15,6 @@ class AdminQuestionMaker extends Component {
     
     const {question, correct_answer, answer_options} = this.state
     const {quiz_id} = this.props
-    console.log(answer_options)
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/question/create`,
     {
         method:  'POST',
@@ -51,7 +50,6 @@ class AdminQuestionMaker extends Component {
   }
   
   render() {
-    console.log(this.state)
     return (
       <div>
         <Container>

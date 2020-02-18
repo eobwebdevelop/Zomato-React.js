@@ -84,7 +84,13 @@ class App extends Component {
         title: '',
         text: '',
         product_id: undefined 
-      }
+      },
+      selectedFaq: {
+        question: '',
+        content: '',
+        language_id: undefined 
+      },
+
     };
 
     this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
@@ -569,7 +575,6 @@ class App extends Component {
     //if create, just add
     this.setState((prevState) => {
       let addCreatedDoc = this.state.documentation+doc
-      console.log('addCreatedDoc', addCreatedDoc)
       return {documentation: addCreatedDoc}
     })
 
@@ -597,7 +602,7 @@ class App extends Component {
       quizfound,
       questionfound
     } = this.state;
-
+    
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
@@ -662,19 +667,17 @@ class App extends Component {
                   adminFaq={adminFaq}
                   onDelete={this.handleDeleteFaq}
                   onEdit={this.handleEditFaq}
-                  clearSelectedFaq={this.clearSelectedFaq}
                 />
               </>
             )}
           />
 
           <Route
-            exact
             path="/admin/faq_editor"
             render={() => (
               <>
                 <AdminNav />
-                <AdminFaqEditor adminFaq={adminFaq} selectedFac={selectedFaq} langOptions={langOptions}/>
+                <AdminFaqEditor adminFaq={adminFaq} selectedFaq={selectedFaq} langOptions={langOptions}/>
               </>
             )}
           />

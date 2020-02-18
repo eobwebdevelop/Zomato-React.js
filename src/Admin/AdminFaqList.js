@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const AdminFaqList = ({ adminFaq, onDelete }) => (
+const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
   <Container>
     <Link to="/admin/faq_editor">
       <button type="submit" className="btn">
@@ -32,18 +32,21 @@ const AdminFaqList = ({ adminFaq, onDelete }) => (
           <td>{el.content}</td>
           <td>{el.language_name}</td>
           <td>
-            <button
-              type="submit"
-              className="view-quizzes-page-links-side-by-side"
-            >
-              Edit FAQ ►
-            </button>
+            <Link to={`/admin/faq_editor/${el.id}`}>
+              <button
+                type="submit"
+                className="view-quizzes-page-links-side-by-side"
+                onClick={() => onEdit(el)}
+              >
+                Edit FAQ ►
+              </button>
+            </Link>
           </td>
           <td>
             <button
               type="submit"
               className="view-quizzes-page-links-side-by-side"
-              onClick={() => onDelete(adminFaq.id)}
+              onClick={() => onDelete(el.id)}
             >
               Delete FAQ ►
             </button>
@@ -64,6 +67,7 @@ AdminFaqList.propTypes = {
     }).isRequired,
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
 
 export default AdminFaqList;
