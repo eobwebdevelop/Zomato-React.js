@@ -19,8 +19,8 @@ const Learners = (props) => (
         path="/learners/documentation"
         render={() => (
           <>
-          <LearnerNav currentUser={props.currentUser}/>
-          <Documentation documentation={props.documentation} />
+            <LearnerNav currentUser={props.currentUser} />
+            <Documentation documentation={props.documentation} />
           </>
         )}
       />
@@ -32,7 +32,7 @@ const Learners = (props) => (
         path="/learners/about"
         render={() => (
           <>
-            <LearnerNav currentUser={props.currentUser}/>   
+            <LearnerNav currentUser={props.currentUser} />
             <About />
           </>
         )}
@@ -44,8 +44,10 @@ const Learners = (props) => (
         path="/learners/faq"
         render={() => (
           <>
-            <LearnerNav currentUser={props.currentUser}/>
-            <FAQ />
+            <LearnerNav currentUser={props.currentUser} />
+            <FAQ
+              learnerFaq={props.learnerFaq}
+            />
           </>
         )}
       />
@@ -53,9 +55,9 @@ const Learners = (props) => (
       <Route
         exact
         path="/learners/quiz_list"
-        render={() => (        
-          <>  
-            <LearnerNav currentUser={props.currentUser}/>
+        render={() => (
+          <>
+            <LearnerNav currentUser={props.currentUser} />
             <QuizList
               QuizList={props.QuizList}
               changeQuizIDInPlay={props.changeQuizIDInPlay}
@@ -70,8 +72,8 @@ const Learners = (props) => (
         exact
         path="/learners/quiz_list/quiz"
         render={() => (
-            <>
-            <LearnerNav currentUser={props.currentUser}/>
+          <>
+            <LearnerNav currentUser={props.currentUser} />
             <Challenge
               score={props.score}
               checkScore={props.checkScore}
