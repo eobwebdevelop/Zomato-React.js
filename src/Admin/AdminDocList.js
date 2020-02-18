@@ -1,13 +1,13 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const AdminDocList = ({ documentation, onDelete, onDocEdit }) => (
   <>
     <Container>
       <h1>Documentation</h1>
-      <hr></hr>
+      <hr />
       <Link to="/admin/doc_editor">
         <button type="submit" className="btn">
           Add New Documentation
@@ -24,7 +24,7 @@ const AdminDocList = ({ documentation, onDelete, onDocEdit }) => (
             <th>Delete</th>
           </tr>
         </thead>
-        {documentation.map(doc => (
+        {documentation.map((doc) => (
           <tbody key={doc.id}>
             <tr>
               <td>{doc.id}</td>
@@ -62,11 +62,11 @@ AdminDocList.propTypes = {
   documentation: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired
-    }).isRequired
+      title: PropTypes.string.isRequired,
+    }).isRequired,
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
-  onDocEdit: PropTypes.func.isRequired
+  onDocEdit: PropTypes.func.isRequired,
 };
 
 export default AdminDocList;

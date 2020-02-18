@@ -83,13 +83,14 @@ class App extends Component {
       quizzes: [{ id: 0, name: "" }],
       selectedDoc: {
         title: '',
-        text: '',
-        product_id: undefined 
+        content: '',
+        product_id: undefined, 
       },
       selectedFaq: {
         question: '',
         content: '',
-        language_id: undefined 
+        language_id: undefined, 
+        language_name: ''
       },
 
     };
@@ -562,12 +563,6 @@ class App extends Component {
     });
   };
 
-  clearSelectedFaq = () => {
-    this.setState({
-      selectedFaq: {}
-    });
-  };
-
   clearTokenLogOut = () => {
     this.setState({
       token: "",
@@ -576,23 +571,36 @@ class App extends Component {
     });
     localStorage.clear();
   };
-  updateDocList = doc => {
-    //if create, just add
-    this.setState(prevState => {
-      let addCreatedDoc = this.state.documentation + doc;
-      console.log("addCreatedDoc", addCreatedDoc);
-      return { documentation: addCreatedDoc };
-    });
+  // updateDocList = doc => {
+  //   //if create, just add
+  //   this.setState(prevState => {
+  //     let addCreatedDoc = this.state.documentation + doc;
+  //     return { documentation: addCreatedDoc };
+  //   });
 
-    //if edit, must replace
-    // this.handleDelete(id, "doc", () => {
-    //   const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
-    //   this.setState({ documentation: updatedDocs });
-    // });
-  };
+  //   //if edit, must replace
+  //   // this.handleDelete(id, "doc", () => {
+  //   //   const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
+  //   //   this.setState({ documentation: updatedDocs });
+  //   // });
+  // };
+
+  clearSelectedDoc = () => {
+    this.setState({selectedDoc: {
+      title: '',
+      content: '',
+      product_id: undefined 
+    }})
+  }
+  clearSelectedFaq = () => {
+    this.setState({selectedFaq: {
+      question: '',
+      content: '',
+      language_id: undefined 
+    }})
+  }
 
   render() {
-    console.log(this.state.token);
     const {
       currentLanguage,
       quizzes,
@@ -609,7 +617,7 @@ class App extends Component {
       quizfound,
       questionfound
     } = this.state;
-    
+
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
@@ -656,6 +664,7 @@ class App extends Component {
                   documentation={documentation}
                   selectedDoc={selectedDoc}
                   updateDocList={this.updateDocList}
+                  clearSelectedDoc={this.clearSelectedDoc}
                 />
               </>
             )}
@@ -682,8 +691,9 @@ class App extends Component {
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
                 <AdminFaqEditor
                   adminFaq={adminFaq}
-                  selectedFac={selectedFaq}
+                  selectedFaq={selectedFaq}
                   langOptions={langOptions}
+                  clearSelectedFaq={this.clearSelectedFaq}
                 />
               </>
             )}

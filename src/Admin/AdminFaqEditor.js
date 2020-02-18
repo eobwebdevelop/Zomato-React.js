@@ -107,6 +107,8 @@ class AdminFaqEditor extends Component {
         })
         .then(res  => {
           if (res.status === 200) {
+            this.props.clearSelectedFaq(); 
+
             this.props.history.push('/admin/faq_list');
           }
         })

@@ -110,6 +110,7 @@ class AdminDocEditor extends Component {
         })
         .then(res  => {
           if (res.status === 200) {
+            this.props.clearSelectedDoc(); 
             //call set state in Doc list here
             //clean selected doc here pls
             this.props.history.push('/admin/doc_list');
@@ -142,7 +143,6 @@ class AdminDocEditor extends Component {
   }
 
   render() {
-    console.log('this.props.selectedDoc', this.props.selectedDoc)
     return (
       <div>
         <Container>
