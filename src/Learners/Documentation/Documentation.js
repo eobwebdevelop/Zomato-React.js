@@ -1,30 +1,31 @@
-import React, {  Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import ReactHtmlParser from 'react-html-parser';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { Container } from "react-bootstrap";
+import ReactHtmlParser from "react-html-parser";
+import PropTypes from "prop-types";
 // import { render } from '@testing-library/react';
-import LanguagesContext from '../../contexts/languages-context';
-import translations from '../../i18n/translations';
-import './Documentation.css';
-import DocumentationList from './DocumentationList';
-
+import LanguagesContext from "../../contexts/languages-context";
+import translations from "../../i18n/translations";
+import "./Documentation.css";
+import DocumentationList from "./DocumentationList";
+import { Link, withRouter } from "react-router-dom";
 
 class Documentation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
+      query: ""
     };
   }
 
-  handleChange = (e) => {
-    this.setState({query: e.target.value});
-  }
+  handleChange = e => {
+    this.setState({ query: e.target.value });
+  };
 
-  checkIfMatchQuery = (doc) => {
+  checkIfMatchQuery = doc => {
     const query = this.state.query.toLowerCase();
-    if(this.state.query === ''){return true}
+    if (this.state.query === "") {
+      return true;
+    }
     return doc.title.toLowerCase().match(query);
   };
 
@@ -36,7 +37,7 @@ class Documentation extends Component {
         {({ currentLanguage }) => (
           <Container>
             <h1>{translations[currentLanguage].Documentation.Title}</h1>
-            <hr/>
+            <hr />
             <div className="search-bar">
               <input type="text" value={query} onChange={this.handleChange} />
               {/* <button 
@@ -48,13 +49,18 @@ class Documentation extends Component {
               </button> */}
             </div>
 
-            <DocumentationList docs={documentation.filter((doc) => this.checkIfMatchQuery(doc))} />
+            <DocumentationList
+              docs={documentation.filter(doc => this.checkIfMatchQuery(doc))}
+            />
 
-            <Link to="/learners/quiz_list">
-              <button type="submit" className="btn">
-                {translations[currentLanguage].Documentation.Button}
-              </button>
-            </Link>
+            {/* EW: This button goes back, not to home. This is necessary in the user flow when taking the quiz: They go from results => documentation and need to be able to back to their results.*/}
+            <button
+              type="submit"
+              className="btn"
+              onClick={() => this.props.history.goBack()}
+            >
+              {translations[currentLanguage].Documentation.Button}
+            </button>
           </Container>
         )}
       </LanguagesContext.Consumer>
@@ -67,9 +73,9 @@ Documentation.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
+      content: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired
 };
 
-export default Documentation;
+export default withRouter(Documentation);
