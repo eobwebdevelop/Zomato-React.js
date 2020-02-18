@@ -19,7 +19,11 @@ const Learners = (props) => (
         path="/learners/documentation"
         render={() => (
           <>
-            <LearnerNav currentUser={props.currentUser} />
+            <LearnerNav 
+            currentUser={props.currentUser}
+            token={props.token}
+            clearTokenLogOut= {props.clearTokenLogOut} 
+            />
             <Documentation documentation={props.documentation} />
           </>
         )}
@@ -32,7 +36,11 @@ const Learners = (props) => (
         path="/learners/about"
         render={() => (
           <>
-            <LearnerNav currentUser={props.currentUser} />
+            <LearnerNav 
+            currentUser={props.currentUser}
+            token={props.token} 
+            clearTokenLogOut= {props.clearTokenLogOut}
+            />
             <About />
           </>
         )}
@@ -44,7 +52,11 @@ const Learners = (props) => (
         path="/learners/faq"
         render={() => (
           <>
-            <LearnerNav currentUser={props.currentUser} />
+            <LearnerNav 
+            currentUser={props.currentUser}
+            token={props.token} 
+            clearTokenLogOut= {props.clearTokenLogOut}
+            />
             <FAQ
               learnerFaq={props.learnerFaq}
             />
@@ -57,7 +69,11 @@ const Learners = (props) => (
         path="/learners/quiz_list"
         render={() => (
           <>
-            <LearnerNav currentUser={props.currentUser} />
+            <LearnerNav 
+            currentUser={props.currentUser}
+            token={props.token} 
+            clearTokenLogOut= {props.clearTokenLogOut}
+            />
             <QuizList
               QuizList={props.QuizList}
               changeQuizIDInPlay={props.changeQuizIDInPlay}
@@ -73,7 +89,11 @@ const Learners = (props) => (
         path="/learners/quiz_list/quiz"
         render={() => (
           <>
-            <LearnerNav currentUser={props.currentUser} />
+            <LearnerNav 
+            currentUser={props.currentUser}
+            token={props.token} 
+            clearTokenLogOut= {props.clearTokenLogOut}
+            />
             <Challenge
               score={props.score}
               checkScore={props.checkScore}

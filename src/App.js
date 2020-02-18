@@ -565,6 +565,14 @@ class App extends Component {
     });
   };
 
+  clearTokenLogOut = () => {
+    this.setState({
+      token: "",
+      userID: null,
+      currentUser: { userID: null, isadmin: null }
+    });
+    localStorage.clear();
+  };
   updateDocList = (doc) => {
     //if create, just add
     this.setState((prevState) => {
@@ -581,6 +589,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.token);
     const {
       currentLanguage,
       quizzes,
@@ -614,7 +623,7 @@ class App extends Component {
             path="/admin"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminHomePage />
               </>
             )}
@@ -626,7 +635,7 @@ class App extends Component {
             path="/admin/doc_list"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminDocList
                   documentation={documentation}
                   onDelete={this.handleDeleteDoc}
@@ -640,7 +649,7 @@ class App extends Component {
             path="/admin/doc_editor"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminDocEditor
                   products={products}
                   documentation={documentation}
@@ -657,7 +666,7 @@ class App extends Component {
             path="/admin/faq_list"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminFaqList
                   adminFaq={adminFaq}
                   onDelete={this.handleDeleteFaq}
@@ -673,7 +682,7 @@ class App extends Component {
             path="/admin/faq_editor"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminFaqEditor adminFaq={adminFaq} selectedFac={selectedFaq} langOptions={langOptions}/>
               </>
             )}
@@ -685,7 +694,7 @@ class App extends Component {
             path="/admin/quiz_list"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminQuizList onDelete={this.handleDeleteQuiz} />
               </>
             )}
@@ -695,7 +704,7 @@ class App extends Component {
             path="/admin/quiz_maker"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminQuizMaker products={products} />
               </>
             )}
@@ -705,7 +714,7 @@ class App extends Component {
             path="/admin/quiz_editor/:id"
             render={props => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminQuizEditor onEdit={this.handleEditQuestion} />
               </>
             )}
@@ -715,7 +724,7 @@ class App extends Component {
             path="/admin/quiz_editor/:id/questions/:qid"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminQuestionEditor
                   onEdit={this.handleAnswerEdit}
                   quizfound={quizfound}
@@ -733,7 +742,7 @@ class App extends Component {
             path="/admin/user_list"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminUserList users={users} onDelete={this.handleDeleteUser} />
               </>
             )}
@@ -743,7 +752,7 @@ class App extends Component {
             path="/admin/user_editor/:id"
             render={props => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminUserEditor
                   regions={regions}
                   restaurants={restaurants}
@@ -759,7 +768,7 @@ class App extends Component {
             path="/admin/restaurant_list"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminRestaurantList
                   restaurants={restaurants}
                   onDelete={this.handleDeleteRestaurant}
@@ -772,7 +781,7 @@ class App extends Component {
             path="/admin/restaurant_creator"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminRestaurantCreator regions={regions} />
               </>
             )}
@@ -783,7 +792,7 @@ class App extends Component {
             path="/admin/restaurant_editor/:id"
             render={props => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminRestaurantEditor
                   restaurant={restaurants.find(
                     res => res.id === +props.match.params.id
@@ -799,7 +808,7 @@ class App extends Component {
             path="/admin/product_list"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminProductList
                   products={products}
                   onDelete={this.handleDeleteProduct}
@@ -812,7 +821,7 @@ class App extends Component {
             path="/admin/product_creator"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminProductCreator langOptions={langOptions} />
               </>
             )}
@@ -823,7 +832,7 @@ class App extends Component {
             path="/admin/product_editor/:id"
             render={props => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminProductEditor
                   langOptions={langOptions}
                   product={products.find(
@@ -838,7 +847,7 @@ class App extends Component {
             path="/admin/result_list"
             render={() => (
               <>
-                <AdminNav />
+                <AdminNav clearTokenLogOut= {this.clearTokenLogOut}/>
                 <AdminResultList results={results} />
               </>
             )}
@@ -874,6 +883,8 @@ class App extends Component {
             render={() => (
               <>
                 <Learners
+                  token={this.state.token}
+                  clearTokenLogOut= {this.clearTokenLogOut}
                   currentUser={this.state.currentUser}
                   documentation={this.state.documentation}
                   QuizList={this.state.quizzesLearner}
