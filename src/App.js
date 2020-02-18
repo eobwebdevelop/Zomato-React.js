@@ -68,7 +68,7 @@ class App extends Component {
       userQuizAnswers: [],
       token: "",
       userID: null,
-      currentUser: { userID: null, isadmin: null },
+      currentUser: { userID: null, isadmin: null, userTypeId: null },
       // userid should match auth to post the right quiz result
       products: [{ id: 0, name: "", description: "" }],
       users: [{ id: 0, first_name: "" }],
@@ -157,9 +157,16 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(data => {
+        let filteredByUserID =
+          this.state.userTypeID === 3
+            ? data.quizzes.filter(
+                el => el.currentUser.user_type_id === this.state.userTypeID
+              )
+            : data.quizzes;
+
         this.setState(state => ({
           ...state,
-          quizzesLearner: data
+          quizzesLearner: filteredByUserID
         }));
       });
   };
@@ -207,7 +214,6 @@ class App extends Component {
       fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
         .then(response => response.json())
         .then(data => {
-          console.log(data, "cornichon");
           this.setState(state => ({
             ...state,
             adminFaq: data.faqs
@@ -368,6 +374,7 @@ class App extends Component {
     try {
       this.setState({
         currentUser: {
+          userTypeID: jwtDecode(this.state.token).user_type_id,
           userID: jwtDecode(this.state.token).id,
           isadmin: jwtDecode(this.state.token).isadmin
         }
@@ -426,6 +433,7 @@ class App extends Component {
         token: token ? JSON.parse(token) : ""
       },
       () => {
+        this.addUserIDFromTokenToState();
         this.getQuizzes();
         this.getQuizzesByLang();
         this.getProducts();
@@ -434,7 +442,6 @@ class App extends Component {
         this.getRegion();
         this.getResults();
         this.getDocs();
-        this.addUserIDFromTokenToState();
         this.getFaqs();
         this.getFaqsByLang();
       }
@@ -851,12 +858,12 @@ class App extends Component {
                 <Learners
                   currentUser={this.state.currentUser}
                   documentation={this.state.documentation}
-                  QuizList={this.state.quizzesLearner.quizzes}
+                  QuizList={this.state.quizzesLearner}
                   changeQuizIDInPlay={this.changeQuizIDInPlay}
                   score={this.state.score}
                   checkScore={this.checkScore}
                   refreshQuizState={this.refreshQuizState}
-                  questionPackage={this.state.quizzesLearner.quizzes}
+                  questionPackage={this.state.quizzesLearner}
                   startOverallTimer={this.startOverallTimer}
                   overallTime={this.state.overallTime}
                   addUserInputToState={this.addUserInputToState}

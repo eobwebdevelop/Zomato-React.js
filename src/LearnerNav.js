@@ -1,19 +1,22 @@
-import React, { useContext } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import DropdownSelector from './LanguageSelector';
-import './LearnerNav.css';
-import LanguagesContext from './contexts/languages-context';
-import translations from './i18n/translations';
+import React, { useContext } from "react";
+import { Navbar, Nav } from "react-bootstrap";
+import DropdownSelector from "./LanguageSelector";
+import "./LearnerNav.css";
+import LanguagesContext from "./contexts/languages-context";
+import translations from "./i18n/translations";
 
-const LearnerNav = (props) => {
+const LearnerNav = props => {
   const { currentLanguage } = useContext(LanguagesContext);
-  console.log('is admin', props.currentUser.isadmin);
+
   return (
     <div>
       {/* Example */}
       <Navbar className="learner-navbar" bg="tyrolean" expand="lg">
         <Navbar.Brand href="/learners/quiz_list">
-          <img src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png" alt="Zomato logo" />
+          <img
+            src="https://res.cloudinary.com/dpjc4trmq/image/upload/c_scale,w_130/v1578418844/i1fqkqecbismsg8o7w7b.png"
+            alt="Zomato logo"
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="learner-basic-navbar-nav">
@@ -30,17 +33,15 @@ const LearnerNav = (props) => {
             <Nav.Link href="/learners/about" className="grey-link">
               {translations[currentLanguage].LearnerNav.LinkC}
             </Nav.Link>
-            { props.currentUser.isadmin ? 
-            <Nav.Link href="/admin/" className="grey-link">
-              {translations[currentLanguage].LearnerNav.LinkD}
-            </Nav.Link>
-            : null }
-  
+            {props.currentUser.isadmin ? (
+              <Nav.Link href="/admin/" className="grey-link">
+                {translations[currentLanguage].LearnerNav.LinkD}
+              </Nav.Link>
+            ) : null}
           </Nav>
         </Navbar.Collapse>
         <DropdownSelector />
       </Navbar>
-
     </div>
   );
 };
