@@ -159,7 +159,7 @@ const Translations = {
     FAQ: {
       Title: 'FAQ - Perguntas Frequentes',
       Button: 'Início',
-      Error: 'Não há FAQ disponíveis para você. Desculpe.',
+      Error: 'Não há FAQ disponíveis para si. Desculpe.',
     },
 
     ForgotPassword: {
@@ -198,7 +198,7 @@ const Translations = {
       Title: 'Quizzes disponíveis ',
       LinkQ: 'Começar Quiz ► ',
       LinkD: 'Documentação ► ',
-      Error: 'Não há quizzes disponíveis para você. Desculpe.',
+      Error: 'Não há quizzes disponíveis para si. Desculpe.',
     },
 
     SignUp: {
