@@ -48,12 +48,19 @@ class Documentation extends Component {
               >
                 {translations[currentLanguage].Documentation.Button}
               </button>
-              <input type="text" value={query} onChange={this.handleChange} />
+              <input 
+                placeholder="Search"
+                type="text" 
+                value={query} 
+                onChange={this.handleChange} 
+                className="search-input"
+              />
             </div>
-
+            <div className="docs-container">
             <DocumentationList
               docs={learnerDoc.filter(doc => this.checkIfMatchQuery(doc))}
-            />
+              />
+            </div>
           </Container>
         )}
       </LanguagesContext.Consumer>

@@ -116,7 +116,6 @@ class App extends Component {
     fetch(`${process.env.REACT_APP_SERVER_URL}/learner/language`)
       .then(response => response.json())
       .then(data => {
-        console.log('data', data)
         this.setState(state => ({
           ...state,
           langOptions: data.language
@@ -656,9 +655,6 @@ class App extends Component {
       questionfound,
       langOptions
     } = this.state;
-
-    console.log('langOptions', langOptions)
-
 
     return (
       <LanguagesContext.Provider

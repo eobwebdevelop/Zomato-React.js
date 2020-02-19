@@ -14,11 +14,9 @@ const DocumentationList = ({ docs }) => {
   };
 
   return (
-    <div>
-      {
-     displayOptions()
-    }
-    </div>
+    <>
+      {displayOptions()}
+    </>
   );
 };
 

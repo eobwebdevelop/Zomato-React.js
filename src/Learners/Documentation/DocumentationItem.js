@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 
 const DocumentationItem = ({ doc }) => {
-
   const [showAllDoc, setShowAllDoc] = useState(false);
 
   const onClick = () => {
@@ -25,16 +24,21 @@ const DocumentationItem = ({ doc }) => {
     return ReactHtmlParser(doc.content.substring(0, 300));
   };
 
+  const pickClass = () => {
+    if (doc.content.length < 300) {
+      return 'hidden';
+    } return 'btn';
+  };
 
   return (
     <article key={doc.id} className="single-doc">
-      <header>
-        <h1>{doc.title}</h1>
-      </header>
-      <div>
-        {contentText()}
-      </div>
-      <button type="submit" onClick={() => onClick()}>
+      <h1>{doc.title}</h1>
+      <div>{contentText()}</div>
+      <button
+        type="submit"
+        onClick={() => onClick()}
+        className={pickClass()}
+      >
         {buttonText()}
       </button>
     </article>
@@ -42,12 +46,10 @@ const DocumentationItem = ({ doc }) => {
 };
 
 DocumentationItem.propTypes = {
-  doc: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
+  doc: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+  }).isRequired,
 };
 export default DocumentationItem;
