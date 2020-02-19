@@ -27,7 +27,13 @@ class AdminQuestionEditor extends Component {
   }
 
   handlerSubmit = (e) => {
-    const {question, id, quiz_id, answer_options, answer_ids, correct_answer} = this.state
+    const ansIdArr = Object.values(this.state.answer_ids)
+    const ansOptArr = Object.values(this.state.answer_options)
+    const answers = [];
+    for (let i = 0; i < ansOptArr.length; i++){
+      answers.push({answer_option: ansOptArr[i], id: ansIdArr[i]})
+    }
+    const {question, id, quiz_id, correct_answer_id} = this.state
     e.preventDefault();
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/question/edit`,
     {
@@ -35,7 +41,7 @@ class AdminQuestionEditor extends Component {
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify({question, quiz_id, id, answer_options, answer_ids, correct_answer}),
+        body:  JSON.stringify({question, quiz_id, id, answers, correct_answer_id}),
     })
   }
 
@@ -60,17 +66,17 @@ class AdminQuestionEditor extends Component {
     answer_ids: {
       ...prevState.answer_ids,
       [`answer_option_${i}_id`]: id
-      }
+      },
     })
     )
-  }
+  };
 
   updateAnswer = (event) => {
     const { name, value } = event.target
       this.setState(prevState => ({
           answer_options: {
             ...prevState.answer_options,
-            [name]: value,
+            [name]: value
           }
       })
       )
@@ -81,6 +87,8 @@ class AdminQuestionEditor extends Component {
       [event.target.name]: event.target.value,
     });
   }
+
+ 
 
   render() {
     const {
