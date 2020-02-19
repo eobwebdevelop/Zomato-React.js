@@ -32,6 +32,7 @@ class Documentation extends Component {
   render() {
     const { query } = this.state;
     const { learnerDoc} = this.props;
+    
     return (
       <LanguagesContext.Consumer>
         {({ currentLanguage }) => (
