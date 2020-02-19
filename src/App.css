@@ -113,6 +113,13 @@ input {
   margin-top: 0.8em !important;
 }
 
+.changelanguageselector {
+  background-color: #4f4f4f;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+}
+
 /* Styles so that the Login/Sign Up/Contact Forms are aligned centrally on the page (everywhere else, things are left-aligned */
 
 .formparentcontainer {
