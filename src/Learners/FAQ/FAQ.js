@@ -1,13 +1,33 @@
-import React, { useContext } from "react";
-import { Container } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import FaqCard from "./FaqCard";
-import LanguagesContext from "../../contexts/languages-context";
-import translations from "../../i18n/translations";
+import React, { useContext } from 'react';
+import { Container } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
+import FaqCard from './FaqCard';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
+
 
 const FAQ = ({ learnerFaq }) => {
   const { currentLanguage } = useContext(LanguagesContext);
-  let history = useHistory();
+  const history = useHistory();
+  if (FAQ === undefined) {
+    return (
+      <Container>
+        <h1>Loading...</h1>
+      </Container>
+    );
+  }
+
+  if (FAQ.length === 0) {
+    return (
+      <Container>
+        <h1>{translations[currentLanguage].FAQ.Title}</h1>
+        <hr />
+        <h1>{translations[currentLanguage].FAQ.Error}</h1>
+      </Container>
+    );
+  }
+
   return (
     <>
       <div>
@@ -15,8 +35,8 @@ const FAQ = ({ learnerFaq }) => {
           <h1>{translations[currentLanguage].FAQ.Title}</h1>
           <hr />
 
-          {learnerFaq.map(el => (
-            <FaqCard key={el.id} Faq={el.faq_question} FaqC={el.content} />
+          {learnerFaq.map((el) => (
+            <FaqCard key={el.id} Faq={el.faq_question} FaqC={ReactHtmlParser(el.content)} />
           ))}
 
           <button
@@ -24,7 +44,7 @@ const FAQ = ({ learnerFaq }) => {
             className="btn"
             onClick={() => history.goBack()}
           >
-            {translations[currentLanguage].Documentation.Button}
+            {translations[currentLanguage].FAQ.Button}
           </button>
         </Container>
       </div>
