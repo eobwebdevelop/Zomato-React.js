@@ -600,6 +600,26 @@ class App extends Component {
     }})
   }
 
+  addNewDocToDocList = (doc) => {
+    this.getDocs()
+    this.clearSelectedDoc();
+    this.props.history.push('/admin/doc_list');
+  }
+
+  updateDocList = (doc) => {
+      this.setState(() => {
+        const updatedDocs = this.state.documentation.map((item) => {
+            if(item.id === doc.id){
+              return doc; 
+            } return item 
+          });
+        return { documentation: updatedDocs }
+      }, () => {
+        this.clearSelectedDoc();
+        this.props.history.push('/admin/doc_list');
+      });
+    }
+
   render() {
     const {
       currentLanguage,
@@ -665,6 +685,8 @@ class App extends Component {
                   selectedDoc={selectedDoc}
                   updateDocList={this.updateDocList}
                   clearSelectedDoc={this.clearSelectedDoc}
+                  addNewDocToDocList={this.addNewDocToDocList}
+                  updateDocList={this.updateDocList}
                 />
               </>
             )}
