@@ -24,7 +24,8 @@ h1 {
 }
 
 #h1-login {
-  text-align: center;
+  margin-top: 25%;
+  text-align: left;
 }
 
 h2 {
@@ -83,6 +84,7 @@ hr {
 
 .btn-login {
   background: #e23744;
+  padding: 3%;
   color: #f4f4f2;
   border-radius: 5px;
   width: 100%;

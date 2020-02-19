@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
-import LanguagesContext from '../../contexts/languages-context';
-import translations from '../../i18n/translations';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Container } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
+import LanguagesContext from "../../contexts/languages-context";
+import translations from "../../i18n/translations";
 
 class LogIn extends Component {
   constructor(props) {
@@ -70,8 +70,8 @@ class LogIn extends Component {
             } else if (res.status === 201) {
               setTimeout(() => {
                 this.props.history.push("/learners/quiz_list");
-             }, 2000)
-             } 
+              }, 2000);
+            }
           })
         );
     }
