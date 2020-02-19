@@ -115,9 +115,8 @@ class AdminDocEditor extends Component {
               title: this.state.title,
               content: this.state.content,
               product_id: this.state.product,
-              product_name: this.state.product_name
+              product_name: this.state.product_name,
             }
-            this.props.clearSelectedDoc(); 
             this.props.updateDocList(editedDoc);
 
           }

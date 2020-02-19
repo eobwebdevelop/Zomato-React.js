@@ -616,22 +616,17 @@ class App extends Component {
     )}
 
   updateDocList = (doc) => {
-    this.setState( (prevState) => {
-      console.log('doc from update doc list', doc)
-      // const updatedDocs = this.state.documentation.filter(doc => doc.id === id);
-      // return { documentation: updatedDocs }
-    });
-      //IF ID DOES NOT EXIST YET, WHAT IS SAFEST WAY TO FILTER 
-
-
-    //   // const newDocList = {... prevState.documentation, doc}
-    //   // return {documentation: newDocList}
-      return {documentation: [{ 
-        title: 'this.state.title',
-        content: 'this.state.content', 
-        product_id: 0, 
-        product_name: 'this.state.product_name' }]}
-    , () => this.props.history.push('/admin/doc_list')
+      this.setState(() => {
+        const updatedDocs = this.state.documentation.map((item) => {
+            if(item.id === doc.id){
+              return doc; 
+            } return item 
+          });
+        return { documentation: updatedDocs }
+      }, () => {
+        this.clearSelectedDoc();
+        this.props.history.push('/admin/doc_list');
+      });
     }
 
   render() {
