@@ -113,7 +113,6 @@ class App extends Component {
   }
 
   getLanguage = () => {
-
     fetch(`${process.env.REACT_APP_SERVER_URL}/learner/language`)
       .then(response => response.json())
       .then(data => {
@@ -125,7 +124,6 @@ class App extends Component {
   }
 
   getRegion = () => {
-    // if (!this.state.token) return null;
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/region`)
       .then(response => response.json())
       .then(data => {
@@ -153,12 +151,7 @@ class App extends Component {
   };
 
   getRestaurants = () => {
-    // if (!this.state.token) return null;
-    const options = {
-      method: "GET",
-      headers: new Headers({ Authorization: `Bearer ${this.state.token}` })
-    };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant`, options)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -214,12 +207,7 @@ class App extends Component {
   };
 
   getDocs = () => {
-    if (!this.state.token) return null;
-    const options = {
-      method: "GET",
-      headers: new Headers({ Authorization: `Bearer ${this.state.token}` })
-    };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`, options)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -230,7 +218,6 @@ class App extends Component {
   };
 
   getDocsByLang = () => {
-    // if (!this.state.token) return null;
     fetch(`${process.env.REACT_APP_SERVER_URL}/learner/doc`, {
       method: "GET",
       headers: new Headers({
@@ -247,8 +234,6 @@ class App extends Component {
   };
 
   getFaqs = () => {
-    if (!this.state.token) return null;
-
     this.setState({ faqsAreLoaded: false }, () => {
       fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
         .then(response => response.json())
@@ -262,8 +247,6 @@ class App extends Component {
   };
 
   getFaqsByLang = () => {
-    // if (!this.state.token) return null;
-
     fetch(`${process.env.REACT_APP_SERVER_URL}/learner/faq`, {
       method: "GET",
       headers: new Headers({
