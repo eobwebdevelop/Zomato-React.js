@@ -571,27 +571,7 @@ class App extends Component {
     });
     localStorage.clear();
   };
-  // updateDocList = doc => {
-  //   //if create, just add
-  //   this.setState(prevState => {
-  //     let addCreatedDoc = this.state.documentation + doc;
-  //     return { documentation: addCreatedDoc };
-  //   });
-
-  //   //if edit, must replace
-  //   // this.handleDelete(id, "doc", () => {
-  //   //   const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
-  //   //   this.setState({ documentation: updatedDocs });
-  //   // });
-  // };
-
-  clearSelectedDoc = () => {
-    this.setState({selectedDoc: {
-      title: '',
-      content: '',
-      product_id: undefined 
-    }})
-  }
+  
   clearSelectedFaq = () => {
     this.setState({selectedFaq: {
       question: '',
@@ -600,9 +580,34 @@ class App extends Component {
     }})
   }
 
+  addNewFaqToFaqList = (doc) => {
+    this.getFaqs()
+    this.props.history.push('/admin/faq_list');
+  }
+
+  updateFaqList = (faq) => {
+    this.setState(() => {
+      const updatedFaqs = this.state.adminFaq.map((item) => {
+          if(item.id === faq.id){
+            return faq; 
+          } return item 
+        });
+      return { adminFaq: updatedFaqs }
+    }, () => {
+      this.clearSelectedFaq();
+      this.props.history.push('/admin/faq_list');
+    });
+  }
+  
+  clearSelectedDoc = () => {
+    this.setState({selectedDoc: {
+      title: '',
+      content: '',
+      product_id: undefined 
+    }})
+  }
   addNewDocToDocList = (doc) => {
     this.getDocs()
-    this.clearSelectedDoc();
     this.props.history.push('/admin/doc_list');
   }
 
@@ -716,6 +721,8 @@ class App extends Component {
                   selectedFaq={selectedFaq}
                   langOptions={langOptions}
                   clearSelectedFaq={this.clearSelectedFaq}
+                  addNewFaqToFaqList={this.addNewFaqToFaqList}
+                  updateFaqList={this.updateFaqList}
                 />
               </>
             )}
