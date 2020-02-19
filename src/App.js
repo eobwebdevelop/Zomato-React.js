@@ -116,6 +116,7 @@ class App extends Component {
     fetch(`${process.env.REACT_APP_SERVER_URL}/learner/language`)
       .then(response => response.json())
       .then(data => {
+        console.log('data', data)
         this.setState(state => ({
           ...state,
           langOptions: data.language
@@ -656,6 +657,9 @@ class App extends Component {
       langOptions
     } = this.state;
 
+    console.log('langOptions', langOptions)
+
+
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
@@ -718,8 +722,6 @@ class App extends Component {
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
                 <AdminFaqList
                   adminFaq={adminFaq}
-                  // selectedFaq={selectedFaq} 
-                  // langOptions={langOptions}
                   onDelete={this.handleDeleteFaq}
                   onEdit={this.handleEditFaq}
                 />
