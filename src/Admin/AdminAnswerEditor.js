@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const AdminAnswerEditor = ({ answers, answeroptions, updateAnswer, updateChecked }) => (
+const AdminAnswerEditor = ({ answers, answeroptions, updateAnswer, updateChecked, correct_answer_id}) => (
   <div>
     <Container>
       {answers && answers.map((ans, i) => (
@@ -16,17 +16,18 @@ const AdminAnswerEditor = ({ answers, answeroptions, updateAnswer, updateChecked
               name={`answer_option_${i + 1}`}
               value={answeroptions[i]}
               onChange={(e) => {
-                updateAnswer(e);
+                updateAnswer(e, ans.id);
               }}
             />
             <br />
             Tick the correct answer?
             <input
-              type="checkbox"
-              name="correctanswer"
+              type="radio"
+              checked={+correct_answer_id == +ans.id ? true : false}
+              name="correct_answer_id"
               value={ans.id}
               onClick={(e) => {
-                updateChecked(e);
+                updateChecked(e, ans.id);
               }}
             />
           </div>

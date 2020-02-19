@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import AdminAnswerEditor from './AdminAnswerEditor';
 import QuizzesContext from '../contexts/quiz-context';
 
-
 class AdminQuestionEditor extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +12,6 @@ class AdminQuestionEditor extends Component {
       
     };
   }
-
 
   componentDidUpdate(prevProps) {
     if (this.props.quizzesAreLoaded !== prevProps.quizzesAreLoaded) {
@@ -23,28 +21,22 @@ class AdminQuestionEditor extends Component {
       this.props.onQuestionfound(this.props.match.params.qid)
     } if (this.props.questionfound !== prevProps.questionfound) {
         this.updatingStates(this.props.questionfound) 
-        this.props.questionfound.answers.forEach((ans, i) => {
-        this.initializeAnswer(ans.answer_option, i+= 1)})  
+        this.props.questionfound.answers.forEach((ans, i) => { 
+        this.initializeAnswer(ans.answer_option, ans.id, i+= 1)})  
     }
   }
 
   handlerSubmit = (e) => {
-    const {question, id} = this.state
+    const {question, id, quiz_id, answer_options, answer_ids, correct_answer} = this.state
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/edit`,
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/question/edit`,
     {
-        method:  'PUT',
+        method:  'POST',
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify({id, question, answers:[
-          this.state.answer_option_1,
-          this.state.answer_option_2,
-          this.state.answer_option_3,
-          this.state.answer_option_4
-        ]}),
+        body:  JSON.stringify({question, quiz_id, id, answer_options, answer_ids, correct_answer}),
     })
-    .then(res  =>  res.json())
   }
 
   updateQuestion = (event) => {
@@ -52,25 +44,41 @@ class AdminQuestionEditor extends Component {
   }
   updatingStates = (question) => {
       this.setState({
-      question: question.question
+      question: question.question,
+      id: question.id,
+      correct_answer_id: question.correct_answer_id,
+      quiz_id: question.quiz_id
   })
 }
 
- initializeAnswer = (event, i) => {
-    this.setState({
+ initializeAnswer = (event, id, i) => {
+    this.setState(prevState =>({
+    answer_options: {
+      ...prevState.answer_options,
       [`answer_option_${i}`]: event
+      },
+    answer_ids: {
+      ...prevState.answer_ids,
+      [`answer_option_${i}_id`]: id
+      }
     })
+    )
   }
 
   updateAnswer = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
+    const { name, value } = event.target
+      this.setState(prevState => ({
+          answer_options: {
+            ...prevState.answer_options,
+            [name]: value,
+          }
+      })
+      )
+    }
 
   updateChecked = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   }
 
@@ -101,17 +109,13 @@ class AdminQuestionEditor extends Component {
                   {' '}
                   {questionfound.question}
                 </h2>
-                <input type="text" name="quizname" value={question} onChange={this.updateQuestion} />
+                <input type="text" name="quizname" value={question} required onChange={this.updateQuestion} />
                 <AdminAnswerEditor
                   updateChecked={this.updateChecked}
                   updateAnswer={this.updateAnswer}
                   answers={questionfound.answers}
-                  answeroptions={[
-                    this.state.answer_option_1,
-                    this.state.answer_option_2,
-                    this.state.answer_option_3,
-                    this.state.answer_option_4
-                  ]}
+                  correct_answer_id={this.state.correct_answer_id}
+                  answeroptions={this.state.answer_options ? Object.values(this.state.answer_options) : []}
                 />
               </div>
             </div>  
@@ -126,3 +130,6 @@ class AdminQuestionEditor extends Component {
 }
 
 export default withRouter(AdminQuestionEditor);
+
+
+
