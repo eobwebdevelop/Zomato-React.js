@@ -148,7 +148,6 @@ class AdminDocEditor extends Component {
   }
 
   render() {
-    console.log('this.props.selectedDoc', this.props.selectedDoc)
     return (
       <div>
         <Container>
