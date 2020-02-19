@@ -718,8 +718,6 @@ class App extends Component {
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
                 <AdminFaqList
                   adminFaq={adminFaq}
-                  // selectedFaq={selectedFaq} 
-                  // langOptions={langOptions}
                   onDelete={this.handleDeleteFaq}
                   onEdit={this.handleEditFaq}
                 />
