@@ -18,7 +18,6 @@ const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
         <tr>
           <th>ID</th>
           <th>Question</th>
-          <th>Answer</th>
           <th>Language</th>
           <th>Edit</th>
           <th>Delete</th>
@@ -29,7 +28,6 @@ const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
           <tr>
             <td>{el.id}</td>
             <td>{el.faq_question}</td>
-            <td>{el.content}</td>
             <td>{el.language_name}</td>
             <td>
               <Link to={`/admin/faq_editor/${el.id}`}>

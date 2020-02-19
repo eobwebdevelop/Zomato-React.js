@@ -144,6 +144,7 @@ class AdminFaqEditor extends Component {
   }
 
   render() {
+    console.log(this.props.langOptions, 'language')
     return (
       <div>
         <Container>
