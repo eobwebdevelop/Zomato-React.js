@@ -601,19 +601,10 @@ class App extends Component {
   }
 
   addNewDocToDocList = (doc) => {
-    this.setState( (prevState) => {
-      //IF ID DOES NOT EXIST YET, WHAT IS SAFEST WAY TO FILTER 
-
-
-      // const newDocList = {... prevState.documentation, doc}
-      // return {documentation: newDocList}
-      return {documentation: [{ 
-        title: 'this.state.title',
-        content: 'this.state.content', 
-        product_id: 0, 
-        product_name: 'this.state.product_name' }]}
-    }, () => this.props.history.push('/admin/doc_list')
-    )}
+    this.getDocs()
+    this.clearSelectedDoc();
+    this.props.history.push('/admin/doc_list');
+  }
 
   updateDocList = (doc) => {
       this.setState(() => {

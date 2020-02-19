@@ -136,13 +136,7 @@ class AdminDocEditor extends Component {
             }
           ).then((res) => {
               if (res.status === 200) {
-                const doc = {
-                  title: this.state.title,
-                  content: this.state.content, 
-                  product_id: this.state.product_id, 
-                  product_name: this.state.product_name 
-                }
-                this.props.addNewDocToDocList(doc)
+                this.props.addNewDocToDocList();
               }
             });
         };
