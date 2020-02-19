@@ -66,7 +66,9 @@ const Translations = {
     QuizList: {
       Title: 'Available Quizzes',
       LinkQ: 'Take Quiz ►',
-      LinkD: 'Documentation ►',
+      LinkD: 'Learn More',
+      HeroTitle: 'Learn More',
+      HeroText: 'Read our documentation to learn more about Zomato services.',
       Error: 'There are no quizzes available to you yet, sorry.',
     },
 
@@ -146,7 +148,7 @@ const Translations = {
       Title: 'Quem somos?',
       TitleC: 'Contacte-nos',
       TextAbout:
-        'Launched in Delhi 11 years ago, Zomato has grown from a home project to one of the largest food aggregators in the world. We are present in 24 countries and 10000+ cities globally, enabling our vision of better food for more people. We not only connect people to food in every context but work closely with restaurants to enable a sustainable ecosystem.',
+        'Lançado em Delhi há 11 anos, a Zomato passou de um projeto doméstico para um dos maiores agregadores de restaurantes do mundo. Estamos presentes em 24 países e mais de 10.000 cidades em todo o mundo, partilhando a nossa visão da melhor culinaria. ',
       TextContact: '+351 211 519 969',
       PlaceholderP: ' Número de telefone (opcional)',
     },
@@ -198,6 +200,8 @@ const Translations = {
       Title: 'Quizzes disponíveis ',
       LinkQ: 'Começar Quiz ► ',
       LinkD: 'Documentação ► ',
+      HeroTitle: 'Saber mais',
+      HeroText: 'Leia a documentação para saber mais sobre nossos serviços.',
       Error: 'Não há quizzes disponíveis para si. Desculpe.',
     },
 
@@ -242,7 +246,7 @@ const Translations = {
 
     NextButton: {
       ButtonN: 'Próxima',
-      ButtonR: 'Ver resultados',
+      ButtonR: 'Ver',
     },
 
     ResultsCard: {
