@@ -45,7 +45,7 @@ const AdminDocList = ({ documentation, onDelete, onDocEdit }) => (
                 <button
                   type="submit"
                   className="view-quizzes-page-links-side-by-side"
-                  onClick={() => onDelete(doc.id)}
+                  onClick={() => { if (window.confirm('Are you sure you wish to delete this quiz?')) { onDelete(doc.id); } }}
                 >
                   Delete Documentation ►
                 </button>
