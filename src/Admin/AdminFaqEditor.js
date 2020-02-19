@@ -13,7 +13,7 @@ class AdminFaqEditor extends Component {
       question: this.props.selectedFaq.faq_question,
       content: this.props.selectedFaq.content,
       language_id: this.props.selectedFaq.language_id,
-      languageLabel: this.props.selectedFaq.language_name,
+      language_name: this.props.selectedFaq.language_name,
       lastUploadedFile: {},
       base64Url: {},
     };
@@ -62,7 +62,7 @@ class AdminFaqEditor extends Component {
   onChangeLanguage = (e) => {
     this.setState({
         language: e.value,
-        languageLabel: e.label})
+        language_name: e.label})
     };
     
   onChangeQuestion = (e) => {
@@ -107,9 +107,14 @@ class AdminFaqEditor extends Component {
         })
         .then(res  => {
           if (res.status === 200) {
-            this.props.clearSelectedFaq(); 
-
-            this.props.history.push('/admin/faq_list');
+            const editedFaq = {
+              id: this.props.selectedFaq.id,
+              faq_question: this.state.question,
+              content: this.state.content,
+              language_id: this.state.language_id,
+              language_name: this.state.language_name
+            } 
+            this.props.updateFaqList(editedFaq);
           }
         })
       }else{
@@ -127,7 +132,7 @@ class AdminFaqEditor extends Component {
             }
           ).then((res) => {
               if (res.status === 200) {
-                this.props.history.push('/admin/faq_list');
+                this.props.addNewFaqToFaqList();
               }
             });
         };
@@ -148,7 +153,7 @@ class AdminFaqEditor extends Component {
           </label>
               <Select
                   placeholder = "Select a language"
-                  value={{value: this.state.language , label: this.state.languageLabel}}
+                  value={{value: this.state.language , label: this.state.language_name}}
                   onChange={this.onChangeLanguage}
                   classNamePrefix="select"
                   options={this.props.langOptions.map((lg) => ({value: lg.id, label: lg.name}))} 
