@@ -66,7 +66,9 @@ const Translations = {
     QuizList: {
       Title: "Available Quizzes",
       LinkQ: "Take Quiz ►",
-      LinkD: "Documentation ►",
+      LinkD: "Learn More",
+      HeroTitle: "Learn More",
+      HeroText: "Read our documentation to learn more about Zomato services.",
       Error: "There are no quizzes available to you yet, sorry."
     },
 
@@ -196,8 +198,10 @@ const Translations = {
 
     QuizList: {
       Title: "Quizzes disponíveis ",
-      LinkQ: "Começar Quiz ► ",
-      LinkD: "Documentação ► ",
+      LinkQ: "Começar Quiz",
+      LinkD: "Saber mais",
+      HeroTitle: "Saber mais",
+      HeroText: "Leia a documentação para saber mais sobre nossos serviços.",
       Error: "Não há quizzes disponíveis para você. Desculpe."
     },
 
@@ -242,7 +246,7 @@ const Translations = {
 
     NextButton: {
       ButtonN: "Próxima",
-      ButtonR: "Ver resultados"
+      ButtonR: "Ver"
     },
 
     ResultsCard: {

@@ -6,8 +6,8 @@
 .grayContainer {
   padding: 0%;
   box-sizing: border-box;
-  border-radius: 2px;
-  border: 1px solid #d0d0d0;
+  border: 1px solid #f8f8f8;
+  border-radius: 5px;
 }
 
 button.answerButton:focus {
@@ -17,7 +17,7 @@ button.answerButton:focus {
 button.answerButton:hover {
   font-size: 1.1em;
   transition: all 0.5s ease;
-  color: #a21e4d;
+  color: #ce2d3d;
 }
 
 button.answerButton {
@@ -50,7 +50,7 @@ button.answerButton {
 }
 
 .activeAnswer > .answerButton {
-  color: #a21e4d;
+  color: #ce2d3d;
   font-size: 1.1em;
 }
 
@@ -97,7 +97,8 @@ button.answerButton {
 }
 
 .questionTitleContainer {
-  background-color: #282c35;
+  background-color: #ee556a;
+  border-radius: 5px;
   align-content: space-evenly;
 }
 
@@ -122,7 +123,7 @@ button.answerButton {
 }
 
 .btnnext {
-  background: #e23744 !important;
+  background: #f47984 !important;
   color: #f4f4f2 !important;
   border-radius: 3px !important;
   width: 70px;
@@ -132,7 +133,7 @@ button.answerButton {
 }
 
 .btnnext:hover {
-  background: #4f1d2f !important;
+  background: #ff1b62 !important;
   transition: all 0.7s ease;
 }
 
@@ -147,6 +148,6 @@ button.answerButton {
 }
 
 .results:hover {
-  background: #4f1d2f !important;
+  background: #ce2d3d !important;
   transition: all 0.7s ease;
 }
