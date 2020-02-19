@@ -24,7 +24,8 @@ h1 {
 }
 
 #h1-login {
-  text-align: center;
+  margin-top: 25%;
+  text-align: left;
 }
 
 h2 {
@@ -83,6 +84,7 @@ hr {
 
 .btn-login {
   background: #e23744;
+  padding: 3%;
   color: #f4f4f2;
   border-radius: 5px;
   width: 100%;
@@ -109,6 +111,13 @@ input {
   height: 2.5em;
   width: 100%;
   margin-top: 0.8em !important;
+}
+
+.changelanguageselector {
+  background-color: #4f4f4f;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
 }
 
 /* Styles so that the Login/Sign Up/Contact Forms are aligned centrally on the page (everywhere else, things are left-aligned */
