@@ -27,6 +27,7 @@ const Translations = {
     FAQ: {
       Title: 'Frequently Asked Questions',
       Button: 'Home',
+      Error: 'There are no FAQ available to you yet, sorry.',
     },
 
     ForgotPassword: {
@@ -158,6 +159,7 @@ const Translations = {
     FAQ: {
       Title: 'FAQ - Perguntas Frequentes',
       Button: 'Início',
+      Error: 'Não há FAQ disponíveis para você. Desculpe.',
     },
 
     ForgotPassword: {
