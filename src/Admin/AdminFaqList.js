@@ -46,7 +46,7 @@ const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
               <button
                 type="submit"
                 className="view-quizzes-page-links-side-by-side"
-                onClick={() => onDelete(el.id)}
+                onClick={() => { if (window.confirm('Are you sure you wish to delete this FAQ?')) { onDelete(el.id); } }}
               >
                 Delete FAQ ►
               </button>

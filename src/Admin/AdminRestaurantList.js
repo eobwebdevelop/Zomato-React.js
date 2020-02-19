@@ -49,7 +49,7 @@ const AdminRestaurantList = ({ restaurants, onDelete }) => (
                 <button
                   type="submit"
                   className="btn-list"
-                  onClick={() => onDelete(res.id)}
+                  onClick={() => { if (window.confirm('Are you sure you wish to delete this restaurant?')) { onDelete(res.id); } }}
                 >
                   Delete Restaurant ►
                 </button>

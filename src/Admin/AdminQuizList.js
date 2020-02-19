@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import Collapsible from "react-collapsible";
-import AdminQuiz from "./AdminQuiz";
-import QuizzesContext from "../contexts/quiz-context";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Collapsible from 'react-collapsible';
+import AdminQuiz from './AdminQuiz';
+import QuizzesContext from '../contexts/quiz-context';
 
 const AdminQuizList = ({ onDelete }) => {
-  const { quizzes, onLoadQuizzes, quizzesAreLoaded } = React.useContext(
-    QuizzesContext
+  const { quizzes, quizzesAreLoaded } = React.useContext(
+    QuizzesContext,
   );
   if (!quizzesAreLoaded) {
     return <p>Please wait loading... </p>;
@@ -25,7 +25,7 @@ const AdminQuizList = ({ onDelete }) => {
           </button>
         </Link>
 
-        {quizzes.map(q => (
+        {quizzes.map((q) => (
           <section key={q.id}>
             <Collapsible trigger={q.name}>
               <AdminQuiz quiz={q.questions} editid={q.id} />
@@ -33,7 +33,7 @@ const AdminQuizList = ({ onDelete }) => {
             <button
               type="submit"
               className="btn-list"
-              onClick={() => onDelete(q.id)}
+              onClick={() => { if (window.confirm('Are you sure you wish to delete this quiz?')) { onDelete(q.id); } }}
             >
               Delete Quiz ►
             </button>
@@ -45,7 +45,7 @@ const AdminQuizList = ({ onDelete }) => {
 };
 
 AdminQuizList.propTypes = {
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default AdminQuizList;
