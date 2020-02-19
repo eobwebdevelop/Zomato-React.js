@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
-import ReactHtmlParser from "react-html-parser";
 import PropTypes from "prop-types";
-// import { render } from '@testing-library/react';
 import LanguagesContext from "../../contexts/languages-context";
 import translations from "../../i18n/translations";
 import "./Documentation.css";
 import DocumentationList from "./DocumentationList";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class Documentation extends Component {
   constructor(props) {
