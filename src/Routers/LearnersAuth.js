@@ -10,7 +10,7 @@ import LogIn from '../Learners/LogIn/LogIn';
 
 const LearnersAuth = (props) => (
   <>
-   
+
     <Switch>
       <Route
         exact
@@ -22,7 +22,7 @@ const LearnersAuth = (props) => (
         path="/learners/signup"
         render={() => (
           <>
-          <BasicNav />
+            <BasicNav />
             <SignUp restaurants={props.restaurants} />
           </>
         )}
@@ -32,7 +32,7 @@ const LearnersAuth = (props) => (
         path="/learners/login"
         render={() => (
           <>
-          <BasicNav />
+            <BasicNav />
             <LogIn />
           </>
         )}

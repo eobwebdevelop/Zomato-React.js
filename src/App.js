@@ -77,6 +77,7 @@ class App extends Component {
       regions: [{ id: 0, name: "" }],
       results: [{ id: 0, name: "" }],
       documentation: [],
+      learnerDoc:[],
       adminFaq: [],
       learnerFaq: [],
       langOptions: langOptions,
@@ -90,7 +91,7 @@ class App extends Component {
         question: '',
         content: '',
         language_id: undefined, 
-        language_name: ''
+        language_name: '',
       },
 
     };
@@ -217,6 +218,24 @@ class App extends Component {
           ...state,
           documentation: data.Documentation
         }));
+      });
+  };
+
+  getDocsByLang = () => {
+    if (!this.state.token) return null;
+    fetch(`${process.env.REACT_APP_SERVER_URL}/learner/doc`, {
+      method: "GET",
+      headers: new Headers({
+        "Preferred-Language": this.state.currentLanguage
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data, 'baguette')
+        this.setState({
+          ...this.state,
+          learnerDoc: data.documentation
+        });
       });
   };
 
@@ -455,6 +474,7 @@ class App extends Component {
         this.getRegion();
         this.getResults();
         this.getDocs();
+        this.getDocsByLang();
         this.getFaqs();
         this.getFaqsByLang();
       }
@@ -469,6 +489,7 @@ class App extends Component {
       this.getRegion();
       this.getResults();
       this.getDocs();
+      this.getDocsByLang();
       this.getFaqs();
       this.getFaqsByLang();
     }
@@ -618,6 +639,9 @@ class App extends Component {
       questionfound
     } = this.state;
 
+    console.log(this.state.learnerDoc, 'cornichon')
+  
+
     return (
       <LanguagesContext.Provider
         value={{ currentLanguage, onChangeLanguage: this.handleChangeLanguage }}
@@ -678,6 +702,8 @@ class App extends Component {
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
                 <AdminFaqList
                   adminFaq={adminFaq}
+                  // selectedFaq={selectedFaq} 
+                  // langOptions={langOptions}
                   onDelete={this.handleDeleteFaq}
                   onEdit={this.handleEditFaq}
                 />
@@ -901,6 +927,7 @@ class App extends Component {
                   clearTokenLogOut={this.clearTokenLogOut}
                   currentUser={this.state.currentUser}
                   documentation={this.state.documentation}
+                  learnerDoc={this.state.learnerDoc}
                   QuizList={this.state.quizzesLearner}
                   changeQuizIDInPlay={this.changeQuizIDInPlay}
                   score={this.state.score}

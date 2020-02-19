@@ -31,7 +31,7 @@ class Documentation extends Component {
 
   render() {
     const { query } = this.state;
-    const { documentation } = this.props;
+    const { learnerDoc} = this.props;
     return (
       <LanguagesContext.Consumer>
         {({ currentLanguage }) => (
@@ -50,7 +50,7 @@ class Documentation extends Component {
             </div>
 
             <DocumentationList
-              docs={documentation.filter(doc => this.checkIfMatchQuery(doc))}
+              docs={learnerDoc.filter(doc => this.checkIfMatchQuery(doc))}
             />
 
             {/* EW: This button goes back, not to home. This is necessary in the user flow when taking the quiz: They go from results => documentation and need to be able to back to their results.*/}
@@ -69,7 +69,7 @@ class Documentation extends Component {
 }
 
 Documentation.propTypes = {
-  documentation: PropTypes.arrayOf(
+  learnerDoc: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,

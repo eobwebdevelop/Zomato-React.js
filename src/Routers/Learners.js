@@ -24,7 +24,7 @@ const Learners = (props) => (
             token={props.token}
             clearTokenLogOut= {props.clearTokenLogOut} 
             />
-            <Documentation documentation={props.documentation} />
+            <Documentation learnerDoc={props.learnerDoc} />
           </>
         )}
       />
