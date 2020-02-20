@@ -22,6 +22,7 @@ const Translations = {
     Documentation: {
       Title: 'Documentation',
       Button: 'Go Back',
+      PlaceholderS: 'Search',
     },
 
     FAQ: {
@@ -156,6 +157,7 @@ const Translations = {
     Documentation: {
       Title: 'Documentação',
       Button: 'Voltar',
+      PlaceholderS: 'Pesquisa',
     },
 
     FAQ: {
