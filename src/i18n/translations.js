@@ -23,12 +23,17 @@ const Translations = {
       Title: 'Documentation',
       Button: 'Go Back',
       PlaceholderS: 'Search',
+      h1: 'No documentation was found.',
     },
 
     FAQ: {
       Title: 'Frequently Asked Questions',
       Button: 'Home',
       Error: 'There are no FAQ available to you yet, sorry.',
+    },
+
+    NoFaq: {
+      h1: 'No FAQs were found',
     },
 
     ForgotPassword: {
@@ -49,8 +54,8 @@ const Translations = {
       ButtonS: 'Sign-Up',
       PlaceholderU: ' Email',
       PlaceholderP: ' Password',
-      ErrorEmail: 'Fill your email, please',
-      ErrorPassword: 'Fill your password, please',
+      ErrorEmail: 'Fill your email, please.',
+      ErrorPassword: 'Fill your password, please.',
     },
 
     Answer: {
@@ -158,12 +163,17 @@ const Translations = {
       Title: 'Documentação',
       Button: 'Voltar',
       PlaceholderS: 'Pesquisa',
+      h1: 'Não foram encontrados documentos.',
     },
 
     FAQ: {
       Title: 'FAQ - Perguntas Frequentes',
       Button: 'Início',
       Error: 'Não há FAQ disponíveis para si. Desculpe.',
+    },
+
+    NoFaq: {
+      h1: 'Não foram encontradas FAQs',
     },
 
     ForgotPassword: {
