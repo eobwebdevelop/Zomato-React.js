@@ -59,28 +59,36 @@ class AdminQuestionMaker extends Component {
             <input type="text"  value={this.state.question} onChange={this.updateQuestion}/>
               Fill in the answer options: 
               <div className="row">
-              <br />
-              Answer 1:
-              <br />
-              <div className="col-10">
-                <textarea className="answerOption"
-                  type="text"
-                  name="answer_option_1"
-                  value={this.state.answer_options.answer_option_1}
-                  onChange={this.updateAnswer}
-                />
-              </div>
-              <div className="col">
-                <input
-                type="checkbox"  
-                className="answerTick"
-                name="correctanswer"
-                value={this.state.answer_options.answer_option_1}
-                onClick={this.updateCorrectAns}
-                />
+                <br />
+                Answer 1:
+                <br />
+                <div className="col-10">
+                  <textarea className="answerOption"
+                    type="text"
+                    name="answer_option_1"
+                    value={this.state.answer_options.answer_option_1}
+                    onChange={this.updateAnswer}
+                  />
+                </div>
+                <div className="col">
+                  <div className="row">
+                    <div className="col">
+                      <input
+                      type="radio"  
+                      id="correctAns"
+                      className="answerTick"
+                      name="correctanswer"
+                      value={this.state.answer_options.answer_option_1}
+                      onClick={this.updateCorrectAns}
+                        />
+                    </div>
+                    <div className="col-11">
+                      <label for="correctAns" className="labelQuiz"> Correct Answer? </label>
+                    </div>
+                </div>
               </div>
             </div>
-            <div className="row">
+              <div className="row">
               Answer 2:
               <br />
               <div className="col-10">
@@ -91,16 +99,24 @@ class AdminQuestionMaker extends Component {
                   onChange={this.updateAnswer}
                 />
               </div>
-               <div className="col">
-                  <input
-                    type="checkbox"  
-                    className="answerTick"
-                    name="correctanswer"
-                    value={this.state.answer_options.answer_option_2}
-                    onClick={this.updateCorrectAns}
-                  />
+              <div className="col">
+                <div className="row">
+                  <div className="col">
+                    <input
+                      type="radio"  
+                      id="correctAns"
+                      className="answerTick"
+                      name="correctanswer"
+                      value={this.state.answer_options.answer_option_2}
+                      onClick={this.updateCorrectAns}
+                    />
+                  </div>
+                  <div className="col-11">
+                   <label for="correctAns" className="labelQuiz"> Correct Answer? </label>
+                  </div>
+                </div>
               </div>
-              </div>
+            </div>
               <div className="row">
                 Answer 3:
                 <div className="col-10">
@@ -111,17 +127,23 @@ class AdminQuestionMaker extends Component {
                     onChange={this.updateAnswer}
                   />
                 </div>
-                <div className="col"> 
+                <div className="col">
+                <div className="row">
+                  <div className="col">
                   <input
-                    id="checkbox"
-                    type="checkbox"  
+                    id="correctAns"
+                    type="radio"  
                     className="answerTick"
                     name="correctanswer"
                     value={this.state.answer_options.answer_option_3}
                     onClick={this.updateCorrectAns} />
-                    
+                    </div>
+                  <div className="col-11">
+                  <label for="correctAns" className="labelQuiz"> Correct Answer? </label>
+                  </div>
                 </div>
               </div>
+          </div>
               <div className="row">
                 Answer 4:
                 <br />
@@ -134,14 +156,22 @@ class AdminQuestionMaker extends Component {
                   />
                 </div>
                 <div className="col">
-                  <input
-                    type="checkbox" 
-                    className="answerTick"
-                    name="correctanswer"
-                    value={this.state.answer_options.answer_option_4}
-                    onClick={this.updateCorrectAns} />
+                  <div className="row">
+                    <div className="col">
+                    <input
+                      type="radio" 
+                      id="correctAns"
+                      className="answerTick"
+                      name="correctanswer"
+                      value={this.state.answer_options.answer_option_4}
+                      onClick={this.updateCorrectAns} />
+                      </div>
+                  <div className="col-11">
+                  <label for="correctAns" className="labelQuiz"> Correct Answer? </label>
+                  </div>
                 </div>
               </div>
+          </div>
               <div className="question_save text-center">
                 <button type="submit" > 
                 Save Question

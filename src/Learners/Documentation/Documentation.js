@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
-import ReactHtmlParser from "react-html-parser";
 import PropTypes from "prop-types";
-// import { render } from '@testing-library/react';
 import LanguagesContext from "../../contexts/languages-context";
 import translations from "../../i18n/translations";
 import "./Documentation.css";
 import DocumentationList from "./DocumentationList";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class Documentation extends Component {
   constructor(props) {
@@ -31,7 +29,8 @@ class Documentation extends Component {
 
   render() {
     const { query } = this.state;
-    const { documentation } = this.props;
+    const { learnerDoc} = this.props;
+    
     return (
       <LanguagesContext.Consumer>
         {({ currentLanguage }) => (
@@ -39,28 +38,27 @@ class Documentation extends Component {
             <h1>{translations[currentLanguage].Documentation.Title}</h1>
             <hr />
             <div className="search-bar">
-              <input type="text" value={query} onChange={this.handleChange} />
-              {/* <button 
-                type="submit" 
-                className="btn" 
-                onClick={this.handleSearch}
-              >
-                Search
-              </button> */}
-            </div>
-
-            <DocumentationList
-              docs={documentation.filter(doc => this.checkIfMatchQuery(doc))}
-            />
-
             {/* EW: This button goes back, not to home. This is necessary in the user flow when taking the quiz: They go from results => documentation and need to be able to back to their results.*/}
-            <button
-              type="submit"
-              className="btn"
-              onClick={() => this.props.history.goBack()}
-            >
-              {translations[currentLanguage].Documentation.Button}
-            </button>
+              <button
+                type="submit"
+                className="btn"
+                onClick={() => this.props.history.goBack()}
+              >
+                {translations[currentLanguage].Documentation.Button}
+              </button>
+              <input 
+                placeholder="Search"
+                type="text" 
+                value={query} 
+                onChange={this.handleChange} 
+                className="search-input"
+              />
+            </div>
+            <div className="docs-container">
+            <DocumentationList
+              docs={learnerDoc.filter(doc => this.checkIfMatchQuery(doc))}
+              />
+            </div>
           </Container>
         )}
       </LanguagesContext.Consumer>
@@ -69,7 +67,7 @@ class Documentation extends Component {
 }
 
 Documentation.propTypes = {
-  documentation: PropTypes.arrayOf(
+  learnerDoc: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,

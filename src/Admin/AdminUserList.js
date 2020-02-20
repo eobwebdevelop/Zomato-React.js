@@ -1,7 +1,7 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const AdminUserList = ({ users, onDelete }) => (
   <div>
@@ -27,12 +27,14 @@ const AdminUserList = ({ users, onDelete }) => (
             <th>Delete User</th>
           </tr>
         </thead>
-        {users.map(user => (
+        {users.map((user) => (
           <tbody key={user.id}>
             <tr>
               <td>{user.id}</td>
               <td>
-                {user.first_name}, {user.last_name}
+                {user.first_name}
+                ,
+                {user.last_name}
               </td>
               <td>{user.email}</td>
               <td>{user.phone_number}</td>
@@ -48,7 +50,7 @@ const AdminUserList = ({ users, onDelete }) => (
                 <button
                   type="submit"
                   className="btn-list"
-                  onClick={() => onDelete(user.id)}
+                  onClick={() => { if (window.confirm('Are you sure you wish to delete this user?')) { onDelete(user.id); } }}
                 >
                   Delete User ►
                 </button>
@@ -69,9 +71,9 @@ AdminUserList.propTypes = {
       last_name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
       phone_number: PropTypes.string.isRequired,
-      user_type_id: PropTypes.number.isRequired
-    }).isRequired
+      user_type_id: PropTypes.number.isRequired,
+    }).isRequired,
   ).isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
 };
 export default AdminUserList;

@@ -10,7 +10,7 @@ import LogIn from '../Learners/LogIn/LogIn';
 
 const LearnersAuth = ({ restaurants, onLogin, flash }) => (
   <>
-   
+
     <Switch>
       <Route
         exact
@@ -22,7 +22,7 @@ const LearnersAuth = ({ restaurants, onLogin, flash }) => (
         path="/learners/signup"
         render={() => (
           <>
-          <BasicNav />
+            <BasicNav />
             <SignUp restaurants={restaurants} />
           </>
         )}
@@ -32,7 +32,7 @@ const LearnersAuth = ({ restaurants, onLogin, flash }) => (
         path="/learners/login"
         render={() => (
           <>
-          <BasicNav />
+            <BasicNav />
             <LogIn onLogin={onLogin} flash={flash} />
           </>
         )}

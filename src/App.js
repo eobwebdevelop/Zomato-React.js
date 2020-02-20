@@ -77,9 +77,10 @@ class App extends Component {
       regions: [{ id: 0, name: "" }],
       results: [{ id: 0, name: "" }],
       documentation: [],
+      learnerDoc:[],
       adminFaq: [],
       learnerFaq: [],
-      langOptions: langOptions,
+      langOptions: [],
       quizzes: [{ id: 0, name: "" }],
       selectedDoc: {
         title: '',
@@ -90,7 +91,7 @@ class App extends Component {
         question: '',
         content: '',
         language_id: undefined, 
-        language_name: ''
+        language_name: '',
       },
       flash: ''
     };
@@ -111,13 +112,19 @@ class App extends Component {
     this.timer = null;
   }
 
+  getLanguage = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/learner/language`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState(state => ({
+          ...state,
+          langOptions: data.language
+        }));
+      });
+  }
+
   getRegion = () => {
-    if (!this.state.token) return null;
-    const options = {
-      method: "GET",
-      headers: new Headers({ Authorization: `Bearer ${this.state.token}` })
-    };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/region`, options)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/region`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -144,12 +151,7 @@ class App extends Component {
   };
 
   getRestaurants = () => {
-    if (!this.state.token) return null;
-    const options = {
-      method: "GET",
-      headers: new Headers({ Authorization: `Bearer ${this.state.token}` })
-    };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant`, options)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -205,12 +207,7 @@ class App extends Component {
   };
 
   getDocs = () => {
-    if (!this.state.token) return null;
-    const options = {
-      method: "GET",
-      headers: new Headers({ Authorization: `Bearer ${this.state.token}` })
-    };
-    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`, options)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/admin/doc`)
       .then(response => response.json())
       .then(data => {
         this.setState(state => ({
@@ -220,9 +217,23 @@ class App extends Component {
       });
   };
 
-  getFaqs = () => {
-    if (!this.state.token) return null;
+  getDocsByLang = () => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/learner/doc`, {
+      method: "GET",
+      headers: new Headers({
+        "Preferred-Language": this.state.currentLanguage
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          ...this.state,
+          learnerDoc: data.documentation
+        });
+      });
+  };
 
+  getFaqs = () => {
     this.setState({ faqsAreLoaded: false }, () => {
       fetch(`${process.env.REACT_APP_SERVER_URL}/admin/faq`)
         .then(response => response.json())
@@ -236,8 +247,6 @@ class App extends Component {
   };
 
   getFaqsByLang = () => {
-    if (!this.state.token) return null;
-
     fetch(`${process.env.REACT_APP_SERVER_URL}/learner/faq`, {
       method: "GET",
       headers: new Headers({
@@ -455,8 +464,10 @@ class App extends Component {
         this.getRegion();
         this.getResults();
         this.getDocs();
+        this.getDocsByLang();
         this.getFaqs();
         this.getFaqsByLang();
+        this.getLanguage();
       }
     );
   }
@@ -469,6 +480,7 @@ class App extends Component {
       this.getRegion();
       this.getResults();
       this.getDocs();
+      this.getDocsByLang();
       this.getFaqs();
       this.getFaqsByLang();
     }
@@ -597,27 +609,7 @@ class App extends Component {
     });
     localStorage.clear();
   };
-  // updateDocList = doc => {
-  //   //if create, just add
-  //   this.setState(prevState => {
-  //     let addCreatedDoc = this.state.documentation + doc;
-  //     return { documentation: addCreatedDoc };
-  //   });
-
-  //   //if edit, must replace
-  //   // this.handleDelete(id, "doc", () => {
-  //   //   const updatedDocs = this.state.documentation.filter(doc => doc.id !== id);
-  //   //   this.setState({ documentation: updatedDocs });
-  //   // });
-  // };
-
-  clearSelectedDoc = () => {
-    this.setState({selectedDoc: {
-      title: '',
-      content: '',
-      product_id: undefined 
-    }})
-  }
+  
   clearSelectedFaq = () => {
     this.setState({selectedFaq: {
       question: '',
@@ -625,6 +617,51 @@ class App extends Component {
       language_id: undefined 
     }})
   }
+
+  addNewFaqToFaqList = (doc) => {
+    this.getFaqs()
+    this.props.history.push('/admin/faq_list');
+  }
+
+  updateFaqList = (faq) => {
+    this.setState(() => {
+      const updatedFaqs = this.state.adminFaq.map((item) => {
+          if(item.id === faq.id){
+            return faq; 
+          } return item 
+        });
+      return { adminFaq: updatedFaqs }
+    }, () => {
+      this.clearSelectedFaq();
+      this.props.history.push('/admin/faq_list');
+    });
+  }
+  
+  clearSelectedDoc = () => {
+    this.setState({selectedDoc: {
+      title: '',
+      content: '',
+      product_id: undefined 
+    }})
+  }
+  addNewDocToDocList = (doc) => {
+    this.getDocs()
+    this.props.history.push('/admin/doc_list');
+  }
+
+  updateDocList = (doc) => {
+      this.setState(() => {
+        const updatedDocs = this.state.documentation.map((item) => {
+            if(item.id === doc.id){
+              return doc; 
+            } return item 
+          });
+        return { documentation: updatedDocs }
+      }, () => {
+        this.clearSelectedDoc();
+        this.props.history.push('/admin/doc_list');
+      });
+    }
 
   render() {
     const {
@@ -641,7 +678,8 @@ class App extends Component {
       results,
       quizzesAreLoaded,
       quizfound,
-      questionfound
+      questionfound,
+      langOptions
     } = this.state;
 
     return (
@@ -694,6 +732,8 @@ class App extends Component {
                   selectedDoc={selectedDoc}
                   updateDocList={this.updateDocList}
                   clearSelectedDoc={this.clearSelectedDoc}
+                  addNewDocToDocList={this.addNewDocToDocList}
+                  updateDocList={this.updateDocList}
                 />
               </>
             )}
@@ -723,6 +763,8 @@ class App extends Component {
                   selectedFaq={selectedFaq}
                   langOptions={langOptions}
                   clearSelectedFaq={this.clearSelectedFaq}
+                  addNewFaqToFaqList={this.addNewFaqToFaqList}
+                  updateFaqList={this.updateFaqList}
                 />
               </>
             )}
@@ -754,7 +796,10 @@ class App extends Component {
             render={props => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizEditor onEdit={this.handleEditQuestion} />
+                <AdminQuizEditor onEdit={this.handleEditQuestion} 
+                quiz={quizzes.find(
+                  prod => prod.id === +props.match.params.id
+                )}/>
               </>
             )}
           />
@@ -930,6 +975,7 @@ class App extends Component {
                   clearTokenLogOut={this.clearTokenLogOut}
                   currentUser={this.state.currentUser}
                   documentation={this.state.documentation}
+                  learnerDoc={this.state.learnerDoc}
                   QuizList={this.state.quizzesLearner}
                   changeQuizIDInPlay={this.changeQuizIDInPlay}
                   score={this.state.score}
@@ -960,16 +1006,5 @@ class App extends Component {
     );
   }
 }
-
-const langOptions = [
-  {
-    id: 1,
-    name: "English"
-  },
-  {
-    id: 2,
-    name: "Português"
-  }
-];
 
 export default withRouter(App);

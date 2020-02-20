@@ -17,7 +17,7 @@ class AdminDocEditor extends Component {
       lastUploadedFile: {},
       base64Url: {},
       product: this.props.selectedDoc.product_id,
-      productLabel: this.props.selectedDoc.product_name,
+      product_name: this.props.selectedDoc.product_name,
     };
   }
 
@@ -63,7 +63,7 @@ class AdminDocEditor extends Component {
   onChangeProduct = (e) => {
     this.setState({
       product: e.value,
-      productLabel: e.label})
+      product_name: e.label})
   };
     
   onChangeTitle = (e) => {
@@ -110,10 +110,15 @@ class AdminDocEditor extends Component {
         })
         .then(res  => {
           if (res.status === 200) {
-            this.props.clearSelectedDoc(); 
-            //call set state in Doc list here
-            //clean selected doc here pls
-            this.props.history.push('/admin/doc_list');
+            const editedDoc = {
+              id: this.props.selectedDoc.id,
+              title: this.state.title,
+              content: this.state.content,
+              product_id: this.state.product,
+              product_name: this.state.product_name,
+            }
+            this.props.updateDocList(editedDoc);
+
           }
         })
       }else{
@@ -131,7 +136,7 @@ class AdminDocEditor extends Component {
             }
           ).then((res) => {
               if (res.status === 200) {
-                this.props.history.push('/admin/doc_list');
+                this.props.addNewDocToDocList();
               }
             });
         };
@@ -152,7 +157,7 @@ class AdminDocEditor extends Component {
           </label>
               <Select
                   placeholder = "Select a Product"
-                  value={{value: this.state.product , label: this.state.productLabel}}
+                  value={{value: this.state.product , label: this.state.product_name}}
                   onChange={this.onChangeProduct}
                   classNamePrefix="select"
                   options={this.props.products.map((prod) => ({value: prod.id, label: prod.name}))} 

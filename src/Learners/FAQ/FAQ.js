@@ -1,12 +1,33 @@
 import React, { useContext } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser';
 import FaqCard from './FaqCard';
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
+
 const FAQ = ({ learnerFaq }) => {
   const { currentLanguage } = useContext(LanguagesContext);
+  const history = useHistory();
+  if (FAQ === undefined) {
+    return (
+      <Container>
+        <h1>Loading...</h1>
+      </Container>
+    );
+  }
+
+  if (FAQ.length === 0) {
+    return (
+      <Container>
+        <h1>{translations[currentLanguage].FAQ.Title}</h1>
+        <hr />
+        <h1>{translations[currentLanguage].FAQ.Error}</h1>
+      </Container>
+    );
+  }
+
   return (
     <>
       <div>
@@ -15,20 +36,20 @@ const FAQ = ({ learnerFaq }) => {
           <hr />
 
           {learnerFaq.map((el) => (
-            <FaqCard
-              key={el.id}
-              Faq={el.faq_question}
-              FaqC={el.content}
-            />
+            <FaqCard key={el.id} Faq={el.faq_question} FaqC={ReactHtmlParser(el.content)} />
           ))}
-          <Link to="/learners/quiz_list">
-            <button type="submit" className="btn">
-              {translations[currentLanguage].Documentation.Button}
-            </button>
-          </Link>
+
+          <button
+            type="submit"
+            className="btn"
+            onClick={() => history.goBack()}
+          >
+            {translations[currentLanguage].FAQ.Button}
+          </button>
         </Container>
       </div>
     </>
   );
 };
+
 export default FAQ;

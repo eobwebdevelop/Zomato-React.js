@@ -1,8 +1,7 @@
-
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import LanguagesContext from '../../contexts/languages-context';
-import translations from '../../i18n/translations';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import LanguagesContext from "../../contexts/languages-context";
+import translations from "../../i18n/translations";
 
 // import { Container } from "react-bootstrap";
 
@@ -13,7 +12,7 @@ class QuizCard extends Component {
       QuizLinkText,
       DocumentationLinkText,
       quizID,
-      changeQuizIDInPlay,
+      changeQuizIDInPlay
     } = this.props;
 
     return (
@@ -28,12 +27,9 @@ class QuizCard extends Component {
               onClick={() => changeQuizIDInPlay(quizID, quizTitle)}
             >
               {QuizLinkText}
-              {translations[currentLanguage].QuizCard.LinkQ}
+              {translations[currentLanguage].QuizCard.LinkQ}{" "}
+              <span class="triangle">&#9658;</span>
               <br />
-            </Link>
-            <Link to="/learners/documentation" className="cranberry-link">
-              {DocumentationLinkText}
-              {translations[currentLanguage].QuizCard.LinkD}
             </Link>
           </>
         )}

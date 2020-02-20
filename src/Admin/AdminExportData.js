@@ -6,14 +6,35 @@ const AdminExportData = props => (
     <Container>
       <h1>Export Data</h1>
       <hr></hr>
-      <p>
-        You can export all data below as csv. EW: PENDING FEATURE, IDEA IS TO
-        PULL EVERYTHING FROM ALL TABLES WITHOUT ANY FURTHER MANIPULATION USING
-        THIS TOOL https://www.npmjs.com/package/json2csv
-      </p>
-      <button type="submit" className="btn">
-        Export All
-      </button>
+      <p>Follow these download links to export the following as csv:</p>
+
+      <ul>
+        <li>
+          <a href="http://localhost:3000/admin/export/quizzes">Quizzes</a>
+        </li>
+        <li>
+          <a href="http://localhost:3000/admin/export/documentation">
+            Documentation
+          </a>
+        </li>
+        <li>
+          <a href="http://localhost:3000/admin/export/users">Users</a>
+        </li>
+        <li>
+          <a href="http://localhost:3000/admin/export/restaurants">
+            Restaurants
+          </a>
+        </li>
+        <li>
+          <a href="http://localhost:3000/admin/export/products">Products</a>
+        </li>
+        <li>
+          <a href="http://localhost:3000/admin/export/results">Results</a>
+        </li>
+        <li>
+          <a href="http://localhost:3000/admin/export/faqs">FAQs</a>
+        </li>
+      </ul>
     </Container>
   </div>
 );

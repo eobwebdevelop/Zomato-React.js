@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
   <Container>
-    <h1>FAQ</h1>
+    <h1>Frequently Asked Questions</h1>
     <hr />
     <Link to="/admin/faq_editor">
       <button type="submit" className="btn">
@@ -15,39 +15,41 @@ const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
 
     <table className="tftable" border="1">
       <thead>
-        <th>ID</th>
-        <th>Question</th>
-        <th>Answer</th>
-        <th>Language</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <tr>
+          <th>ID</th>
+          <th>Question</th>
+          <th>Language</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
       </thead>
       {adminFaq.map((el) => (
         <tbody key={el.id}>
-          <td>{el.id}</td>
-          <td>{el.faq_question}</td>
-          <td>{el.content}</td>
-          <td>{el.language_name}</td>
-          <td>
-            <Link to={`/admin/faq_editor/${el.id}`}>
+          <tr>
+            <td>{el.id}</td>
+            <td>{el.faq_question}</td>
+            <td>{el.language_name}</td>
+            <td>
+              <Link to={`/admin/faq_editor/${el.id}`}>
+                <button
+                  type="submit"
+                  className="view-quizzes-page-links-side-by-side"
+                  onClick={() => onEdit(el)}
+                >
+                  Edit FAQ ►
+                </button>
+              </Link>
+            </td>
+            <td>
               <button
                 type="submit"
                 className="view-quizzes-page-links-side-by-side"
-                onClick={() => onEdit(el)}
+                onClick={() => { if (window.confirm('Are you sure you wish to delete this FAQ?')) { onDelete(el.id); } }}
               >
-                Edit FAQ ►
+                Delete FAQ ►
               </button>
-            </Link>
-          </td>
-          <td>
-            <button
-              type="submit"
-              className="view-quizzes-page-links-side-by-side"
-              onClick={() => onDelete(el.id)}
-            >
-              Delete FAQ ►
-            </button>
-          </td>
+            </td>
+          </tr>
         </tbody>
       ))}
     </table>
@@ -59,8 +61,9 @@ AdminFaqList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       faq_question: PropTypes.string.isRequired,
-      faq_answer: PropTypes.string.isRequired,
-      faq: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      language_id: PropTypes.number.isRequired,
+      language_name: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
   onDelete: PropTypes.func.isRequired,

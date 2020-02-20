@@ -1,7 +1,7 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const AdminProductList = ({ products, onDelete }) => (
   <div>
@@ -29,7 +29,7 @@ const AdminProductList = ({ products, onDelete }) => (
             <th>Delete Product</th>
           </tr>
         </thead>
-        {products.map(prod => (
+        {products.map((prod) => (
           <tbody key={prod.id}>
             <tr>
               <td>{prod.id}</td>
@@ -40,14 +40,15 @@ const AdminProductList = ({ products, onDelete }) => (
                 <Link to={`/admin/product_editor/${prod.id}`}>
                   <button type="submit" className="btn-list">
                     Edit Product ►
-                  </button>{" "}
+                  </button>
+                  {' '}
                 </Link>
               </td>
               <td>
                 <button
                   type="submit"
                   className="btn-list"
-                  onClick={() => onDelete(prod.id)}
+                  onClick={() => { if (window.confirm('Are you sure you wish to delete this product?')) { onDelete(prod.id); } }}
                 >
                   Delete Product ►
                 </button>
@@ -65,10 +66,10 @@ AdminProductList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired
-    }).isRequired
+      description: PropTypes.string.isRequired,
+    }).isRequired,
   ).isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default AdminProductList;

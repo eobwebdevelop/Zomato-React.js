@@ -10,12 +10,11 @@
 }
 
 .contact {
-  padding-top: 30px ;
-
+  padding-top: 30px;
 }
 
 .aboutText {
-  width: 60%;
+  max-width: 600px;
   text-align: center;
   margin: 0 auto;
   padding-bottom: 20px;
@@ -30,20 +29,21 @@
   text-align: center;
 }
 
-.title{
-  text-align:left;
+.title {
+  text-align: left;
 }
 
 .number {
-  padding-top: 10px;
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
   font-size: 1.5em;
 }
 
-.flag{
+.flag {
   width: 4%;
 }
 
-.country{
+.country {
   font-size: 1.4em;
   font-weight: bold;
 }
