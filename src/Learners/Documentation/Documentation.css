@@ -21,12 +21,7 @@
     border-radius: 5px;
     border: 1px solid #edeeee;
     display: block;
-}
-
-:hover.single-doc{
-    background-color: #FAFAFA;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.27);
-
+    text-align: justify;
 }
 
 .single-doc h1{
@@ -34,7 +29,38 @@
 }
 
 .single-doc div{
-    margin: 20px;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-bottom: 30px;
+}
+
+.more-btn{
+    display: none;
+}
+:hover.single-doc .more-btn{
+    display: block;
+    background: #c0c0c0 !important;
+    color: #f4f4f2 !important;
+    border-radius: 5px !important;
+    height: 3em;
+    width: 15em;
+    border: none;
+    margin-top: 1em;
+    transition: all 0.5s ease;
+    text-transform: none !important;
+    box-shadow: none !important;
+    margin: 1em;
+    font-size: 0.8em;
+}
+
+:hover.single-doc :hover.more-btn {
+    background: #4f4f4f !important;
+    transition: all 0.5s ease;
+  }
+
+:hover.single-doc{
+    background-color: #FAFAFA;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.27);
 }
 
 .search-bar {
@@ -58,9 +84,10 @@
     text-align: center;
     border: 1px solid #edeeee;
     background: #fafafa;
+    background-image: url("/search-solid.svg");
     background-repeat: no-repeat;
     background-size: 13px 13px;
-    background-position: 85px 7px;
+    background-position: 255px 7px;
     outline: none;
     width: 600px;
     margin-top: 10px;
@@ -72,6 +99,8 @@
     text-align: left;
     padding-left: 30px;
     background: #ffffff;
+    background-image: url("/search-solid.svg");
+
     background-repeat: no-repeat;
     background-size: 13px 13px;
     background-position: 15px 7px;
