@@ -689,7 +689,18 @@ class App extends Component {
       });
     }
 
-
+    updateUserList = (user) => {
+      this.setState(() => {
+        const updatedUser = this.state.users.map((item) => {
+            if(item.id === user.id){
+              return user; 
+            } return item 
+          });
+        return { users: updatedUser }
+      }, () => {
+        this.props.history.push('/admin/user_list');
+      });
+    }
   render() {
     const {
       currentLanguage,
@@ -872,6 +883,8 @@ class App extends Component {
                   regions={regions}
                   restaurants={restaurants}
                   user={users.find(user => user.id === +props.match.params.id)}
+                  updateUserList={this.updateUserList}
+
                 />
               </>
             )}
