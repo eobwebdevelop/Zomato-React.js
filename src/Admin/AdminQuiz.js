@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './CollapsibleQuiz.css';
@@ -37,8 +36,5 @@ class AdminQuiz extends Component {
   }
 }
 
-AdminQuiz.propTypes = {
-  editid: PropTypes.func.isRequired,
-  quiz: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
+
 export default AdminQuiz;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import QandA from './QandA';
@@ -123,27 +123,27 @@ class Challenge extends Component {
     );
   }
 }
-Challenge.propTypes = {
-  startOverallTimer: PropTypes.func.isRequired,
-  overallTime: PropTypes.number.isRequired,
-  checkScore: PropTypes.func.isRequired,
-  step: PropTypes.number.isRequired,
-  incrementQuizStep: PropTypes.func.isRequired,
-  postQuizResult: PropTypes.func.isRequired,
-  quizIDInPlay: PropTypes.number.isRequired,
-  userQuizAnswers: PropTypes.arrayOf.isRequired,
-  score: PropTypes.number.isRequired,
-  onClickAnswer: PropTypes.func.isRequired,
-  addUserInputToState: PropTypes.func.isRequired,
-  stopTimer: PropTypes.func.isRequired,
-  reduceQuizStep: PropTypes.func.isRequired,
-  questionPackage: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    user_type_id: PropTypes.number.isRequired,
-    language_id: PropTypes.number.isRequired,
-    product_id: PropTypes.number.isRequired,
-  }).isRequired).isRequired,
-};
+// Challenge.propTypes = {
+//   startOverallTimer: PropTypes.func.isRequired,
+//   overallTime: PropTypes.number.isRequired,
+//   checkScore: PropTypes.func.isRequired,
+//   step: PropTypes.number.isRequired,
+//   incrementQuizStep: PropTypes.func.isRequired,
+//   postQuizResult: PropTypes.func.isRequired,
+//   quizIDInPlay: PropTypes.number.isRequired,
+//   userQuizAnswers: PropTypes.func.isRequired,
+//   score: PropTypes.number.isRequired,
+//   onClickAnswer: PropTypes.func.isRequired,
+//   addUserInputToState: PropTypes.func.isRequired,
+//   stopTimer: PropTypes.func.isRequired,
+//   reduceQuizStep: PropTypes.func.isRequired,
+//   questionPackage: PropTypes.arrayOf(PropTypes.shape({
+//     id: PropTypes.number.isRequired,
+//     name: PropTypes.string.isRequired,
+//     user_type_id: PropTypes.number.isRequired,
+//     language_id: PropTypes.number.isRequired,
+//     product_id: PropTypes.number.isRequired,
+//   }).isRequired).isRequired,
+// };
 
 export default Challenge;

@@ -70,3 +70,4 @@ const QuizList = (props) => {
   );
 };
 export default QuizList;
+
