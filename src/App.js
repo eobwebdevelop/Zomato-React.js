@@ -747,7 +747,10 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizList onDelete={this.handleDeleteQuiz} />
+                <AdminQuizList 
+                  onDelete={this.handleDeleteQuiz}
+                  onQuizfound={this.handleQuizFound} 
+                  />
               </>
             )}
           />
@@ -764,13 +767,13 @@ class App extends Component {
           <Route
             exact
             path="/admin/quiz_editor/:id"
-            render={props => (
+            render={() => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizEditor onEdit={this.handleEditQuestion} 
-                quiz={quizzes.find(
-                  prod => prod.id === +props.match.params.id
-                )}/>
+                <AdminQuizEditor 
+                  onEdit={this.handleEditQuestion} 
+                  quizfound={quizfound}
+                  />
               </>
             )}
           />
