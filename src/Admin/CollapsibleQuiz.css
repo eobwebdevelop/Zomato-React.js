@@ -1,89 +1,79 @@
-
 /* The content within the collaspable area */
-  .Collapsible__contentInner {
-    padding: 10px;
-    border: 1px solid lightGrey;
-    border-top: 0;
-    background-color:#d3e3e5;  
-    p {
-      margin-bottom: 10px;
-      font-size: 14px;
-      line-height: 20px;
-    }
+.Collapsible__contentInner {
+  padding: 10px;
+  border: 1px solid lightGrey;
+  border-top: 0;
+  background-color: #d3e3e5;
+  p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
   }
-  
+}
+
 /* The link which when clicked opens the collapsable area */
-  .Collapsible__trigger {
-    display: block;
-    font-weight: 400;
-    text-decoration: none;
-    position: relative;
-    border: 1px solid white;
-    border-right: 1px solid white;
-    padding: 10px;
-    padding-right:0px;
-  }
-  
-  .CustomTriggerCSS {
-    color: #af5477;
-    background-color:#d3e3e5;
-    transition: background-color 200ms ease;
-  }
-  
-  .CustomTriggerCSS--open {
-    background-color: lightcoral;
-    color: white;
+.Collapsible__trigger {
+  display: block;
+  font-weight: 400;
+  text-decoration: none;
+  position: relative;
+  border: 1px solid white;
+  border-right: 1px solid white;
+  padding: 10px;
+  padding-right: 0px;
+}
 
-  }
-  
-  .Collapsible__custom-sibling {
-    padding: 5px;
-    font-size: 12px;
-    background-color: #CBB700;
-    color: black;
-  }
+.CustomTriggerCSS {
+  color: #af5477;
+  background-color: #d3e3e5;
+  transition: background-color 200ms ease;
+}
 
-  #color {
-    background-color:#d3e3e5;
-    align-items: center;
-  }
+.CustomTriggerCSS--open {
+  background-color: lightcoral;
+  color: white;
+}
 
-  
-  h1 {
-    text-align: center!important;
-    font-size: 30px;
-    margin-bottom: 50px;
-  }
-  #color .row {
-    height:100%;
-    border: 1px solid white;
-  }
+.Collapsible__custom-sibling {
+  padding: 5px;
+  font-size: 12px;
+  background-color: #cbb700;
+  color: black;
+}
 
-  .padding {
-    padding-right: 0px;
+#color {
+  background-color: #d3e3e5;
+  align-items: center;
+}
 
-  }
+#color .row {
+  height: 100%;
+  border: 1px solid white;
+}
 
-   .btn-list{
-    margin-top:5px;
-  }
+.padding {
+  padding-right: 0px;
+}
 
-  .btn-admin {
-    background-color: white;
-    color: #ec576b;
-    font-size: 10px;
-    font-weight: bold;
-    padding: 8px 12px;
-    border: 1px solid#ec576b;
-    border-radius: 5px;
-  }
+.btn-list {
+  margin-top: 5px;
+}
 
- .redborder{
-    border-right: 1px solid white;
-    height:100%;
-  }
+.btn-admin {
+  background-color: white;
+  color: #ec576b;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 8px 12px;
+  border: 1px solid#ec576b;
+  border-radius: 5px;
+}
 
-  .internal{
-    margin-bottom:3px;
-  }
+.redborder {
+  border-right: 1px solid white;
+  height: 100%;
+}
 
+.internal {
+  margin-bottom: 3px;
+}
