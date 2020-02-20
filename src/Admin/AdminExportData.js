@@ -1,11 +1,11 @@
-import React from "react";
-import { Container } from "react-bootstrap";
+import React from 'react';
+import { Container } from 'react-bootstrap';
 
-const AdminExportData = props => (
+const AdminExportData = () => (
   <div>
     <Container>
       <h1>Export Data</h1>
-      <hr></hr>
+      <hr />
       <p>Follow these download links to export the following as csv:</p>
 
       <ul>

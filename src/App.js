@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import { Redirect, Route, withRouter, matchPath } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
@@ -663,6 +663,33 @@ class App extends Component {
       });
     }
 
+    updateProductList = (prod) => {
+      this.setState(() => {
+        const updatedProd = this.state.products.map((item) => {
+            if(item.id === prod.id){
+              return prod; 
+            } return item 
+          });
+        return { products: updatedProd }
+      }, () => {
+        this.props.history.push('/admin/product_list');
+      });
+    }
+
+    updateRestaurantList = (res) => {
+      this.setState(() => {
+        const updatedRest = this.state.restaurants.map((item) => {
+            if(item.id === res.id){
+              return res; 
+            } return item 
+          });
+        return { restaurants: updatedRest }
+      }, () => {
+        this.props.history.push('/admin/restaurant_list');
+      });
+    }
+
+
   render() {
     const {
       currentLanguage,
@@ -681,6 +708,7 @@ class App extends Component {
       questionfound,
       langOptions
     } = this.state;
+   
 
     return (
       <LanguagesContext.Provider
@@ -776,7 +804,10 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizList onDelete={this.handleDeleteQuiz} />
+                <AdminQuizList 
+                  onDelete={this.handleDeleteQuiz}
+                  onQuizfound={this.handleQuizFound} 
+                  />
               </>
             )}
           />
@@ -793,13 +824,13 @@ class App extends Component {
           <Route
             exact
             path="/admin/quiz_editor/:id"
-            render={props => (
+            render={() => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizEditor onEdit={this.handleEditQuestion} 
-                quiz={quizzes.find(
-                  prod => prod.id === +props.match.params.id
-                )}/>
+                <AdminQuizEditor 
+                  onEdit={this.handleEditQuestion} 
+                  quizfound={quizfound}
+                  />
               </>
             )}
           />
@@ -879,6 +910,7 @@ class App extends Component {
                   restaurant={restaurants.find(
                     res => res.id === +props.match.params.id
                   )}
+                  updateRestaurantList={this.updateRestaurantList}
                   regions={regions}
                 />
               </>
@@ -930,6 +962,8 @@ class App extends Component {
                   product={products.find(
                     prod => prod.id === +props.match.params.id
                   )}
+                  updateProductList={this.updateProductList}
+
                 />
               </>
             )}

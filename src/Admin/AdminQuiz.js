@@ -21,13 +21,14 @@ class AdminQuiz extends Component {
               <div key={quest.id} className="col-7">
                 {quest.question}
               </div>
+              <div className="col" align="center">
               <Link to={`/admin/quiz_editor/${editid}/questions/${quest.id}`}>
-                <button className="col" type="submit">
+                <button className="internal btn-admin" type="submit">
                   Edit Question ►
                 </button>
                 {' '}
               </Link>
-
+              </div>
             </div>
           ))}
         </Container>
@@ -35,4 +36,6 @@ class AdminQuiz extends Component {
     );
   }
 }
+
+
 export default AdminQuiz;

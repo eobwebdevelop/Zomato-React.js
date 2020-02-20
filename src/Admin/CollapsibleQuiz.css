@@ -1,22 +1,14 @@
 
-.Collapsible {
-    background-color: $base;
-  }
-  
 /* The content within the collaspable area */
   .Collapsible__contentInner {
     padding: 10px;
-    border: 1px solid $lightGrey;
+    border: 1px solid lightGrey;
     border-top: 0;
-  
+    background-color:#d3e3e5;  
     p {
       margin-bottom: 10px;
       font-size: 14px;
       line-height: 20px;
-  
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
   }
   
@@ -27,7 +19,9 @@
     text-decoration: none;
     position: relative;
     border: 1px solid white;
+    border-right: 1px solid white;
     padding: 10px;
+    padding-right:0px;
   }
   
   .CustomTriggerCSS {
@@ -49,33 +43,38 @@
     color: black;
   }
 
+  #color {
+    background-color:#d3e3e5;
+    align-items: center;
+  }
 
-body {
-    background-color: ;
-    padding-top: 50px;
+  #color .row {
+    height:100%;
+    border: 1px solid white;
   }
-  
-  h1 {
-    color: white;
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 50px;
+
+  .padding {
+    padding-right: 0px;
   }
-  
-  h2 {
-    font-weight: 800;
-    text-transform: uppercase;
-    margin-top: 20px;
-    margin-bottom: 20px;
+
+   .btn-list{
+    margin-top:5px;
   }
-  
-  strong {
+
+  .btn-admin {
+    background-color: white;
+    color: #ec576b;
+    font-size: 10px;
     font-weight: bold;
+    padding: 8px 12px;
+    border: 1px solid#ec576b;
+    border-radius: 5px;
   }
-  
-  #root {
-    max-width: 960px;
-    margin-left: auto;
-    margin-right: auto;
+ .redborder{
+    border-right: 1px solid white;
+    height:100%;
   }
-  
+
+  .internal{
+    margin-bottom:3px;
+  }

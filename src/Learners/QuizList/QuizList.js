@@ -1,18 +1,18 @@
-import React, { useContext, useEffect } from "react";
-import { Container } from "react-bootstrap";
-import QuizCard from "./QuizCard";
-import LanguagesContext from "../../contexts/languages-context";
-import translations from "../../i18n/translations";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import QuizCard from './QuizCard';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
-const QuizList = props => {
+const QuizList = (props) => {
   useEffect(() => {
     props.refreshQuizState();
   }, []);
 
   const { currentLanguage } = useContext(LanguagesContext);
 
-  if (props.QuizList === undefined)
+  if (props.QuizList === undefined) {
     return (
       <Container>
         <h1>{translations[currentLanguage].QuizList.Title}</h1>
@@ -20,8 +20,9 @@ const QuizList = props => {
         <h1>{translations[currentLanguage].QuizList.Error}</h1>
       </Container>
     );
+  }
 
-  if (props.QuizList.length === 0) return <Container></Container>;
+  if (props.QuizList.length === 0) return <Container />;
 
   return (
     <>
@@ -29,14 +30,17 @@ const QuizList = props => {
         <Container>
           <div className="quizlist-container">
             <div className="parent-documentationhero">
-              <div className="div1-documentationhero-image"></div>
+              <div className="div1-documentationhero-image" />
               <div className="div2-documentationhero-text">
-                {" "}
-                <h1> {translations[currentLanguage].QuizList.HeroTitle}</h1>
+                {' '}
+                <h1>
+                  {' '}
+                  {translations[currentLanguage].QuizList.HeroTitle}
+                </h1>
                 <p>{translations[currentLanguage].QuizList.HeroText}</p>
               </div>
               <div className="div3-documentationhero-button">
-                {" "}
+                {' '}
                 <Link to="/learners/documentation">
                   <button type="submit" className="btn">
                     {translations[currentLanguage].QuizList.LinkD}

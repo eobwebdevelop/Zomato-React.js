@@ -1,4 +1,4 @@
-import React, {Component, Redirect} from 'react';
+import React, {Component} from 'react';
 import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom'
 import Select from 'react-select';

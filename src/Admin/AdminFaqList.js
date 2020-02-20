@@ -33,7 +33,7 @@ const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
               <Link to={`/admin/faq_editor/${el.id}`}>
                 <button
                   type="submit"
-                  className="view-quizzes-page-links-side-by-side"
+                  className="view-quizzes-page-links-side-by-side btn-admin"
                   onClick={() => onEdit(el)}
                 >
                   Edit FAQ ►
@@ -43,7 +43,7 @@ const AdminFaqList = ({ adminFaq, onEdit, onDelete }) => (
             <td>
               <button
                 type="submit"
-                className="view-quizzes-page-links-side-by-side"
+                className="view-quizzes-page-links-side-by-side btn-admin"
                 onClick={() => { if (window.confirm('Are you sure you wish to delete this FAQ?')) { onDelete(el.id); } }}
               >
                 Delete FAQ ►

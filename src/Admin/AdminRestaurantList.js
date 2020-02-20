@@ -39,7 +39,7 @@ const AdminRestaurantList = ({ restaurants, onDelete }) => (
               <td>{res.region}</td>
               <td>
                 <Link to={`/admin/restaurant_editor/${res.id}`}>
-                  <button type="submit" className="btn-list">
+                  <button type="submit" className="btn-admin">
                     Edit Restaurant ►
                   </button>
                   {' '}
@@ -48,7 +48,7 @@ const AdminRestaurantList = ({ restaurants, onDelete }) => (
               <td>
                 <button
                   type="submit"
-                  className="btn-list"
+                  className="btn-admin"
                   onClick={() => { if (window.confirm('Are you sure you wish to delete this restaurant?')) { onDelete(res.id); } }}
                 >
                   Delete Restaurant ►
