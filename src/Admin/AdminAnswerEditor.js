@@ -4,14 +4,15 @@ import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const AdminAnswerEditor = ({ answers, answeroptions, updateAnswer, updateChecked, correct_answer_id}) => (
+const AdminAnswerEditor = ({answers, answeroptions, updateAnswer, updateChecked, correct_answer_id,}) => (
   <div>
     <Container>
       {answers && answers.map((ans, i) => (
-        <div className="row">
-          <div key={ans.id} className="col">
-            Answer Option:
+        <div key={ans.id} className="row">
+          Answer Option:
+          <div className="col-9">
             <textarea
+              className="answerOption"
               type="text"
               name={`answer_option_${i + 1}`}
               value={answeroptions[i]}
@@ -19,17 +20,26 @@ const AdminAnswerEditor = ({ answers, answeroptions, updateAnswer, updateChecked
                 updateAnswer(e, ans.id);
               }}
             />
-            <br />
-            Tick the correct answer?
-            <input
-              type="radio"
-              checked={+correct_answer_id == +ans.id ? true : false}
-              name="correct_answer_id"
-              value={ans.id}
-              onClick={(e) => {
-                updateChecked(e, ans.id);
-              }}
-            />
+          </div>
+          <div className="col">
+            <div className="row">
+              <div className="col">
+                <input
+                  className="radioQuiz"
+                  type="radio"
+                  id="correctAns"
+                  checked={+correct_answer_id == +ans.id}
+                  name="correct_answer_id"
+                  value={ans.id}
+                  onClick={(e) => {
+                    updateChecked(e, ans.id);
+                  }}
+                  />
+              </div>
+              <div className="col-11">
+                <label for="correctAns" className="labelQuiz"> Correct Answer? </label>
+              </div>
+            </div>
           </div>
         </div>
       ))}

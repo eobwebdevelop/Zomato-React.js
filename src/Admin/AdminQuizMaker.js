@@ -73,7 +73,7 @@ class AdminQuizMaker extends Component {
           <h1>Create/Edit Quiz</h1>
           <hr />
           <p>
-          You are creating a new quiz, please save each Quiz and Question as you make them. 
+          You are creating a new quiz, please save each Quiz and Question as you make them. Select only one correct Answer.
           </p>
           <form onSubmit={this.handleSubmit}>
           Quiz Name:
