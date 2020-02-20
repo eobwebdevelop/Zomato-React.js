@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import DocumentationItem from './DocumentationItem';
 import NoDocumentation from './NoDocumentation';
 
-
 const DocumentationList = ({ docs }) => {
   const displayOptions = () => {
     if (docs[0]) {
