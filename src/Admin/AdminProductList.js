@@ -38,7 +38,7 @@ const AdminProductList = ({ products, onDelete }) => (
               <td>{prod.language_id}</td>
               <td>
                 <Link to={`/admin/product_editor/${prod.id}`}>
-                  <button type="submit" className="btn-list">
+                  <button type="submit" className="btn-admin">
                     Edit Product ►
                   </button>
                   {' '}
@@ -47,7 +47,7 @@ const AdminProductList = ({ products, onDelete }) => (
               <td>
                 <button
                   type="submit"
-                  className="btn-list"
+                  className="btn-admin"
                   onClick={() => { if (window.confirm('Are you sure you wish to delete this product?')) { onDelete(prod.id); } }}
                 >
                   Delete Product ►

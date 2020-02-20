@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import { Redirect, Route, withRouter, matchPath } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
@@ -11,12 +11,12 @@ import LearnersAuth from "./Routers/LearnersAuth";
 import Learners from "./Routers/Learners";
 
 // Admin portal imports
-import AdminNav from "./Admin/AdminNav.js";
-import AdminQuizList from "./Admin/AdminQuizList";
-import AdminQuizMaker from "./Admin/AdminQuizMaker";
-import AdminQuizEditor from "./Admin/AdminQuizEditor";
+import AdminNav from "./Admin/AdminNav.js"; 
+import AdminQuizList from "./Admin/AdminQuizList"; 
+import AdminQuizMaker from "./Admin/AdminQuizMaker"; 
+import AdminQuizEditor from "./Admin/AdminQuizEditor"; 
 import AdminUserEditor from "./Admin/AdminUserEditor";
-import AdminDocList from "./Admin/AdminDocList";
+import AdminDocList from "./Admin/AdminDocList"; 
 import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminFaqList from "./Admin/AdminFaqList";
 import AdminFaqEditor from "./Admin/AdminFaqEditor";
@@ -93,7 +93,7 @@ class App extends Component {
         language_id: undefined, 
         language_name: '',
       },
-
+      flash: ''
     };
 
     this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
@@ -486,6 +486,32 @@ class App extends Component {
     }
   }
 
+  handleLogin = (email, password) => {
+    const { currentLanguage } = this.state;
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Preferred-Language": currentLanguage
+      }),
+      body: JSON.stringify({ email, password })
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          flash: res.flash,
+          token: res.token ? res.token : '',
+        }, () => {
+          if(res.token) {
+            this.props.history.push("/learners/quiz_list");
+            this.getQuizzesByLang();
+            localStorage.setItem("token", JSON.stringify(res.token));
+          }
+        })
+      });
+  };
+
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
       method: "DELETE",
@@ -637,6 +663,44 @@ class App extends Component {
       });
     }
 
+    updateProductList = (prod) => {
+      this.setState(() => {
+        const updatedProd = this.state.products.map((item) => {
+            if(item.id === prod.id){
+              return prod; 
+            } return item 
+          });
+        return { products: updatedProd }
+      }, () => {
+        this.props.history.push('/admin/product_list');
+      });
+    }
+
+    updateRestaurantList = (res) => {
+      this.setState(() => {
+        const updatedRest = this.state.restaurants.map((item) => {
+            if(item.id === res.id){
+              return res; 
+            } return item 
+          });
+        return { restaurants: updatedRest }
+      }, () => {
+        this.props.history.push('/admin/restaurant_list');
+      });
+    }
+
+    updateUserList = (user) => {
+      this.setState(() => {
+        const updatedUser = this.state.users.map((item) => {
+            if(item.id === user.id){
+              return user; 
+            } return item 
+          });
+        return { users: updatedUser }
+      }, () => {
+        this.props.history.push('/admin/user_list');
+      });
+    }
   render() {
     const {
       currentLanguage,
@@ -655,6 +719,7 @@ class App extends Component {
       questionfound,
       langOptions
     } = this.state;
+   
 
     return (
       <LanguagesContext.Provider
@@ -667,6 +732,9 @@ class App extends Component {
             quizzesAreLoaded
           }}
         >
+          {/* ADMIN */}
+
+
           <Route
             exact
             path="/admin"
@@ -723,7 +791,7 @@ class App extends Component {
                 />
               </>
             )}
-          />
+          /> 
           <Route
             path="/admin/faq_editor"
             render={() => (
@@ -747,7 +815,10 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizList onDelete={this.handleDeleteQuiz} />
+                <AdminQuizList 
+                  onDelete={this.handleDeleteQuiz}
+                  onQuizfound={this.handleQuizFound} 
+                  />
               </>
             )}
           />
@@ -764,13 +835,13 @@ class App extends Component {
           <Route
             exact
             path="/admin/quiz_editor/:id"
-            render={props => (
+            render={() => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizEditor onEdit={this.handleEditQuestion} 
-                quiz={quizzes.find(
-                  prod => prod.id === +props.match.params.id
-                )}/>
+                <AdminQuizEditor 
+                  onEdit={this.handleEditQuestion} 
+                  quizfound={quizfound}
+                  />
               </>
             )}
           />
@@ -812,6 +883,8 @@ class App extends Component {
                   regions={regions}
                   restaurants={restaurants}
                   user={users.find(user => user.id === +props.match.params.id)}
+                  updateUserList={this.updateUserList}
+
                 />
               </>
             )}
@@ -850,6 +923,7 @@ class App extends Component {
                   restaurant={restaurants.find(
                     res => res.id === +props.match.params.id
                   )}
+                  updateRestaurantList={this.updateRestaurantList}
                   regions={regions}
                 />
               </>
@@ -901,6 +975,8 @@ class App extends Component {
                   product={products.find(
                     prod => prod.id === +props.match.params.id
                   )}
+                  updateProductList={this.updateProductList}
+
                 />
               </>
             )}
@@ -929,11 +1005,11 @@ class App extends Component {
           {/* Learnes Auth */}
           <Route
             exact
-            render={() => (
-              <>
-                <LearnersAuth restaurants={this.state.restaurants} />
-              </>
-            )}
+            render={() => <LearnersAuth 
+              restaurants={this.state.restaurants} 
+              onLogin={this.handleLogin}
+              flash={this.state.flash}
+            />}
           />
           {/* //Learnes Auth */}
           {/*Learners */}

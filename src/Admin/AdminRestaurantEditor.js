@@ -16,28 +16,27 @@ class AdminRestaurantEditor extends Component  {
       }
     }
 
-    componentDidUpdate(prevProps) {
-      if (!prevProps.restaurant && this.props.restaurant) {
-        this.setState({
-          name: this.props.restaurant.name,
-          region_id: this.props.restaurant.region_id,
-          id: this.props.restaurant.id,
-        })
-      }
-    }
-
-    updateRegion = (item) => {
+  componentDidUpdate(prevProps) {
+    if (!prevProps.restaurant && this.props.restaurant) {
       this.setState({
-      region_id: item.value,
-      displayregion:item })
+        name: this.props.restaurant.name,
+        region_id: this.props.restaurant.region_id,
+        id: this.props.restaurant.id,
+      })
     }
+  }
+
+  updateRegion = (item) => {
+    this.setState({
+    region_id: item.value,
+    displayregion:item })
+  }
 
   updateName = (event) => {
     this.setState({name: event.target.value})
   }
 
   handlerSubmit = (e) => {
-    
     const { name, region_id, id} = this.state
     e.preventDefault();
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/restaurant/edit`,
@@ -48,11 +47,16 @@ class AdminRestaurantEditor extends Component  {
         }),
         body:  JSON.stringify({id, name, region_id}),
     })
-    .then(res => {
-      if(res.status === 200){ 
-        this.props.history.push('/admin/restaurant_list')
-      }}
-    ) 
+    .then(res  => {
+      if (res.status === 200) {
+        const editedRestaurant = {
+          id: this.state.id,
+          region_id: this.state.language_id,
+          name: this.state.name,
+        }
+        this.props.updateRestaurantList(editedRestaurant);
+      }
+    })
   }
 
   render() {

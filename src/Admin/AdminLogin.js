@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import './AdminDocEditor.css';
@@ -115,13 +114,6 @@ class AdminLogin extends Component {
                   </button>
                   {this.state.flash}
                 </form>
-              </div>
-              <div className="forgotpassword-signup">
-                {/* future feature */}
-                {/* <Link to="/learners/login/forgot_password">
-                  {translations[currentLanguage].Login.Forgot}
-                  <br />
-                </Link> */}
               </div>
             </div>
           </Container>

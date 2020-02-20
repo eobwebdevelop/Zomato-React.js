@@ -47,7 +47,7 @@ class Documentation extends Component {
                 {translations[currentLanguage].Documentation.Button}
               </button>
               <input 
-                placeholder="Search"
+                placeholder={translations[currentLanguage].Documentation.PlaceholderS}
                 type="text" 
                 value={query} 
                 onChange={this.handleChange} 

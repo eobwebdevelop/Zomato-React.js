@@ -41,7 +41,7 @@ const AdminUserList = ({ users, onDelete }) => (
               <td>{user.user_type_id}</td>
               <td>
                 <Link to={`/admin/user_editor/${user.id}`}>
-                  <button type="submit" className="btn-list">
+                  <button type="submit" className="btn-admin">
                     Edit User ►
                   </button>
                 </Link>
@@ -49,7 +49,7 @@ const AdminUserList = ({ users, onDelete }) => (
               <td>
                 <button
                   type="submit"
-                  className="btn-list"
+                  className="btn-admin"
                   onClick={() => { if (window.confirm('Are you sure you wish to delete this user?')) { onDelete(user.id); } }}
                 >
                   Delete User ►

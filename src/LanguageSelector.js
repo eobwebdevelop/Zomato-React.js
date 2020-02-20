@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useContext } from 'react';
+import { withRouter } from 'react-router-dom';
 import LanguagesContext, {
-  availableLanguages
-} from "./contexts/languages-context";
-import translations from "./i18n/translations";
+  availableLanguages,
+} from './contexts/languages-context';
+import translations from './i18n/translations';
 
 const LanguageSelector = ({ location }) => {
   const { currentLanguage, onChangeLanguage } = useContext(LanguagesContext);
-  if (location.pathname === "/learners/quiz_list/quiz") return null;
-  if (location.pathname.split("/")[1] === "admin") return null;
+  if (location.pathname === '/learners/quiz_list/quiz') return null;
+  if (location.pathname.split('/')[1] === 'admin') return null;
 
   return (
     <>
@@ -18,7 +18,7 @@ const LanguageSelector = ({ location }) => {
         onChange={onChangeLanguage}
         className="ui labeled search dropdown icon changelanguageselector"
       >
-        {Object.values(availableLanguages).map(lang => (
+        {Object.values(availableLanguages).map((lang) => (
           <option key={lang} value={lang}>
             {translations[lang].Full}
           </option>
@@ -27,5 +27,6 @@ const LanguageSelector = ({ location }) => {
     </>
   );
 };
+
 
 export default withRouter(LanguageSelector);

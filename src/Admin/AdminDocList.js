@@ -34,7 +34,7 @@ const AdminDocList = ({ documentation, onDelete, onDocEdit }) => (
                 <Link to={`/admin/doc_editor/${doc.id}`}>
                   <button
                     type="submit"
-                    className="view-quizzes-page-links-side-by-side"
+                    className="view-quizzes-page-links-side-by-side btn-admin"
                     onClick={() => onDocEdit(doc)}
                   >
                     Edit Documentation ►
@@ -44,7 +44,7 @@ const AdminDocList = ({ documentation, onDelete, onDocEdit }) => (
               <td>
                 <button
                   type="submit"
-                  className="view-quizzes-page-links-side-by-side"
+                  className="view-quizzes-page-links-side-by-side btn-admin"
                   onClick={() => { if (window.confirm('Are you sure you wish to delete this documentation?')) { onDelete(doc.id); } }}
                 >
                   Delete Documentation ►

@@ -1,24 +1,25 @@
-import React from "react";
-import NextButton from "./NextButton";
-import AnswerButton from "./AnswerButton";
-import BackButton from "./BackButton";
-import moment from "moment";
-import { Line } from "rc-progress";
+import React from 'react';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import { Line } from 'rc-progress';
+import NextButton from './NextButton';
+import AnswerButton from './AnswerButton';
+
 
 class QandA extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedAnswer: {},
-      selectedAnswerNumber: {}
+      selectedAnswerNumber: {},
     };
     this.answerSelect = this.answerSelect.bind(this);
   }
 
   answerSelect(userInput) {
-    this.setState(state => ({
+    this.setState(() => ({
       selectedAnswer: userInput,
-      selectedAnswerNumber: userInput.answerNumber
+      selectedAnswerNumber: userInput.answerNumber,
     }));
   }
 
@@ -26,29 +27,27 @@ class QandA extends React.Component {
     const {
       questionPackage,
       step,
-      onClickAnswer,
       addUserInputToState,
       isVisible,
       stopTimer,
       quizIDInPlay,
       checkScore,
       incrementQuizStep,
-      reduceQuizStep,
       postQuizResult,
-      overallTime
+      overallTime,
     } = this.props;
 
     if (!isVisible) return null;
 
     return (
       <>
-        <div class="questionTitleContainer">
+        <div className="questionTitleContainer">
           <h1 id="questiontitle">{questionPackage.question}</h1>
         </div>
 
-        <div class="answerscontainer">
+        <div className="answerscontainer">
           {questionPackage.answers.map((answer, i) => (
-            <div class="answercontainer">
+            <div className="answercontainer">
               <AnswerButton
                 answerNumber={i}
                 questionText={questionPackage.question}
@@ -64,16 +63,17 @@ class QandA extends React.Component {
                 answerSelect={this.answerSelect}
                 styleHighlight={
                   i === this.state.selectedAnswerNumber
-                    ? "activeAnswer"
-                    : "inactiveAnswer"
+                    ? 'activeAnswer'
+                    : 'inactiveAnswer'
                 }
-              />{" "}
+              />
+              {' '}
             </div>
           ))}
         </div>
 
-        <div class="grid-quizfooter">
-          <div class="grid1-progress">
+        <div className="grid-quizfooter">
+          <div className="grid1-progress">
             <Line
               percent={step * 10}
               strokeWidth="2.5"
@@ -83,18 +83,22 @@ class QandA extends React.Component {
               trailWidth="1.5"
             />
           </div>
-          <div class="grid1-timeandquestionnumber">
+          <div className="grid1-timeandquestionnumber">
             <h3>
-              <span class="question-number">
-                Q{step + 1} {"      "}{" "}
+              <span className="question-number">
+                Q
+                {step + 1}
+                {' '}
+                {'      '}
+                {' '}
               </span>
-              <span class="quiz-time">
-                {moment.utc(overallTime * 1000).format("mm:ss")}
+              <span className="quiz-time">
+                {moment.utc(overallTime * 1000).format('mm:ss')}
               </span>
             </h3>
           </div>
-          <div class="grid1-previousbutton"> </div>
-          <div class="grid1-nextbutton">
+          <div className="grid1-previousbutton"> </div>
+          <div className="grid1-nextbutton">
             <NextButton
               addUserInputToState={addUserInputToState}
               step={step}
@@ -111,4 +115,17 @@ class QandA extends React.Component {
     );
   }
 }
+QandA.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+  questionPackage: PropTypes.string.isRequired,
+  step: PropTypes.number.isRequired,
+  addUserInputToState: PropTypes.func.isRequired,
+  stopTimer: PropTypes.func.isRequired,
+  quizIDInPlay: PropTypes.number.isRequired,
+  checkScore: PropTypes.func.isRequired,
+  incrementQuizStep: PropTypes.func.isRequired,
+  postQuizResult: PropTypes.func.isRequired,
+  overallTime: PropTypes.number.isRequired,
+};
+
 export default QandA;

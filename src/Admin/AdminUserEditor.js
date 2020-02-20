@@ -73,11 +73,20 @@ class AdminUserEditor extends Component {
         }),
         body:  JSON.stringify({email, first_name, last_name, phone_number, user_type_id, id}),
     })
-    .then(res => {
-      if(res.status === 200){ 
-        this.props.history.push('/admin/user_list')
-      }}
-    ) 
+    .then(res  => {
+      if (res.status === 200) {
+        const editedUser = {
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          email: this.state.email,
+          password: this.state.password,
+          phone_number: this.state.phone_number,
+          id: this.state.id,
+          user_type_id: this.state.user_type_id,
+        }
+        this.props.updateUserList(editedUser);
+      }
+    })
   }
 
   updateUserType = (item) => {

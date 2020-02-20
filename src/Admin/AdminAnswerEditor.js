@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './AdminQuizMaker.css';
 import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-const AdminAnswerEditor = ({answers, answeroptions, updateAnswer, updateChecked, correct_answer_id,}) => (
+const AdminAnswerEditor = ({
+  answers, answeroptions, updateAnswer, updateChecked, correct_answer_id,
+}) => (
   <div>
     <Container>
       {answers && answers.map((ans, i) => (
@@ -34,10 +36,10 @@ const AdminAnswerEditor = ({answers, answeroptions, updateAnswer, updateChecked,
                   onClick={(e) => {
                     updateChecked(e, ans.id);
                   }}
-                  />
+                />
               </div>
               <div className="col-11">
-                <label for="correctAns" className="labelQuiz"> Correct Answer? </label>
+                <label htmlFor="correctAns" className="labelQuiz"> Correct Answer? </label>
               </div>
             </div>
           </div>
@@ -48,7 +50,9 @@ const AdminAnswerEditor = ({answers, answeroptions, updateAnswer, updateChecked,
 );
 
 AdminAnswerEditor.propTypes = {
+  updateChecked: PropTypes.func.isRequired,
   updateAnswer: PropTypes.func.isRequired,
+  correct_answer_id: PropTypes.arrayOf(PropTypes.number).isRequired,
   answers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
