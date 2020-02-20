@@ -6,7 +6,7 @@ import Collapsible from 'react-collapsible';
 import AdminQuiz from './AdminQuiz';
 import QuizzesContext from '../contexts/quiz-context';
 
-const AdminQuizList = ({ onDelete, onQuizfound }) => {
+const AdminQuizList = ({ onDelete, onQuizfound, }) => {
   const { quizzes, quizzesAreLoaded } = React.useContext(
     QuizzesContext,
   );
@@ -49,16 +49,16 @@ const AdminQuizList = ({ onDelete, onQuizfound }) => {
                     Delete Quiz ►
                   </button>
                 </div>
-                <div className="col"  align="center">
-                    <Link to={`/admin/quiz_editor/${q.id}`}>
-                      <button
-                        type="submit"
-                        className="btn-list btn-admin"
-                        onClick={() => (onQuizfound(q.id))}
-                      >
-                        Edit Quiz Name ►
-                      </button>
-                    </Link>
+                <div className="col" align="center">
+                  <Link to={`/admin/quiz_editor/${q.id}`}>
+                    <button
+                      type="submit"
+                      className="btn-list btn-admin"
+                      onClick={() => (onQuizfound(q.id))}
+                    >
+                      Edit Quiz Name ►
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
