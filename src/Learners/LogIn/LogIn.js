@@ -13,7 +13,6 @@ class LogIn extends Component {
       emailError: "",
       password: "",
       passwordError: "",
-      flash: ""
     };
   }
 
@@ -47,33 +46,14 @@ class LogIn extends Component {
     return isError;
   };
 
-  handlerSubmit = (e, currentLanguage) => {
+  handleLogin = (e, currentLanguage) => {
     e.preventDefault();
     const { email, password } = this.state;
+    const { onLogin } = this.props;
     const err = this.validate(currentLanguage);
 
-    if (!err) {
-      fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
-        method: "POST",
-        headers: new Headers({
-          "Content-Type": "application/json",
-          "Preferred-Language": currentLanguage
-        }),
-        body: JSON.stringify({ email, password })
-      })
-        .then(res => res.json())
-        .then(res =>
-          this.setState({ flash: res.flash }, () => {
-            if (res.token) {
-              localStorage.setItem("token", JSON.stringify(res.token));
-              this.props.history.push("/learners/quiz_list");
-            } else if (res.status === 201) {
-              setTimeout(() => {
-                this.props.history.push("/learners/quiz_list");
-              }, 2000);
-            }
-          })
-        );
+    if(!err) {
+      onLogin(email, password);
     }
   };
 
@@ -88,7 +68,7 @@ class LogIn extends Component {
                   {translations[currentLanguage].Login.Title}
                 </h1>
                 <hr />
-                <form onSubmit={e => this.handlerSubmit(e, currentLanguage)}>
+                <form onSubmit={e => this.handleLogin(e, currentLanguage)}>
                   <input
                     type="email"
                     name="email"
@@ -112,7 +92,7 @@ class LogIn extends Component {
                   <button type="submit" className="btn-login">
                     {translations[currentLanguage].Login.ButtonL}
                   </button>
-                  {this.state.flash}
+                  {this.props.flash}
                 </form>
               </div>
               <div className="forgotpassword-signup">

@@ -27,15 +27,15 @@ const QuizList = props => {
     <>
       <div>
         <Container>
-          <div class="quizlist-container">
-            <div class="parent-documentationhero">
-              <div class="div1-documentationhero-image"></div>
-              <div class="div2-documentationhero-text">
+          <div className="quizlist-container">
+            <div className="parent-documentationhero">
+              <div className="div1-documentationhero-image"></div>
+              <div className="div2-documentationhero-text">
                 {" "}
                 <h1> {translations[currentLanguage].QuizList.HeroTitle}</h1>
                 <p>{translations[currentLanguage].QuizList.HeroText}</p>
               </div>
-              <div class="div3-documentationhero-button">
+              <div className="div3-documentationhero-button">
                 {" "}
                 <Link to="/learners/documentation">
                   <button type="submit" className="btn">
@@ -66,3 +66,4 @@ const QuizList = props => {
   );
 };
 export default QuizList;
+
