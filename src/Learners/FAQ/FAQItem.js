@@ -3,37 +3,37 @@ import ReactHtmlParser from 'react-html-parser';
 import PropTypes from 'prop-types';
 
 
-const DocumentationItem = ({ doc }) => {
-  const [showAllDoc, setShowAllDoc] = useState(false);
+const FaqItem = ({ faq }) => {
+  const [showAllFaq, setShowAllFaq] = useState(false);
 
   const onClick = () => {
-    setShowAllDoc(!showAllDoc);
+    setShowAllFaq(!showAllFaq);
   };
 
   const buttonText = () => {
-    if (showAllDoc) {
+    if (showAllFaq) {
       return <p> Hide </p>;
     }
     return <p> Read More </p>;
   };
 
   const contentText = () => {
-    if (showAllDoc) {
-      return doc.content;
-    } if (doc.content.length > 300) {
-      return `${doc.content.substring(0, 300)}...`;
-    } return doc.content.substring(0, 300);
+    if (showAllFaq) {
+      return faq.content;
+    } if (faq.content.length > 300) {
+      return `${(faq.content.substring(0, 300))}...`;
+    } return faq.content.substring(0, 300);
   };
 
   const pickClass = () => {
-    if (doc.content.length < 300) {
+    if (faq.content.length < 300) {
       return 'hidden';
     } return 'more-btn';
   };
 
   return (
-    <article key={doc.id} className="single-doc">
-      <h3>{doc.title}</h3>
+    <article key={faq.id} className="single-doc">
+      <h3>{faq.faq_question}</h3>
       <div>{ReactHtmlParser(contentText())}</div>
       <button
         type="submit"
@@ -46,11 +46,11 @@ const DocumentationItem = ({ doc }) => {
   );
 };
 
-DocumentationItem.propTypes = {
-  doc: PropTypes.shape({
+FaqItem.propTypes = {
+  faq: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
+    faq_question: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
   }).isRequired,
 };
-export default DocumentationItem;
+export default FaqItem;

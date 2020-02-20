@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DocumentationItem = () => (
+const NoDocumentation = () => (
   <h1> No documentation was found</h1>
 );
-export default DocumentationItem;
+export default NoDocumentation;
