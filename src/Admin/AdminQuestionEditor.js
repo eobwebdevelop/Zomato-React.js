@@ -41,6 +41,10 @@ class AdminQuestionEditor extends Component {
                 'Content-Type':  'application/json'
         }),
         body:  JSON.stringify({question, quiz_id, id, answers, correct_answer_id}),
+    }).then(res  => {
+      if (res.status === 200) {
+        this.props.updateQuizList();
+      }
     })
   }
 

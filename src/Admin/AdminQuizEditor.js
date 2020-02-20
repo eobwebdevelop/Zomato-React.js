@@ -17,6 +17,9 @@ class AdminQuizEditor extends Component {
       this.setState({
         name: this.props.quizfound.name,
         id: this.props.quizfound.id,
+        language_id: this.props.quizfound.language_id,
+        product_id: this.props.quizfound.product_id,
+        user_type_id: this.props.quizfound.user_type_id,
       })
   }
   
@@ -35,15 +38,14 @@ class AdminQuizEditor extends Component {
         }),
         body:  JSON.stringify({name, id}),
     })
-    .then(res => {
-      if(res.status === 200){
-        this.props.history.push('/admin/quiz_list')
-      }}
-    ) 
+    .then(res  => {
+      if (res.status === 200) {
+        this.props.updateQuizList();
+      }
+    })
   }
 
   render() {
-    console.log(this.state.name)
     return (
         <Container>
             <div className="formparentcontainer">

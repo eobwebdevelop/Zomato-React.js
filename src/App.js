@@ -701,6 +701,11 @@ class App extends Component {
         this.props.history.push('/admin/user_list');
       });
     }
+    updateQuizList = () => {
+      this.getQuizzes();
+      this.props.history.push('/admin/quiz_list');
+    }
+
   render() {
     const {
       currentLanguage,
@@ -841,6 +846,7 @@ class App extends Component {
                 <AdminQuizEditor 
                   onEdit={this.handleEditQuestion} 
                   quizfound={quizfound}
+                  updateQuizList={this.updateQuizList}
                   />
               </>
             )}
@@ -858,6 +864,7 @@ class App extends Component {
                   onQuizfound={this.handleQuizFound}
                   onQuestionfound={this.handleQuestionFound}
                   quizzesAreLoaded={quizzesAreLoaded}
+                  updateQuizList={this.updateQuizList}
                 />
               </>
             )}
