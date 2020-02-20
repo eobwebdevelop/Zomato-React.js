@@ -39,11 +39,11 @@ class AdminRestaurantCreator extends Component  {
         }),
         body:  JSON.stringify({name, region_id}),
     })
-    .then(res => {
-          if(res.status === 200){ 
-            this.props.history.push('/admin/restaurant_list')
-          }}
-        )
+    .then(res  => {
+      if (res.status === 200) {
+        this.props.updateRestaurantCreated();
+      }
+    })
   }
 
   render() {

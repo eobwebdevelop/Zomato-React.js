@@ -705,6 +705,14 @@ class App extends Component {
       this.getQuizzes();
       this.props.history.push('/admin/quiz_list');
     }
+    updateProductCreated = () => {
+      this.getProducts();
+      this.props.history.push('/admin/product_list');
+    }
+    updateRestaurantCreated = () => {
+      this.getRestaurants();
+      this.props.history.push('/admin/restaurant_list');
+    }
 
   render() {
     const {
@@ -833,7 +841,9 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizMaker products={products} />
+                <AdminQuizMaker 
+                products={products}
+                updateQuizList={this.updateQuizList} />
               </>
             )}
           />
@@ -916,7 +926,8 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminRestaurantCreator regions={regions} />
+                <AdminRestaurantCreator regions={regions}
+                updateRestaurantCreated={this.updateRestaurantCreated} />
               </>
             )}
           />
@@ -956,7 +967,8 @@ class App extends Component {
             render={() => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminProductCreator langOptions={langOptions} />
+                <AdminProductCreator langOptions={langOptions}
+                 updateProductCreated={this.updateProductCreated} />
               </>
             )}
           />
