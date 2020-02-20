@@ -9,39 +9,31 @@ class AdminQuizEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: '',
       name: '',
-      language_id: '',
-      user_type_id: '',
-      product_id: '',
-      id: '',
     }
   };
-
-
-  updatequestion = (event) => {
-    this.setState({queston: event.target.value})
-  }
 
   updateName = (event) => {
     this.setState({name: event.target.value})
   }
 
   handlerSubmit = (e) => {
-    const {questions, name, id} = this.state
+    const {name} = this.state
+    const {id } = this.props.match.params 
+    console.log(id)
     e.preventDefault();
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/edit`,
     {
-        method:  'PUT',
+        method:  'POST',
         headers:  new Headers({
                 'Content-Type':  'application/json'
         }),
-        body:  JSON.stringify({questions, name, id}),
+        body:  JSON.stringify({name, id}),
     })
-    .then(res  =>  res.json())
   }
 
   render() {
+
     return (
         <Container>
             <div className="formparentcontainer">
@@ -50,7 +42,6 @@ class AdminQuizEditor extends Component {
             <form className="quiz-form" onSubmit={this.handlerSubmit}>
               <h5> Fill in the Quiz name </h5>
               <input type="text" name="name" value={this.state.name} required onChange={this.updateName} /> 
-              <input type="text" name="name" placeholder= 'Correct Answer' required onChange={this.updateCorrectAnswer} />  
               <button type="submit" class="btn-login">
                   Submit
               </button>

@@ -767,7 +767,10 @@ class App extends Component {
             render={props => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizEditor onEdit={this.handleEditQuestion} />
+                <AdminQuizEditor onEdit={this.handleEditQuestion} 
+                quiz={quizzes.find(
+                  prod => prod.id === +props.match.params.id
+                )}/>
               </>
             )}
           />
