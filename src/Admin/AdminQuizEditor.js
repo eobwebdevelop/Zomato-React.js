@@ -20,7 +20,6 @@ class AdminQuizEditor extends Component {
   handlerSubmit = (e) => {
     const {name} = this.state
     const {id } = this.props.match.params 
-    console.log(id)
     e.preventDefault();
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/quiz/edit`,
     {

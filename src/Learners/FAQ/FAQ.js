@@ -24,7 +24,7 @@ class Faq extends Component {
     if (this.state.query === "") {
       return true;
     }
-    return faq.title.toLowerCase().match(query);
+    return faq.faq_question.toLowerCase().match(query);
   };
 
   render() {
@@ -35,7 +35,7 @@ class Faq extends Component {
       <LanguagesContext.Consumer>
         {({ currentLanguage }) => (
           <Container>
-            <h1>{translations[currentLanguage].Faq.Title}</h1>
+            <h1>{translations[currentLanguage].FAQ.Title}</h1>
             <hr />
             <div className="search-bar">
             {/* EW: This button goes back, not to home. This is necessary in the user flow when taking the quiz: They go from results => documentation and need to be able to back to their results.*/}
@@ -44,7 +44,7 @@ class Faq extends Component {
                 className="btn"
                 onClick={() => this.props.history.goBack()}
               >
-                {translations[currentLanguage].Faq.Button}
+                {translations[currentLanguage].FAQ.Button}
               </button>
               <input 
                 placeholder="Search"

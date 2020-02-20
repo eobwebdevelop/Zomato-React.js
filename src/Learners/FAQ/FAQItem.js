@@ -4,36 +4,37 @@ import PropTypes from 'prop-types';
 
 
 const FaqItem = ({ faq }) => {
-  const [showAllDoc, setShowAllDoc] = useState(false);
+  const [showAllFaq, setShowAllFaq] = useState(false);
 
   const onClick = () => {
-    setShowAllDoc(!showAllDoc);
+    setShowAllFaq(!showAllFaq);
   };
 
   const buttonText = () => {
-    if (showAllDoc) {
+    if (showAllFaq) {
       return <p> Hide </p>;
     }
     return <p> Read More </p>;
   };
 
   const contentText = () => {
-    if (showAllDoc) {
-      return ReactHtmlParser(faq.content);
-    }
-    return ReactHtmlParser(faq.content.substring(0, 300));
+    if (showAllFaq) {
+      return faq.content;
+    } if (faq.content.length > 300) {
+      return `${(faq.content.substring(0, 300))}...`;
+    } return faq.content.substring(0, 300);
   };
 
   const pickClass = () => {
     if (faq.content.length < 300) {
       return 'hidden';
-    } return 'btn';
+    } return 'more-btn';
   };
 
   return (
     <article key={faq.id} className="single-doc">
-      <h1>{faq.title}</h1>
-      <div>{contentText()}</div>
+      <h3>{faq.faq_question}</h3>
+      <div>{ReactHtmlParser(contentText())}</div>
       <button
         type="submit"
         onClick={() => onClick()}
@@ -48,7 +49,7 @@ const FaqItem = ({ faq }) => {
 FaqItem.propTypes = {
   faq: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
+    faq_question: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
   }).isRequired,
 };

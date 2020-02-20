@@ -19,10 +19,10 @@ const DocumentationItem = ({ doc }) => {
 
   const contentText = () => {
     if (showAllDoc) {
-      return ReactHtmlParser(doc.content);
+      return doc.content;
     } if (doc.content.length > 300) {
-      return `${ReactHtmlParser(doc.content.substring(0, 300))}...`;
-    } return ReactHtmlParser(doc.content.substring(0, 300));
+      return `${doc.content.substring(0, 300)}...`;
+    } return doc.content.substring(0, 300);
   };
 
   const pickClass = () => {
@@ -33,8 +33,8 @@ const DocumentationItem = ({ doc }) => {
 
   return (
     <article key={doc.id} className="single-doc">
-      <h1>{doc.title}</h1>
-      <div>{contentText()}</div>
+      <h3>{doc.title}</h3>
+      <div>{ReactHtmlParser(contentText())}</div>
       <button
         type="submit"
         onClick={() => onClick()}
