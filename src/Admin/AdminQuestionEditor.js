@@ -3,7 +3,6 @@ import './AdminQuizMaker.css';
 import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import AdminAnswerEditor from './AdminAnswerEditor';
-import QuizzesContext from '../contexts/quiz-context';
 
 class AdminQuestionEditor extends Component {
   constructor(props) {

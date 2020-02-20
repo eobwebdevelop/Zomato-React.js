@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Navbar, Nav } from 'react-bootstrap';
 import DropdownSelector from './LanguageSelector';
 import './LearnerNav.css';
@@ -47,4 +48,6 @@ const LearnerNav = (props) => {
     </div>
   );
 };
+
+
 export default LearnerNav;

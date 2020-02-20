@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import ReactHtmlParser from 'react-html-parser';
+import PropTypes from 'prop-types';
 import FaqCard from './FaqCard';
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
@@ -50,6 +51,15 @@ const FAQ = ({ learnerFaq }) => {
       </div>
     </>
   );
+};
+
+FAQ.propTypes = {
+  learnerFaq: PropTypes.arrayOf(
+    PropTypes.shape({
+      faq_question: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
 };
 
 export default FAQ;

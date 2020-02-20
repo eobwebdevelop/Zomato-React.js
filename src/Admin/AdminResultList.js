@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { Container } from "react-bootstrap";
+import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 class AdminResultList extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class AdminResultList extends Component {
               <th>Completion Date</th>
               <th>Score</th>
             </tr>
-            {results.map(res => (
+            {results.map((res) => (
               <tr>
                 <td>{res.id}</td>
                 <td>{res.user_id}</td>
@@ -39,20 +40,6 @@ class AdminResultList extends Component {
                 <td>{res.time_to_complete_seconds}</td>
                 <td>{res.time_of_day}</td>
                 <td>{res.score_out_of_10}</td>
-                {/* <td>
-                  <Link to={`/admin/result_editor/${res.id}`} params={res.id}>
-                    <button type="submit" className="btn-list">
-                      Edit Result ►
-                    </button>{" "}
-                  </Link>
-                </td>
-                <td>
-                  <Link to={`/admin/result_delete/${res.id}`} params={res.id}>
-                    <button type="submit" className="btn-list">
-                      Delete Result ►
-                    </button>{" "}
-                  </Link>
-                </td> */}
               </tr>
             ))}
           </table>
@@ -61,4 +48,12 @@ class AdminResultList extends Component {
     );
   }
 }
+AdminResultList.propTypes = {
+  results: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    }),
+  ).isRequired,
+};
 export default AdminResultList;
