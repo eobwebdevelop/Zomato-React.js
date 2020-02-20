@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Switch, Route, Redirect, Link,
+  Switch, Route, Redirect,
 } from 'react-router-dom';
 // Learners SignUp
 import SignUp from '../Learners/SignUp/SignUp';

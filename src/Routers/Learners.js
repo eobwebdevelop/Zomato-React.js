@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Switch, Route, Redirect, Link,
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 // Learners
 import Documentation from '../Learners/Documentation/Documentation';
 import LearnerNav from '../LearnerNav';
@@ -19,10 +17,10 @@ const Learners = (props) => (
         path="/learners/documentation"
         render={() => (
           <>
-            <LearnerNav 
-            currentUser={props.currentUser}
-            token={props.token}
-            clearTokenLogOut= {props.clearTokenLogOut} 
+            <LearnerNav
+              currentUser={props.currentUser}
+              token={props.token}
+              clearTokenLogOut={props.clearTokenLogOut}
             />
             <Documentation learnerDoc={props.learnerDoc} />
           </>
@@ -36,10 +34,10 @@ const Learners = (props) => (
         path="/learners/about"
         render={() => (
           <>
-            <LearnerNav 
-            currentUser={props.currentUser}
-            token={props.token} 
-            clearTokenLogOut= {props.clearTokenLogOut}
+            <LearnerNav
+              currentUser={props.currentUser}
+              token={props.token}
+              clearTokenLogOut={props.clearTokenLogOut}
             />
             <About />
           </>
@@ -52,14 +50,12 @@ const Learners = (props) => (
         path="/learners/faq"
         render={() => (
           <>
-            <LearnerNav 
-            currentUser={props.currentUser}
-            token={props.token} 
-            clearTokenLogOut= {props.clearTokenLogOut}
+            <LearnerNav
+              currentUser={props.currentUser}
+              token={props.token}
+              clearTokenLogOut={props.clearTokenLogOut}
             />
-            <FAQ
-              learnerFaq={props.learnerFaq}
-            />
+            <FAQ learnerFaq={props.learnerFaq} />
           </>
         )}
       />
@@ -69,10 +65,10 @@ const Learners = (props) => (
         path="/learners/quiz_list"
         render={() => (
           <>
-            <LearnerNav 
-            currentUser={props.currentUser}
-            token={props.token} 
-            clearTokenLogOut= {props.clearTokenLogOut}
+            <LearnerNav
+              currentUser={props.currentUser}
+              token={props.token}
+              clearTokenLogOut={props.clearTokenLogOut}
             />
             <QuizList
               QuizList={props.QuizList}
@@ -89,10 +85,10 @@ const Learners = (props) => (
         path="/learners/quiz_list/quiz"
         render={() => (
           <>
-            <LearnerNav 
-            currentUser={props.currentUser}
-            token={props.token} 
-            clearTokenLogOut= {props.clearTokenLogOut}
+            <LearnerNav
+              currentUser={props.currentUser}
+              token={props.token}
+              clearTokenLogOut={props.clearTokenLogOut}
             />
             <Challenge
               score={props.score}

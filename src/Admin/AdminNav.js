@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Navbar, Nav } from 'react-bootstrap';
 import DropdownSelector from '../LanguageSelector';
 import './AdminNav.css';
@@ -37,8 +36,5 @@ const AdminNav = ({ clearTokenLogOut }) => (
   </div>
 );
 
-AdminNav.propTypes = {
-  clearTokenLogOut: PropTypes.func.isRequired,
-};
 
 export default AdminNav;

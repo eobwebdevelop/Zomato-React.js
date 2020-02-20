@@ -37,7 +37,6 @@ class QandA extends React.Component {
       overallTime,
     } = this.props;
 
-
     if (!isVisible) return null;
 
     return (
@@ -78,10 +77,10 @@ class QandA extends React.Component {
             <Line
               percent={step * 10}
               strokeWidth="2.5"
-              strokeColor="#E03A48"
+              strokeColor="#ee556a"
               strokeLinecap="square"
-              trailColor="#D9D9D9"
-              trailWidth="2.5"
+              trailColor="#f8f8f8"
+              trailWidth="1.5"
             />
           </div>
           <div className="grid1-timeandquestionnumber">

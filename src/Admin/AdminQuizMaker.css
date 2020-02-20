@@ -15,3 +15,17 @@
   width: 100%;
 }
 
+.labelQuiz{
+  display: inline-block;
+  width: 70px;
+  margin:0px;
+  padding:10px;
+}
+
+div .col-11{
+  padding:0px;
+}
+
+div .col{
+  padding: 0px;
+}

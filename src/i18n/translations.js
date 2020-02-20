@@ -66,7 +66,9 @@ const Translations = {
     QuizList: {
       Title: 'Available Quizzes',
       LinkQ: 'Take Quiz ►',
-      LinkD: 'Documentation ►',
+      LinkD: 'Learn More',
+      HeroTitle: 'Learn More',
+      HeroText: 'Read our documentation to learn more about Zomato services.',
       Error: 'There are no quizzes available to you yet, sorry.',
     },
 
@@ -159,7 +161,7 @@ const Translations = {
     FAQ: {
       Title: 'FAQ - Perguntas Frequentes',
       Button: 'Início',
-      Error: 'Não há FAQ disponíveis para você. Desculpe.',
+      Error: 'Não há FAQ disponíveis para si. Desculpe.',
     },
 
     ForgotPassword: {
@@ -198,7 +200,9 @@ const Translations = {
       Title: 'Quizzes disponíveis ',
       LinkQ: 'Começar Quiz ► ',
       LinkD: 'Documentação ► ',
-      Error: 'Não há quizzes disponíveis para você. Desculpe.',
+      HeroTitle: 'Saber mais',
+      HeroText: 'Leia a documentação para saber mais sobre nossos serviços.',
+      Error: 'Não há quizzes disponíveis para si. Desculpe.',
     },
 
     SignUp: {
@@ -242,7 +246,7 @@ const Translations = {
 
     NextButton: {
       ButtonN: 'Próxima',
-      ButtonR: 'Ver resultados',
+      ButtonR: 'Ver',
     },
 
     ResultsCard: {

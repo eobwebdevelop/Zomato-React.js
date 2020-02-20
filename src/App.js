@@ -719,8 +719,6 @@ class App extends Component {
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
                 <AdminFaqList
                   adminFaq={adminFaq}
-                  // selectedFaq={selectedFaq} 
-                  // langOptions={langOptions}
                   onDelete={this.handleDeleteFaq}
                   onEdit={this.handleEditFaq}
                 />
@@ -770,7 +768,10 @@ class App extends Component {
             render={props => (
               <>
                 <AdminNav clearTokenLogOut={this.clearTokenLogOut} />
-                <AdminQuizEditor onEdit={this.handleEditQuestion} />
+                <AdminQuizEditor onEdit={this.handleEditQuestion} 
+                quiz={quizzes.find(
+                  prod => prod.id === +props.match.params.id
+                )}/>
               </>
             )}
           />

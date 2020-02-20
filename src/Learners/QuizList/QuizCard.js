@@ -1,6 +1,4 @@
-
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
@@ -11,14 +9,13 @@ class QuizCard extends Component {
     const {
       quizTitle,
       QuizLinkText,
-      DocumentationLinkText,
       quizID,
       changeQuizIDInPlay,
     } = this.props;
 
     return (
       <LanguagesContext.Consumer>
-  
+
         {({ currentLanguage }) => (
           <>
             <h2>{quizTitle}</h2>
@@ -29,13 +26,10 @@ class QuizCard extends Component {
               onClick={() => changeQuizIDInPlay(quizID, quizTitle)}
             >
               {QuizLinkText}
-            
               {translations[currentLanguage].QuizCard.LinkQ}
+              {' '}
+              <span className="triangle">&#9658;</span>
               <br />
-            </Link>
-            <Link to="/learners/documentation" className="cranberry-link">
-              {DocumentationLinkText}
-              {translations[currentLanguage].QuizCard.LinkD}
             </Link>
           </>
         )}

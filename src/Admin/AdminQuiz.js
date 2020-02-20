@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './CollapsibleQuiz.css';
 
 
 class AdminQuiz extends Component {
@@ -18,15 +19,16 @@ class AdminQuiz extends Component {
         <Container>
           {quiz.map((quest) => (
             <div className="row">
-              <div key={quest.id} className="col">
+              <div key={quest.id} className="col-7">
                 {quest.question}
-                <Link to={`/admin/quiz_editor/${editid}/questions/${quest.id}`}>
-                  <button type="submit" className="btn-list">
-                    Edit Question ►
-                  </button>
-                  {' '}
-                </Link>
               </div>
+              <Link to={`/admin/quiz_editor/${editid}/questions/${quest.id}`}>
+                <button className="col" type="submit">
+                  Edit Question ►
+                </button>
+                {' '}
+              </Link>
+
             </div>
           ))}
         </Container>

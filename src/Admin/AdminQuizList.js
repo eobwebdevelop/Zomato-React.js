@@ -26,17 +26,35 @@ const AdminQuizList = ({ onDelete }) => {
         </Link>
 
         {quizzes.map((q) => (
-          <section key={q.id}>
-            <Collapsible trigger={q.name}>
-              <AdminQuiz quiz={q.questions} editid={q.id} />
-            </Collapsible>
-            <button
-              type="submit"
-              className="btn-list"
-              onClick={() => { if (window.confirm('Are you sure you wish to delete this quiz?')) { onDelete(q.id); } }}
-            >
-              Delete Quiz ►
-            </button>
+          <section key={q.id} className="row">
+            <div className="col-8">
+              <Collapsible
+                trigger={`${q.name} ►`}
+                triggerClassName="CustomTriggerCSS"
+                triggerOpenedClassName="CustomTriggerCSS--open"
+                contentOuterClassName="CustomOuterContentCSS"
+                contentInnerClassName="CustomInnerContentCSS"
+              >
+                <AdminQuiz quiz={q.questions} editid={q.id} />
+              </Collapsible>
+            </div>
+            <div className="col">
+              <button
+                type="submit"
+                className="btn-list"
+                onClick={() => { if (window.confirm('Are you sure you wish to delete this quiz?')) { onDelete(q.id); } }}
+              >
+                Delete Quiz ►
+              </button>
+              {/* <Link to={`/admin/quiz_editor/${q.id}`}>
+                <button
+                  type="submit"
+                  className="btn-list"
+                >
+                  Edit Quiz Name ►
+                </button>
+              </Link> */}
+            </div>
           </section>
         ))}
       </Container>
