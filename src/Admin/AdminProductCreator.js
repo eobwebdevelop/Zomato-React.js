@@ -40,11 +40,11 @@ class AdminProductCreator extends Component  {
         }),
         body:  JSON.stringify({name, description, language_id}),
     })
-    .then(res => {
-      if(res.status === 200){ 
-        this.props.history.push('/admin/product_list')
-      }}
-    ) 
+    .then(res  => {
+      if (res.status === 200) {
+        this.props.updateProductCreated();
+      }
+    })
   }
 
   render() {

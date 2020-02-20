@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import Collapsible from 'react-collapsible';
 import AdminQuiz from './AdminQuiz';
 import QuizzesContext from '../contexts/quiz-context';
+import './AdminQuizMaker.css';
 
-const AdminQuizList = ({ onDelete, onQuizfound, }) => {
+const AdminQuizList = ({ onDelete, onQuizfound }) => {
   const { quizzes, quizzesAreLoaded } = React.useContext(
     QuizzesContext,
   );
@@ -18,13 +19,14 @@ const AdminQuizList = ({ onDelete, onQuizfound, }) => {
       <Container>
         <h1>Manage Quizzes</h1>
         <hr />
-        <p>You are viewing all the available Quizzes at the current moment.</p>
-        <Link to="/admin/quiz_maker">
-          <button type="submit" className="btn">
-            Add Quiz
-          </button>
-        </Link>
-
+        <p>You are viewing all the available Quizzes at the current moment. Click on the Quiz in order to see and edit Questions</p>
+        <div className="Quiz-list-margin">
+          <Link to="/admin/quiz_maker">
+            <button type="submit" className="btn">
+              Add Quiz
+            </button>
+          </Link>
+        </div>
         {quizzes.map((q) => (
           <section key={q.id} className="row">
             <div className="col-8 padding">

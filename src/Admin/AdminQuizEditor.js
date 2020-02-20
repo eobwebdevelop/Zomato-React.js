@@ -12,7 +12,6 @@ class AdminQuizEditor extends Component {
       name: '',
     }
   };
-
   componentDidMount() {
       this.setState({
         name: this.props.quizfound.name,

@@ -142,7 +142,7 @@ class AdminQuizMaker extends Component {
                   quiz_id={this.state.quiz_id}
                   />              </div>
           <Link to="/admin/quiz_list">
-            <button className="btn">
+            <button onClick={this.props.updateQuizList} className="btn">
             Save Quiz
             </button>
           </Link>
