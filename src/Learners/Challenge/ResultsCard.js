@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import LanguagesContext from '../../contexts/languages-context';
 import translations from '../../i18n/translations';
 
@@ -7,10 +6,12 @@ import translations from '../../i18n/translations';
 class ResultsCard extends React.Component {
   render() {
     const {
+      correctAnswerID,
       correctAnswerText,
       questionNumber,
       questionText,
       userAnswerText,
+      userAnswerID,
     } = this.props;
 
     if (userAnswerText === correctAnswerText) {
@@ -77,11 +78,4 @@ class ResultsCard extends React.Component {
     );
   }
 }
-
-ResultsCard.propTypes = {
-  correctAnswerText: PropTypes.func.isRequired,
-  questionNumber: PropTypes.func.isRequired,
-  questionText: PropTypes.func.isRequired,
-  userAnswerText: PropTypes.func.isRequired,
-};
 export default ResultsCard;
