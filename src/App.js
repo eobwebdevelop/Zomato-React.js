@@ -663,6 +663,33 @@ class App extends Component {
       });
     }
 
+    updateProductList = (prod) => {
+      this.setState(() => {
+        const updatedProd = this.state.products.map((item) => {
+            if(item.id === prod.id){
+              return prod; 
+            } return item 
+          });
+        return { products: updatedProd }
+      }, () => {
+        this.props.history.push('/admin/product_list');
+      });
+    }
+
+    updateRestaurantList = (res) => {
+      this.setState(() => {
+        const updatedRest = this.state.restaurants.map((item) => {
+            if(item.id === res.id){
+              return res; 
+            } return item 
+          });
+        return { restaurants: updatedRest }
+      }, () => {
+        this.props.history.push('/admin/restaurant_list');
+      });
+    }
+
+
   render() {
     const {
       currentLanguage,
@@ -883,6 +910,7 @@ class App extends Component {
                   restaurant={restaurants.find(
                     res => res.id === +props.match.params.id
                   )}
+                  updateRestaurantList={this.updateRestaurantList}
                   regions={regions}
                 />
               </>
@@ -934,6 +962,8 @@ class App extends Component {
                   product={products.find(
                     prod => prod.id === +props.match.params.id
                   )}
+                  updateProductList={this.updateProductList}
+
                 />
               </>
             )}
