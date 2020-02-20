@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import LanguagesContext from '../../contexts/languages-context';
-import translations from '../../i18n/translations';
+import React, { Component } from "react";
+import LanguagesContext from "../../contexts/languages-context";
+import translations from "../../i18n/translations";
 
 class NextButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      test: 'Test',
+      test: "Test"
     };
 
     this.nextQuestion = this.nextQuestion.bind(this);
@@ -30,9 +29,11 @@ class NextButton extends Component {
 
   render() {
     const {
+      addUserInputToState,
       step,
+      stopTimer,
       selectedAnswer,
-      isVisible,
+      isVisible
     } = this.props;
 
     if (isVisible === true) return null;
@@ -73,16 +74,4 @@ class NextButton extends Component {
     );
   }
 }
-NextButton.propTypes = {
-  step: PropTypes.number.isRequired,
-  selectedAnswer: PropTypes.func.isRequired,
-  isVisible: PropTypes.bool.isRequired,
-  addUserInputToState: PropTypes.func.isRequired,
-  incrementQuizStep: PropTypes.func.isRequired,
-  checkScore: PropTypes.func.isRequired,
-  stopTimer: PropTypes.func.isRequired,
-  postQuizResult: PropTypes.func.isRequired,
-
-};
-
 export default NextButton;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class AnswerButton extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class AnswerButton extends React.Component {
       correctAnswerID,
       correctAnswerText,
       styleHighlight,
-      answerNumber,
+      answerNumber
     } = this.props;
 
     const userInput = {
@@ -23,7 +23,7 @@ class AnswerButton extends React.Component {
       userAnswerText: answerText,
       correctAnswerID,
       correctAnswerText,
-      answerNumber,
+      answerNumber
     };
 
     return (
