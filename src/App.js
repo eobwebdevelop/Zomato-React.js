@@ -11,12 +11,12 @@ import LearnersAuth from "./Routers/LearnersAuth";
 import Learners from "./Routers/Learners";
 
 // Admin portal imports
-import AdminNav from "./Admin/AdminNav.js";
-import AdminQuizList from "./Admin/AdminQuizList";
-import AdminQuizMaker from "./Admin/AdminQuizMaker";
-import AdminQuizEditor from "./Admin/AdminQuizEditor";
+import AdminNav from "./Admin/AdminNav.js"; 
+import AdminQuizList from "./Admin/AdminQuizList"; 
+import AdminQuizMaker from "./Admin/AdminQuizMaker"; 
+import AdminQuizEditor from "./Admin/AdminQuizEditor"; 
 import AdminUserEditor from "./Admin/AdminUserEditor";
-import AdminDocList from "./Admin/AdminDocList";
+import AdminDocList from "./Admin/AdminDocList"; 
 import AdminDocEditor from "./Admin/AdminDocEditor";
 import AdminFaqList from "./Admin/AdminFaqList";
 import AdminFaqEditor from "./Admin/AdminFaqEditor";
@@ -92,7 +92,7 @@ class App extends Component {
         language_id: undefined, 
         language_name: ''
       },
-
+      flash: ''
     };
 
     this.changeQuizIDInPlay = this.changeQuizIDInPlay.bind(this);
@@ -474,6 +474,32 @@ class App extends Component {
     }
   }
 
+  handleLogin = (email, password) => {
+    const { currentLanguage } = this.state;
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Preferred-Language": currentLanguage
+      }),
+      body: JSON.stringify({ email, password })
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          flash: res.flash,
+          token: res.token ? res.token : '',
+        }, () => {
+          if(res.token) {
+            this.props.history.push("/learners/quiz_list");
+            this.getQuizzesByLang();
+            localStorage.setItem("token", JSON.stringify(res.token));
+          }
+        })
+      });
+  };
+
   handleDelete = (id, resourceType, callback) => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/admin/${resourceType}/delete`, {
       method: "DELETE",
@@ -629,6 +655,9 @@ class App extends Component {
             quizzesAreLoaded
           }}
         >
+          {/* ADMIN */}
+
+
           <Route
             exact
             path="/admin"
@@ -683,7 +712,7 @@ class App extends Component {
                 />
               </>
             )}
-          />
+          /> 
           <Route
             path="/admin/faq_editor"
             render={() => (
@@ -884,11 +913,11 @@ class App extends Component {
           {/* Learnes Auth */}
           <Route
             exact
-            render={() => (
-              <>
-                <LearnersAuth restaurants={this.state.restaurants} />
-              </>
-            )}
+            render={() => <LearnersAuth 
+              restaurants={this.state.restaurants} 
+              onLogin={this.handleLogin}
+              flash={this.state.flash}
+            />}
           />
           {/* //Learnes Auth */}
           {/*Learners */}

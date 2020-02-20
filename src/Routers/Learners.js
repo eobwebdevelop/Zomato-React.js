@@ -78,6 +78,7 @@ const Learners = (props) => (
               QuizList={props.QuizList}
               changeQuizIDInPlay={props.changeQuizIDInPlay}
               refreshQuizState={props.refreshQuizState}
+              token={props.token}
             />
           </>
         )}

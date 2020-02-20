@@ -8,7 +8,7 @@ import BasicNav from '../BasicNav.js';
 import LogIn from '../Learners/LogIn/LogIn';
 
 
-const LearnersAuth = (props) => (
+const LearnersAuth = ({ restaurants, onLogin, flash }) => (
   <>
    
     <Switch>
@@ -23,7 +23,7 @@ const LearnersAuth = (props) => (
         render={() => (
           <>
           <BasicNav />
-            <SignUp restaurants={props.restaurants} />
+            <SignUp restaurants={restaurants} />
           </>
         )}
       />
@@ -33,7 +33,7 @@ const LearnersAuth = (props) => (
         render={() => (
           <>
           <BasicNav />
-            <LogIn />
+            <LogIn onLogin={onLogin} flash={flash} />
           </>
         )}
       />
