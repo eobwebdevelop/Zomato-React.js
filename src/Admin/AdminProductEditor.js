@@ -9,7 +9,7 @@ class AdminProductEditor extends Component  {
     this.state = {
       name: props.product ?  props.product.name : '',
       description: props.product ? props.product.description : '',
-      id: props.id,
+      id: props.match.params.id,
       language_id: props.product ? props.product.language_id : '',
       displaylang: '',
     }
@@ -51,13 +51,20 @@ class AdminProductEditor extends Component  {
         }),
         body:  JSON.stringify({name, description, language_id, id}),
     })
-    .then(res => {
-      if(res.status === 200){ 
-        this.props.history.push('/admin/product_list')
-      }}
-    ) 
+    .then(res  => {
+      if (res.status === 200) {
+        const editedProduct = {
+          id: this.state.id,
+          description: this.state.description,
+          language_id: this.state.language_id,
+          name: this.state.name,
+        }
+        this.props.updateProductList(editedProduct);
+      }
+    })
   }
   render() {
+    console.log(this.props)
     return (
       <>
         <Container>
