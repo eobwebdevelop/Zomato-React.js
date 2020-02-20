@@ -16,13 +16,13 @@ const About = () => {
         <p className="aboutText">
           {translations[currentLanguage].About.TextAbout}
         </p>
-        <img src="https://i.imgur.com/Ebx0XsR.jpg" className="aboutImage" />
+        <img alt="Zomato" src="https://i.imgur.com/Ebx0XsR.jpg" className="aboutImage" />
 
         <div className="formchildcontainer contact">
           <h1 className="title">{translations[currentLanguage].About.TitleC}</h1>
           <hr />
           <p className="aboutContact">
-            <img src="https://i.imgur.com/8Ea79Bg.png" className="flag" />
+            <img alt="Zomato" src="https://i.imgur.com/8Ea79Bg.png" className="flag" />
             <span className="country"> PORTUGAL</span>
           </p>
           <p className="number">

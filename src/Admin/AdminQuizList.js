@@ -29,7 +29,7 @@ const AdminQuizList = ({ onDelete, onQuizfound }) => {
           <section key={q.id} className="row">
             <div className="col-8 padding">
               <Collapsible
-                trigger={q.name +" ►" }
+                trigger={`${q.name} ►`}
                 triggerClassName="CustomTriggerCSS"
                 triggerOpenedClassName="CustomTriggerCSS--open"
                 contentOuterClassName="CustomOuterContentCSS"

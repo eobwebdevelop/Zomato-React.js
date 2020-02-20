@@ -11,6 +11,7 @@
     "dotenv": "^8.2.0",
     "jwt-decode": "^2.2.0",
     "mdbreact": "^4.24.0",
+    "moment": "^2.24.0",
     "moments": "^0.0.2",
     "prop-types": "^15.7.2",
     "quill-plugin-image-upload": "^0.0.6",

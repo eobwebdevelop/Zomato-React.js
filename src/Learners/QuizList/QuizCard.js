@@ -1,22 +1,21 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import LanguagesContext from "../../contexts/languages-context";
-import translations from "../../i18n/translations";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import LanguagesContext from '../../contexts/languages-context';
+import translations from '../../i18n/translations';
 
-// import { Container } from "react-bootstrap";
 
 class QuizCard extends Component {
   render() {
     const {
       quizTitle,
       QuizLinkText,
-      DocumentationLinkText,
       quizID,
-      changeQuizIDInPlay
+      changeQuizIDInPlay,
     } = this.props;
 
     return (
       <LanguagesContext.Consumer>
+
         {({ currentLanguage }) => (
           <>
             <h2>{quizTitle}</h2>
@@ -27,8 +26,9 @@ class QuizCard extends Component {
               onClick={() => changeQuizIDInPlay(quizID, quizTitle)}
             >
               {QuizLinkText}
-              {translations[currentLanguage].QuizCard.LinkQ}{" "}
-              <span class="triangle">&#9658;</span>
+              {translations[currentLanguage].QuizCard.LinkQ}
+              {' '}
+              <span className="triangle">&#9658;</span>
               <br />
             </Link>
           </>
@@ -37,4 +37,13 @@ class QuizCard extends Component {
     );
   }
 }
+
+// QuizCard.propTypes = {
+//   quizTitle: PropTypes.string.isRequired,
+//   QuizLinkText: PropTypes.string.isRequired,
+//   DocumentationLinkText: PropTypes.string.isRequired,
+//   quizID: PropTypes.number.isRequired,
+//   changeQuizIDInPlay: PropTypes.func.isRequired,
+// };
+
 export default QuizCard;

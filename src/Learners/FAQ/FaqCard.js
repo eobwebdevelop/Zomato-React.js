@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const FaqCard = ({ Faq, FaqC }) => (
+  <>
+    <h2>{Faq}</h2>
+    <p>{FaqC}</p>
+  </>
+
+);
+
+FaqCard.propTypes = {
+  Faq: PropTypes.string.isRequired,
+  FaqC: PropTypes.string.isRequired,
+}.isRequired;
 
 
-
-class FaqCard extends Component {
-  render() {
-    const { Faq, FaqC } = this.props;
-
-    return (
-      <>
-        <h2>{Faq}</h2>
-        <p>{FaqC}</p>
-      </>
-
-    );
-  }
-}
 export default FaqCard;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import { Redirect, Route, withRouter, matchPath } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 
 // Switch, withRouter
 //import { Navbar, Nav, NavDropdown } from "react-bootstrap";
@@ -681,6 +681,7 @@ class App extends Component {
       questionfound,
       langOptions
     } = this.state;
+   
 
     return (
       <LanguagesContext.Provider

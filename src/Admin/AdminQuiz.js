@@ -35,4 +35,6 @@ class AdminQuiz extends Component {
     );
   }
 }
+
+
 export default AdminQuiz;
